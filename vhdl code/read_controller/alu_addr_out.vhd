@@ -21,14 +21,14 @@ end entity alu_addr_out;
 
 architecture behave of alu_addr_out is
 begin
-	process (reset)
+	process (reset)				--dose it work just after reset signal will change?
 	begin
 		if reset = Reset_polarity_g then 										--reset is on
-			next_addr_out_alu <= -- what to put when rseting?
-			alu_to_counter_out <= '0' ;
+			next_addr_out_alu <= (others => '0') ;								--resetting to zeroes
+			alu_to_counter_out <= '0' ;											--dont activate counter
 		else 
 			if trigger_found = '0' then											--reset off, trigger found off
-				next_addr_out_alu <= current_addr_out_alu ; 					--stay in prev state
+				next_addr_out_alu <= current_addr_out_alu ; 					--stay in prev state (not necessary)
 			else																--reset off, trigger found on 
 				next_addr_out_alu <= current_addr_out_alu + signal_ram_width_g;	-------------need to handle with start and finish addr
 			end if;
