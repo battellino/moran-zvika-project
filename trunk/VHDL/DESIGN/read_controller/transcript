@@ -1,0 +1,10 @@
+# Reading C:/altera/12.0/modelsim_ase/tcl/vsim/pref.tcl 
+# ** Error: (vish-7) Failed to open ini file "C:\modeltech_6.6b\win32/../modelsim.ini" in read mode.
+# Invalid argument. (errno = EINVAL)
+# OpenFile {C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/read_controller/alu_addr_out.vhd} 
+#  
+vcom -reportprogress 300 -work work {C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/read_controller/alu_addr_out.vhd}
+# Model Technology ModelSim ALTERA vcom 10.0d Compiler 2012.01 Jan 18 2012
+# ** Error: (vcom-7) Failed to open ini file "C:\modeltech_6.6b\win32/../modelsim.ini" in read mode.
+# Invalid argument. (errno = EINVAL)
+# ** Error: VHDL Compiler exiting
