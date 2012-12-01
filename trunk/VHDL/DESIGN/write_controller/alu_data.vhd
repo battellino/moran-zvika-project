@@ -24,6 +24,8 @@
 library ieee ;
 use ieee.std_logic_1164.all ;
 use ieee.std_logic_unsigned.all;
+use ieee.numeric_std.all;
+
 
 library work ;
 use work.write_controller_pkg.all;
@@ -35,6 +37,7 @@ entity alu_data is
 			signal_ram_depth_g		: 	positive  	:=	10;									--depth of RAM
 			signal_ram_width_g		:	positive 	:=  8;   								--width of basic RAM
 			record_depth_g			: 	positive  	:=	10;									--number of bits that is recorded from each signal
+			Add_width_g      :   positive  :=  8;      --width of addr word in the RAM
 			num_of_signals_g		:	positive	:=	8									--num of signals that will be recorded simultaneously
 			);
 	port (			
@@ -43,14 +46,15 @@ entity alu_data is
 		data_in						:	 in	 std_logic_vector ( num_of_signals_g downto 0);	--miss (-1) on purpose adding the triger signal
 		addr_in_alu					:	 out std_logic_vector( Add_width_g -1 downto 0);	--the addr in the RAM to save the data
 		aout_valid_alu				:	 out std_logic_vector( up_case(record_depth_g , signal_ram_depth_g) -1 downto 0	);	--each time we enable entire row	
-		data_in_RAM					:	 out std_logic_vector( up_case(num_of_signals_g + 1, signal_ram_width_g)*signal_ram_width_g -1 downto 0)--each cycle we write to couple of RAMs in parallel  
+--		data_in_RAM					:	 out std_logic_vector( up_case(num_of_signals_g + 1, signal_ram_width_g)*signal_ram_width_g -1 downto 0)--each cycle we write to couple of RAMs in parallel  
+		data_in_RAM					:	 out std_logic_vector( num_of_signals_g downto 0)
 		);																											--so we need to send all of the data in one output
 end entity alu_data;
 ------------------------------------------------------------------------------------------------------------------------------------------------------------
 architecture behave of alu_data is
 ------------------Constants------
-constant 	ram_array_row_c 		: natural :=  up_case(record_depth_g , signal_ram_depth_g); 	--RAM array length 
-			ram_array_column_c		: natural :=  up_case(num_of_signals_g + 1, signal_ram_width_g); 	--RAM array width (plus trigger signal)
+constant   ram_array_row_c 		: natural :=  up_case(record_depth_g , signal_ram_depth_g); 	--RAM array length 
+constant   ram_array_column_c		: natural :=  up_case(num_of_signals_g + 1, signal_ram_width_g); 	--RAM array width (plus trigger signal)
 
 -------------------------Types------
 
@@ -58,46 +62,61 @@ constant 	ram_array_row_c 		: natural :=  up_case(record_depth_g , signal_ram_de
 
 signal	current_addr_row_s 			: integer range 0 to signal_ram_depth_g	; 	--current row in the RAM to write to (in a specific RAM) 
 --delete--		current_addr_col_s			: integer range 0 to num_of_signals_g	; 	--current column in the RAM to write to (in a specific RAM) 
-		current_array_row_s			: integer range 0 to up_case(record_depth_g , signal_ram_depth_g); 	--current row in the RAMS array to enable 
-		current_array_col_s			: integer range 0 to ram_array_column_c;	--current column in the RAMS array to send data
+signal		current_array_row_s			: integer range 0 to up_case(record_depth_g , signal_ram_depth_g); 	--current row in the RAMS array to enable 
+signal		current_array_col_s			: integer range 0 to ram_array_column_c;	--current column in the RAMS array to send data
 
 ------------------	Processes	----------------
 
 begin
-addr_pros	:	process (reset, clk)			--write process, (when trigger found off or we haven't save all the data) 
-
-	begin
-		if  reset = Reset_polarity_g then 														--reset is on
-			current_addr_row_s := (others => '0') ;												--set the addr to the first row in the RAM		
-			current_array_row_s := 0;															--set the row that we write to in the RAM array to the first row
---			current_array_col_s := 0;
-			data_in_RAM <= (others => '0') ;													--send zeroes out
-		elsif rising_edge(clk) then																--reset off, start writing the data					
-			aout_valid_alu := (others => '0') ;													--put zeroes in all unrelevant places 
-			aout_valid_alu(current_array_row_s) := '1' ;										--enable correct roe in RAM array
-			for idx in 0 to ram_array_column_c  loop		--disassemble the incomming data for one "word" at the time
-				data_in_ram := data_in(idx*signal_ram_width_g to (idx + 1)*signal_ram_width_g ) ; 
-			-----how to send the data in parallel to the entire row?
-			end loop;
-			addr_in_alu := int2bin(current_addr_row_s);		--change it from integer to binary
-			--promote the current row and col
-			if current_array_col_s = ram_array_column_c then	--we in the last RAM in that col
-				if current_array_row_s = ram_array_row_c then 	--we also in the last row =>in that case this is the last RAM in the array
-					current_array_row_s <= 0 ;		--go the first RAM in the array
-					current_array_col_s <= 0 ;
-				else	--we in the last col of that row, but not in the last row
-					current_array_row_s <= current_array_row_s 	+ 1 ;	
-					current_array_col_s <= 0	;	--start from the first RAM in the new array
-				end if;
-			else current_array_col_s <= current_array_col_s + 1 ;
-			
-			end if;
+	addr_pros	:	process (reset, clk)			--write process, (when trigger found off or we haven't save all the data) 
+	    	variable temp_aout  : std_logic_vector( up_case(record_depth_g , signal_ram_depth_g) -1 downto 0	)	:=(others => '0') ;
 		
+		begin
+			if  reset = Reset_polarity_g then 														--reset is on
+				current_addr_row_s <= 0 ;												--set the addr to the first row in the RAM		
+				current_array_row_s <= 0;															--set the row that we write to in the RAM array to the first row
+--			current_array_col_s := 0;
+				data_in_RAM <= (others => '0') ;													--send zeroes out
+				aout_valid_alu <= (others => '0') ;
+				addr_in_alu <= (others => '0') ;
+			elsif rising_edge(clk) then																--reset off, start writing the data					
+				aout_valid_alu <= (others => '0') ;													--put zeroes in all unrelevant places 
+				aout_valid_alu(current_array_row_s) <= '1' ;										--enable correct roe in RAM array
+--				for idx in 0 to ram_array_column_c  loop		--disassemble the incomming data for one "word" at the time
+--					data_in_ram <= data_in(idx*signal_ram_width_g to (idx + 1)*signal_ram_width_g ) ; 
+--------------------how to send the data in parallel to the entire row?
+--				end loop;		
+				data_in_ram <= data_in  ;					--transfer data to RAM
+
+				addr_in_alu <= std_logic_vector(to_unsigned(current_addr_row_s, Add_width_g));--change it from integer to std logic vector
+
+
+--------------------promote the current row and col
+				if current_array_col_s = ram_array_column_c then	--we in the last RAM in that col
+					if current_array_row_s = ram_array_row_c then 	--we also in the last row =>in that case this is the last RAM in the array
+						current_array_row_s <= 0 ;		--go the first RAM in the array
+						current_array_col_s <= 0 ;
+					else	--we in the last col of that row, but not in the last row
+						current_array_row_s <= current_array_row_s 	+ 1 ;	
+						current_array_col_s <= 0	;	--start from the first RAM in the new array
+					end if;
+				else 
+				  current_array_col_s <= current_array_col_s + 1 ;
+				end if;
+			
 -------------------------------------update the current addr row---------------------------------------------------		
-		if current_addr_row_s = signal_ram_depth_g then			--we in the last row in the RAM
-			current_addr_row_s <= 0 ;
-		else current_addr_row_s <= current_addr_row_s +1 ;		--we are not in the last row, just promote addr in one
-		end if;
-end process	addr_pros;
+			if current_addr_row_s = signal_ram_depth_g then			--we in the last row in the RAM
+				current_addr_row_s <= 0 ;
+			else 
+				current_addr_row_s <= current_addr_row_s + 1 ;		--we are not in the last row, just promote addr in one
+			end if;
+	 end if;
+
+--	 aout_valid_alu <= temp_aout;									--update aout_valid 
+	
+	end process	addr_pros;
 
 end architecture behave;
+
+--
+--
