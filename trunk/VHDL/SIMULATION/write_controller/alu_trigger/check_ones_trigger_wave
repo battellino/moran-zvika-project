@@ -1,0 +1,15 @@
+view wave 
+wave clipboard store
+wave create -driver freeze -pattern random -initialvalue 0 -period 100ps -random_type Uniform -seed 5 -starttime 0ps -endtime 3000ps sim:/alu_trigger/trigger 
+wave create -driver freeze -pattern random -initialvalue 0 -period 50ps -random_type Uniform -seed 5 -starttime 0ps -endtime 2000ps sim:/alu_trigger/trigger 
+wave create -driver freeze -pattern constant -value 010 -range 2 0 -starttime 0ps -endtime 2000ps sim:/alu_trigger/trigger_type 
+WaveExpandAll -1
+wave create -driver freeze -pattern constant -value 1 -starttime 0ps -endtime 2000ps sim:/alu_trigger/system_status 
+wave create -driver freeze -pattern constant -value 0000000 -range 6 0 -starttime 0ps -endtime 2000ps sim:/alu_trigger/trigger_position 
+WaveExpandAll -1
+wave create -driver freeze -pattern repeater -initialvalue U -period 260ps -sequence { 0 1  } -repeat forever -starttime 0ps -endtime 2000ps sim:/alu_trigger/trigger 
+wave create -driver freeze -pattern constant -value 0 -starttime 0ps -endtime 2000ps sim:/alu_trigger/reset 
+wave create -driver freeze -pattern counter -startvalue 00000000 -endvalue 11111111 -type Range -direction Up -period 100ps -step 1 -repeat forever -range 7 0 -starttime 0ps -endtime 2000ps sim:/alu_trigger/addr_in_alu 
+WaveExpandAll -1
+WaveCollapseAll -1
+wave clipboard restore
