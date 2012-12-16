@@ -19,11 +19,13 @@
 --		
 --		check if ram_array_row_c\ram_array_column_c getting right values (upper complete value)
 --		now the two prosseses of puting the data and advancing the addr are happening in the same time, what we do first?
---		build function to change a number from integer to binary-> int2bin(integer)
+--		
+--		dose the update of the uotput need to be inside or outside the process? (now outside, line 111)
 ------------------------------------------------------------------------------------------------------------
 library ieee ;
 use ieee.std_logic_1164.all ;
 use ieee.std_logic_unsigned.all;
+use ieee.std_logic_signed.all;
 use ieee.numeric_std.all;
 
 
@@ -33,37 +35,35 @@ use work.write_controller_pkg.all;
 ------------------------------------------------------------------------------------------------------------
 entity alu_data is
 	GENERIC (
-			reset_polarity_g		:	std_logic	:=	'1';								--'1' reset active highe, '0' active low
-			signal_ram_depth_g		: 	positive  	:=	10;									--depth of RAM
-			signal_ram_width_g		:	positive 	:=  8;   								--width of basic RAM
-			record_depth_g			: 	positive  	:=	10;									--number of bits that is recorded from each signal
-			Add_width_g      :   positive  :=  8;      --width of addr word in the RAM
-			num_of_signals_g		:	positive	:=	8									--num of signals that will be recorded simultaneously
+		reset_polarity_g		:	std_logic	:=	'1';								--'1' reset active highe, '0' active low
+		signal_ram_depth_g		: 	positive  	:=	10;									--depth of RAM
+		signal_ram_width_g		:	positive 	:=  8;   								--width of basic RAM
+		record_depth_g			: 	positive  	:=	10;									--number of bits that is recorded from each signal
+		Add_width_g     		:   positive	:=  8;     								--width of addr word in the RAM
+		num_of_signals_g		:	positive	:=	8									--num of signals that will be recorded simultaneously
 			);
 	port (			
-		clk							:	 in  std_logic;										--system clk
-		reset 						:	 in  std_logic;										--reset
-		data_in						:	 in	 std_logic_vector ( num_of_signals_g downto 0);	--miss (-1) on purpose adding the triger signal
-		addr_in_alu					:	 out std_logic_vector( Add_width_g -1 downto 0);	--the addr in the RAM to save the data
-		aout_valid_alu				:	 out std_logic_vector( up_case(record_depth_g , signal_ram_depth_g) -1 downto 0	);	--each time we enable entire row	
---		data_in_RAM					:	 out std_logic_vector( up_case(num_of_signals_g + 1, signal_ram_width_g)*signal_ram_width_g -1 downto 0)--each cycle we write to couple of RAMs in parallel  
-		data_in_RAM					:	 out std_logic_vector( num_of_signals_g downto 0)
-		);																											--so we need to send all of the data in one output
+		clk						:	 in  std_logic;										--system clk
+		reset 					:	 in  std_logic;										--reset
+		data_in					:	 in	 std_logic_vector ( num_of_signals_g downto 0);	--miss (-1) on purpose adding the triger signal
+		addr_in_alu				:	 out std_logic_vector( Add_width_g -1 downto 0);	--the addr in the RAM to save the data
+		aout_valid_alu			:	 out std_logic_vector( up_case(record_depth_g , signal_ram_depth_g) -1 downto 0	);	--each time we enable entire row	
+		data_in_RAM				:	 out std_logic_vector( num_of_signals_g downto 0);	--miss (-1) on purpose adding the triger signal
+		current_array_row		:	 out integer range 0 to up_case(record_depth_g , signal_ram_depth_g) --send to alu_trigg to get start place
+		);
 end entity alu_data;
 ------------------------------------------------------------------------------------------------------------------------------------------------------------
 architecture behave of alu_data is
 ------------------Constants------
 constant   ram_array_row_c 		: natural :=  up_case(record_depth_g , signal_ram_depth_g); 	--RAM array length 
-constant   ram_array_column_c		: natural :=  up_case(num_of_signals_g + 1, signal_ram_width_g); 	--RAM array width (plus trigger signal)
+constant   ram_array_column_c	: natural :=  up_case(num_of_signals_g + 1, signal_ram_width_g); 	--RAM array width (plus trigger signal)
 
 -------------------------Types------
 
 ------------------Signals--------------------
 
-signal	current_addr_row_s 			: integer range 0 to signal_ram_depth_g	; 	--current row in the RAM to write to (in a specific RAM) 
---delete--		current_addr_col_s			: integer range 0 to num_of_signals_g	; 	--current column in the RAM to write to (in a specific RAM) 
-signal		current_array_row_s			: integer range 0 to up_case(record_depth_g , signal_ram_depth_g); 	--current row in the RAMS array to enable 
-signal		current_array_col_s			: integer range 0 to ram_array_column_c;	--current column in the RAMS array to send data
+signal		current_addr_row_s 	: integer range 0 to signal_ram_depth_g 	; 	--current row in the RAM to write to (in a specific RAM)  
+signal		current_array_row_s	: integer range 0 to up_case(record_depth_g , signal_ram_depth_g) ; 	--current row in the RAMS array to enable 
 
 ------------------	Processes	----------------
 
@@ -75,46 +75,41 @@ begin
 			if  reset = Reset_polarity_g then 														--reset is on
 				current_addr_row_s <= 0 ;												--set the addr to the first row in the RAM		
 				current_array_row_s <= 0;															--set the row that we write to in the RAM array to the first row
---			current_array_col_s := 0;
 				data_in_RAM <= (others => '0') ;													--send zeroes out
-				aout_valid_alu <= (others => '0') ;
+				temp_aout := (others => '0') ;
 				addr_in_alu <= (others => '0') ;
 			elsif rising_edge(clk) then																--reset off, start writing the data					
-				aout_valid_alu <= (others => '0') ;													--put zeroes in all unrelevant places 
-				aout_valid_alu(current_array_row_s) <= '1' ;										--enable correct roe in RAM array
---				for idx in 0 to ram_array_column_c  loop		--disassemble the incomming data for one "word" at the time
---					data_in_ram <= data_in(idx*signal_ram_width_g to (idx + 1)*signal_ram_width_g ) ; 
---------------------how to send the data in parallel to the entire row?
---				end loop;		
-				data_in_ram <= data_in  ;					--transfer data to RAM
-
-				addr_in_alu <= std_logic_vector(to_unsigned(current_addr_row_s, Add_width_g));--change it from integer to std logic vector
+				temp_aout := (others => '0') ;													--put zeroes in all unrelevant places 
+				temp_aout(current_array_row_s) := '1' ;										--enable correct roe in RAM array	
+				data_in_ram <= data_in  ;															--transfer data to RAM
+				addr_in_alu <= std_logic_vector(to_unsigned(current_addr_row_s, Add_width_g));		--change it from integer to std logic vector
 
 
---------------------promote the current row and col
-				if current_array_col_s = ram_array_column_c then	--we in the last RAM in that col
-					if current_array_row_s = ram_array_row_c then 	--we also in the last row =>in that case this is the last RAM in the array
+
+				if current_addr_row_s = signal_ram_depth_g then			--we in the last row in the RAM
+					current_addr_row_s <= 0 ;							--next addr is the first row in the next RAM
+--------------------promote the current row in the RAM array to the next						
+					if (current_array_row_s) = (ram_array_row_c ) then 	--we  in the last row =>in that case this is the last RAM in the array
 						current_array_row_s <= 0 ;		--go the first RAM in the array
-						current_array_col_s <= 0 ;
-					else	--we in the last col of that row, but not in the last row
+					else	
 						current_array_row_s <= current_array_row_s 	+ 1 ;	
-						current_array_col_s <= 0	;	--start from the first RAM in the new array
 					end if;
+					
+					
 				else 
-				  current_array_col_s <= current_array_col_s + 1 ;
+					current_addr_row_s <= current_addr_row_s + 1 ;		--we are not in the last row, just promote addr in one
 				end if;
-			
 -------------------------------------update the current addr row---------------------------------------------------		
-			if current_addr_row_s = signal_ram_depth_g then			--we in the last row in the RAM
-				current_addr_row_s <= 0 ;
-			else 
-				current_addr_row_s <= current_addr_row_s + 1 ;		--we are not in the last row, just promote addr in one
+			
+			
 			end if;
-	 end if;
 
---	 aout_valid_alu <= temp_aout;									--update aout_valid 
-	
+-------------update the uotputs 
+	aout_valid_alu    <= temp_aout;									
+	current_array_row <= current_array_row_s;	
+	 
 	end process	addr_pros;
+
 
 end architecture behave;
 
