@@ -1,0 +1,171 @@
+m255
+K3
+13
+cModel Technology
+Z0 dC:\Documents and Settings\user\My Documents\Dropbox\project\VHDL\DESIGN\write_controller
+Ealu_data
+Z1 w1355189327
+Z2 DPx4 work 20 write_controller_pkg 0 22 aP[I9EG@Y8z;z[^Tdi1n=2
+Z3 DPx4 ieee 11 numeric_std 0 22 k7B<7GmYYYmX;0X]XHFD10
+Z4 DPx4 ieee 16 std_logic_signed 0 22 E>OLoMaBGQ?hbGgOoNXM^1
+Z5 DPx4 ieee 15 std_logic_arith 0 22 4`Y?g_lkdn;7UL9IiJck01
+Z6 DPx4 ieee 18 std_logic_unsigned 0 22 RYmj;=TK`k=k>D@Cz`zoB3
+Z7 DPx3 std 6 textio 0 22 G^o2zK;Vh4eVdKTVo98653
+Z8 DPx4 ieee 14 std_logic_1164 0 22 5=aWaoGZSMWIcH0i^f`XF1
+Z9 dC:\Documents and Settings\user\My Documents\Dropbox\project\VHDL\DESIGN\write_controller
+Z10 8C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/write_controller/alu_data.vhd
+Z11 FC:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/write_controller/alu_data.vhd
+l0
+L36
+V8SSN2`=7PQJ2=VRoZma[B1
+Z12 OV;C;10.0d;49
+32
+Z13 !s108 1355195178.125000
+Z14 !s90 -reportprogress|300|-work|work|C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/write_controller/alu_data.vhd|
+Z15 !s107 C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/write_controller/alu_data.vhd|
+Z16 o-work work -O0
+Z17 tExplicit 1 NoCoverage 1
+!s100 Q]3zJzZ1O>^cG6Fo96VIm2
+Abehave
+R2
+R3
+R4
+R5
+R6
+R7
+R8
+DEx4 work 8 alu_data 0 22 8SSN2`=7PQJ2=VRoZma[B1
+l70
+L56
+VKVYEjRj?9G8ihW:=EkgPE2
+R12
+32
+R13
+R14
+R15
+R16
+R17
+!s100 h88`Y>S4a5<BIfaONl7`X2
+Ealu_trigger
+Z18 w1355697234
+R2
+R3
+R4
+R5
+R6
+R7
+R8
+R9
+Z19 8C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/write_controller/alu_trigger.vhd
+Z20 FC:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/write_controller/alu_trigger.vhd
+l0
+L57
+V]8GZifW=1J<aG2hA4@[TG0
+!s100 SlJfAR4j;3<jWi:Zh3UVT2
+R12
+32
+Z21 !s108 1355697242.074000
+Z22 !s90 -reportprogress|300|-work|work|C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/write_controller/alu_trigger.vhd|
+Z23 !s107 C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/write_controller/alu_trigger.vhd|
+R16
+R17
+Abehave
+R2
+R3
+R4
+R5
+R6
+R7
+R8
+Z24 DEx4 work 11 alu_trigger 0 22 ]8GZifW=1J<aG2hA4@[TG0
+l94
+L82
+V3<DcfSh58NlYg]C4K9oJD2
+!s100 nl9=F0QPCGflEiMWlFm;z1
+R12
+32
+R21
+R22
+R23
+R16
+R17
+Eread_controller
+Z25 w1352488750
+Z26 DPx8 synopsys 10 attributes 0 22 Fb?eGzjff51Ud2l4[U_732
+Z27 DPx4 ieee 14 std_logic_misc 0 22 10=1C[Hafn:kggH?^M@3X2
+R5
+R4
+R7
+R8
+R9
+Z28 8C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/read_controller/read_controller.vhd
+Z29 FC:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/read_controller/read_controller.vhd
+l0
+L43
+VBhHV339:MSS0cbCfM@7>^0
+R12
+32
+Z30 !s108 1354013069.921000
+Z31 !s90 -reportprogress|300|-work|work|C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/read_controller/read_controller.vhd|
+Z32 !s107 C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/read_controller/read_controller.vhd|
+R16
+Z33 tExplicit 1
+!s100 BlOZ3WZznAUXFD4VFT?I92
+Abehave
+R26
+R27
+R5
+R4
+R7
+R8
+DEx4 work 15 read_controller 0 22 BhHV339:MSS0cbCfM@7>^0
+l143
+L64
+VYZ[;LmREF7bNYbH=Z6ahA0
+R12
+32
+R30
+R31
+R32
+R16
+R33
+!s100 R4z84;mc_L]UhX6fm7dh71
+Pwrite_controller_pkg
+R5
+R6
+R7
+R8
+Z34 w1355178628
+R9
+Z35 8C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/write_controller/write_controller_pkg.vhd
+Z36 FC:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/write_controller/write_controller_pkg.vhd
+l0
+L26
+VaP[I9EG@Y8z;z[^Tdi1n=2
+R12
+32
+b1
+Z37 !s108 1355697164.543000
+Z38 !s90 -reportprogress|300|-work|work|C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/write_controller/write_controller_pkg.vhd|
+Z39 !s107 C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/write_controller/write_controller_pkg.vhd|
+R16
+R17
+!s100 ZNahA<jIoo4NA2oZNN?DV0
+Bbody
+R2
+R5
+R6
+R7
+R8
+l0
+L64
+VU5?h?WJN9Oj24D3WoHeGW1
+R12
+32
+R37
+R38
+R39
+R16
+R17
+nbody
+!s100 iIhDmzBS4K=P<YFNPO<Si2
