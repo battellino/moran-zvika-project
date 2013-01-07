@@ -4,7 +4,7 @@ K3
 cModel Technology
 Z0 dC:\Documents and Settings\user\My Documents\Dropbox\project\VHDL\DESIGN\write_controller
 Ealu_data
-Z1 w1355189327
+Z1 w1357515121
 Z2 DPx4 work 20 write_controller_pkg 0 22 aP[I9EG@Y8z;z[^Tdi1n=2
 Z3 DPx4 ieee 11 numeric_std 0 22 k7B<7GmYYYmX;0X]XHFD10
 Z4 DPx4 ieee 16 std_logic_signed 0 22 E>OLoMaBGQ?hbGgOoNXM^1
@@ -17,15 +17,15 @@ Z10 8C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/wri
 Z11 FC:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/write_controller/alu_data.vhd
 l0
 L36
-V8SSN2`=7PQJ2=VRoZma[B1
+VJoW?iKeGoT=JP]Zn1mPIA0
 Z12 OV;C;10.0d;49
 32
-Z13 !s108 1355195178.125000
+Z13 !s108 1357515163.239000
 Z14 !s90 -reportprogress|300|-work|work|C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/write_controller/alu_data.vhd|
 Z15 !s107 C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/write_controller/alu_data.vhd|
 Z16 o-work work -O0
 Z17 tExplicit 1 NoCoverage 1
-!s100 Q]3zJzZ1O>^cG6Fo96VIm2
+!s100 koTNiLjM9HJ:6XR607lC11
 Abehave
 R2
 R3
@@ -34,10 +34,10 @@ R5
 R6
 R7
 R8
-DEx4 work 8 alu_data 0 22 8SSN2`=7PQJ2=VRoZma[B1
-l70
-L56
-VKVYEjRj?9G8ihW:=EkgPE2
+DEx4 work 8 alu_data 0 22 JoW?iKeGoT=JP]Zn1mPIA0
+l72
+L58
+VEGl?j60>5OXfYf59=mKJ83
 R12
 32
 R13
@@ -45,9 +45,9 @@ R14
 R15
 R16
 R17
-!s100 h88`Y>S4a5<BIfaONl7`X2
+!s100 ]_859mBCS1XKDiaW8RKU?0
 Ealu_trigger
-Z18 w1355697234
+Z18 w1357506679
 R2
 R3
 R4
@@ -59,16 +59,16 @@ R9
 Z19 8C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/write_controller/alu_trigger.vhd
 Z20 FC:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/write_controller/alu_trigger.vhd
 l0
-L57
-V]8GZifW=1J<aG2hA4@[TG0
-!s100 SlJfAR4j;3<jWi:Zh3UVT2
+L58
+VYhSS`WX;_>oTH;D^^G4bG0
 R12
 32
-Z21 !s108 1355697242.074000
+Z21 !s108 1357515159.614000
 Z22 !s90 -reportprogress|300|-work|work|C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/write_controller/alu_trigger.vhd|
 Z23 !s107 C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/write_controller/alu_trigger.vhd|
 R16
 R17
+!s100 ZRV]HH6[@k6DSSblkHl@D3
 Abehave
 R2
 R3
@@ -77,11 +77,10 @@ R5
 R6
 R7
 R8
-Z24 DEx4 work 11 alu_trigger 0 22 ]8GZifW=1J<aG2hA4@[TG0
-l94
-L82
-V3<DcfSh58NlYg]C4K9oJD2
-!s100 nl9=F0QPCGflEiMWlFm;z1
+DEx4 work 11 alu_trigger 0 22 YhSS`WX;_>oTH;D^^G4bG0
+l98
+L84
+VWL@0<4Qm`F^[@9R1Yff]g1
 R12
 32
 R21
@@ -89,31 +88,155 @@ R22
 R23
 R16
 R17
+!s100 miDmjK>?g>U@hhhz7PLI_3
+Echeck
+Z24 w1356222839
+R2
+R3
+R4
+R5
+R6
+R7
+R8
+R9
+Z25 8C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/write_controller/check_upcase.vhd
+Z26 FC:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/write_controller/check_upcase.vhd
+l0
+L14
+V;OWb]R6Sd`F4mizCAg@Z?2
+R12
+32
+Z27 !s108 1356223144.343000
+Z28 !s90 -reportprogress|300|-work|work|C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/write_controller/check_upcase.vhd|
+Z29 !s107 C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/write_controller/check_upcase.vhd|
+R16
+R17
+!s100 `JUZ51LV@fdVBNZ;hagST3
+Abehave
+R2
+R3
+R4
+R5
+R6
+R7
+R8
+DEx4 work 5 check 0 22 ;OWb]R6Sd`F4mizCAg@Z?2
+l35
+L23
+Vc<CQeY6dUn7QL62nTX;5g0
+R12
+32
+R27
+R28
+R29
+R16
+R17
+!s100 2M70MDAF<@1YCQk?[kN`B3
+Echeck_upcase
+Z30 w1356223541
+R2
+R3
+R4
+R5
+R6
+R7
+R8
+R9
+R25
+R26
+l0
+L14
+Vafe?U4VKdjk_1Pc[<Y8Ej3
+R12
+32
+Z31 !s108 1356224677.312000
+R28
+R29
+R16
+R17
+!s100 hP<]EdCWJ?U]gDKWi9QUz2
+Abehave
+R2
+R3
+R4
+R5
+R6
+R7
+R8
+DEx4 work 12 check_upcase 0 22 afe?U4VKdjk_1Pc[<Y8Ej3
+l30
+L26
+V=1AnlC6T:9kOh8IfOUOZW1
+R12
+32
+R31
+R28
+R29
+R16
+R17
+!s100 [HS]?9a6J;HB?^Y6<YggX2
+Ecore_registers
+Z32 w1357594495
+R5
+R6
+R7
+R8
+R9
+Z33 8C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/write_controller/core_registers.vhd
+Z34 FC:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/write_controller/core_registers.vhd
+l0
+L38
+VN_odWQdF5;[UcldTKeAFI1
+!s100 jXE]=_4Lk9kZoKXYjifRO3
+R12
+32
+Z35 !s108 1357594541.921000
+Z36 !s90 -reportprogress|300|-work|work|C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/write_controller/core_registers.vhd|
+Z37 !s107 C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/write_controller/core_registers.vhd|
+R16
+Z38 tExplicit 1
+Abehave
+R5
+R6
+R7
+R8
+DEx4 work 14 core_registers 0 22 N_odWQdF5;[UcldTKeAFI1
+l93
+L69
+VZ31lGcIiFUC4[WNh1:;PH0
+!s100 K:DzmNDjo0`Qh66`ZAjk<0
+R12
+32
+R35
+R36
+R37
+R16
+R38
 Eread_controller
-Z25 w1352488750
-Z26 DPx8 synopsys 10 attributes 0 22 Fb?eGzjff51Ud2l4[U_732
-Z27 DPx4 ieee 14 std_logic_misc 0 22 10=1C[Hafn:kggH?^M@3X2
+Z39 w1352488750
+Z40 DPx8 synopsys 10 attributes 0 22 Fb?eGzjff51Ud2l4[U_732
+Z41 DPx4 ieee 14 std_logic_misc 0 22 10=1C[Hafn:kggH?^M@3X2
 R5
 R4
 R7
 R8
 R9
-Z28 8C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/read_controller/read_controller.vhd
-Z29 FC:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/read_controller/read_controller.vhd
+Z42 8C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/read_controller/read_controller.vhd
+Z43 FC:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/read_controller/read_controller.vhd
 l0
 L43
 VBhHV339:MSS0cbCfM@7>^0
 R12
 32
-Z30 !s108 1354013069.921000
-Z31 !s90 -reportprogress|300|-work|work|C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/read_controller/read_controller.vhd|
-Z32 !s107 C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/read_controller/read_controller.vhd|
+Z44 !s108 1354013069.921000
+Z45 !s90 -reportprogress|300|-work|work|C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/read_controller/read_controller.vhd|
+Z46 !s107 C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/read_controller/read_controller.vhd|
 R16
-Z33 tExplicit 1
+R38
 !s100 BlOZ3WZznAUXFD4VFT?I92
 Abehave
-R26
-R27
+R40
+R41
 R5
 R4
 R7
@@ -124,30 +247,88 @@ L64
 VYZ[;LmREF7bNYbH=Z6ahA0
 R12
 32
-R30
-R31
-R32
+R44
+R45
+R46
 R16
-R33
+R38
 !s100 R4z84;mc_L]UhX6fm7dh71
+Ewb_slave
+Z47 w1353653240
+R5
+R6
+R7
+R8
+R9
+Z48 8C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/write_controller/wb_slave.vhd
+Z49 FC:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/write_controller/wb_slave.vhd
+l0
+L30
+V0@`mmY>aRTZkzT9Q6lz:f1
+R12
+32
+Z50 !s108 1357592959.750000
+Z51 !s90 -reportprogress|300|-work|work|C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/write_controller/wb_slave.vhd|
+Z52 !s107 C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/write_controller/wb_slave.vhd|
+R16
+R38
+!s100 eLeg2hN5BMeK<A3TV?N=V2
+Aarc_wb_slave
+R5
+R6
+R7
+R8
+DEx4 work 8 wb_slave 0 22 0@`mmY>aRTZkzT9Q6lz:f1
+l73
+L67
+V::;d2ORVHWW2WelJ?;l333
+R12
+32
+R50
+R51
+R52
+R16
+R38
+!s100 M<i]d]i:nfaDXjKRQ2XXN3
+Abehave
+R2
+R3
+R4
+R5
+R6
+R7
+R8
+DEx4 work 8 wb_slave 0 22 XJSJ=j0kQA44BdP<;8QT[1
+l78
+L72
+VIPd92C<@ZZFJ>YIOWHNJ@1
+R12
+32
+R51
+R16
+R17
+w1357408788
+!s108 1357515168.458000
+R52
+!s100 4@I>0QYJ0OEa80e;J802@2
 Pwrite_controller_pkg
 R5
 R6
 R7
 R8
-Z34 w1355178628
+Z53 w1356224658
 R9
-Z35 8C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/write_controller/write_controller_pkg.vhd
-Z36 FC:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/write_controller/write_controller_pkg.vhd
+Z54 8C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/write_controller/write_controller_pkg.vhd
+Z55 FC:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/write_controller/write_controller_pkg.vhd
 l0
 L26
 VaP[I9EG@Y8z;z[^Tdi1n=2
 R12
 32
 b1
-Z37 !s108 1355697164.543000
-Z38 !s90 -reportprogress|300|-work|work|C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/write_controller/write_controller_pkg.vhd|
-Z39 !s107 C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/write_controller/write_controller_pkg.vhd|
+Z56 !s108 1357515175.708000
+Z57 !s90 -reportprogress|300|-work|work|C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/write_controller/write_controller_pkg.vhd|
+Z58 !s107 C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/write_controller/write_controller_pkg.vhd|
 R16
 R17
 !s100 ZNahA<jIoo4NA2oZNN?DV0
@@ -162,9 +343,9 @@ L64
 VU5?h?WJN9Oj24D3WoHeGW1
 R12
 32
-R37
-R38
-R39
+R56
+R57
+R58
 R16
 R17
 nbody
