@@ -1,41 +1,36 @@
-------------------------------------------------------------------------------------------------------------
--- File Name	:	wb_slave.vhd
--- Generated	:	21.12.2012
--- Author		:	Moran Katz and Zvika Pery
--- Project		:	Internal Logic Analyzer
-------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------
+-- Model Name 	:	Wishbone Slave
+-- File Name	:	WB_slave.vhd
+-- Generated	:	8.2.2011
+-- Author		:   Kami Elbaz
+-- Project		:	FPGA setting usiing FLASH project
+------------------------------------------------------------------------------------------------
 -- Description: 
---				Getting all the data to the WtCllr. (generics, data)	
---				
---				
---				
-------------------------------------------------------------------------------------------------------------
--- Revision:
---			Number		Date		Name							Description			
---			1.00		21.12.2012	Zvika Pery						Creation			
-------------------------------------------------------------------------------------------------------------
---	Todo:
---		simulation 
---		
---		
---		
-------------------------------------------------------------------------------------------------------------
+-- 
+------------------------------------------------------------------------------------------------
+--  Notes:
+------------------------------------------------------------------------------------------------
+-- Revision History:
+--			Number 		Date	       	Name       			 	Description
+--			         3.8.2011        							compilation done
+--             		 4.8.2011       							simulation	- write cycel DONE!!
+--		             5.8.2011        							simulation	- read cycel DONE!!
+--      		     28/8/2011      							to wb simulation
+--			1.1		 08/01/2012			Dor Obstbaum			Error fix. reset_activity_polarity_g instead of '1' in stb_sample process
+--			2.0		 24/09/2012			Dor Obstbaum			support pipeline mode (based on runlen project WS)	 	
+--			2.1		 25/10/2012			Dor Obstbaum			typ and len ports added on registers side
+------------------------------------------------------------------------------------------------
+--	Todo: update typ and len ports in all units using WS
+-----------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------
 library ieee ;
 use ieee.std_logic_1164.all ;
 use ieee.std_logic_unsigned.all;
-use ieee.std_logic_signed.all;
-use ieee.numeric_std.all;
-
-
-library work ;
-use work.write_controller_pkg.all;
-
-------------------------------------------------------------------------------------------------------------
 
 entity wb_slave is
    generic (
-     reset_polarity_g	  	:	std_logic :='1';      -- defines reset active polarity: '0' active low, '1' active high
-     data_width_g           :	natural := 8;         -- defines the width of the data lines of the system    
+     reset_activity_polarity_g  	:std_logic :='1';      -- defines reset active polarity: '0' active low, '1' active high
+     data_width_g               	: natural := 8;         -- defines the width of the data lines of the system    
 	 addr_d_g				:	positive := 3;		--Address Depth
 	 len_d_g				:	positive := 1;		--Length Depth
 	 type_d_g				:	positive := 1		--Type Depth    
@@ -69,7 +64,7 @@ entity wb_slave is
 	  );
 end entity wb_slave;
 
-architecture behave of wb_slave is
+architecture arc_wb_slave of wb_slave is
 
   ---------------------------------  Signals	----------------------------------
   signal cyc_active	:	std_logic;	--Whishbone cycle is active
@@ -121,6 +116,6 @@ begin
 	--active_cycle_proc:
 	active_cycle <= CYC_I;
 						
-end architecture behave;
+end architecture arc_wb_slave;
 
 
