@@ -5,30 +5,14 @@
 -- Project		:	Internal Logic Analyzer
 ------------------------------------------------------------------------------------------------
 -- Description: 
---				this ENTITY have two roles:
---					1. get the data from the RAM and send it out through the WBM.
--- 					2. calculate the address of the data that we need to get from the RAM.
---
---					FIRST PART:
---												|--addr in--|
---												V			|
---					(start & end addr)----->|-------|		|
---											|  ALU	|-------|-addr out--->
---											|_______|
---					
---					at the same time, we promote the value in the counter in every clk cycle
---					that the system in working.
---
---					SECOND PART:				
---															
---											|-------|		
---								data in---->|  ALU	|-------data out--->
---											|_______|
---				
+--				The read controller get the start and end addr of the valid data that was calculated in the write controller (wc_to_rc).
+--				and extract the correct data from the RAM and send it out through the WBM
+-- 					
 ------------------------------------------------------------------------------------------------
 -- Revision:
---			Number		Date		Name							Description			
---			1.00		9.11.2012	Zvika Pery						Creation			
+--			Number		Date			Name							Description			
+--			1.0			9.11.2012		Zvika Pery						Creation	
+--			1.1			22.1.2013		Zvika Pery						adapting to WC signals
 ------------------------------------------------------------------------------------------------
 --	Todo:
 --			
@@ -38,170 +22,100 @@ use ieee.std_logic_1164.all ;
 use ieee.std_logic_signed.all;
 use ieee.std_logic_arith.all;
 use ieee.std_logic_misc.all;
+library work ;
+use work.write_controller_pkg.all;
 ---------------------------------------------------------------------------------------------------------------------------------------
 
 entity read_controller is
 	GENERIC (
-		Reset_polarity_g			:	std_logic := '1'  ;	--'1' reset active highe, '0' active low
-		signal_ram_width_g			: 	positive  :=8  ;	--width of RAM
-		addr_width_g				: 	positive  :=8  ;	--addr width of WB
-		data_width_g				: 	positive  :=8  		--width of basic word in WB
+			reset_polarity_g		:	std_logic	:=	'1';								--'1' reset active highe, '0' active low
+			enable_polarity_g		:	std_logic	:=	'1';								--'1' the entity is active, '0' entity not active
+			signal_ram_depth_g		: 	positive  	:=	3;									--depth of RAM
+			signal_ram_width_g		:	positive 	:=  8;   								--width of basic RAM
+			record_depth_g			: 	positive  	:=	10;									--number of bits that is recorded from each signal
+			data_width_g            :	positive 	:= 	8;      						    -- defines the width of the data lines of the system 
+			Add_width_g  		    :   positive 	:=  8;     								--width of addr word in the RAM
+			num_of_signals_g		:	positive	:=	8									--num of signals that will be recorded simultaneously
 	);
 	port
 	(
 		clk							:	in std_logic;											--system clock
 		reset						:	in std_logic;											--system reset
-		trigger_found				:	in std_logic	:= '0'	;								--trigger rise was found
-		wc_to_rc					:	in std_logic_vector((2*addr_width_g) - 1 downto 0);		--start and end addr of data needed to output
-		data_in_rc					:	in std_logic_vector(signal_ram_width_g - 1 downto 0);	--one word of data send to WBM
-		dout_valid					:	in std_logic	:= '0'	;								--output data valid
-		clk_to_start				:	out integer range 0 to 255	;							--count clk cycles since trigger rise
-		rc_to_WBM					:	out std_logic_vector (data_width_g - 1 downto 0);		--data out to WBM
-		addr_out					:	out std_logic_vector (signal_ram_width_g - 1 downto 0)	--addr send to RAM to output
+		enable						:	in std_logic;											--enabling the entity. if (enable = enable_polarity_g) -> start working, else-> do nothing
+		trigger_found				:	in std_logic;											--trigger rise was found
+		wc_to_rc					:	in std_logic_vector((2*(2**signal_ram_depth_g)) - 1 downto 0);		--start and end addr of data needed to output
+		start_array_row_in			:	in integer range 0 to up_case(record_depth_g , signal_ram_depth_g);	--send with the addr to the RC
+		end_array_row_in			:	in integer range 0 to up_case(record_depth_g , signal_ram_depth_g);		--send with the addr to the RC
+		data_in_rc					:	in std_logic_vector(data_width_g - 1 downto 0);	-- getting data from RAM according calc addr
+		dout_valid					:	in std_logic;									--output data valid
+		data_out_to_WBM				:	out std_logic_vector (data_width_g - 1 downto 0);		--data out to WBM
+		addr_out					:	out std_logic_vector ((2**signal_ram_depth_g) - 1 downto 0)		--addr send to RAM to output each cycle
 	);	
 end entity read_controller;
 
 architecture behave of read_controller is
-
--------------------------------------------------------	Components	------------------------------------------------------------------
-
---1. save data that come from RAM 2. save the next addr that will be send to the RAM
-component width_flipflop
-	GENERIC (
-		signal_ram_width_g			: 	positive  :=8 										--width of RAM
+	-- SYMBOLIC ENCODED state machine: State
+	type State_type is (
+	idle, wait_for_trigger, set_st_ed_addr, send_add_to_ram, get_data_from_ram,calc_next_addr
 	);
-	port
-	(
-		clk							:	in std_logic;														--system clock
-		d							:	in std_logic_vector(signal_ram_width_g-1 downto 0);					--input
-		q							:	out std_logic_vector (signal_ram_width_g-1 downto 0)				--output
-	);	
-end component width_flipflop;
 
---save the clk cycle of counter
-component integer_flipflop
-	port
-	(
-		clk							:	in std_logic;														--system clock
-		d							:	in integer range 0 to 255 ;											--input
-		q							:	out integer range 0 to 255											--output
-	);	
-end component integer_flipflop;
-
---calculate the addr that need to be send to the RAM in the next cycle
-component alu_addr_out is
-	GENERIC (
-			Reset_polarity_g		:	std_logic	:=	'1';								--'1' reset active highe, '0' active low
-			signal_ram_width_g		: 	positive  	:=	8;								--width of RAM
-			Add_width_g 			:	positive 	:=  8   							--width of basic word
-			);
-	port (			
-		reset 						:	 in std_logic;
-		trigger_found 				:	 in std_logic;										--'1' if we found the trigger, '0' other
-		wc_to_rc_alu				:	 in std_logic_vector( (2*Add_width_g) -1 downto 0);	--start and end addr of data that needed to be sent out
-		current_addr_out_alu 		:	 in std_logic_vector( Add_width_g -1 downto 0);		--the current addr that we send out
-		next_addr_out_alu			:	 out std_logic_vector( Add_width_g -1 downto 0);	--the addr that will be sent next cycle
-		alu_to_count_out			:	 out std_logic										-- '1' if counter is counting, '0' other
-		);	
-end component alu_addr_out;
-
---send the data to the WBM if the data is valid
-component alu_rc_to_WBM is
-	GENERIC (
-			signal_ram_width_g 		:		positive	:=	8										--width of basic word in RAM 	
-			);
-	port (
-			dout_valid_alu			:	in std_logic;											--enable the data
-			data_in_rc_alu			:	in std_logic_vector( signal_ram_width_g -1 downto 0);	--data in from RAM
-			rc_to_WBM_out_alu		:	out std_logic_vector( signal_ram_width_g -1 downto 0)	--data out to WBM
-		);	
-end component alu_rc_to_WBM;
-
---count cycles that passed since trigger rise (in integer) 
-component integer_count is
-	GENERIC (
-			Reset_polarity_g		:	std_logic	:=	'1'								--'1' reset active highe, '0' active low
-			);
-	port (
-			clk						:	in std_logic;
-			reset					:	in std_logic;
-			alu_to_count_in			:	in std_logic;
-			ff_to_count				:	in integer range 0 to 255 ;
-			count_to_ff				:	out integer range 0 to 255 
-		);	
-end component integer_count;
-
--------------------------------------------------------	signals	--------------------------------------------------------------------------
-signal ff_to_count_s				:	integer range 0 to 255;												--Internal FF to counter
-signal count_to_ff_s				:	integer range 0 to 255;												--Internal counter to FF
-signal current_addr_s				:	std_logic_vector( addr_width_g -1 downto 0);							--Internal FF to addr_ALU 
-signal next_addr_s					:	std_logic_vector( addr_width_g -1 downto 0);							--Internal addr_ALU to FF 
-signal data_s						:	std_logic_vector( signal_ram_width_g -1 downto 0);					--Internal data_ALU to FF 
-signal alu_to_counter_s 			:	std_logic;
-
--------------------------------------------------------	Implementation	------------------------------------------------------------------
-begin
-
-
-		alu_inst_width_ff : alu_rc_to_WBM generic map (
-											signal_ram_width_g	=> signal_ram_width_g
-									)
-									port map 	(
-									dout_valid_alu		=> dout_valid,
-									data_in_rc_alu		=> data_in_rc,
-									rc_to_WBM_out_alu	=> data_s
-									);
-		
-		width_ff_inst_WBM : width_flipflop generic map (
-									signal_ram_width_g	=> signal_ram_width_g
-									)
-									port map 	(
-									clk		=> clk,
-									d		=> data_s,
-									q		=> rc_to_WBM
-									);
-				
-
-
+signal State: State_type;
 	
-		alu_inst_counter : alu_addr_out generic map(
-										Reset_polarity_g	=> Reset_polarity_g,							--'1' reset active highe, '0' active low
-										signal_ram_width_g	=> signal_ram_width_g,							--width of RAM
-										Add_width_g 		=> addr_width_g
-										)
-										port map	(
-										reset					=>	reset,
-										trigger_found			=>	trigger_found,
-										wc_to_rc_alu			=>	wc_to_rc,
-										current_addr_out_alu	=>	current_addr_s,
-										next_addr_out_alu		=>	next_addr_s,
-										alu_to_count_out		=>	alu_to_counter_s
-										);
-										
-		width_ff_inst_addr_out : width_flipflop generic map (
-												signal_ram_width_g	=> signal_ram_width_g
-												)
-												port map	(
-												clk	=> clk,													--system clk
-												d	=> next_addr_s,											--signal betwin ALU and ff
-												q	=> addr_out												--addr send to the RAM
-												);
-												
-		counter	:	integer_count	generic map (
-												Reset_polarity_g	=> Reset_polarity_g
-									)
-									port map	(
-									clk				=>	clk,
-									reset			=>	reset,
-									alu_to_count_in	=>	alu_to_counter_s,
-									ff_to_count		=>	ff_to_count_s,
-									count_to_ff		=>	count_to_ff_s
-									);
-		ff_inst_clk_to_start	:	integer_flipflop	port map	(
-														clk	=>	clk,
-														d	=>	count_to_ff_s,
-														q	=>	clk_to_start
-														);
-
- 
+	
+begin
+-----------------------------------------------------------------
+-- Machine: State
+-----------------------------------------------------------------
+	State_machine: process (ck, reset)
+	begin
+		if reset = '1' then
+			State <= S1;
+		elsif rising_edge(clk) then
+			
+			case State is
+				when idle =>		-- start state. cheack reset and enable
+					if (enable = enable_polarity_g) and (reset != reset_polarity_g) then
+						State <= wait_for_trigger ;
+					end if;
+				
+				when wait_for_trigger =>		-- waiting for WC to detect trigger rise
+					if reset = reset_polarity_g then
+						State <= idle ;
+					elsif trigger_found = 1 then
+						State <= set_st_ed_addr ;
+					end if;
+				
+				when set_st_ed_addr =>
+					if reset = reset_polarity_g then
+						State <= idle ;
+					else		--get start and end addresses
+						
+						State <= send_add_to_ram ;
+					end if;
+					
+				when send_add_to_ram =>
+					if reset = reset_polarity_g then
+						State <= idle ;
+					elsif dout_valid = '1' then
+						State <= get_data_from_ram ;
+					end if;
+					
+				when get_data_from_ram =>
+					if reset = reset_polarity_g then
+						State <= idle ;
+					elsif ACK_I = '1' then
+						State <= calc_next_addr ;
+					end if;
+					
+				when calc_next_addr =>
+					if reset = reset_polarity_g then
+						State <= idle ;
+					elsif --curent addr = end addr then
+						State <= wait_for_trigger ;
+					else 
+						State <= send_add_to_ram ;
+					end if;
+	end process;
+	
+	
 end architecture behave;
