@@ -7,6 +7,7 @@
 -- Description: 
 --				functions that will be used in the write controller.			
 --				
+--				Function name: up_case		Input:	(x,y) both positive numbers			Output: upper case of x/y, positive number as well 
 ------------------------------------------------------------------------------------------------------------
 -- Revision:
 --			Number		Date		Name							Description			

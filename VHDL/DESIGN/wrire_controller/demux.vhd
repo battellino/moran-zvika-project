@@ -27,28 +27,23 @@ use ieee.std_logic_unsigned.all;
 
 entity dmux is
 	GENERIC (
-			reset_polarity_g		:	std_logic	:=	'1';								--'1' reset active highe, '0' active low
-			Add_width_g  		    :   positive 	:=  8      								--width of addr word in the RAM
+			signal_ram_depth_g		: 	positive  	:=	3									--depth of RAM will be 2^(signal_ram_depth_g)
 			);
 	port
 	(
-		reset 	:	 in  std_logic;										--reset
-		x		:	in std_logic_vector (Add_width_g -1 downto 0)	;					
-		y		:	out std_logic_vector (Add_width_g -1 downto 0)	;
-		z		:	out std_logic_vector (Add_width_g -1 downto 0)				
+		x		:	in std_logic_vector (signal_ram_depth_g -1 downto 0)	;						--input signal
+		y		:	out std_logic_vector (signal_ram_depth_g -1 downto 0)	;						--output1 <= input
+		z		:	out std_logic_vector (signal_ram_depth_g -1 downto 0)							--output2 <= input
 	);	
 end entity dmux;
 
 architecture behave of dmux is
 begin
-dmux_pros	:	process (reset, x)
+dmux_pros	:	process (x)
 	begin
-		if  reset = reset_polarity_g then
-			y	<=	(others => '0') ;
-			z	<= 	(others => '0') ;
-		else 
+		
 			y	<= x;
 			z	<= x;
-		end if;
+			
 	end process	dmux_pros;
 end architecture behave;
