@@ -43,6 +43,7 @@ entity enable_fsm is
 		clk						:	 in  std_logic;										--system clk
 		reset 					:	 in  std_logic;										--reset
 		enable					:	 in	 std_logic;										--enabling the entity. if (sytm_stst = Reset_polarity_g) -> start working, else-> do nothing	
+		rc_finish				:	 in	 std_logic;										--'1' -> read controller finish working, '0' -> system still working
 		enable_out				:	 out std_logic										 --enable signal that sent to the core 
 		);
 end entity enable_fsm;
@@ -51,42 +52,96 @@ architecture behave of enable_fsm is
 ------------------Constants------
 
 -------------------------Types------
-
+type State_type is (
+	idle, wait_for_enable_rise, system_is_enable, read_controller_finish 
+	);
 ------------------Signals--------------------
+signal State: State_type;
 signal		enable_trig_s		: std_logic;														--replace enable in enable trig -> identify for enable rise
 signal		enable_d1_s			: std_logic;														-- delayed enable
 signal		enable_s			: std_logic;														-- enable the system
+
 ------------------	Processes	----------------
 
 begin
 	
-		enable_proc	:	process ( reset, clk )
-		begin
-			if reset = Reset_polarity_g then
-				enable_d1_s <= '0';
-				enable_trig_s <= '0';
-				enable_out <= '0';
+		
+						
+	State_machine: process (clk, reset)
+	begin
+		if reset = reset_polarity_g then
+			State <= idle;
+			enable_d1_s <= '0';
+			enable_trig_s <= '0';
+			enable_s <= '0';
+			enable_out <= not (enable_polarity_g);
+		elsif rising_edge(clk) then
+			enable_d1_s <= enable;
+			enable_trig_s <= (enable) and (not(enable_d1_s)) ;
+			if enable_trig_s = '1' then
+				enable_s <= '1';
+			elsif ((State = read_controller_finish) and (enable_d1_s = not (enable_polarity_g)))	then
 				enable_s <= '0';
-			elsif rising_edge(clk) then	
-				enable_d1_s <= enable;
-				enable_trig_s <= (enable) and (not(enable_d1_s)) ;
-				if enable_trig_s = '1' then
-					enable_s <= '1';
-				end if;
-			end if;			
-		enable_out <= enable_s	;
-	end process enable_proc;
+			end if;
+		
+			
+			case State is
+				when idle =>		-- start state. cheack reset 
+					if (reset = not(reset_polarity_g)) then
+						State <= wait_for_enable_rise ;
+						enable_out <= not (enable_polarity_g);
+					else
+						State <= idle ;
+						enable_out <= not (enable_polarity_g);
+					end if;
+				
+				when wait_for_enable_rise =>		-- waiting for WC to detect trigger rise
+					if reset = reset_polarity_g then
+						State <= idle ;
+						enable_out <= not (enable_polarity_g);
+					elsif enable_s = '1' then		--check if signal "enable_s" is '1' to enable the system
+						State <= system_is_enable ;
+						enable_out <=  (enable_polarity_g);
+					else
+						State <= wait_for_enable_rise;
+						enable_out <= not (enable_polarity_g);
+					end if;
+				
+				when system_is_enable =>
+					if reset = reset_polarity_g then
+						State <= idle ;
+						enable_out <= not (enable_polarity_g);
+					elsif rc_finish = '1' then
+						State <= read_controller_finish ;
+						enable_out <= not (enable_polarity_g);
+					else	
+						State <= system_is_enable ;
+						enable_out <=  (enable_polarity_g);
+					end if;
+					
+				when read_controller_finish =>
+					if reset = reset_polarity_g then
+						State <= idle ;
+						enable_out <= not (enable_polarity_g);
+					elsif (enable_s = '0') then
+						State <= idle ;
+						enable_out <= not (enable_polarity_g);
+					else
+						State <= read_controller_finish ;
+						enable_out <= not (enable_polarity_g);
+					end if;
+					
+				when others =>
+						State <= idle ;
+						enable_out <= not (enable_polarity_g);
+			end case;							
+		end if;		
+	end process State_machine;
+		
+			
+	
+--------------------------------------------------------------------------
 
---	rise_proc	:	process ( enable_trig_s,reset, clk )
---		begin		
---			if reset = Reset_polarity_g then
---				enable_s <= '0';
---				enable_out <= '0';
---			elsif rising_edge (enable_trig_s) then				--when enable trigger rise -> enable the system
---				enable_s <= '1';
---			end if;
---			enable_out <= enable_s	;
---	end process rise_proc;
 	
 end architecture behave;
 
