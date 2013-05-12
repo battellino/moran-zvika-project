@@ -103,65 +103,85 @@ signal	rise_trig_counter_s		:	integer range -1 to total_number_of_rows_c	;	--whe
 begin
 ---------------------------write process, (when trigger found off or we haven't save all the data)-------------------------------------	
 	find_trig_pros	:	process (reset, clk)			
-		variable trigger_found_v	: std_logic	:= '0'	;
+		variable trigger_found_v		:	std_logic	:= '0'	;
+		variable time_since_trig_rise_v	:	integer range 0 to 3	:= 0 	;
+		variable rise_trig_counter_v	:	integer range -1 to total_number_of_rows_c	:=0	;
 		
 		begin												
 			if  reset = Reset_polarity_g then 														--reset is on
 				--reseting all the variables						
-				time_since_trig_rise_s	<=	0	;	
+	
 				trigger_found_v 		:= '0'  ;
-				trigger_found	<= 	'0';
-				trigger_to_alu_data	<= 	'0';
+				time_since_trig_rise_v := 0;
+				rise_trig_counter_v := 0;
 				rows_to_shift_s <=	0	;
-				rise_trig_counter_s <= (-1)	;
+--				time_since_trig_rise_s	<=	0	;
+--				trigger_found	<= 	'0';
+--				trigger_to_alu_data	<= 	'0';
+--				rise_trig_counter_s <= (-1)	;
 			elsif rising_edge(clk) then																--reset off, 					
 					--check if trigger was rised in previous cycle
 					rows_to_shift_s <=	(to_integer( unsigned( trigger_position(7 downto 0))) * total_number_of_rows_c) / 100	;
 				if	enable = enable_polarity_g then					--enable is on
 					if (trigger_found_v = '1') and (rise_trig_counter_s > 0) then -- first cycle after trigger found, down trig rise
-						time_since_trig_rise_s	<=	0	;	
+--						time_since_trig_rise_s	<=	0	;	
+						time_since_trig_rise_v	:=	0	;
 						trigger_found_v			:= '0'  ;
-						rise_trig_counter_s <= rise_trig_counter_s -1 ;
+						rise_trig_counter_v := rise_trig_counter_s -1 ;
+--						rise_trig_counter_s <= rise_trig_counter_s -1 ;
 					elsif (trigger_found_v = '0') and (rise_trig_counter_s > 0) then 			-- wait until search again for trigger
-						rise_trig_counter_s <= rise_trig_counter_s -1 ;					--every cycle, counter decrease in one
+--						rise_trig_counter_s <= rise_trig_counter_s -1 ;					--every cycle, counter decrease in one
+						rise_trig_counter_v	:= rise_trig_counter_s -1 ;
 					else
 						--checking if trigger needs to be rise
 						case  trigger_type(2 downto 0) is				--notice between the different types of triggers
 							when "000" 	=>					--trig define as rise
 								if trigger = '1' then
+									rise_trig_counter_v	:= total_number_of_rows_c ;
+									time_since_trig_rise_v := 3 ;
 									trigger_found_v := '1' ;
-									time_since_trig_rise_s <= 3 ;
-									rise_trig_counter_s <= total_number_of_rows_c ; 
+--									time_since_trig_rise_s <= 3 ;
+--									rise_trig_counter_s <= total_number_of_rows_c ; 
 								end if;
 							when "001"	=>					--trig define as fall
 								if trigger = '0' then
+									time_since_trig_rise_v := 3 ;
+									rise_trig_counter_v := total_number_of_rows_c ;
 									trigger_found_v := '1' ;
-									time_since_trig_rise_s <= 3 ;
-									rise_trig_counter_s <= total_number_of_rows_c ;
+--									time_since_trig_rise_s <= 3 ;
+--									rise_trig_counter_s <= total_number_of_rows_c ;
 								end if;
 							when "010"	=>					--trig define as one
 								if trigger = '1' then		--trig is up
 									if time_since_trig_rise_s = 2 then	--we found 3 cycles that trig is up
 										trigger_found_v := '1' ;
-										time_since_trig_rise_s <= time_since_trig_rise_s + 1;
-										rise_trig_counter_s <= total_number_of_rows_c ;
+										time_since_trig_rise_v := time_since_trig_rise_s + 1;
+										rise_trig_counter_v := total_number_of_rows_c ;
+--										time_since_trig_rise_s <= time_since_trig_rise_s + 1;
+--										rise_trig_counter_s <= total_number_of_rows_c ;
 									else								--less then 3 cycles that trig is up
-										time_since_trig_rise_s <= time_since_trig_rise_s + 1;	--promote counter
+--										time_since_trig_rise_s <= time_since_trig_rise_s + 1;	--promote counter
+										time_since_trig_rise_v := time_since_trig_rise_s + 1;
 									end if;
 								else 									--trig is down, reset counter to 0
-									time_since_trig_rise_s <= 0;
+--									time_since_trig_rise_s <= 0;
+									time_since_trig_rise_v := 0;
 								end if;
 							when "011"	=>				--trig define as zero
 								if trigger = '0' then		--trig is up
 									if time_since_trig_rise_s = 2 then	--we found 3 cycles that trig is up
 										trigger_found_v := '1' ;
-										time_since_trig_rise_s <= time_since_trig_rise_s + 1;
-										rise_trig_counter_s <= total_number_of_rows_c ;
+										time_since_trig_rise_v := time_since_trig_rise_s + 1;
+										rise_trig_counter_v := total_number_of_rows_c ;
+--										time_since_trig_rise_s <= time_since_trig_rise_s + 1;
+--										rise_trig_counter_s <= total_number_of_rows_c ;
 									else								--less then 3 cycles that trig is up
-										time_since_trig_rise_s <= time_since_trig_rise_s + 1;	--promote counter
+--										time_since_trig_rise_s <= time_since_trig_rise_s + 1;	--promote counter
+										time_since_trig_rise_v := time_since_trig_rise_s + 1;
 									end if;
 								else 									--trig is down, reset to 0
-									time_since_trig_rise_s <= 0;
+--									time_since_trig_rise_s <= 0;
+									time_since_trig_rise_v := 0;
 								end if;
 							when "100"	=>								--special trigger, not relevant to us now
 								trigger_found_v := '0' ;
@@ -171,9 +191,13 @@ begin
 					end if;
 				
 				else															--Enable is off
-				time_since_trig_rise_s	<=	0	;	
+--				time_since_trig_rise_s	<=	0	;	
+				time_since_trig_rise_v 	:= 0;
+				rise_trig_counter_v 	:= 0 ;
 				trigger_found_v 		:= '0'  ;
 				end if;
+			time_since_trig_rise_s <= time_since_trig_rise_v;
+			rise_trig_counter_s <= rise_trig_counter_v ;
 			trigger_found	<= 	trigger_found_v;
 			work_trig_count_out <= 2**record_depth_g - rows_to_shift_s;
 			trigger_to_alu_data <= trigger_found_v;
@@ -216,15 +240,15 @@ begin
 					if( start_addr_out_v > total_number_of_rows_c ) then	--check if we exceed from the total number of the rows that we save
 						start_addr_out_v := start_addr_out_v - total_number_of_rows_c;
 					end if;
-					-- 
+	 
 					start_array_row_out_v := (start_addr_out_v ) / ((2**signal_ram_depth_g)); -- return the row of the addr in the ram array
 					start_addr_in_single_ram_v := start_addr_out_v - start_array_row_out_v * (2**signal_ram_depth_g);	--getting the addr according one RAM
 					
 					------------------- check if incomming start address is the last address relevant in the last RAM -> make a cyclec memory
-					if ( (to_integer( unsigned(addr_in_alu_trigger)) = last_addr_in_last_ram_c ) and (current_array_row_in = number_of_ram_c -1)) then
-						start_addr_in_single_ram_v := 0 ;
-						start_array_row_out_v := 0 ; 
-					end if;	
+--					if ( (to_integer( unsigned(addr_in_alu_trigger)) = last_addr_in_last_ram_c ) and (current_array_row_in = number_of_ram_c -1)) then
+--						start_addr_in_single_ram_v := 0 ;
+--						start_array_row_out_v := 0 ; 
+--					end if;	
 					
 					
 					--calculating the end addr ( the addr in specific ram and the row in the ram array)

@@ -62,6 +62,7 @@ component write_controller
 		trigger_type_in				:	in  std_logic_vector(  data_width_g -1 downto 0	);					--we specify 5 types of triggers	
 		trigger						:	in	std_logic;											--trigger signal
 		data_in						:	in	std_logic_vector ( num_of_signals_g -1 downto 0);	--data in. comming from user
+		rc_finish					:	in  std_logic;											--'1' -> read controller finish working, '0' -> system still working
 		wc_to_rc_out_wc				:	out std_logic_vector ((2 * signal_ram_depth_g ) - 1 downto 0);	--start and end addr of data needed to output. send to RC
 		data_out_of_wc				:	out std_logic_vector ( num_of_signals_g -1  downto 0);		--sending the data  to be saved in the RAM. 
 		addr_out_to_RAM				:	out std_logic_vector( signal_ram_depth_g -1 downto 0);		--the addr in the RAM to save the data
@@ -94,6 +95,7 @@ signal start_array_row_out:	 integer range 0 to up_case(2**record_depth_g , (2**
 signal end_array_row_out:  integer range 0 to up_case(2**record_depth_g , (2**signal_ram_depth_g)) := 0	;	--send with the addr to the RC
 
 signal aout_valid	:  std_logic_vector( up_case(2**record_depth_g , (2**signal_ram_depth_g)) -1  downto 0	):=(others => '0');	--send to the RAM. each time we enable entire row at the RAM array		
+signal rc_finish	:	 std_logic := '0';		
 												--Output data valid
 
 --Internal Signals
@@ -121,6 +123,7 @@ write_controller_inst : write_controller generic map (
 								trigger_type_in		=> trigger_type_in	,
 								trigger => trigger,
 								data_in		=> data_in,		
+								rc_finish	=> rc_finish,
 								wc_to_rc_out_wc	=> wc_to_rc_out_wc,	
 								data_out_of_wc	=> data_out_of_wc,	
 								addr_out_to_RAM	=> addr_out_to_RAM,
@@ -140,6 +143,9 @@ en_proc :
 	enable <= not enable_polarity_g, enable_polarity_g after 230 ps;
 
 	------
+rc_finish_proc	:
+	rc_finish	<= '0' , '1' after 1700 ps, '0' after 2000 ps;
+	
 trigg_proc :
 	trigger <= '0', '1' after 1000 ps;
 
