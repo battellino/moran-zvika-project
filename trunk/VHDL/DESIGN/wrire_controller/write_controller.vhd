@@ -49,6 +49,7 @@ entity write_controller is
 		trigger_type_in				:	in  std_logic_vector(  data_width_g -1 downto 0	);					--we specify 5 types of triggers	
 		trigger						:	in	std_logic;											--trigger signal
 		data_in						:	in	std_logic_vector ( num_of_signals_g -1 downto 0);	--data in. comming from user
+		rc_finish					:	in  std_logic;											--'1' -> read controller finish working, '0' -> system still working
 		wc_to_rc_out_wc				:	out std_logic_vector ((2 * signal_ram_depth_g ) - 1 downto 0);	--start and end addr of data needed to output. send to RC
 		data_out_of_wc				:	out std_logic_vector ( num_of_signals_g -1  downto 0);		--sending the data  to be saved in the RAM. 
 		addr_out_to_RAM				:	out std_logic_vector( signal_ram_depth_g -1 downto 0);		--the addr in the RAM to save the data
@@ -114,7 +115,7 @@ component alu_trigger
 		trigger						:	in	std_logic;											--trigger signal
 		trigger_position			:	in  std_logic_vector(  data_width_g -1 downto 0	);					--the percentage of the data to send out
 		trigger_type				:	in  std_logic_vector(  data_width_g -1 downto 0	);					--we specify 5 types of triggers	
-		addr_in_alu_trigger			:	in  std_logic_vector( (2**signal_ram_depth_g) -1 downto 0);		--the addr in the RAM whice the trigger came
+		addr_in_alu_trigger			:	in  std_logic_vector( signal_ram_depth_g -1 downto 0);		--the addr in the RAM whice the trigger came
 		current_array_row_in		:	in 	integer range 0 to up_case(2**record_depth_g , (2**signal_ram_depth_g) ); --the RAM array line which the trigger came from. come from ALU_data
 		trigger_to_alu_data			:	out std_logic	;
 		wc_to_rc					:	out std_logic_vector( 2 * signal_ram_depth_g -1 downto 0 );	--the start and end addr of the data that we need to send out to the user
@@ -149,6 +150,7 @@ component enable_fsm is
 		clk						:	 in  std_logic;										--system clk
 		reset 					:	 in  std_logic;										--reset
 		enable					:	 in	 std_logic;										--enabling the entity. if (sytm_stst = Reset_polarity_g) -> start working, else-> do nothing	
+		rc_finish				:	 in	 std_logic;										--'1' -> read controller finish working, '0' -> system still working
 		enable_out				:	 out std_logic										 --enable signal that sent to the core 
 		);
 end component enable_fsm;
@@ -162,6 +164,7 @@ signal en_s								:	std_logic ;									--enable signal, sent to the other core
 ----signals from dmux to ALU
 signal addr_from_alu_data_to_dmux_s		:	std_logic_vector( signal_ram_depth_g -1 downto 0);
 signal addr_from_dmux_to_alu_trigger_s	:	std_logic_vector( signal_ram_depth_g -1 downto 0);
+
 -------------------------------------------------------	Implementation	------------------------------------------------------------------
 begin
 		enable_ins	:	enable_fsm 	generic map (
@@ -172,6 +175,7 @@ begin
 									clk		=> clk,															--system clk
 									reset	=>	reset,														--reset
 									enable	=>	enable,												--enabling the entity. if (sytm_stst = Reset_polarity_g) -> start working, else-> do nothing		
+									rc_finish => rc_finish,
 									enable_out	=> en_s												 --enable signal that sent to the core 
 									);
 

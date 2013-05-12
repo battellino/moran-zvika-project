@@ -1,0 +1,10 @@
+vcom write_controller_pkg.vhd
+vcom alu_data.vhd
+vcom alu_trigger.vhd
+vcom demux.vhd
+vcom enable_fsm.vhd
+vcom write_controller.vhd
+vcom write_controller_tb.vhd
+vsim write_controller_tb
+add wave *
+run 2500 ps
