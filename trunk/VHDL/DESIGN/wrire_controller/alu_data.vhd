@@ -86,7 +86,14 @@ begin
 				temp_aout_v := (others => '0') ;
 				addr_out_alu_data <= (others => '0') ;											--initial to (-1), meaning trigger have not found yet
 				work_trig_count_v := (-1);
+				current_addr_row_s	<= 0;
+				current_array_row_s	<= 0;
 				wc_finish_s <= '0';
+				addr_out_alu_data	<= (others => '0') ;	
+				aout_valid_alu	<= (others => '0') ;	
+				wc_finish		<= '0' ;							
+				data_to_RAM		<= (others => '0') ;
+				current_array_row	<= 0;	
 
 			elsif rising_edge(clk) then																--reset off, start writing the data					
 				if	enable = enable_polarity_g then

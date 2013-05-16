@@ -1,6 +1,6 @@
 ------------------------------------------------------------------------------------------------------------
--- File Name	:	alu_data.vhd
--- Generated	:	17.11.2012
+-- File Name	:	enable_fsm.vhd
+-- Generated	:	9.5.2013
 -- Author		:	Moran Katz and Zvika Pery
 -- Project		:	Internal Logic Analyzer
 ------------------------------------------------------------------------------------------------------------
@@ -30,19 +30,20 @@ use ieee.numeric_std.all;
 
 
 library work ;
-use work.write_controller_pkg.all;
+
 
 ------------------------------------------------------------------------------------------------------------
 entity enable_fsm is
 	GENERIC (
-		reset_polarity_g		:	std_logic	:=	'1';								--'1' reset active highe, '0' active low
-		enable_polarity_g		:	std_logic	:=	'1'								--'1' the entity is active, '0' entity not active
+		reset_polarity_g		:	std_logic	:=	'1';								--'1' reset active high, '0' active low
+		enable_polarity_g		:	std_logic	:=	'1'								--'1' the core starts working when signal high , '0' working when low
 		
 			);
 	port (			
 		clk						:	 in  std_logic;										--system clk
 		reset 					:	 in  std_logic;										--reset
-		enable					:	 in	 std_logic;										--enabling the entity. if (sytm_stst = Reset_polarity_g) -> start working, else-> do nothing	
+		enable					:	 in	 std_logic;										-- the signal is being recieved from the software. enabling the entity. 	
+		wc_finish				:	 in	 std_logic;
 		rc_finish				:	 in	 std_logic;										--'1' -> read controller finish working, '0' -> system still working
 		enable_out				:	 out std_logic										 --enable signal that sent to the core 
 		);
@@ -52,11 +53,15 @@ architecture behave of enable_fsm is
 ------------------Constants------
 
 -------------------------Types------
-type State_type is (
-	idle, wait_for_enable_rise, system_is_enable, read_controller_finish 
+type enable_states is (
+	idle,					--initial state,vriables are initialized.
+	wait_for_enable_rise,	--all the cofigurations are set, waiting for enable rise.
+	system_is_enable,		--the data is being recorded,after trigger rise and data recording is finished, waits for the rc to finish.
+	write_controller_finish,--write controller finish working, all the data have been recorded. RC start working from now
+	read_controller_finish	--rc is finished. the system stops working, waits to enable fall. 
 	);
 ------------------Signals--------------------
-signal State: State_type;
+signal State: enable_states;
 signal		enable_trig_s		: std_logic;														--replace enable in enable trig -> identify for enable rise
 signal		enable_d1_s			: std_logic;														-- delayed enable
 signal		enable_s			: std_logic;														-- enable the system
@@ -80,26 +85,18 @@ begin
 			enable_trig_s <= (enable) and (not(enable_d1_s)) ;
 			if enable_trig_s = '1' then
 				enable_s <= '1';
-			elsif ((State = read_controller_finish) and (enable_d1_s = not (enable_polarity_g)))	then
+			elsif ((State = read_controller_finish) and (enable = not (enable_polarity_g)))	then
 				enable_s <= '0';
 			end if;
 		
 			
 			case State is
-				when idle =>		-- start state. cheack reset 
-					if (reset = not(reset_polarity_g)) then
+				when idle =>		-- start state. 
 						State <= wait_for_enable_rise ;
 						enable_out <= not (enable_polarity_g);
-					else
-						State <= idle ;
-						enable_out <= not (enable_polarity_g);
-					end if;
-				
+									
 				when wait_for_enable_rise =>		-- waiting for WC to detect trigger rise
-					if reset = reset_polarity_g then
-						State <= idle ;
-						enable_out <= not (enable_polarity_g);
-					elsif enable_s = '1' then		--check if signal "enable_s" is '1' to enable the system
+					if enable_s = '1' then		--check if signal "enable_s" is '1' to enable the system
 						State <= system_is_enable ;
 						enable_out <=  (enable_polarity_g);
 					else
@@ -108,22 +105,25 @@ begin
 					end if;
 				
 				when system_is_enable =>
-					if reset = reset_polarity_g then
-						State <= idle ;
-						enable_out <= not (enable_polarity_g);
-					elsif rc_finish = '1' then
-						State <= read_controller_finish ;
+					if wc_finish = '1' then
+						State <= write_controller_finish ;
 						enable_out <= not (enable_polarity_g);
 					else	
 						State <= system_is_enable ;
 						enable_out <=  (enable_polarity_g);
 					end if;
-					
-				when read_controller_finish =>
-					if reset = reset_polarity_g then
-						State <= idle ;
+				
+				when write_controller_finish =>
+					if rc_finish = '1' then
+						State <= read_controller_finish ;
 						enable_out <= not (enable_polarity_g);
-					elsif (enable_s = '0') then
+					else
+						State <= write_controller_finish ;
+						enable_out <= not (enable_polarity_g);
+					end if;
+				
+				when read_controller_finish =>
+					if (enable =  not (enable_polarity_g)) then
 						State <= idle ;
 						enable_out <= not (enable_polarity_g);
 					else
