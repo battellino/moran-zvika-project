@@ -63,7 +63,8 @@ component write_controller
 		trigger						:	in	std_logic;											--trigger signal
 		data_in						:	in	std_logic_vector ( num_of_signals_g -1 downto 0);	--data in. comming from user
 		rc_finish					:	in  std_logic;											--'1' -> read controller finish working, '0' -> system still working
-		wc_to_rc_out_wc				:	out std_logic_vector ((2 * signal_ram_depth_g ) - 1 downto 0);	--start and end addr of data needed to output. send to RC
+		start_addr_out				:	out std_logic_vector( signal_ram_depth_g -1 downto 0 );	--the start addr of the data that we need to send out to the user. send now to RC
+		end_addr_out				:	out std_logic_vector( signal_ram_depth_g -1 downto 0 );	--the end addr of the data that we need to send out to the user. send now to RC
 		data_out_of_wc				:	out std_logic_vector ( num_of_signals_g -1  downto 0);		--sending the data  to be saved in the RAM. 
 		addr_out_to_RAM				:	out std_logic_vector( signal_ram_depth_g -1 downto 0);		--the addr in the RAM to save the data
 		write_controller_finish		:	out std_logic;											--'1' ->WC has finish working and saving all the relevant data (RC will start work), '0' ->WC is still working
@@ -87,15 +88,15 @@ signal trigger			: std_logic := '0';
 signal data_in						:std_logic_vector ( num_of_signals_g -1 downto 0) := (others => '0');	--data in. comming from user
 signal wc_to_rc_out_wc				:	 std_logic_vector ((2 * signal_ram_depth_g ) - 1 downto 0) := (others => '0');	--start and end addr of data needed to output. send to RC													--Output address is valid
 signal data_out_of_wc				:	std_logic_vector ( num_of_signals_g -1  downto 0) := (others => '0');		--sending the data to be saved in the RAM. 
-
 signal write_controller_finish		:	 std_logic := '0';	
 signal addr_out_to_RAM				:	 std_logic_vector( signal_ram_depth_g -1 downto 0) := (others => '0');		--the addr in the RAM to save the data
-signal start_array_row_out:	 integer range 0 to up_case(2**record_depth_g , (2**signal_ram_depth_g)) := 0;	--send with the addr to the RC
+signal start_array_row_out		:	 integer range 0 to up_case(2**record_depth_g , (2**signal_ram_depth_g)) := 0;	--send with the addr to the RC
+signal end_array_row_out		:  integer range 0 to up_case(2**record_depth_g , (2**signal_ram_depth_g)) := 0	;	--send with the addr to the RC
+signal aout_valid				:  std_logic_vector( up_case(2**record_depth_g , (2**signal_ram_depth_g)) -1  downto 0	):=(others => '0');	--send to the RAM. each time we enable entire row at the RAM array		
+signal rc_finish				:	 std_logic := '0';		
+signal start_addr_out			:	 std_logic_vector( signal_ram_depth_g -1 downto 0 ) := (others => '0');	--the start addr of the data that we need to send out to the user. send now to RC
+signal end_addr_out				:	 std_logic_vector( signal_ram_depth_g -1 downto 0 )	:= (others => '0');;	--the end addr of the data that we need to send out to the user. send now to RC
 
-signal end_array_row_out:  integer range 0 to up_case(2**record_depth_g , (2**signal_ram_depth_g)) := 0	;	--send with the addr to the RC
-
-signal aout_valid	:  std_logic_vector( up_case(2**record_depth_g , (2**signal_ram_depth_g)) -1  downto 0	):=(others => '0');	--send to the RAM. each time we enable entire row at the RAM array		
-signal rc_finish	:	 std_logic := '0';		
 												--Output data valid
 
 --Internal Signals
@@ -124,7 +125,8 @@ write_controller_inst : write_controller generic map (
 								trigger => trigger,
 								data_in		=> data_in,		
 								rc_finish	=> rc_finish,
-								wc_to_rc_out_wc	=> wc_to_rc_out_wc,	
+								start_addr_out	=> start_addr_out,
+								end_addr_out	=> end_addr_out,								
 								data_out_of_wc	=> data_out_of_wc,	
 								addr_out_to_RAM	=> addr_out_to_RAM,
 								write_controller_finish	=> write_controller_finish,
@@ -134,20 +136,20 @@ write_controller_inst : write_controller generic map (
 								);
 
 clk_proc : 
-	clk <= not clk after 50 ps;
+	clk <= not clk after 50 ns;
 	
 res_proc :
-	reset <= reset_polarity_g, not reset_polarity_g after 130 ps;
+	reset <= reset_polarity_g, not reset_polarity_g after 130 ns;
 	
 en_proc :
-	enable <= not enable_polarity_g, enable_polarity_g after 230 ps;
+	enable <= not enable_polarity_g, enable_polarity_g after 230 ns;
 
 	------
 rc_finish_proc	:
-	rc_finish	<= '0' , '1' after 1700 ps, '0' after 2000 ps;
+	rc_finish	<= '0' , '1' after 1700 ns, '0' after 2000 ns;
 	
 trigg_proc :
-	trigger <= '0', '1' after 1000 ps;
+	trigger <= '0', '1' after 1000 ns;
 
 trigg_pos_proc :	
 --	trigger_position_in <= "01100100" ;		--100

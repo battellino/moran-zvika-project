@@ -72,8 +72,8 @@ entity alu_trigger is
 		current_array_row_in		:	in 	integer range 0 to up_case(2**record_depth_g , (2**signal_ram_depth_g) ); --the RAM array line which the trigger came from.
 		trigger_found				:	out std_logic	;										-- 1  we found the trigger, 0 we have not
 		trigger_to_alu_data			:	out std_logic	;										-- 1  we found the trigger, 0 we have not
-		wc_to_rc					:	out std_logic_vector( 2 * (signal_ram_depth_g) -1 downto 0 );	--the start and end addr of the data that we need to send out to the user
-																								-- 0-add_width-1 => end addr, add_width-2add_width-1 => start addr					
+		start_addr_out				:	out std_logic_vector( signal_ram_depth_g -1 downto 0 );	--the start addr of the data that we need to send out to the user
+		end_addr_out				:	out std_logic_vector( signal_ram_depth_g -1 downto 0 );	--the end addr of the data that we need to send out to the user
 		start_array_row_out			:	out integer range 0 to up_case(2**record_depth_g , 2**signal_ram_depth_g);	--send with the addr to the RC
 		end_array_row_out			:	out integer range 0 to up_case(2**record_depth_g , 2**signal_ram_depth_g)	;	--send with the addr to the RC
 		work_trig_count_out			:	out integer range 0 to (2**signal_ram_depth_g) * up_case(2**record_depth_g , (2**signal_ram_depth_g))	--how many cycles we continue after trigg found
@@ -110,15 +110,15 @@ begin
 		begin												
 			if  reset = Reset_polarity_g then 														--reset is on
 				--reseting all the variables						
-	
 				trigger_found_v 		:= '0'  ;
 				time_since_trig_rise_v := 0;
 				rise_trig_counter_v := 0;
 				rows_to_shift_s <=	0	;
---				time_since_trig_rise_s	<=	0	;
---				trigger_found	<= 	'0';
---				trigger_to_alu_data	<= 	'0';
---				rise_trig_counter_s <= (-1)	;
+				time_since_trig_rise_s	<=	0	;
+				trigger_found	<= 	'0';
+				trigger_to_alu_data	<= 	'0';
+				rise_trig_counter_s <= (-1)	;
+				work_trig_count_out		<=	0	;
 			elsif rising_edge(clk) then																--reset off, 					
 					--check if trigger was rised in previous cycle
 					rows_to_shift_s <=	(to_integer( unsigned( trigger_position(7 downto 0))) * total_number_of_rows_c) / 100	;
@@ -220,8 +220,7 @@ begin
 		
 		begin
 			if	reset = Reset_polarity_g then													--enabling the entity
-				--reseting all the variables						
-					wc_to_rc	<=	(others => '0') ;	
+				--reseting all the variables							
 					start_addr := 0;
 					start_array_row_out_v := 0;
 					end_array_row_out_v := 0;
@@ -230,6 +229,8 @@ begin
 					end_addr_in_single_ram_v := 0;
 					start_array_row_out <= 0;
 					end_array_row_out	<=	0;
+					start_addr_out			<=	(others => '0') ;
+					end_addr_out			<=	(others => '0') ;
 		--			first_cycle_s <= (1);
 			elsif rising_edge(clk)  then									--clk rise and trigger found
 				if  enable = enable_polarity_g then 															--reset is off
@@ -279,8 +280,8 @@ begin
 			----------------------------update all the outputs---------------------------------------
 			start_array_row_out <= start_array_row_out_v;
 			end_array_row_out	<=	end_array_row_out_v;
-			wc_to_rc(2 * (signal_ram_depth_g) -1 downto (signal_ram_depth_g))	<= std_logic_vector(to_unsigned(start_addr_in_single_ram_v, signal_ram_depth_g));
-			wc_to_rc( (signal_ram_depth_g) -1 downto 0)	<= std_logic_vector(to_unsigned(end_addr_in_single_ram_v, signal_ram_depth_g));	
+			start_addr_out(2 * (signal_ram_depth_g) -1 downto (signal_ram_depth_g))	<= std_logic_vector(to_unsigned(start_addr_in_single_ram_v, signal_ram_depth_g));
+			end_addr_out( (signal_ram_depth_g) -1 downto 0)	<= std_logic_vector(to_unsigned(end_addr_in_single_ram_v, signal_ram_depth_g));	
 			
 			
 			end if;

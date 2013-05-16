@@ -50,7 +50,8 @@ entity write_controller is
 		trigger						:	in	std_logic;											--trigger signal
 		data_in						:	in	std_logic_vector ( num_of_signals_g -1 downto 0);	--data in. comming from user
 		rc_finish					:	in  std_logic;											--'1' -> read controller finish working, '0' -> system still working
-		wc_to_rc_out_wc				:	out std_logic_vector ((2 * signal_ram_depth_g ) - 1 downto 0);	--start and end addr of data needed to output. send to RC
+		start_addr_out				:	out std_logic_vector( signal_ram_depth_g -1 downto 0 );	--the start addr of the data that we need to send out to the user. send now to RC
+		end_addr_out				:	out std_logic_vector( signal_ram_depth_g -1 downto 0 );	--the end addr of the data that we need to send out to the user. send now to RC
 		data_out_of_wc				:	out std_logic_vector ( num_of_signals_g -1  downto 0);		--sending the data  to be saved in the RAM. 
 		addr_out_to_RAM				:	out std_logic_vector( signal_ram_depth_g -1 downto 0);		--the addr in the RAM to save the data
 		write_controller_finish		:	out std_logic;											--'1' ->WC has finish working and saving all the relevant data (RC will start work), '0' ->WC is still working
@@ -118,8 +119,8 @@ component alu_trigger
 		addr_in_alu_trigger			:	in  std_logic_vector( signal_ram_depth_g -1 downto 0);		--the addr in the RAM whice the trigger came
 		current_array_row_in		:	in 	integer range 0 to up_case(2**record_depth_g , (2**signal_ram_depth_g) ); --the RAM array line which the trigger came from. come from ALU_data
 		trigger_to_alu_data			:	out std_logic	;
-		wc_to_rc					:	out std_logic_vector( 2 * signal_ram_depth_g -1 downto 0 );	--the start and end addr of the data that we need to send out to the user
-																								-- 0-add_width-1 => end addr, add_width-2add_width-1 => start addr					
+		start_addr_out				:	out std_logic_vector( signal_ram_depth_g -1 downto 0 );	--the start addr of the data that we need to send out to the user. send now to RC
+		end_addr_out				:	out std_logic_vector( signal_ram_depth_g -1 downto 0 );	--the end addr of the data that we need to send out to the user. send now to RC
 		start_array_row_out			:	out integer range 0 to up_case(2**record_depth_g , (2**signal_ram_depth_g));	--send with the addr to the RC
 		end_array_row_out			:	out integer range 0 to up_case(2**record_depth_g , (2**signal_ram_depth_g));		--send with the addr to the RC
 		work_trig_count_out			:	out integer range 0 to (2**signal_ram_depth_g) * up_case(2**record_depth_g , (2**signal_ram_depth_g))
@@ -232,7 +233,8 @@ begin
 									end_array_row_out		=>	end_array_row_out,
 									start_array_row_out		=>	start_array_row_out,
 									trigger_to_alu_data 	=> trig_to_alu,
-									wc_to_rc				=>	wc_to_rc_out_wc,
+									start_addr_out			=>	start_addr_out,
+									end_addr_out			=>	end_addr_out,
 									work_trig_count_out		=> count
 									);
 					
