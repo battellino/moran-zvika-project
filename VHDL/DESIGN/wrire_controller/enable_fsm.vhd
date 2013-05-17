@@ -5,32 +5,22 @@
 -- Project		:	Internal Logic Analyzer
 ------------------------------------------------------------------------------------------------------------
 -- Description: 
---				calculate the address in the RAM of the current data.
---				take the incomimg data and separate it to the correct RAMs with the correct addr 
---				
+--				State Machine for enabling write controller.
+--				detarmen when to enable te WC. 
+--				RC enable is through WC_finish signal
 --				
 --				
 ------------------------------------------------------------------------------------------------------------
 -- Revision:
 --			Number		Date		Name							Description			
---			1.00		17.11.2012	Zvika Pery						Creation			
+--			1.00		9.5.2013	Moran Katz						Creation			
 ------------------------------------------------------------------------------------------------------------
 --	Todo:
---		
---		
---		now the two prosseses of puting the data and advancing the addr are happening in the same time, what we do first?
 --		
 --		
 ------------------------------------------------------------------------------------------------------------
 library ieee ;
 use ieee.std_logic_1164.all ;
-use ieee.std_logic_unsigned.all;
-use ieee.std_logic_signed.all;
-use ieee.numeric_std.all;
-
-
-library work ;
-
 
 ------------------------------------------------------------------------------------------------------------
 entity enable_fsm is
@@ -64,39 +54,29 @@ type enable_states is (
 signal State: enable_states;
 signal		enable_trig_s		: std_logic;														--replace enable in enable trig -> identify for enable rise
 signal		enable_d1_s			: std_logic;														-- delayed enable
-signal		enable_s			: std_logic;														-- enable the system
 
 ------------------	Processes	----------------
 
 begin
-	
-		
-						
+							
 	State_machine: process (clk, reset)
 	begin
 		if reset = reset_polarity_g then
 			State <= idle;
 			enable_d1_s <= '0';
 			enable_trig_s <= '0';
-			enable_s <= '0';
 			enable_out <= not (enable_polarity_g);
 		elsif rising_edge(clk) then
 			enable_d1_s <= enable;
 			enable_trig_s <= (enable) and (not(enable_d1_s)) ;
-			if enable_trig_s = '1' then
-				enable_s <= '1';
-			elsif ((State = read_controller_finish) and (enable = not (enable_polarity_g)))	then
-				enable_s <= '0';
-			end if;
-		
-			
+						
 			case State is
 				when idle =>		-- start state. 
 						State <= wait_for_enable_rise ;
 						enable_out <= not (enable_polarity_g);
 									
 				when wait_for_enable_rise =>		-- waiting for WC to detect trigger rise
-					if enable_s = '1' then		--check if signal "enable_s" is '1' to enable the system
+					if enable_trig_s = '1' then		--check if enable_trigger has rised => meaning that enable rise
 						State <= system_is_enable ;
 						enable_out <=  (enable_polarity_g);
 					else
@@ -110,7 +90,7 @@ begin
 						enable_out <= not (enable_polarity_g);
 					else	
 						State <= system_is_enable ;
-						enable_out <=  (enable_polarity_g);
+						enable_out <=  enable_polarity_g;
 					end if;
 				
 				when write_controller_finish =>
@@ -137,19 +117,5 @@ begin
 			end case;							
 		end if;		
 	end process State_machine;
-		
-			
-	
 --------------------------------------------------------------------------
-
-	
 end architecture behave;
-
-
-
-
-
-
-
-
-
