@@ -1,0 +1,7 @@
+vcom write_controller_pkg.vhd
+vcom alu_data.vhd
+vcom alu_trigger.vhd
+vcom demux.vhd
+vcom bit_mux.vhd
+vcom enable_fsm.vhd
+vcom write_controller.vhd
