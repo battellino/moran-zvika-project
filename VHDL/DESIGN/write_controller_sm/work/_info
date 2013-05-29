@@ -1,0 +1,613 @@
+m255
+K3
+13
+cModel Technology
+Z0 dC:\Documents and Settings\user\My Documents\Dropbox\project\VHDL\DESIGN\write_controller
+Ealu_data
+Z1 w1368728481
+Z2 DPx4 work 20 write_controller_pkg 0 22 jaV1o5lSKM@I`gc0d91kY2
+Z3 DPx4 ieee 11 numeric_std 0 22 k7B<7GmYYYmX;0X]XHFD10
+Z4 DPx4 ieee 16 std_logic_signed 0 22 E>OLoMaBGQ?hbGgOoNXM^1
+Z5 DPx4 ieee 15 std_logic_arith 0 22 4`Y?g_lkdn;7UL9IiJck01
+Z6 DPx4 ieee 18 std_logic_unsigned 0 22 RYmj;=TK`k=k>D@Cz`zoB3
+Z7 DPx3 std 6 textio 0 22 G^o2zK;Vh4eVdKTVo98653
+Z8 DPx4 ieee 14 std_logic_1164 0 22 5=aWaoGZSMWIcH0i^f`XF1
+Z9 dC:\Documents and Settings\user\My Documents\Dropbox\project\VHDL\DESIGN\write_controller
+Z10 8alu_data.vhd
+Z11 Falu_data.vhd
+l0
+L36
+Vz1Gj_<TTRjj;en>g[`iTX1
+Z12 OV;C;10.0d;49
+32
+Z13 !s108 1369152289.984000
+Z14 !s90 -reportprogress|300|alu_data.vhd|
+Z15 !s107 alu_data.vhd|
+o-O0
+Z16 tExplicit 1 NoCoverage 1
+!s100 A7?:SoOG;L?LX]kEE6hlo2
+Abehave
+R2
+R3
+R4
+R5
+R6
+R7
+R8
+DEx4 work 8 alu_data 0 22 z1Gj_<TTRjj;en>g[`iTX1
+l75
+L61
+V84jdjEPe?^dEA4_fSOi[n3
+R12
+32
+R13
+R14
+R15
+o-O0
+R16
+!s100 >HFX=:IU8=YDRB9:2le^P0
+Ealu_trigger
+Z17 w1369144881
+R5
+R6
+R2
+R3
+R7
+R8
+R9
+Z18 8alu_trigger.vhd
+Z19 Falu_trigger.vhd
+l0
+L55
+VK19UQc>8>hC<]GDf8ETWk0
+R12
+32
+Z20 !s108 1369152290.343000
+Z21 !s90 -reportprogress|300|alu_trigger.vhd|
+Z22 !s107 alu_trigger.vhd|
+o-O0
+R16
+!s100 E37K9XIWDQKiTNV?I8XJz1
+Abehave
+R5
+R6
+R2
+R3
+R7
+R8
+DEx4 work 11 alu_trigger 0 22 K19UQc>8>hC<]GDf8ETWk0
+l102
+L82
+VJEc6_YM51H^AA>PmoJfj:2
+R12
+32
+R20
+R21
+R22
+o-O0
+R16
+!s100 0?Lm^8nKRWd[g7]Mln5So2
+Ebit_mux
+Z23 w1369151668
+R7
+R8
+R9
+Z24 8bit_mux.vhd
+Z25 Fbit_mux.vhd
+l0
+L28
+V3<cIM>A6>4IDOQ5ze1^Ae0
+R12
+32
+Z26 !s108 1369152291.031000
+Z27 !s90 -reportprogress|300|bit_mux.vhd|
+Z28 !s107 bit_mux.vhd|
+o-O0
+R16
+!s100 geUd5B>V4bQjdLZf8A=OY3
+Abehave
+R7
+R8
+DEx4 work 7 bit_mux 0 22 3<cIM>A6>4IDOQ5ze1^Ae0
+l39
+L38
+VkO]VdGizLKTDXz`?Ok1I]1
+R12
+32
+R26
+R27
+R28
+o-O0
+R16
+!s100 2H5dO3;iVR09;_<dkl89j2
+Echeck
+Z29 w1356222839
+Z30 DPx4 work 20 write_controller_pkg 0 22 aP[I9EG@Y8z;z[^Tdi1n=2
+R3
+R4
+R5
+R6
+R7
+R8
+R9
+Z31 8C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/write_controller/check_upcase.vhd
+Z32 FC:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/write_controller/check_upcase.vhd
+l0
+L14
+V;OWb]R6Sd`F4mizCAg@Z?2
+R12
+32
+Z33 !s108 1356223144.343000
+Z34 !s90 -reportprogress|300|-work|work|C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/write_controller/check_upcase.vhd|
+Z35 !s107 C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/write_controller/check_upcase.vhd|
+Z36 o-work work -O0
+R16
+!s100 `JUZ51LV@fdVBNZ;hagST3
+Abehave
+R30
+R3
+R4
+R5
+R6
+R7
+R8
+DEx4 work 5 check 0 22 ;OWb]R6Sd`F4mizCAg@Z?2
+l35
+L23
+Vc<CQeY6dUn7QL62nTX;5g0
+R12
+32
+R33
+R34
+R35
+R36
+R16
+!s100 2M70MDAF<@1YCQk?[kN`B3
+Echeck_upcase
+Z37 w1356223541
+R30
+R3
+R4
+R5
+R6
+R7
+R8
+R9
+R31
+R32
+l0
+L14
+Vafe?U4VKdjk_1Pc[<Y8Ej3
+R12
+32
+Z38 !s108 1356224677.312000
+R34
+R35
+R36
+R16
+!s100 hP<]EdCWJ?U]gDKWi9QUz2
+Abehave
+R30
+R3
+R4
+R5
+R6
+R7
+R8
+DEx4 work 12 check_upcase 0 22 afe?U4VKdjk_1Pc[<Y8Ej3
+l30
+L26
+V=1AnlC6T:9kOh8IfOUOZW1
+R12
+32
+R38
+R34
+R35
+R36
+R16
+!s100 [HS]?9a6J;HB?^Y6<YggX2
+Ecore_registers
+Z39 w1368187312
+R5
+R6
+R7
+R8
+R9
+Z40 8core_registers.vhd
+Z41 Fcore_registers.vhd
+l0
+L31
+V0FC59NnjMcmSGJ<B2_e4F0
+R12
+32
+Z42 !s108 1368204060.625000
+Z43 !s90 -reportprogress|300|core_registers.vhd|
+Z44 !s107 core_registers.vhd|
+o-O0
+R16
+!s100 CXak3J_@I_`BBF@g=RV><3
+Abehave
+R5
+R6
+R7
+R8
+DEx4 work 14 core_registers 0 22 0FC59NnjMcmSGJ<B2_e4F0
+l86
+L62
+VR9aD?S@[_kg7UV?_lRP;m3
+R12
+32
+R42
+R43
+R44
+o-O0
+R16
+!s100 iUKbe3I^a65z:hlgR7PZ[3
+Ecore_registers_tb
+Z45 w1368203430
+R6
+R2
+R3
+Z46 DPx8 synopsys 10 attributes 0 22 Fb?eGzjff51Ud2l4[U_732
+Z47 DPx4 ieee 14 std_logic_misc 0 22 10=1C[Hafn:kggH?^M@3X2
+R5
+R4
+R7
+R8
+R9
+Z48 8core_registers_tb.vhd
+Z49 Fcore_registers_tb.vhd
+l0
+L28
+VXEO61iel=S_nN_I>0CFkZ1
+R12
+32
+Z50 !s108 1368204060.875000
+Z51 !s90 -reportprogress|300|core_registers_tb.vhd|
+Z52 !s107 core_registers_tb.vhd|
+o-O0
+R16
+!s100 RA;;efK2BZf>og6z6HoLd3
+Aarc_core_registers_tb
+R6
+R2
+R3
+R46
+R47
+R5
+R4
+R7
+R8
+DEx4 work 17 core_registers_tb 0 22 XEO61iel=S_nN_I>0CFkZ1
+l93
+L43
+VS;MNSfhJdd0nUmS[D4`zn2
+R12
+32
+R50
+R51
+R52
+o-O0
+R16
+!s100 V^CN9BA1L>=GMQ<3^[8AA3
+Edmux
+Z53 w1367854176
+R5
+R6
+R7
+R8
+R9
+Z54 8demux.vhd
+Z55 Fdemux.vhd
+l0
+L28
+V=4o[5UEU1l:nl_NdDiT]O0
+R12
+32
+Z56 !s108 1369152290.781000
+Z57 !s90 -reportprogress|300|demux.vhd|
+Z58 !s107 demux.vhd|
+o-O0
+R16
+!s100 9]P6C0^9S^aEf9V0<k2hf0
+Abehave
+R5
+R6
+R7
+R8
+DEx4 work 4 dmux 0 22 =4o[5UEU1l:nl_NdDiT]O0
+l41
+L40
+VJR_FSoejW9jjk;5<hKAMO0
+R12
+32
+R56
+R57
+R58
+o-O0
+R16
+!s100 IBBM92fDSRV>C=IFlD;Fk0
+Eenable_fsm
+Z59 w1368796399
+R7
+R8
+R9
+Z60 8C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/write_controller/enable_fsm.vhd
+Z61 FC:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/write_controller/enable_fsm.vhd
+l0
+L26
+V@_:k?Ph1`>o@d?YT7G_mP1
+R12
+32
+Z62 !s108 1369673763.374000
+Z63 !s90 -reportprogress|300|-work|work|C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/write_controller/enable_fsm.vhd|
+Z64 !s107 C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/write_controller/enable_fsm.vhd|
+R36
+Z65 tExplicit 1
+!s100 IZ@QnQekcg9]`iiiaC4=g2
+Abehave
+R7
+R8
+DEx4 work 10 enable_fsm 0 22 @_:k?Ph1`>o@d?YT7G_mP1
+l60
+L42
+VYeBgBW@;baz?_QjBV093J0
+R12
+32
+R62
+R63
+R64
+R36
+R65
+!s100 8Q[G5D9Pof`4TZ@d<PEWz0
+Eread_controller
+Z66 w1352488750
+R46
+R47
+R5
+R4
+R7
+R8
+R9
+Z67 8C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/read_controller/read_controller.vhd
+Z68 FC:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/read_controller/read_controller.vhd
+l0
+L43
+VBhHV339:MSS0cbCfM@7>^0
+R12
+32
+Z69 !s108 1354013069.921000
+Z70 !s90 -reportprogress|300|-work|work|C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/read_controller/read_controller.vhd|
+Z71 !s107 C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/read_controller/read_controller.vhd|
+R36
+R65
+!s100 BlOZ3WZznAUXFD4VFT?I92
+Abehave
+R46
+R47
+R5
+R4
+R7
+R8
+DEx4 work 15 read_controller 0 22 BhHV339:MSS0cbCfM@7>^0
+l143
+L64
+VYZ[;LmREF7bNYbH=Z6ahA0
+R12
+32
+R69
+R70
+R71
+R36
+R65
+!s100 R4z84;mc_L]UhX6fm7dh71
+Ewb_slave
+Z72 w1353653240
+R5
+R6
+R7
+R8
+R9
+Z73 8C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/write_controller/wb_slave.vhd
+Z74 FC:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/write_controller/wb_slave.vhd
+l0
+L30
+V0@`mmY>aRTZkzT9Q6lz:f1
+R12
+32
+Z75 !s108 1357592959.750000
+Z76 !s90 -reportprogress|300|-work|work|C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/write_controller/wb_slave.vhd|
+Z77 !s107 C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/write_controller/wb_slave.vhd|
+R36
+R65
+!s100 eLeg2hN5BMeK<A3TV?N=V2
+Aarc_wb_slave
+R5
+R6
+R7
+R8
+DEx4 work 8 wb_slave 0 22 0@`mmY>aRTZkzT9Q6lz:f1
+l73
+L67
+V::;d2ORVHWW2WelJ?;l333
+R12
+32
+R75
+R76
+R77
+R36
+R65
+!s100 M<i]d]i:nfaDXjKRQ2XXN3
+Abehave
+R30
+R3
+R4
+R5
+R6
+R7
+R8
+DEx4 work 8 wb_slave 0 22 XJSJ=j0kQA44BdP<;8QT[1
+l78
+L72
+VIPd92C<@ZZFJ>YIOWHNJ@1
+R12
+32
+R76
+R36
+R16
+w1357408788
+R77
+!s108 1357515168.458000
+!s100 4@I>0QYJ0OEa80e;J802@2
+Ewc_cr_tb
+w1368210030
+R6
+R2
+R3
+R46
+R47
+R5
+R4
+R7
+R8
+R9
+8C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/write_controller/wc_cr_tb.vhd
+FC:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/write_controller/wc_cr_tb.vhd
+l0
+L30
+V=AVXH@WGP6I]3>U44[Z4e1
+R12
+32
+R36
+R16
+!s100 _?H^7DUJ2h:^=R>TA2Q?M0
+!s108 1368210040.015000
+!s90 -reportprogress|300|-work|work|C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/write_controller/wc_cr_tb.vhd|
+!s107 C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/write_controller/wc_cr_tb.vhd|
+Ewrite_controller
+Z78 w1369674046
+R5
+R6
+R30
+R3
+R7
+R8
+R9
+Z79 8C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/write_controller/write_controller.vhd
+Z80 FC:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/write_controller/write_controller.vhd
+l0
+L31
+Vf7aBP`D45[9k9fk>Gd^mF3
+R12
+32
+Z81 !s108 1369815846.109000
+Z82 !s90 -reportprogress|300|-work|work|C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/write_controller/write_controller.vhd|
+Z83 !s107 C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/write_controller/write_controller.vhd|
+R36
+R16
+!s100 d_T3253]MP[0_779fPZ320
+Abehave
+R5
+R6
+R30
+R3
+R7
+R8
+DEx4 work 16 write_controller 0 22 f7aBP`D45[9k9fk>Gd^mF3
+l98
+L63
+V6HXlIT05D@56`oRd6]JBn2
+R12
+32
+R81
+R82
+R83
+R36
+R16
+!s100 fJTLNa1b>FKc>65D=4iQD1
+Pwrite_controller_pkg
+R5
+R6
+R7
+R8
+Z84 w1368659134
+R9
+Z85 8C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/write_controller/write_controller_pkg.vhd
+Z86 FC:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/write_controller/write_controller_pkg.vhd
+l0
+L27
+VaP[I9EG@Y8z;z[^Tdi1n=2
+R12
+32
+b1
+Z87 !s108 1369815843.531000
+Z88 !s90 -reportprogress|300|-work|work|C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/write_controller/write_controller_pkg.vhd|
+Z89 !s107 C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/write_controller/write_controller_pkg.vhd|
+R36
+R16
+!s100 fcfLW?9:K49L_PNQ8fGdR3
+Bbody
+R30
+R5
+R6
+R7
+R8
+l0
+L65
+VU5?h?WJN9Oj24D3WoHeGW1
+R12
+32
+R87
+R88
+R89
+R36
+R16
+nbody
+!s100 Q5jnLWDCbglU0]CHRol;23
+Ewrite_controller_tb
+Z90 w1369815900
+R6
+R30
+R3
+R46
+R47
+R5
+R4
+R7
+R8
+R9
+Z91 8C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/write_controller/write_controller_tb.vhd
+Z92 FC:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/write_controller/write_controller_tb.vhd
+l0
+L28
+VT65jeb_gf9EJXNVOdh1Qk2
+!s100 LGa955jOE7zId7aYO[>E11
+R12
+32
+Z93 !s108 1369815906.984000
+Z94 !s90 -reportprogress|300|-work|work|C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/write_controller/write_controller_tb.vhd|
+Z95 !s107 C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/write_controller/write_controller_tb.vhd|
+R36
+R16
+Aarc_write_controller_tb
+R6
+R30
+R3
+R46
+R47
+R5
+R4
+R7
+R8
+DEx4 work 19 write_controller_tb 0 22 T65jeb_gf9EJXNVOdh1Qk2
+l97
+L43
+V@MSCcn7edX=UCfnfj>nJV2
+!s100 mzDU=lWNm<QYm8N6_]3iz0
+R12
+32
+R93
+R94
+R95
+R36
+R16

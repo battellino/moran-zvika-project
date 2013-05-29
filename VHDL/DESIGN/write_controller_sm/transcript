@@ -1,0 +1,126 @@
+# Reading C:/altera/12.0/modelsim_ase/tcl/vsim/pref.tcl 
+# OpenFile {C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/write_controller/write_controller_pkg.vhd} 
+#  
+vcom -reportprogress 300 -work work {C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/write_controller/write_controller.vhd}
+# Model Technology ModelSim ALTERA vcom 10.0d Compiler 2012.01 Jan 18 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Loading package write_controller_pkg
+# -- Compiling entity write_controller
+# -- Compiling architecture behave of write_controller
+vcom -reportprogress 300 -work work {C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/write_controller/write_controller_tb.vhd}
+# Model Technology ModelSim ALTERA vcom 10.0d Compiler 2012.01 Jan 18 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_SIGNED
+# -- Loading package ATTRIBUTES
+# -- Loading package std_logic_misc
+# -- Loading package NUMERIC_STD
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Loading package write_controller_pkg
+# -- Compiling entity write_controller_tb
+# -- Compiling architecture arc_write_controller_tb of write_controller_tb
+# ** Error: C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/write_controller/write_controller_tb.vhd(156): near "100": expecting ';'
+# ** Error: C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/write_controller/write_controller_tb.vhd(159): near "250": expecting ';'
+# ** Error: C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/write_controller/write_controller_tb.vhd(162): VHDL Compiler exiting
+vcom -reportprogress 300 -work work {C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/write_controller/write_controller_pkg.vhd}
+# Model Technology ModelSim ALTERA vcom 10.0d Compiler 2012.01 Jan 18 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Compiling package write_controller_pkg
+# -- Compiling package body write_controller_pkg
+# -- Loading package write_controller_pkg
+vcom -reportprogress 300 -work work {C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/write_controller/write_controller.vhd}
+# Model Technology ModelSim ALTERA vcom 10.0d Compiler 2012.01 Jan 18 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Loading package write_controller_pkg
+# -- Compiling entity write_controller
+# -- Compiling architecture behave of write_controller
+vcom -reportprogress 300 -work work {C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/write_controller/write_controller_tb.vhd}
+# Model Technology ModelSim ALTERA vcom 10.0d Compiler 2012.01 Jan 18 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_SIGNED
+# -- Loading package ATTRIBUTES
+# -- Loading package std_logic_misc
+# -- Loading package NUMERIC_STD
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Loading package write_controller_pkg
+# -- Compiling entity write_controller_tb
+# -- Compiling architecture arc_write_controller_tb of write_controller_tb
+# ** Error: C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/write_controller/write_controller_tb.vhd(159): near "250": expecting ';'
+# ** Error: C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/write_controller/write_controller_tb.vhd(162): VHDL Compiler exiting
+vcom -reportprogress 300 -work work {C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/write_controller/write_controller_tb.vhd}
+# Model Technology ModelSim ALTERA vcom 10.0d Compiler 2012.01 Jan 18 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_SIGNED
+# -- Loading package ATTRIBUTES
+# -- Loading package std_logic_misc
+# -- Loading package NUMERIC_STD
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Loading package write_controller_pkg
+# -- Compiling entity write_controller_tb
+# -- Compiling architecture arc_write_controller_tb of write_controller_tb
+vsim write_controller_tb
+# vsim write_controller_tb 
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.std_logic_arith(body)
+# Loading ieee.std_logic_signed(body)
+# Loading synopsys.attributes
+# Loading ieee.std_logic_misc(body)
+# Loading ieee.numeric_std(body)
+# Loading ieee.std_logic_unsigned(body)
+# Loading work.write_controller_pkg(body)
+# Loading work.write_controller_tb(arc_write_controller_tb)
+# Loading work.write_controller(behave)
+run 3000 ns
+run 3000 ns
+run 3000 ns
+quit -sim
+vsim write_controller_tb
+# vsim write_controller_tb 
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.std_logic_arith(body)
+# Loading ieee.std_logic_signed(body)
+# Loading synopsys.attributes
+# Loading ieee.std_logic_misc(body)
+# Loading ieee.numeric_std(body)
+# Loading ieee.std_logic_unsigned(body)
+# Loading work.write_controller_pkg(body)
+# Loading work.write_controller_tb(arc_write_controller_tb)
+# Loading work.write_controller(behave)
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+quit -sim
+quit
