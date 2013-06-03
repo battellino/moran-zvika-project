@@ -27,7 +27,7 @@ use work.write_controller_pkg.all;
 
 entity write_controller_tb is
 	generic (
-				read_loop_iter_g	:	positive	:= 20;									--Number of iterations
+				read_loop_iter_g	:	positive	:= 100;									--Number of iterations
 				
 			reset_polarity_g		:	std_logic	:=	'1';								--'1' reset active highe, '0' active low
 			enable_polarity_g		:	std_logic	:=	'1';								--'1' the entity is active, '0' entity not active
@@ -129,10 +129,10 @@ clk_proc :
 	clk <= not clk after 50 ns;
 	
 res_proc :
-	reset <= reset_polarity_g, not reset_polarity_g after 230 ns;
+	reset <= reset_polarity_g, not reset_polarity_g after 120 ns;
 	
 en_proc :
-	enable <= not enable_polarity_g, enable_polarity_g after 430 ns;
+	enable <= not enable_polarity_g, enable_polarity_g after 220 ns;
 
 trigg_pos_proc :	
 --	trigger_position_in <= "01100100" ;		--100
@@ -144,18 +144,23 @@ trigg_type_proc :
 
 trigg_proc :
 	trigger <= '0', '1' after 1000 ns;
+
+valid_proc	:
+	data_in_valid	<= '0';
+	trigger_in_valid	<= '0';
+	wait 400 ns;
+	data_in_valid	<= '1';
+	trigger_in_valid	<= '1';
+	wait 100 ns;
 	
 data_proc : process 
 	begin
 		for idx in 0 to read_loop_iter_g  - 1 loop
 			wait until rising_edge(clk);
 			data_in 	<= std_logic_vector (to_unsigned(idx, num_of_signals_g )); 	--Input data 
-			data_in_valid <= '1';
-			trigger_in_valid <= '1';
+			wait 500 ns;
 		end loop;
 		wait;
-		data_in_valid <= '0';
-		trigger_in_valid <= '0';
 	end process data_proc;
 
 end architecture arc_write_controller_tb;
