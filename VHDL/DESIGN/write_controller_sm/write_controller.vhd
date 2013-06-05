@@ -101,9 +101,10 @@ begin
 							
 	State_machine: process (clk, reset)
 	
-	variable	start_addr_as_int_v				: 	integer range 0 to 2 * total_number_of_rows_c := 0;		--saving the address as integer for easy calculations
-	variable	trigger_address_as_int_v		: 	integer range 0 to total_number_of_rows_c := 0;		--saving the address as integer for easy calculations
-	variable	start_ram_row_v					:	integer range 0 to number_of_ram_c 			  := 0;
+	variable	start_addr_as_int_v				: 	integer range 0 to 2 * total_number_of_rows_c ;		--saving the address as integer for easy calculations
+	variable	trigger_address_as_int_v		: 	integer range 0 to total_number_of_rows_c ;		--saving the address as integer for easy calculations
+	variable	start_ram_row_v					:	integer range 0 to number_of_ram_c ;
+	variable	rows_to_shift_v					:	integer range 0 to total_number_of_rows_c;		--how many addresses we need to shift from trigger rise to get the start address
 	
 	begin
 		if reset = reset_polarity_g then
@@ -127,9 +128,17 @@ begin
 			all_data_rec_count_s		<= 0;
 			trigger_address_s 			<= (others => '0') ;
 			trigger_row_s 				<= 0 ;
+			start_addr_as_int_v			:= 0 ;
+			trigger_address_as_int_v	:= 0 ;
+			start_ram_row_v				:= 0 ;
+			rows_to_shift_v				:= 0 ;
 			
 		elsif rising_edge(clk) then
-						
+			start_addr_as_int_v			:= 0 ;
+			trigger_address_as_int_v	:= 0 ;
+			start_ram_row_v				:= 0 ;
+			rows_to_shift_v				:= 0 ;
+			
 			case State is
 				when idle =>		-- start state. 
 						State <= set_configurations ;
@@ -159,82 +168,86 @@ begin
 					end if;
 					
 				when check_for_trigger_rise =>
+					if trigger_found_s = '0' then
 					--checking if trigger needs to be rise
-					case  trigger_type_s(2 downto 0) is				--notice between the different types of triggers
-						
-						when "000" 	=>					--trig define as rise!! (not one)
-							if current_trigger_s = '0' then			--for trigger rise, we need at first that trigger will be low
-								trigger_counter_s	<= 1 ;
-								State <= send_out_data_and_addr ;
-							elsif (trigger_counter_s = 1) and (current_trigger_s = '1') then		--we found rise. (prev trigger was 0 and now its 1)
-								trigger_counter_s	<= 0 ;
-								trigger_found_s 	<= '1' ;
-								trigger_address_s 	<= current_address_s ;
-								trigger_row_s 		<= current_row_s ;
-								State <= send_out_data_and_addr ; 
-							else
-								trigger_counter_s	<= 0 ;
-								State <= send_out_data_and_addr ; 
-							end if;
-						
-						when "001"	=>					--trig define as fall
-							if current_trigger_s = '1' then			--for trigger fall, we need at first that trigger will be high
-								trigger_counter_s	<= 1 ;
-								State <= send_out_data_and_addr ;  
-							elsif (trigger_counter_s = 1) and (current_trigger_s = '0') then		--we found rise. (prev trigger was 0 and now its 1)
-								trigger_counter_s	<= 0 ;
-								trigger_found_s 	<= '1' ;
-								trigger_address_s 	<= current_address_s ;
-								trigger_row_s 		<= current_row_s ;
-								State <= send_out_data_and_addr ;
-							else
-								trigger_counter_s	<= 0 ;
-								State <= send_out_data_and_addr ;
-							end if;
-						
-						when "010"	=>					--trig define as three times high
-							if current_trigger_s = '1' then
-								if trigger_counter_s = 2 then		--trigger is now high and was high in the last two cycles
+						case  trigger_type_s(2 downto 0) is				--notice between the different types of triggers
+							
+							when "000" 	=>					--trig define as rise!! (not one)
+								if current_trigger_s = '0' then			--for trigger rise, we need at first that trigger will be low
+									trigger_counter_s	<= 1 ;
+									State <= send_out_data_and_addr ;
+								elsif (trigger_counter_s = 1) and (current_trigger_s = '1') then		--we found rise. (prev trigger was 0 and now its 1)
+									trigger_counter_s	<= 0 ;
+									trigger_found_s 	<= '1' ;
+									trigger_address_s 	<= current_address_s ;
+									trigger_row_s 		<= current_row_s ;
+									State <= send_out_data_and_addr ; 
+								else
+									trigger_counter_s	<= 0 ;
+									State <= send_out_data_and_addr ; 
+								end if;
+							
+							when "001"	=>					--trig define as fall
+								if current_trigger_s = '1' then			--for trigger fall, we need at first that trigger will be high
+									trigger_counter_s	<= 1 ;
+									State <= send_out_data_and_addr ;  
+								elsif (trigger_counter_s = 1) and (current_trigger_s = '0') then		--we found rise. (prev trigger was 0 and now its 1)
 									trigger_counter_s	<= 0 ;
 									trigger_found_s 	<= '1' ;
 									trigger_address_s 	<= current_address_s ;
 									trigger_row_s 		<= current_row_s ;
 									State <= send_out_data_and_addr ;
-								else								--trigger is high but not 3 times sequential
-									trigger_counter_s	<= trigger_counter_s + 1 ;
-									State <= send_out_data_and_addr ;
-								end if;
-							else									--trigger low, reset trigger counter
-								trigger_counter_s	<= 0 ;
-								State <= send_out_data_and_addr ;
-							end if;
-							
-						when "011"	=>				--trig define as three times low
-							if current_trigger_s = '0' then
-								if trigger_counter_s = 2 then		--trigger is now low and was low in the last two cycles
+								else
 									trigger_counter_s	<= 0 ;
-									trigger_found_s 	<= '1' ;
-									trigger_address_s 	<= current_address_s ;
-									trigger_row_s 		<= current_row_s ;
-									State <= send_out_data_and_addr ;
-								else								--trigger is low but not 3 times sequential 
-									trigger_counter_s	<= trigger_counter_s + 1 ;
 									State <= send_out_data_and_addr ;
 								end if;
-							else									--trigger high, reset trigger counter
+							
+							when "010"	=>					--trig define as three times high
+								if current_trigger_s = '1' then
+									if trigger_counter_s = 2 then		--trigger is now high and was high in the last two cycles
+										trigger_counter_s	<= 0 ;
+										trigger_found_s 	<= '1' ;
+										trigger_address_s 	<= current_address_s ;
+										trigger_row_s 		<= current_row_s ;
+										State <= send_out_data_and_addr ;
+									else								--trigger is high but not 3 times sequential
+										trigger_counter_s	<= trigger_counter_s + 1 ;
+										State <= send_out_data_and_addr ;
+									end if;
+								else									--trigger low, reset trigger counter
+									trigger_counter_s	<= 0 ;
+									State <= send_out_data_and_addr ;
+								end if;
+								
+							when "011"	=>				--trig define as three times low
+								if current_trigger_s = '0' then
+									if trigger_counter_s = 2 then		--trigger is now low and was low in the last two cycles
+										trigger_counter_s	<= 0 ;
+										trigger_found_s 	<= '1' ;
+										trigger_address_s 	<= current_address_s ;
+										trigger_row_s 		<= current_row_s ;
+										State <= send_out_data_and_addr ;
+									else								--trigger is low but not 3 times sequential 
+										trigger_counter_s	<= trigger_counter_s + 1 ;
+										State <= send_out_data_and_addr ;
+									end if;
+								else									--trigger high, reset trigger counter
+									trigger_counter_s	<= 0 ;
+									State <= send_out_data_and_addr ;
+								end if;
+								
+							when "100"	=>								--special trigger, not relevant to us now
 								trigger_counter_s	<= 0 ;
 								State <= send_out_data_and_addr ;
-							end if;
 							
-						when "100"	=>								--special trigger, not relevant to us now
-							trigger_counter_s	<= 0 ;
-							State <= send_out_data_and_addr ;
+							when others =>								--not valid!! 
+								trigger_counter_s	<= 0 ;
+								State <= send_out_data_and_addr ;
 						
-						when others =>								--not valid!! 
-							trigger_counter_s	<= 0 ;
-							State <= send_out_data_and_addr ;
-					
-					end case;
+						end case;
+					else				--trigger_found = 1, dont check for another trigger
+						State <= send_out_data_and_addr ;
+					end if;
 					
 				when send_out_data_and_addr =>
 					data_out_of_wc <= data_in ;
@@ -280,15 +293,16 @@ begin
 					
 				when send_start_addr_to_rc =>
 				
+					rows_to_shift_v := total_number_of_rows_c - (total_number_of_rows_c *  to_integer( unsigned( trigger_position_in(7 downto 0) ) ) ) / 100 ;
 					trigger_address_as_int_v := trigger_row_s * (2**signal_ram_depth_g) + to_integer( unsigned( trigger_address_s)) ;
-					start_addr_as_int_v := trigger_address_as_int_v + total_number_of_rows_c * ( to_integer( unsigned( trigger_position_in(7 downto 0))) / 100 ) ;
+					start_addr_as_int_v := trigger_address_as_int_v + rows_to_shift_v ;
 					
-					if start_addr_as_int_v > total_number_of_rows_c then
-						start_addr_as_int_v := start_addr_as_int_v - total_number_of_rows_c ;
+					if ( (start_addr_as_int_v) > (total_number_of_rows_c - 1 ) ) then
+						start_addr_as_int_v := start_addr_as_int_v - total_number_of_rows_c ;					--make a cyclec addresses
 					end if;
 					
-					start_ram_row_v := up_case( start_addr_as_int_v + 1, 2**signal_ram_depth_g ) - 1 ;	--calc the ram row of the address send to the RC
-					start_addr_as_int_v := start_addr_as_int_v - start_ram_row_v * (2**signal_ram_depth_g) ; --start address in single ram (as integer)
+					start_ram_row_v := up_case( start_addr_as_int_v + 1, 2**signal_ram_depth_g ) - 1 ;			--calc the ram row of the address send to the RC
+					start_addr_as_int_v := start_addr_as_int_v - start_ram_row_v * (2**signal_ram_depth_g) ; 	--start address in single ram (as integer)
 					
 					start_addr_out <= std_logic_vector(to_unsigned(start_addr_as_int_v, signal_ram_depth_g));
 					start_array_row_out <= start_ram_row_v ; 

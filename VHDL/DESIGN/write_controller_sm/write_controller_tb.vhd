@@ -33,7 +33,7 @@ entity write_controller_tb is
 			enable_polarity_g		:	std_logic	:=	'1';								--'1' the entity is active, '0' entity not active
 			signal_ram_depth_g		: 	positive  	:=	3;									--depth of RAM
 			signal_ram_width_g		:	positive 	:=  8;   								--width of basic RAM
-			record_depth_g			: 	positive  	:=	5;									--number of bits that is recorded from each signal
+			record_depth_g			: 	positive  	:=	4;									--number of bits that is recorded from each signal
 			data_width_g            :	positive 	:= 	8;      						    -- defines the width of the data lines of the system 
 			Add_width_g  		    :   positive 	:=  8;     								--width of addr word in the RAM
 			num_of_signals_g		:	positive	:=	8									--num of signals that will be recorded simultaneously
@@ -93,6 +93,10 @@ signal din_valid					:	 std_logic_vector( up_case(2**record_depth_g , (2**signal
 signal data_in_valid				:		std_logic := '0';
 signal trigger_in_valid				:		std_logic := '0';
 
+----------- CONSTANTS-------------
+
+
+
 -------------------  Implementation ----------------------------
 begin
 
@@ -129,36 +133,40 @@ clk_proc :
 	clk <= not clk after 50 ns;
 	
 res_proc :
-	reset <= reset_polarity_g, not reset_polarity_g after 120 ns;
+	reset <= reset_polarity_g, not reset_polarity_g after 120 ns, reset_polarity_g after 430 ns, not reset_polarity_g after 600 ns;
 	
 en_proc :
 	enable <= not enable_polarity_g, enable_polarity_g after 220 ns;
 
 trigg_pos_proc :	
 --	trigger_position_in <= "01100100" ;		--100
-	trigger_position_in <= "00000000" ;		--0
---	trigger_position_in <= "00110010" ;		--50
+--	trigger_position_in <= "00000000" ;		--0
+	trigger_position_in <= "00110010" ;		--50
+--	trigger_position_in <= "00011001" ;		--25
 	
 trigg_type_proc :	
-	trigger_type_in <= "00000000" ;
+	trigger_type_in <= "00000001" ;
 
 trigg_proc :
-	trigger <= '0', '1' after 1000 ns;
-
-valid_proc	:
+--	trigger <= '0', '1' after 11000 ns; --good
+	trigger <= '0','1' after 1300 ns, '0' after 10000 ns, '1' after 11000 ns, '0' after 13000 ns, '1' after 15000 ns;	--problem whit start_row_out
+	
+valid_proc	: process
+begin 
 	data_in_valid	<= '0';
 	trigger_in_valid	<= '0';
-	wait 400 ns;
+	wait for 400 ns;
 	data_in_valid	<= '1';
 	trigger_in_valid	<= '1';
-	wait 100 ns;
-	
+	wait for 100 ns ;
+end process valid_proc;
+
 data_proc : process 
 	begin
 		for idx in 0 to read_loop_iter_g  - 1 loop
 			wait until rising_edge(clk);
 			data_in 	<= std_logic_vector (to_unsigned(idx, num_of_signals_g )); 	--Input data 
-			wait 500 ns;
+			wait for 500 ns;
 		end loop;
 		wait;
 	end process data_proc;
