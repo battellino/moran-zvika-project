@@ -27,7 +27,7 @@ use work.write_controller_pkg.all;
 
 entity write_controller_tb is
 	generic (
-				read_loop_iter_g	:	positive	:= 100;									--Number of iterations
+				read_loop_iter_g	:	positive	:= 150;									--Number of iterations
 				
 			reset_polarity_g		:	std_logic	:=	'1';								--'1' reset active highe, '0' active low
 			enable_polarity_g		:	std_logic	:=	'1';								--'1' the entity is active, '0' entity not active
@@ -68,30 +68,27 @@ component write_controller
 		din_valid					:	out std_logic_vector( up_case(2**record_depth_g , (2**signal_ram_depth_g)) -1  downto 0	);	--send to the RAM. each time we enable entire row at the RAM array		
 ---------whishbone signals----------------------------					
 		data_in						:	in	std_logic_vector ( num_of_signals_g -1 downto 0);	--data in. comming from user
-		trigger						:	in	std_logic;											--trigger signal
-		data_in_valid				:	in	std_logic;											--1-> data in is valid, 0-> data not valid
-		trigger_in_valid			:	in	std_logic											--1-> trigger in is valid, 0->  trigger not valid
+		trigger						:	in	std_logic											--trigger signal
+		
 	);	
 end component write_controller;
 
 ----------------------   Signals   ------------------------------
 
 
-signal clk							: std_logic := '0';													--System clock
-signal reset						: std_logic := '0';	
-signal enable						: std_logic := '0';													--System Reset
-signal trigger_position_in 			:  std_logic_vector(  data_width_g -1 downto 0	) := (others => '0'); 	--Input address
-signal trigger_type_in				:std_logic_vector(  data_width_g -1 downto 0	) := (others => '0'); 		--Output address
-signal trigger						: std_logic := '0';	
-signal data_in						:std_logic_vector ( num_of_signals_g -1 downto 0) := (others => '0');	--data in. comming from user
+signal clk							: 	std_logic := '0';													--System clock
+signal reset						: 	std_logic := '0';	
+signal enable						:	std_logic := '0';													--System Reset
+signal trigger_position_in 			:  	std_logic_vector(  data_width_g -1 downto 0	) := (others => '0'); 	--Input address
+signal trigger_type_in				:	std_logic_vector(  data_width_g -1 downto 0	) := (others => '0'); 		--Output address
+signal trigger						: 	std_logic := '0';	
+signal data_in						:	std_logic_vector ( num_of_signals_g -1 downto 0) := (others => '0');	--data in. comming from user
 signal data_out_of_wc				:	std_logic_vector ( num_of_signals_g -1  downto 0) := (others => '0');		--sending the data to be saved in the RAM. 
-signal write_controller_finish		:	 std_logic := '0';	
-signal addr_out_to_RAM				:	 std_logic_vector( signal_ram_depth_g -1 downto 0) := (others => '0');		--the addr in the RAM to save the data
-signal start_array_row_out			:	 integer range 0 to up_case(2**record_depth_g , (2**signal_ram_depth_g)) := 0;	--send with the addr to the RC
-signal start_addr_out				:	 std_logic_vector( signal_ram_depth_g -1 downto 0 ) := (others => '0');	--the start addr of the data that we need to send out to the user. send now to RC
-signal din_valid					:	 std_logic_vector( up_case(2**record_depth_g , (2**signal_ram_depth_g)) -1  downto 0	) :=(others => '0') ;
-signal data_in_valid				:		std_logic := '0';
-signal trigger_in_valid				:		std_logic := '0';
+signal write_controller_finish		:	std_logic := '0';	
+signal addr_out_to_RAM				:	std_logic_vector( signal_ram_depth_g -1 downto 0) := (others => '0');		--the addr in the RAM to save the data
+signal start_array_row_out			:	integer range 0 to up_case(2**record_depth_g , (2**signal_ram_depth_g)) := 0;	--send with the addr to the RC
+signal start_addr_out				:	std_logic_vector( signal_ram_depth_g -1 downto 0 ) := (others => '0');	--the start addr of the data that we need to send out to the user. send now to RC
+signal din_valid					:	std_logic_vector( up_case(2**record_depth_g , (2**signal_ram_depth_g)) -1  downto 0	) :=(others => '0') ;
 
 ----------- CONSTANTS-------------
 
@@ -124,49 +121,39 @@ write_controller_inst : write_controller generic map (
 								addr_out_to_RAM	=> addr_out_to_RAM,
 								write_controller_finish	=> write_controller_finish,
 								start_array_row_out	=> start_array_row_out,
-								din_valid	=> din_valid,
-								data_in_valid => data_in_valid,
-								trigger_in_valid => trigger_in_valid
+								din_valid	=> din_valid
 								);
 
 clk_proc : 
 	clk <= not clk after 50 ns;
 	
 res_proc :
-	reset <= reset_polarity_g, not reset_polarity_g after 120 ns, reset_polarity_g after 430 ns, not reset_polarity_g after 600 ns;
+--	reset <= reset_polarity_g, not reset_polarity_g after 120 ns, reset_polarity_g after 5500 ns, not reset_polarity_g after 6000 ns;
+	reset <= reset_polarity_g, not reset_polarity_g after 120 ns ;
 	
 en_proc :
-	enable <= not enable_polarity_g, enable_polarity_g after 220 ns;
+	enable <= not enable_polarity_g, enable_polarity_g after 220 ns,not enable_polarity_g after 15000 ns , enable_polarity_g after 18000 ns;
 
 trigg_pos_proc :	
 --	trigger_position_in <= "01100100" ;		--100
---	trigger_position_in <= "00000000" ;		--0
-	trigger_position_in <= "00110010" ;		--50
+--	trigger_position_in <= "00000000" ;		--0				simulation 1
+	trigger_position_in <= "00110010" ;		--50			simulation 2
 --	trigger_position_in <= "00011001" ;		--25
 	
 trigg_type_proc :	
-	trigger_type_in <= "00000001" ;
+--	trigger_type_in <= "00000001" ;				--fall
+--	trigger_type_in <= "00000000" ;				--rise						simulation 1
+	trigger_type_in <= "00000010" ;				--hige						simulation 2
 
 trigg_proc :
---	trigger <= '0', '1' after 11000 ns; --good
-	trigger <= '0','1' after 1300 ns, '0' after 10000 ns, '1' after 11000 ns, '0' after 13000 ns, '1' after 15000 ns;	--problem whit start_row_out
-	
-valid_proc	: process
-begin 
-	data_in_valid	<= '0';
-	trigger_in_valid	<= '0';
-	wait for 400 ns;
-	data_in_valid	<= '1';
-	trigger_in_valid	<= '1';
-	wait for 100 ns ;
-end process valid_proc;
+--	trigger <= '0', '1' after 10000 ns; 	--				simulation 1
+	trigger <= '0','1' after 9800 ns, '0' after 10000 ns, '1' after 11000 ns, '0' after 13000 ns, '1' after 15000 ns;	--	simulation 2
 
 data_proc : process 
 	begin
 		for idx in 0 to read_loop_iter_g  - 1 loop
 			wait until rising_edge(clk);
 			data_in 	<= std_logic_vector (to_unsigned(idx, num_of_signals_g )); 	--Input data 
-			wait for 500 ns;
 		end loop;
 		wait;
 	end process data_proc;
