@@ -66,10 +66,10 @@ begin
 -----------------------------------------------------------------
 -- Machine: State
 -----------------------------------------------------------------
-	State_machine: process (ck, reset)
+	State_machine: process (clk, reset)
 	begin
 		if reset = '1' then
-			State <= S1;
+			State <= idle;
 		elsif rising_edge(clk) then
 			
 			case State is
