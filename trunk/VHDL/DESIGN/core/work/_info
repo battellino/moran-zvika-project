@@ -42,23 +42,60 @@ R13
 R14
 R15
 !s100 9C_;[Cd=z?9c>P5hePF5N2
-Edec_generic
-Z16 w1339159494
+Ecore_registers
+Z16 w1376311327
 R3
 Z17 DPx4 ieee 18 std_logic_unsigned 0 22 RYmj;=TK`k=k>D@Cz`zoB3
 R5
 R6
 R7
-Z18 8C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/dec_generic.vhd
-Z19 FC:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/dec_generic.vhd
+Z18 8C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/core_registers.vhd
+Z19 FC:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/core_registers.vhd
+l0
+L31
+V9f=YIA^no?OA:G>726e;P1
+R10
+32
+Z20 !s108 1376311462.125000
+Z21 !s90 -reportprogress|300|-work|work|C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/core_registers.vhd|
+Z22 !s107 C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/core_registers.vhd|
+R14
+R15
+!s100 Q^2`J>d?lHPkK8icfm8=<1
+Abehave
+R3
+R17
+R5
+R6
+DEx4 work 14 core_registers 0 22 9f=YIA^no?OA:G>726e;P1
+l86
+L62
+VNVnP@J]_YEI3@@P2J`o`;1
+R10
+32
+R20
+R21
+R22
+R14
+R15
+!s100 UTZ;all0VLo[hW`gQ?K8h0
+Edec_generic
+Z23 w1339159494
+R3
+R17
+R5
+R6
+R7
+Z24 8C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/dec_generic.vhd
+Z25 FC:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/dec_generic.vhd
 l0
 L59
 VeQcBaXaJDEN1LhC^XN]FH1
 R10
 32
-Z20 !s108 1372105169.906000
-Z21 !s90 -reportprogress|300|-work|work|C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/dec_generic.vhd|
-Z22 !s107 C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/dec_generic.vhd|
+Z26 !s108 1375834792.656000
+Z27 !s90 -reportprogress|300|-work|work|C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/dec_generic.vhd|
+Z28 !s107 C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/dec_generic.vhd|
 R14
 R15
 !s100 Z[a:RC7j_<DS7XCh3SSZ:2
@@ -73,35 +110,35 @@ L70
 VP>_TS51IWzQ:bSQIemcRC0
 R10
 32
-R20
-R21
-R22
+R26
+R27
+R28
 R14
 R15
 !s100 J_R8d5=]>l[]MIBT2eH]22
 Egeneric_ram_tb
-Z23 w1339160642
-R2
+Z29 w1339160642
+Z30 DPx4 work 15 ram_generic_pkg 0 22 Gf@HPfVbWji=?dU1>jN9h1
 R3
 R4
 R5
 R6
 R7
-Z24 8C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/generic_ram_tb.vhd
-Z25 FC:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/generic_ram_tb.vhd
+Z31 8C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/generic_ram_tb.vhd
+Z32 FC:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/generic_ram_tb.vhd
 l0
 L26
 VzCm`ST;J>[AX0OUK33COF2
 R10
 32
-Z26 !s108 1372105170.203000
-Z27 !s90 -reportprogress|300|-work|work|C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/generic_ram_tb.vhd|
-Z28 !s107 C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/generic_ram_tb.vhd|
+Z33 !s108 1375834793.109000
+Z34 !s90 -reportprogress|300|-work|work|C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/generic_ram_tb.vhd|
+Z35 !s107 C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/generic_ram_tb.vhd|
 R14
 R15
 !s100 PGJB4?eE[D42GNOPkbo5Y3
 Aarc_generic_ram_tb
-R2
+R30
 R3
 R4
 R5
@@ -112,29 +149,173 @@ L38
 VFJk:8]UBSVckPHkeMADga0
 R10
 32
-R26
-R27
-R28
+R33
+R34
+R35
 R14
 R15
 !s100 `MF^l9iP:j4^5>^72Wm?22
+Einternal_logic_analyzer_core_top
+Z36 w1375834935
+R2
+R3
+R4
+R5
+R6
+R7
+Z37 8C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/internal_logic_analyzer_core_top.vhd
+Z38 FC:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/internal_logic_analyzer_core_top.vhd
+l0
+L29
+VMWfCE;YFC<c?UimQFX3F50
+R10
+32
+Z39 !s108 1375834939.234000
+Z40 !s90 -reportprogress|300|-work|work|C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/internal_logic_analyzer_core_top.vhd|
+Z41 !s107 C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/internal_logic_analyzer_core_top.vhd|
+R14
+R15
+!s100 @ozE?B7XgQ:BL0QZ`LiL;1
+Aarc_core
+R2
+R3
+R4
+R5
+R6
+DEx4 work 32 internal_logic_analyzer_core_top 0 22 MWfCE;YFC<c?UimQFX3F50
+l164
+L57
+VTgPU=?EX>cKm]j]1A]WUh1
+R10
+32
+R39
+R40
+R41
+R14
+R15
+!s100 <7hHRN0nFH:MhLjV1@JA30
+Einternal_logic_analyzer_core_top_tb
+Z42 w1373641133
+R30
+Z43 DPx4 ieee 11 numeric_std 0 22 k7B<7GmYYYmX;0X]XHFD10
+Z44 DPx8 synopsys 10 attributes 0 22 Fb?eGzjff51Ud2l4[U_732
+Z45 DPx4 ieee 14 std_logic_misc 0 22 10=1C[Hafn:kggH?^M@3X2
+R3
+R4
+R5
+R6
+R7
+Z46 8internal_logic_analyzer_core_top_tb.vhd
+Z47 Finternal_logic_analyzer_core_top_tb.vhd
+l0
+L30
+VQI6bdM^>IokRh0aD=a4eJ1
+R10
+32
+Z48 !s108 1373641146.234000
+Z49 !s90 -reportprogress|300|internal_logic_analyzer_core_top_tb.vhd|
+Z50 !s107 internal_logic_analyzer_core_top_tb.vhd|
+o-O0
+R15
+!s100 HR<jf2@=daTMIf`jbV9>43
+Aarc_internal_logic_analyzer_core_top_tb
+R30
+R43
+R44
+R45
+R3
+R4
+R5
+R6
+DEx4 work 35 internal_logic_analyzer_core_top_tb 0 22 QI6bdM^>IokRh0aD=a4eJ1
+l100
+L49
+V42019WG<k6>Oe:A?LRYW]3
+R10
+32
+R48
+R49
+R50
+o-O0
+R15
+!s100 mWR[oOF:]=JcG2_8Km>OC1
+Einternal_logic_ananlyzer_core_top
+Z51 w1373499605
+R2
+R3
+R4
+R5
+R6
+R7
+Z52 8C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/internal_logic_ananlyzer_core_top.vhd
+Z53 FC:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/internal_logic_ananlyzer_core_top.vhd
+l0
+L29
+VjI=EILM0NKVP=@0DlW_OK2
+R10
+32
+Z54 !s108 1373499702.500000
+Z55 !s90 -reportprogress|300|-work|work|C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/internal_logic_ananlyzer_core_top.vhd|
+Z56 !s107 C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/internal_logic_ananlyzer_core_top.vhd|
+R14
+R15
+!s100 ek5c8LC7]5hJIh`EJK1L_0
+Aarc_core
+R2
+R3
+R4
+R5
+R6
+DEx4 work 33 internal_logic_ananlyzer_core_top 0 22 jI=EILM0NKVP=@0DlW_OK2
+l135
+L58
+VC]][VP9]oSKO3>gVh4nom2
+R10
+32
+R54
+R55
+R56
+R14
+R15
+!s100 nnZXKnOhgHhVT<[?>lI3M2
+Einternal_logic_ananlyzer_core_top_tb
+w1373499866
+R2
+R3
+R4
+R5
+R6
+R7
+8C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/internal_logic_ananlyzer_core_top_tb.vhd
+FC:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/internal_logic_ananlyzer_core_top_tb.vhd
+l0
+L29
+VCf>nGcVdHY6B:kC]CMz8=1
+R10
+32
+R14
+R15
+!s90 -reportprogress|300|-work|work|C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/internal_logic_ananlyzer_core_top_tb.vhd|
+!s107 C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/internal_logic_ananlyzer_core_top_tb.vhd|
+!s100 C0Mla`:YLVJk<=zKn5jb<3
+!s108 1373499880.421000
 Emux_generic
-R16
+R23
 R3
 R17
 R5
 R6
 R7
-Z29 8C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/mux_generic.vhd
-Z30 FC:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/mux_generic.vhd
+Z57 8C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/mux_generic.vhd
+Z58 FC:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/mux_generic.vhd
 l0
 L47
 Vmd:8XLc>EzFl^30hG[ae02
 R10
 32
-Z31 !s108 1372105170.562000
-Z32 !s90 -reportprogress|300|-work|work|C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/mux_generic.vhd|
-Z33 !s107 C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/mux_generic.vhd|
+Z59 !s108 1375834793.718000
+Z60 !s90 -reportprogress|300|-work|work|C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/mux_generic.vhd|
+Z61 !s107 C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/mux_generic.vhd|
 R14
 R15
 !s100 g`nnC<LlE]gKCHmGP2lR@0
@@ -149,39 +330,39 @@ L59
 VigYUb6d:M40<j^De`9mZf0
 R10
 32
-R31
-R32
-R33
+R59
+R60
+R61
 R14
 R15
 !s100 GhXYU6^=om6D1783DZibQ2
 Eram_generic
-R16
-R2
-Z34 DPx8 synopsys 10 attributes 0 22 Fb?eGzjff51Ud2l4[U_732
-Z35 DPx4 ieee 14 std_logic_misc 0 22 10=1C[Hafn:kggH?^M@3X2
+Z62 w1373639502
+R30
+R44
+R45
 R3
 R4
 R5
 R6
 R7
-Z36 8C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/ram_generic.vhd
-Z37 FC:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/ram_generic.vhd
+Z63 8C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/ram_generic.vhd
+Z64 FC:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/ram_generic.vhd
 l0
 L59
 VJ@2<SL]SP=]WWd3V2SP4X1
 R10
 32
-Z38 !s108 1372105171.125000
-Z39 !s90 -reportprogress|300|-work|work|C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/ram_generic.vhd|
-Z40 !s107 C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/ram_generic.vhd|
+Z65 !s108 1375834794.078000
+Z66 !s90 -reportprogress|300|-work|work|C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/ram_generic.vhd|
+Z67 !s107 C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/ram_generic.vhd|
 R14
 R15
 !s100 3Wb824AOYaBd>1Dd`S?=z3
 Artl_ram_generic
-R2
-R34
-R35
+R30
+R44
+R45
 R3
 R4
 R5
@@ -189,33 +370,33 @@ R6
 DEx4 work 11 ram_generic 0 22 J@2<SL]SP=]WWd3V2SP4X1
 l142
 L80
-V]kf[XzRE<`lDF4]9m^SBB0
+VgBKNOEM2bE9I@i_]gNOCh2
 R10
 32
-R38
-R39
-R40
+R65
+R66
+R67
 R14
 R15
-!s100 7Lbe6UH7>ac4DK@`?hiL32
+!s100 0Ef13i2F21K3lo_>z^mF90
 Pram_generic_pkg
 R3
 R4
 R5
 R6
-R16
+R23
 R7
-Z41 8C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/ram_generic_pkg.vhd
-Z42 FC:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/ram_generic_pkg.vhd
+Z68 8C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/ram_generic_pkg.vhd
+Z69 FC:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/ram_generic_pkg.vhd
 l0
 L23
 VAzA>^k6b00O]EQe26GbkW1
 R10
 32
 b1
-Z43 !s108 1372105171.562000
-Z44 !s90 -reportprogress|300|-work|work|C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/ram_generic_pkg.vhd|
-Z45 !s107 C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/ram_generic_pkg.vhd|
+Z70 !s108 1375834794.765000
+Z71 !s90 -reportprogress|300|-work|work|C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/ram_generic_pkg.vhd|
+Z72 !s107 C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/ram_generic_pkg.vhd|
 R14
 R15
 !s100 Pn<1QgoHNS=O8o8H>XFmH2
@@ -230,29 +411,29 @@ L41
 Vz1Hko;BBfFZf6z<X417PW3
 R10
 32
-R43
-R44
-R45
+R70
+R71
+R72
 R14
 R15
 nbody
 !s100 b:SECfBED?l1MHz5I2EPK3
 Eram_simple
-R16
+Z73 w1373639512
 R3
 R5
 R6
 R7
-Z46 8C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/ram_simple.vhd
-Z47 FC:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/ram_simple.vhd
+Z74 8C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/ram_simple.vhd
+Z75 FC:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/ram_simple.vhd
 l0
 L45
 VKH4Q`zJ`:hnmRE8[KhaI<0
 R10
 32
-Z48 !s108 1372105171.875000
-Z49 !s90 -reportprogress|300|-work|work|C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/ram_simple.vhd|
-Z50 !s107 C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/ram_simple.vhd|
+Z76 !s108 1375834795.171000
+Z77 !s90 -reportprogress|300|-work|work|C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/ram_simple.vhd|
+Z78 !s107 C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/ram_simple.vhd|
 R14
 R15
 !s100 1N0J2=RY_z;BEJSIBZo8@0
@@ -266,29 +447,70 @@ L64
 VXkOTQ4kH8Ia0P54aVE[]o0
 R10
 32
-R48
-R49
-R50
+R76
+R77
+R78
 R14
 R15
 !s100 aP:P5Mm;^L^GRHW=??F6_3
+Eread_controller
+Z79 w1375831794
+R3
+R4
+R2
+R43
+R5
+R6
+R7
+Z80 8C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/read_controller.vhd
+Z81 FC:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/read_controller.vhd
+l0
+L36
+Vbl5_Xo]Fhn_fkzYj8F:`]2
+!s100 PK8C4KO3M^g;ER5o1P:gm0
+R10
+32
+Z82 !s108 1376313919.890000
+Z83 !s90 -reportprogress|300|-work|work|C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/read_controller.vhd|
+Z84 !s107 C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/read_controller.vhd|
+R14
+R15
+Abehave
+R3
+R4
+R2
+R43
+R5
+R6
+Z85 DEx4 work 15 read_controller 0 22 bl5_Xo]Fhn_fkzYj8F:`]2
+l87
+L67
+Z86 VFHSiiaiN>S[BRiOQmHCMW1
+Z87 !s100 @d[A6_Mf>N82e_2>UfHW13
+R10
+32
+R82
+R83
+R84
+R14
+R15
 Ewb_slave
-Z51 w1358717249
+Z88 w1358717249
 R3
 R17
 R5
 R6
 R7
-Z52 8C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/wb_slave.vhd
-Z53 FC:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/wb_slave.vhd
+Z89 8C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/wb_slave.vhd
+Z90 FC:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/wb_slave.vhd
 l0
 L32
 VN6XRKB_>6RPE@@GbD^^Cf1
 R10
 32
-Z54 !s108 1372105172.156000
-Z55 !s90 -reportprogress|300|-work|work|C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/wb_slave.vhd|
-Z56 !s107 C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/wb_slave.vhd|
+Z91 !s108 1375834796.171000
+Z92 !s90 -reportprogress|300|-work|work|C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/wb_slave.vhd|
+Z93 !s107 C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/wb_slave.vhd|
 R14
 R15
 !s100 UdNZXYMo9bEHJL6Zf7?YG0
@@ -303,29 +525,29 @@ L69
 V::;d2ORVHWW2WelJ?;l333
 R10
 32
-R54
-R55
-R56
+R91
+R92
+R93
 R14
 R15
 !s100 ^O@VPVSeX83Wbbf5>4J2L3
 Ewishbone_master
-Z57 w1357907153
+Z94 w1357907153
 R3
 R17
 R5
 R6
 R7
-Z58 8C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/wishbone_master.vhd
-Z59 FC:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/wishbone_master.vhd
+Z95 8C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/wishbone_master.vhd
+Z96 FC:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/wishbone_master.vhd
 l0
 L28
 V]Ij59BN4CzPSIP6CcGCal0
 R10
 32
-Z60 !s108 1372105172.406000
-Z61 !s90 -reportprogress|300|-work|work|C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/wishbone_master.vhd|
-Z62 !s107 C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/wishbone_master.vhd|
+Z97 !s108 1375834796.671000
+Z98 !s90 -reportprogress|300|-work|work|C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/wishbone_master.vhd|
+Z99 !s107 C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/wishbone_master.vhd|
 R14
 R15
 !s100 4c<QfB^Wh1EnSNSG91aKn2
@@ -340,89 +562,89 @@ L74
 V7ZfVV`<UP>O[2^MC3>`7;1
 R10
 32
-R60
-R61
-R62
+R97
+R98
+R99
 R14
 R15
 !s100 0:edQfU:]KTZ@Mc`m>8MG0
 Ewrite_controller
-Z63 w1372086838
+Z100 w1372086838
 R3
 R17
-Z64 DPx4 work 20 write_controller_pkg 0 22 LeBZ1o:8o>N]meS^a[IGY3
-Z65 DPx4 ieee 11 numeric_std 0 22 k7B<7GmYYYmX;0X]XHFD10
+Z101 DPx4 work 20 write_controller_pkg 0 22 LeBZ1o:8o>N]meS^a[IGY3
+R43
 R5
 R6
 R7
-Z66 8C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/write_controller.vhd
-Z67 FC:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/write_controller.vhd
+Z102 8C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/write_controller.vhd
+Z103 FC:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/write_controller.vhd
 l0
 L31
 V;3=LBMkcW6MB=FfV3S0=62
 R10
 32
-Z68 !s108 1372105172.718000
-Z69 !s90 -reportprogress|30|-work|work|C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/write_controller.vhd|
-Z70 !s107 C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/write_controller.vhd|
+Z104 !s108 1375834798.234000
+Z105 !s90 -reportprogress|30|-work|work|C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/write_controller.vhd|
+Z106 !s107 C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/write_controller.vhd|
 R14
 R15
 !s100 00a78B55GTH<o8cYG@8:W1
 Abehave
 R3
 R17
-R64
-R65
+R101
+R43
 R5
 R6
 DEx4 work 16 write_controller 0 22 ;3=LBMkcW6MB=FfV3S0=62
 l94
 L62
 V7YLjzjIhdCPbfcobmH7^R0
-!s100 Zclf;RYX@3`o93@gY;DL<3
 R10
 32
-R68
-R69
-R70
+R104
+R105
+R106
 R14
 R15
+!s100 Zclf;RYX@3`o93@gY;DL<3
 Pwrite_controller_pkg
 R3
 R17
 R5
 R6
-Z71 w1369931363
+Z107 w1369931363
 R7
-Z72 8C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/write_controller_pkg.vhd
-Z73 FC:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/write_controller_pkg.vhd
+Z108 8C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/write_controller_pkg.vhd
+Z109 FC:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/write_controller_pkg.vhd
 l0
 L27
 VLeBZ1o:8o>N]meS^a[IGY3
-!s100 e9>A;z`S7LZ1C[LcndmAL2
 R10
 32
 b1
-Z74 !s108 1372105173.156000
-Z75 !s90 -reportprogress|30|-work|work|C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/write_controller_pkg.vhd|
-Z76 !s107 C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/write_controller_pkg.vhd|
+Z110 !s108 1375834792.125000
+Z111 !s90 -reportprogress|300|-work|work|C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/write_controller_pkg.vhd|
+Z112 !s107 C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/write_controller_pkg.vhd|
 R14
 R15
+!s100 e9>A;z`S7LZ1C[LcndmAL2
 Bbody
-R64
+R101
 R3
 R17
 R5
 R6
 l0
 L47
-Z77 V8YNQ8SoU30zELlYT]`GLb0
-Z78 !s100 J`nRRhSI5?TdGWZcPGz:h3
+V8YNQ8SoU30zELlYT]`GLb0
 R10
 32
-R74
-R75
-R76
+R110
+R111
+R112
 R14
 R15
 nbody
+!s100 J`nRRhSI5?TdGWZcPGz:h3
