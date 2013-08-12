@@ -83,7 +83,7 @@ architecture rtl_ram_generic of ram_generic is
 component ram_simple 
 	generic (
 				reset_polarity_g	:	std_logic 	:= '0';	--'0' - Active Low Reset, '1' Active High Reset
-				width_in_g			:	positive 	:= 8;	--Width of data
+				width_in_g			:	positive 	:= 7;	--Width of data
 				addr_bits_g			:	positive 	:= 10	--Depth of data	(2^10 = 1024 addresses)
 			);
 	port	(
