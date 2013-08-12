@@ -44,9 +44,19 @@ entity internal_logic_analyzer_core_top is
 	port	(
 				clk							:	in std_logic;									--System clock
 				rst							:	in std_logic;									--System Reset
-				enable						:	in std_logic;									--enabling the entity. if (enable = enable_polarity_g) -> start working, else-> do nothing
-				data_in						:	in std_logic_vector (num_of_signals_g - 1 downto 0);	--Input data
-				trigger						:	in std_logic;											--trigger signal
+--				enable						:	in std_logic;									--enabling the entity. if (enable = enable_polarity_g) -> start working, else-> do nothing
+				-- Signal Generator interface
+				data_in						:	in std_logic_vector (num_of_signals_g - 1 downto 0);	--Input data from Signal Generator
+				trigger						:	in std_logic;											--trigger signal from Signal Generator
+				-- wishbone slave interface
+				registers_address_in		: in std_logic_vector (Add_width_g -1 downto 0); 	-- reg address line
+				wr_en             			: in std_logic; 									-- write enable: '1' for write, '0' for read
+				registers_data_in  			: in std_logic_vector (data_width_g-1 downto 0); 	-- data sent from WS to registers (trigg pos, trigg type, enable, clk to start)
+				registers_valid_in 			: in std_logic; 									-- validity of the data directed from WS
+				--     data_out          		: out std_logic_vector (data_width_g-1 downto 0); -- data sent to WS
+				--     valid_data_out    		: out std_logic; -- validity of data directed to WS
+				
+				-- wishbone master interface
 				DAT_I       			    : 	in std_logic_vector (data_width_g-1 downto 0); 		--contains the data_in word
 --				addr_out					:	in std_logic_vector ((record_depth_g - power2_out_g*power_sign_g) - 1 downto 0); 		--Output address
 --				aout_valid					:	in std_logic;									--Output address is valid
@@ -136,6 +146,40 @@ component read_controller
 	);
 
 end component read_controller;
+
+component core_registers
+	generic (
+			reset_polarity_g			   		:	std_logic	:= '1';								--'1' reset active highe, '0' active low
+			data_width_g           		   		:	natural 	:= 8;         							-- the width of the data lines of the system    (width of bus)
+			Add_width_g  		   		   		:   positive	:= 8;     								--width of addr word in the WB
+			en_reg_address_g      		   		: 	natural 	:= 0;
+			trigger_type_reg_1_address_g 		: 	natural 	:= 1;
+			trigger_position_reg_2_address_g	: 	natural 	:= 2;
+			clk_to_start_reg_3_address_g 	   	: 	natural 	:= 3;
+			enable_reg_address_4_g 		   		: 	natural 	:= 4
+			);
+	port
+	(	
+	 clk			   			: in std_logic; --system clock
+     reset   		   			: in std_logic; --system reset
+     -- wishbone slave interface
+	 address_in       			: in std_logic_vector (Add_width_g -1 downto 0); -- address line
+	 wr_en            			: in std_logic; 									-- write enable: '1' for write, '0' for read
+	 data_in           			: in std_logic_vector (data_width_g-1 downto 0); -- data sent from WS
+     valid_in          			: in std_logic; 									-- validity of the data directed from WS
+--     data_out          : out std_logic_vector (data_width_g-1 downto 0); -- data sent to WS
+--     valid_data_out    : out std_logic; -- validity of data directed to WS
+     -- core blocks interface
+     en_out            			: out std_logic;						 			-- enable data sent to trigger pos, triiger type, clk to stars, enable
+     trigger_type_out_1        	: out std_logic_vector (data_width_g-1 downto 0); 	-- trigger type
+     trigger_positionout_2      : out std_logic_vector (data_width_g-1 downto 0); 	-- trigger pos
+     clk_to_start_out_3        	: out std_logic_vector (data_width_g-1 downto 0);	-- count cycles that passed since trigger rise
+     enable_out_4        		: out std_logic								  		-- enable sent by the GUI
+	
+	);
+
+end component core_registers;
+
 -----------------------------------------------------Constants--------------------------------------------------------------------------
 
 -----------------------------------------------------Types------------------------------------------------------------------------------
@@ -147,7 +191,6 @@ signal data_from_wc_to_ram_s		: std_logic_vector (width_in_g - 1 downto 0) 	:= (
 signal din_valid_s					: std_logic := '0'; 												--Input data valid
 signal trigger_position_s			: std_logic_vector( data_width_g -1 downto 0 )	:= (others => '0');
 signal trigger_type_s				: std_logic_vector( data_width_g -1 downto 0 )	:= (others => '0');
---signal data_out_s	   				: std_logic_vector (data_wcalc(width_in_g, power2_out_g, power_sign_g) - 1 downto 0) := (others => '0');	--Output data
 signal dout_valid_s					: std_logic := '0'; 												--Output data valid
 signal start_address_s				: std_logic_vector( record_depth_g -1 downto 0 ) := (others => '0');					--start addr that sent to RC
 signal write_controller_finish_s	: std_logic := '0';
@@ -157,8 +200,8 @@ signal set_config_counter_s			: integer range 0 to 2 := 0;									--use to set 
 signal data_out_s					: std_logic_vector (data_wcalc(width_in_g, power2_out_g, power_sign_g) - 1 downto 0) := (others => '0');
 signal addr_out_s					: std_logic_vector ((addr_bits_g - power2_out_g*power_sign_g) - 1 downto 0)	:= (others => '0'); 		-- RAM output address
 signal aout_valid_s					: std_logic := '0';												--RAM output address is valid
---signal reg_addr_s					: std_logic_vector( data_width_g -1 downto 0 );					--address of register to put\take the data
-
+signal clk_to_start_s				: std_logic_vector ( data_width_g -1 downto 0 )	:= (others => '0');
+signal enable_s						: std_logic	:= '0';									--enabling the entity. if (enable = enable_polarity_g) -> start working, else-> do nothing
 -------------------------------------------------  Implementation ------------------------------------------------------------
 
 begin
@@ -195,7 +238,7 @@ write_controller_inst : write_controller generic map (
 										port map (
 											clk					=> clk,
 											reset				=> rst,			
-											enable				=> enable,		
+											enable				=> enable_s,		
 											trigger_position_in	=> trigger_position_s,	
 											trigger_type_in		=> trigger_type_s	,
 											config_are_set		=> wc_is_config,
@@ -228,38 +271,38 @@ read_controller_inst : read_controller generic map (
 											aout_valid				=> aout_valid_s,
 											data_out_to_WBM			=> data_out_core	--will change after WB connected
 											);
+
+core_registers_inst : core_registers generic map (
+
+											reset_polarity_g					=>	reset_polarity_g,
+											data_width_g           		   		=>	data_width_g,
+											Add_width_g  		   		   		=>	Add_width_g,
+											en_reg_address_g      		   		=>	0,
+											trigger_type_reg_1_address_g 		=>	1,
+											trigger_position_reg_2_address_g	=>	2,
+											clk_to_start_reg_3_address_g 	   	=>	3,
+											enable_reg_address_4_g 		   		=>	4
+											)
+										port map (
+											clk						=> clk,
+											reset					=> rst,
+											------ wishbone slave interface------
+											address_in        		=> registers_address_in,
+											wr_en             		=> wr_en,
+											data_in           		=> registers_data_in,
+											valid_in          		=> registers_valid_in,
+									--     data_out          		=>
+									--     valid_data_out    		=>
+											----- core blocks interface----------
+											en_out            		=> wc_is_config,		--all registers are ready to be read from
+											trigger_type_out_1      => trigger_type_s,
+											trigger_positionout_2   => trigger_position_s,
+											clk_to_start_out_3      => clk_to_start_s,
+											enable_out_4        	=> enable_s
+											);
 											
 -------------------------------------------------  processes ------------------------------------------------------------
 						
------------------------- write controller configurations -> get trigger type + position from registers
-set_wc_config_proc	:	process	(clk, rst)
-	
-	begin
-		if rst = reset_polarity_g then				
-			trigger_position_s			<= (others => '0') ;
-			trigger_type_s				<= (others => '0') ;			
-			wc_is_config				<= '0';
-			set_config_counter_s		<= 0;
-			
-		elsif rising_edge(clk)  then				
-			if  wc_is_config = '0' then
-				if set_config_counter_s = 0 then	--first cycle, set trigg_pos register address
-							----- connect registers!!!!
-				--reg_addr <= trigger_position_addr
-				set_config_counter_s <= 1;
-				elsif set_config_counter_s = 1 then	--second cycle, get trigg_pos from register output and set trigg_type register address
-					--trigger_position_s <= reg_output;
-					trigger_position_s <= DAT_I;
-					--reg_addr <= trigger_type_addr
-					set_config_counter_s <= 2;
-				elsif set_config_counter_s = 2 then	--third cycle, get trigg_type from register output and finish process (wc_is_config = 1)
-				--trigger_type_s <= reg_output;
-					trigger_type_s <= DAT_I;
-					wc_is_config <= '1';
-				end if;
-			end if;	
-		end if;				
-end process set_wc_config_proc;
 
 end architecture arc_core;
 
