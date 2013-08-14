@@ -135,6 +135,7 @@ component read_controller
 		reset						:	in std_logic;											--system reset
 		start_addr_in				:	in std_logic_vector( record_depth_g -1 downto 0 );		--the start address of the data that we need to send out to the user
 		write_controller_finish		:	in std_logic;											--start output data after wc_finish -> 1
+		read_controller_finish		:	out std_logic;											--1-> rc is finish, 0-> other. needed to the enable FSM
 --------RAM signals--------
 		dout_valid					:	in std_logic;		 									--Output data from RAM valid
 		data_from_ram				:	in std_logic_vector (data_wcalc(width_in_g, power2_out_g, power_sign_g) - 1 downto 0);	-- data came from RAM 
@@ -160,25 +161,43 @@ component core_registers
 			);
 	port
 	(	
-	 clk			   			: in std_logic; --system clock
-     reset   		   			: in std_logic; --system reset
-     -- wishbone slave interface
-	 address_in       			: in std_logic_vector (Add_width_g -1 downto 0); -- address line
-	 wr_en            			: in std_logic; 									-- write enable: '1' for write, '0' for read
-	 data_in           			: in std_logic_vector (data_width_g-1 downto 0); -- data sent from WS
-     valid_in          			: in std_logic; 									-- validity of the data directed from WS
---     data_out          : out std_logic_vector (data_width_g-1 downto 0); -- data sent to WS
---     valid_data_out    : out std_logic; -- validity of data directed to WS
-     -- core blocks interface
-     en_out            			: out std_logic;						 			-- enable data sent to trigger pos, triiger type, clk to stars, enable
-     trigger_type_out_1        	: out std_logic_vector (data_width_g-1 downto 0); 	-- trigger type
-     trigger_positionout_2      : out std_logic_vector (data_width_g-1 downto 0); 	-- trigger pos
-     clk_to_start_out_3        	: out std_logic_vector (data_width_g-1 downto 0);	-- count cycles that passed since trigger rise
-     enable_out_4        		: out std_logic								  		-- enable sent by the GUI
+			clk			   			: in std_logic; --system clock
+			reset   		   			: in std_logic; --system reset
+	-- wishbone slave interface
+			address_in       			: in std_logic_vector (Add_width_g -1 downto 0); -- address line
+			wr_en            			: in std_logic; 									-- write enable: '1' for write, '0' for read
+			data_in           			: in std_logic_vector (data_width_g-1 downto 0); -- data sent from WS
+			valid_in          			: in std_logic; 									-- validity of the data directed from WS
+--     		data_out          : out std_logic_vector (data_width_g-1 downto 0); -- data sent to WS
+--     		valid_data_out    : out std_logic; -- validity of data directed to WS
+    -- core blocks interface
+			en_out            			: out std_logic;						 			-- enable data sent to trigger pos, triiger type, clk to stars, enable
+			trigger_type_out_1        	: out std_logic_vector (data_width_g-1 downto 0); 	-- trigger type
+			trigger_positionout_2      : out std_logic_vector (data_width_g-1 downto 0); 	-- trigger pos
+			clk_to_start_out_3        	: out std_logic_vector (data_width_g-1 downto 0);	-- count cycles that passed since trigger rise
+			enable_out_4        		: out std_logic								  		-- enable sent by the GUI
 	
 	);
 
 end component core_registers;
+
+component enable_fsm is
+	GENERIC
+	(
+		reset_polarity_g		:	std_logic	:=	'1';								--'1' reset active high, '0' active low
+		enable_polarity_g		:	std_logic	:=	'1'									--'1' the core starts working when signal high , '0' working when low
+		
+	);
+	port 
+	(			
+		clk						:	 in  std_logic;										--system clk
+		reset 					:	 in  std_logic;										--reset
+		enable					:	 in	 std_logic;										-- the signal is being recieved from the software. enabling the entity. 	
+		wc_finish				:	 in	 std_logic;
+		rc_finish				:	 in	 std_logic;										--'1' -> read controller finish working, '0' -> system still working
+		enable_out				:	 out std_logic										 --enable signal that sent to the core 
+	);
+end component enable_fsm;
 
 -----------------------------------------------------Constants--------------------------------------------------------------------------
 
@@ -202,6 +221,8 @@ signal addr_out_s					: std_logic_vector ((addr_bits_g - power2_out_g*power_sign
 signal aout_valid_s					: std_logic := '0';												--RAM output address is valid
 signal clk_to_start_s				: std_logic_vector ( data_width_g -1 downto 0 )	:= (others => '0');
 signal enable_s						: std_logic	:= '0';									--enabling the entity. if (enable = enable_polarity_g) -> start working, else-> do nothing
+signal enable_register_s			: std_logic	:= '0';									--enabe register
+
 -------------------------------------------------  Implementation ------------------------------------------------------------
 
 begin
@@ -225,6 +246,19 @@ RAM_inst : ram_generic generic map (
 								dout_valid	=> dout_valid_s		
 								);
 
+enable_fsm_inst : enable_fsm generic map (
+								reset_polarity_g	=> reset_polarity_g,	
+                                enable_polarity_g	=> enable_polarity_g
+								)
+						port map (
+								clk			=> clk,
+								reset		=> rst,
+								enable		=> enable_register_s,
+								wc_finish	=> write_controller_finish_s,
+								rc_finish	=> read_controller_finish_s,
+								enable_out	=> enable_s
+								);
+								
 write_controller_inst : write_controller generic map (
 											reset_polarity_g	=>	reset_polarity_g,
 											enable_polarity_g	=>	enable_polarity_g,								
@@ -265,6 +299,7 @@ read_controller_inst : read_controller generic map (
 											reset					=> rst,
 											start_addr_in			=> start_address_s,
 											write_controller_finish	=> write_controller_finish_s,
+											read_controller_finish	=> read_controller_finish_s,
 											dout_valid				=> dout_valid_s,
 											data_from_ram			=> data_out_s,
 											addr_out				=> addr_out_s,
@@ -298,7 +333,7 @@ core_registers_inst : core_registers generic map (
 											trigger_type_out_1      => trigger_type_s,
 											trigger_positionout_2   => trigger_position_s,
 											clk_to_start_out_3      => clk_to_start_s,
-											enable_out_4        	=> enable_s
+											enable_out_4        	=> enable_register_s
 											);
 											
 -------------------------------------------------  processes ------------------------------------------------------------
