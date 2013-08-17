@@ -62,7 +62,7 @@ entity read_controller is
 		aout_valid					:	out std_logic;											--Output address to RAM is valid
 -------- WB signals--------		
 		data_out_to_WBM				:	out std_logic_vector (data_width_g - 1 downto 0);		--data out to WBM
-		data_out_to_WBM_valid		:	out std_logic											----data out to WBM is valid
+		data_out_to_WBM_valid		:	out std_logic											--data out to WBM is valid
 	);	
 end entity read_controller;
 

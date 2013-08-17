@@ -27,13 +27,13 @@ use ieee.std_logic_arith.all;
 
 entity wishbone_master is
    generic (
-    reset_activity_polarity_g  : std_logic :='1';      -- defines reset active polarity: '0' active low, '1' active high
-    data_width_g               : natural := 8 ;        -- defines the width of the data lines of the system
-    type_d_g			:	positive := 1;		--Type Depth
---	addr_d_g			:	positive := 3;		--Address Depth
-	Add_width_g    		:   positive := 8;		--width of addr word in the WB
-	len_d_g				:	positive := 1;		--Length Depth
-	addr_bits_g				:	positive := 8	--Depth of data in RAM	(2^8 = 256 addresses)
+    reset_activity_polarity_g  	: std_logic := '1';     -- defines reset active polarity: '0' active low, '1' active high
+    data_width_g        		: 	natural	 := 8;      -- defines the width of the data lines of the system
+    type_d_g					:	positive := 1;		--Type Depth
+--	addr_d_g					:	positive := 3;		--Address Depth
+	Add_width_g    				:   positive := 8;		--width of addr word in the WB
+	len_d_g						:	positive := 1		--Length Depth
+--	addr_bits_g					:	positive := 8		--Depth of data in RAM	(2^8 = 256 addresses)
            );
    port
    	   (
@@ -46,16 +46,19 @@ entity wishbone_master is
 	type_in			: in std_logic_vector (type_d_g * data_width_g-1 downto 0);  --type is the client which the data is directed to
     len_in			: in std_logic_vector (len_d_g * data_width_g-1 downto 0);  --length of the data (in words)
     addr_in			: in std_logic_vector (Add_width_g-1 downto 0);  --the address in the client that the information will be written to
-	ram_start_addr	: in std_logic_vector (addr_bits_g-1 downto 0); -- start address for WM to read from RAM
+--	ram_start_addr	: in std_logic_vector (addr_bits_g-1 downto 0); -- start address for WM to read from RAM
     wm_end			: out std_logic; --when '1' WM ended a transaction or reseted by watchdog ERR_I signal
 	--RAM signals
-	ram_addr		:	out std_logic_vector (addr_bits_g - 1 downto 0);--RAM Input address
-	ram_dout		:	out std_logic_vector (data_width_g - 1 downto 0);	--RAM Input data
-	ram_dout_valid	:	out std_logic; 									--RAM Input data valid
-	ram_aout		:	out std_logic_vector (addr_bits_g - 1 downto 0);--RAM Output address
-	ram_aout_valid	:	out std_logic;									--RAM Output address is valid
-	ram_din			:	in std_logic_vector (data_width_g - 1 downto 0);	--RAM Output data
-	ram_din_valid	:	in std_logic; 									--RAM Output data valid
+--	ram_addr		:	out std_logic_vector (addr_bits_g - 1 downto 0);--RAM Input address
+--	ram_dout		:	out std_logic_vector (data_width_g - 1 downto 0);	--RAM Input data
+--	ram_dout_valid	:	out std_logic; 									--RAM Input data valid
+--	ram_aout		:	out std_logic_vector (addr_bits_g - 1 downto 0);--RAM Output address
+--	ram_aout_valid	:	out std_logic;									--RAM Output address is valid
+--	ram_din			:	in std_logic_vector (data_width_g - 1 downto 0);	--RAM Output data
+--	ram_din_valid	:	in std_logic; 									--RAM Output data valid
+	--Read Controller signals
+	rc_din			: in std_logic_vector (data_width_g - 1 downto 0);	--RC Output data
+	rc_din_valid	: in std_logic; 									--RC Output data valid
 	--bus side signals
     ADR_O			: out std_logic_vector (Add_width_g-1 downto 0); --contains the addr word
     DAT_O			: out std_logic_vector (data_width_g-1 downto 0); --contains the data_in word
@@ -76,7 +79,8 @@ architecture arc_wishbone_master of wishbone_master is
 --##################################################################################################--
 --#######################                Constants                           #######################--
 --##################################################################################################--
-constant ram_size_c     : natural  := 2**addr_bits_g ; --Size of RAM
+--constant ram_size_c     : natural  := 2**addr_bits_g ; --Size of RAM
+
 --##################################################################################################--
 --#######################                Types                               #######################--
 --##################################################################################################--
@@ -118,8 +122,8 @@ signal addr_reg : natural range 0 to 2**(Add_width_g);
 signal len_reg  : std_logic_vector (len_d_g * data_width_g-1 downto 0);
 signal len_cnt 	: natural range 0 to 2**(len_d_g*data_width_g);
 signal ack_cnt	: natural range 0 to 2**(len_d_g*data_width_g);
-signal addr_rd	: natural range 0 to 2**(addr_bits_g);
-signal ram_addr_sig : natural range 0 to 2**(Add_width_g);
+--signal addr_rd	: natural range 0 to 2**(addr_bits_g);
+--signal ram_addr_sig : natural range 0 to 2**(Add_width_g);
 signal len_reg_int	: natural range 0 to 2**(len_d_g*data_width_g);
 
 --other signals
@@ -227,7 +231,7 @@ ADR_O <= conv_std_logic_vector(addr_reg,Add_width_g);
 
 
 DAT_O_proc:
-DAT_O <= ram_din;
+DAT_O <= rc_din;
 
 WE_O_proc:
 WE_O <= write_st_en  ;		
@@ -276,35 +280,35 @@ end process registers_proc;
 -------------------------------------------------------------------
 -------------------	ram_addr_sig process	---------------
 -------------------------------------------------------------------  
- ram_addr_sig_proc:
-  process(sys_clk,sys_reset)
-    begin
-      if sys_reset = reset_activity_polarity_g then
-		ram_addr_sig <= 0;
-      elsif rising_edge(sys_clk) then
-        if ( (idle_st_en = '1') and (wm_start = '1') ) then
-		  ram_addr_sig <= conv_integer(UNSIGNED(ram_start_addr));
-        elsif ( write_st_en = '1' or (stall_wr_st_en = '1' and STALL_I = '0' ) or initiate_st_en = '1' ) then
-			if (len_cnt = len_reg_int or STALL_I = '1') then
-				ram_addr_sig <= ram_addr_sig;
-			else
-				ram_addr_sig <= ram_addr_sig + 1;
-			end if;
-		else
-		  ram_addr_sig <= ram_addr_sig;
-        end if;
-      end if;
-end process ram_addr_sig_proc;
+-- ram_addr_sig_proc:
+-- process(sys_clk,sys_reset)
+--    begin
+--      if sys_reset = reset_activity_polarity_g then
+--		ram_addr_sig <= 0;
+--      elsif rising_edge(sys_clk) then
+--        if ( (idle_st_en = '1') and (wm_start = '1') ) then
+--		  ram_addr_sig <= conv_integer(UNSIGNED(ram_start_addr));
+--        elsif ( write_st_en = '1' or (stall_wr_st_en = '1' and STALL_I = '0' ) or initiate_st_en = '1' ) then
+--			if (len_cnt = len_reg_int or STALL_I = '1') then
+--				ram_addr_sig <= ram_addr_sig;
+--			else
+--				ram_addr_sig <= ram_addr_sig + 1;
+--			end if;
+--		else
+--		  ram_addr_sig <= ram_addr_sig;
+--       end if;
+--      end if;
+--end process ram_addr_sig_proc;
 
 -------------------------------------------------------------------
 -------------------	RAM interface process	-----------------------
 ------------------------------------------------------------------- 
-ram_proc:
-ram_addr	<= conv_std_logic_vector(addr_rd,addr_bits_g);
-ram_dout	<= DAT_I;
-ram_dout_valid	<= ACK_I and (read_st_en or stall_rd_st_en or get_acks_rd_st_en);
-ram_aout	<= conv_std_logic_vector(ram_addr_sig,addr_bits_g);
-ram_aout_valid	<=  '1' when ((initiate_st_en = '1' and wr_sig = '1') or write_st_en = '1' or stall_wr_st_en = '1' ) else '0';
+--ram_proc:
+--ram_addr	<= conv_std_logic_vector(addr_rd,addr_bits_g);
+--ram_dout	<= DAT_I;
+--ram_dout_valid	<= ACK_I and (read_st_en or stall_rd_st_en or get_acks_rd_st_en);
+--ram_aout	<= conv_std_logic_vector(ram_addr_sig,addr_bits_g);
+--ram_aout_valid	<=  '1' when ((initiate_st_en = '1' and wr_sig = '1') or write_st_en = '1' or stall_wr_st_en = '1' ) else '0';
 
 -------------------------------------------------------------------
 -------------------	length counter process	-----------------------
@@ -347,25 +351,25 @@ end process ack_cnt_proc;
 -------------------------------------------------------------------
 -------------------	addr_rd process	---------------------------
 -------------------------------------------------------------------
-addr_rd_proc:
-process(sys_clk,sys_reset)
-	begin
- 		if sys_reset = reset_activity_polarity_g then
-			addr_rd	<= 0 ;	
- 		elsif rising_edge(sys_clk) then	
-			if (idle_st_en = '1') then
-				addr_rd <= 0;
-			elsif (initiate_st_en = '1') then
-				addr_rd	<= conv_integer(UNSIGNED(ram_start_addr));
-			elsif (ACK_I = '1') then
-				if (addr_rd = ram_size_c-1) then
-					addr_rd <= 0;
-				else
-					addr_rd <= addr_rd + 1;
-				end if;
-			end if;
- 		end if ;
-end process addr_rd_proc;
+--addr_rd_proc:
+--process(sys_clk,sys_reset)
+--	begin
+-- 		if sys_reset = reset_activity_polarity_g then
+--			addr_rd	<= 0 ;	
+-- 		elsif rising_edge(sys_clk) then	
+--			if (idle_st_en = '1') then
+--				addr_rd <= 0;
+--			elsif (initiate_st_en = '1') then
+--				addr_rd	<= conv_integer(UNSIGNED(ram_start_addr));
+--			elsif (ACK_I = '1') then
+--				if (addr_rd = ram_size_c-1) then
+--					addr_rd <= 0;
+--				else
+--					addr_rd <= addr_rd + 1;
+--				end if;
+--			end if;
+-- 		end if ;
+--end process addr_rd_proc;
 
 -------------------------------------------------------------------
 -------------------	Sample process	-------------------------------
