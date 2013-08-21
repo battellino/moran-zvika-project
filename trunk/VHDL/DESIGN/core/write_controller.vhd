@@ -166,7 +166,7 @@ begin
 						State <= wait_for_enable_rise ;
 						all_data_rec_count_s <= (2**record_depth_g) - (2**record_depth_g) * to_integer( unsigned( trigger_position_in(7 downto 0))) / 100 ;	--counter initial value.
 																--	the number of bits that we need to record after trigger rise
-						din_valid					<= '1' ;			--enable ram at the start	
+--						din_valid					<= '1' ;			--enable ram at the start	
 					end if;
 					
 				when wait_for_enable_rise =>
@@ -177,6 +177,7 @@ begin
 					end if;
 					
 				when record_data =>
+					din_valid					<= '1' ;			--enable ram at the start	
 					-------getting the data and trigger signal 
 					current_data_s <= data_in;
 					current_trigger_s <= trigger;
@@ -300,11 +301,11 @@ begin
 
 				when write_controller_is_finish =>
 					write_controller_finish <= '1' ;
-					if enable = '0' then
+--					if enable = '0' then
 						State <= idle ;
-					else
-						State <= write_controller_is_finish ;
-					end if;
+--					else
+--						State <= write_controller_is_finish ;
+--					end if;
 						
 				when others =>
 						State <= idle ;

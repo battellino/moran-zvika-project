@@ -39,7 +39,7 @@ entity read_controller is
 --			enable_polarity_g		:	std_logic	:=	'1';								--'1' the entity is active, '0' entity not active
 --			signal_ram_depth_g		: 	positive  	:=	3;									--depth of RAM
 --			signal_ram_width_g		:	positive 	:=  8;   								--width of basic RAM
-			record_depth_g			: 	positive  	:=	10;									--number of bits that is recorded from each signal
+			record_depth_g			: 	positive  	:=	4;									--number of bits that is recorded from each signal
 			data_width_g            :	positive 	:= 	8;      						    -- defines the width of the data lines of the system 
 --			Add_width_g  		    :   positive 	:=  8;     								--width of address word in the RAM
 --			num_of_signals_g		:	positive	:=	8;									--number of signals that will be recorded simultaneously
@@ -139,7 +139,7 @@ begin
 					
 				when get_data_from_ram_and_calc_next_address =>
 					aout_valid <= '0';												--don't continue to sent out an address to the RAM
-					read_controller_counter_s <= read_controller_counter_s - 1 ;	--reduce one from the counter
+--					read_controller_counter_s <= read_controller_counter_s - 1 ;	--reduce one from the counter
 					if dout_valid = '1' then										--data that came from the RAM is valid (according current_address_s)
 						data_from_ram_to_wbs_s <= data_from_ram ;					--sample the data that come from the RAM
 						State <= send_data_to_wbm ;

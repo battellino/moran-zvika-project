@@ -33,9 +33,9 @@ entity wishbone_slave is
    generic (
      reset_activity_polarity_g  	:std_logic :='1';      -- defines reset active polarity: '0' active low, '1' active high
      data_width_g               	: natural := 8;         -- defines the width of the data lines of the system    
-	 Add_width_g    		:   positive := 8;		--width of addr word in the WB
-	 len_d_g				:	positive := 1;		--Length Depth
-	 type_d_g				:	positive := 1		--Type Depth    
+	 Add_width_g    				:   positive := 8;		--width of addr word in the WB
+	 len_d_g						:	positive := 1;		--Length Depth
+	 type_d_g						:	positive := 1		--Type Depth    
 		   );	   
    port
    	   (
