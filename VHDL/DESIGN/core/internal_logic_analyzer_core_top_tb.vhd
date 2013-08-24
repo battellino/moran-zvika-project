@@ -70,33 +70,43 @@ component internal_logic_analyzer_core_top is
 				len_d_g					:	positive 	:= 	1		--Length Depth
 			);
 	port	(
-				clk							:	in std_logic;									--System clock
-				rst							:	in std_logic;									--System Reset
+				clk						:	in std_logic;									--System clock
+				rst						:	in std_logic;									--System Reset
 				-- Signal Generator interface
-				data_in						:	in std_logic_vector (num_of_signals_g - 1 downto 0);	--Input data from Signal Generator
-				trigger						:	in std_logic;											--trigger signal from Signal Generator
+				data_in					:	in std_logic_vector (num_of_signals_g - 1 downto 0);	--Input data from Signal Generator
+				trigger					:	in std_logic;											--trigger signal from Signal Generator
 				
-				-- wishbone slave interface	(change after connecting WBS)
-				registers_address_in_s			: in std_logic_vector (Add_width_g -1 downto 0); 	-- reg address line
-				wr_en_s             			: in std_logic; 									-- write enable: '1' for write, '0' for read
-				registers_data_in_s 			: in std_logic_vector (data_width_g-1 downto 0); 	-- data sent from WS to registers (trigg pos, trigg type, enable, clk to start)
-				registers_valid_in_s			: in std_logic; 									-- validity of the data directed from WS
+				-- wishbone slave interface	
+--				registers_address_in_s			: in std_logic_vector (Add_width_g -1 downto 0); 	-- reg address line
+--				wr_en_s             			: in std_logic; 									-- write enable: '1' for write, '0' for read
+--				registers_data_in_s 			: in std_logic_vector (data_width_g-1 downto 0); 	-- data sent from WS to registers (trigg pos, trigg type, enable, clk to start)
+--				registers_valid_in_s			: in std_logic; 									-- validity of the data directed from WS
+				ADR_I          	: in std_logic_vector (Add_width_g -1 downto 0);	--contains the addr word
+				DAT_I          	: in std_logic_vector (data_width_g-1 downto 0); 	--contains the data_in word
+				WE_I           	: in std_logic;                     				-- '1' for write, '0' for read
+				STB_I          	: in std_logic;                     				-- '1' for active bus operation, '0' for no bus operation
+				CYC_I          	: in std_logic;                     				-- '1' for bus transmition request, '0' for no bus transmition request
+				TGA_I          	: in std_logic_vector ((data_width_g)*(type_d_g)-1 downto 0); 	--contains the type word
+				TGD_I          	: in std_logic_vector ((data_width_g)*(len_d_g)-1 downto 0); 	--contains the len word
+				TOP_active_cycle   	: out std_logic; --CYC_I outputed to user side
+				stall			: in std_logic; -- stall - suspend wishbone transaction
 				
 				-- wishbone master interface
-				wm_end_out					: 	out std_logic; --when '1' WM ended a transaction or reseted by watchdog ERR_I signal
-				
+				wm_end_out				: out std_logic; --when '1' WM ended a transaction or reseted by watchdog ERR_I signal
+				rc_dout					: out std_logic_vector (data_width_g - 1 downto 0);	--RC Output data
+				rc_dout_valid			: out std_logic; 									--RC Output data valid
 				--wm_bus side signals
-				ADR_O			: out std_logic_vector (Add_width_g-1 downto 0); --contains the addr word
-				DAT_O			: out std_logic_vector (data_width_g-1 downto 0); --contains the data_in word
-				WE_O			: out std_logic;                     -- '1' for write, '0' for read
-				STB_O			: out std_logic;                     -- '1' for active bus operation, '0' for no bus operation
-				CYC_O			: out std_logic;                     -- '1' for bus transmition request, '0' for no bus transmition request
-				TGA_O			: out std_logic_vector (type_d_g * data_width_g-1 downto 0); --contains the type word
-				TGD_O			: out std_logic_vector (len_d_g * data_width_g-1 downto 0); --contains the len word
-				ACK_I			: in std_logic;                      --'1' when valid data is recieved from WS or for successfull write operation in WS
-				DAT_I			: in std_logic_vector (data_width_g-1 downto 0);   --data recieved from WS
-				STALL_I			: in std_logic; --STALL - WS is not available for transaction 
-				ERR_I			: in std_logic  --Watchdog interrupts, resets wishbone master
+				ADR_O					: out std_logic_vector (Add_width_g-1 downto 0); --contains the addr word
+				WM_DAT_O					: out std_logic_vector (data_width_g-1 downto 0); --contains the data_in word
+				WE_O					: out std_logic;                     -- '1' for write, '0' for read
+				STB_O					: out std_logic;                     -- '1' for active bus operation, '0' for no bus operation
+				CYC_O					: out std_logic;                     -- '1' for bus transmition request, '0' for no bus transmition request
+				TGA_O					: out std_logic_vector (type_d_g * data_width_g-1 downto 0); --contains the type word
+				TGD_O					: out std_logic_vector (len_d_g * data_width_g-1 downto 0); --contains the len word
+				ACK_I					: in std_logic;                      --'1' when valid data is recieved from WS or for successfull write operation in WS
+--				DAT_I					: in std_logic_vector (data_width_g-1 downto 0);   --data recieved from WS
+				STALL_I					: in std_logic; --STALL - WS is not available for transaction 
+				ERR_I					: in std_logic  --Watchdog interrupts, resets wishbone master
 				
 			);
 end component internal_logic_analyzer_core_top;
@@ -142,6 +152,7 @@ end component wishbone_slave;
 
 -----------------------------------------------------Constants--------------------------------------------------------------------------
 constant type_of_TX_ws_c	: std_logic_vector (type_d_g * data_width_g - 1 downto 0 )	:= std_logic_vector(to_unsigned( 4 , type_d_g * data_width_g));
+constant type_of_CORE_ws_c	: std_logic_vector (type_d_g * data_width_g - 1 downto 0 )	:= std_logic_vector(to_unsigned( 3 , type_d_g * data_width_g));
 constant len_of_data_c		: std_logic_vector (len_d_g * data_width_g - 1 downto 0)	:= std_logic_vector(to_unsigned( 1 , len_d_g * data_width_g));
 -----------------------------------------------------Types------------------------------------------------------------------------------
 
@@ -151,11 +162,16 @@ signal clk							: std_logic		:= '0';									--System clock
 signal rst							: std_logic		:= '0';									--System Reset
 signal data_in						: std_logic_vector (num_of_signals_g - 1 downto 0)	:=(others => '0');	--Input data from Signal Generator
 signal trigger						: std_logic		:= '0';									--trigger signal from Signal Generator
--- wishbone slave interface	(change after connecting WBS to the inputs)
+-- wishbone slave interface	
 signal registers_address_in_s		: std_logic_vector (Add_width_g -1 downto 0)	:=(others => '0'); 	-- reg address line
 signal wr_en_s             			: std_logic		:= '1'; 								-- write enable: '1' for write, '0' for read
 signal registers_data_in_s 			: std_logic_vector (data_width_g-1 downto 0)	:=(others => '0'); 	-- data sent from WS to registers (trigg pos, trigg type, enable, clk to start)
 signal registers_valid_in_s			: std_logic		:= '0'; 								-- validity of the data directed from WS
+signal CYC_I_s         				: std_logic;                     				-- '1' for bus transmition request, '0' for no bus transmition request
+signal TGA_I_s         				: std_logic_vector ((data_width_g)*(type_d_g)-1 downto 0); 	--contains the type word
+signal TGD_I_s         				: std_logic_vector ((data_width_g)*(len_d_g)-1 downto 0); 	--contains the len word
+signal stall_s						: std_logic; -- stall - suspend wishbone transaction
+signal TOP_active_cycle   			:  std_logic; --CYC_I outputed to user side
 -- wishbone master interface----
 signal wm_end_out					: std_logic		:= '0'; 								--when '1' WM ended a transaction or reseted by watchdog ERR_I signal
 
@@ -193,10 +209,12 @@ signal WS_len_s				:  std_logic_vector ((data_width_g)*(len_d_g)-1 downto 0);   
 signal WS_wr_en				:  std_logic;
 signal WS_data	    		:  std_logic_vector (data_width_g-1 downto 0);    --data out to registers
 signal WS_data_valid		:  std_logic;	-- data valid to registers
-signal WS_reg_data       	:  std_logic_vector (data_width_g-1 downto 0); 	 --data to be transmited to the WM
-signal WS_reg_data_valid 	:  std_logic;   --data to be transmited to the WM validity
+--signal WS_reg_data       	:  std_logic_vector (data_width_g-1 downto 0); 	 --data to be transmited to the WM
+--signal WS_reg_data_valid 	:  std_logic;   --data to be transmited to the WM validity
 signal WS_stall				:  std_logic; -- stall - suspend wishbone transaction
 
+signal rc_dout_s			:  std_logic_vector (data_width_g - 1 downto 0);	--RC Output data
+signal rc_dout_valid_s		:  std_logic;
 -------------------------------------------------  Implementation ------------------------------------------------------------
 
 begin
@@ -224,14 +242,22 @@ internal_logic_analyzer_core_top_inst : internal_logic_analyzer_core_top generic
 												rst						=>	rst,
 												data_in					=>	data_in,
 												trigger					=>	trigger,
-												registers_address_in_s	=>	registers_address_in_s,
-												wr_en_s             	=>	wr_en_s,
-												registers_data_in_s 	=>	registers_data_in_s,
-												registers_valid_in_s	=>	registers_valid_in_s,
+												ADR_I          	=>	registers_address_in_s,
+												DAT_I          	=>	registers_data_in_s,
+												WE_I           	=>	'1',
+												STB_I          	=>	registers_valid_in_s,
+												CYC_I          	=>	CYC_I_s,
+												TGA_I          	=>	TGA_I_s,
+												TGD_I          	=>	TGD_I_s,
+												TOP_active_cycle   	=>	TOP_active_cycle,
+												stall			=>	stall_s,
+												
 												wm_end_out				=>	wm_end_out,
+												rc_dout					=>	rc_dout_s,
+												rc_dout_valid			=>	rc_dout_valid_s,
 												
 												ADR_O					=>	WM_TO_WS_ADR,
-												DAT_O					=>	WM_TO_WS_DAT,
+												WM_DAT_O					=>	WM_TO_WS_DAT,
 												WE_O					=>	WM_TO_WS_WE,
 												STB_O					=>	WM_TO_WS_STB,
 												CYC_O					=>	WM_TO_WS_CYC,
@@ -239,7 +265,7 @@ internal_logic_analyzer_core_top_inst : internal_logic_analyzer_core_top generic
 												TGD_O					=>	WM_TO_WS_TGD,
 												
 												ACK_I					=>	WM_ACK_I,
-												DAT_I					=>	WM_DAT_I,
+--												DAT_I					=>	WM_DAT_I,
 												STALL_I					=>	WM_STALL_I,
 												ERR_I					=>	WM_ERR_I
 												);
@@ -272,8 +298,8 @@ wishbone_slave_inst : wishbone_slave generic map (
 											wr_en			=> WS_wr_en,
 											ws_data	    	=> WS_data,   --data out to registers
 											ws_data_valid	=> WS_data_valid,	-- data valid to registers
-											reg_data       	=> WS_reg_data,	 --data to be transmited to the WM
-											reg_data_valid 	=> WS_reg_data_valid,  --data to be transmited to the WM validity
+											reg_data       	=> rc_dout_s,	 --data to be transmited to the WM
+											reg_data_valid 	=> rc_dout_valid_s,  --data to be transmited to the WM validity
 											active_cycle	=> WS_active_cycle_s,	--CYC_I outputed to user side
 											stall			=> WS_stall
 										);												
@@ -292,6 +318,12 @@ registers_proc :
 	registers_address_in_s	<= std_logic_vector(to_unsigned( 1 , Add_width_g)), std_logic_vector(to_unsigned( 2 , Add_width_g)) after 400 ns, std_logic_vector(to_unsigned( 3 , Add_width_g)) after 700 ns, std_logic_vector(to_unsigned( 0 , Add_width_g)) after 1000 ns,std_logic_vector(to_unsigned( 4 , Add_width_g)) after 1400 ns;	-- reg address line
 	registers_data_in_s 	<= std_logic_vector(to_unsigned( 1 , data_width_g)), std_logic_vector(to_unsigned( 50 , data_width_g)) after 400 ns, std_logic_vector(to_unsigned( 7 , data_width_g)) after 700 ns, std_logic_vector(to_unsigned( 1 , data_width_g)) after 1000 ns; 	-- data sent from WS to registers (trigg pos, trigg type, enable, clk to start)
 	registers_valid_in_s	<= '0','1' after 200 ns,'0' after 300 ns,'1' after 400 ns,'0' after 500 ns, '1' after 700 ns,'0' after 800 ns, '1' after 1000 ns,'0' after 1100 ns, '1' after 1300 ns, '0' after 1400 ns,'1' after 2500 ns, '0' after 2600 ns; 
+	CYC_I_s         		<= '0','1' after 150 ns,'0' after 3000 ns;                     				-- '1' for bus transmition request, '0' for no bus transmition request
+	TGA_I_s         		<=	type_of_CORE_ws_c; 	--contains the type word
+	TGD_I_s         		<=	len_of_data_c; 		--contains the len word
+	stall_s					<= '0'; 				-- stall - suspend wishbone transaction
+	
+	
 	
 trigg_proc :
 	trigger <= '0','1' after 780 ns, '0' after 1000 ns, '1' after 3100 ns, '0' after 5300 ns, '1' after 7500 ns;
@@ -307,14 +339,15 @@ data_proc : process
 
 WM_BUS_proc :	--(we do not get the data from WS)
 	WM_ACK_I				<= '0';            	--'1' when valid data is recieved from WS or for successfull write operation in WS
-	WM_DAT_I				<= (others => '0'); --data recieved from WS
+--	WM_DAT_I				<= (others => '0'); --data recieved from WS
 	WM_STALL_I				<= '0';  			--STALL - WS is not available for transaction 
 	WM_ERR_I				<= '0';   			--Watchdog interrupts, resets wishbone master
 
 WS_register_side_input_proc :
 --- we do not output data to another WM
-	WS_reg_data       	<= (others => '0'); 	 --data to be transmited to the WM
-	WS_reg_data_valid 	<=  '0';   --data to be transmited to the WM validity
-	WS_stall			<=  '0'; -- stall - suspend wishbone transaction
+--	WS_reg_data       	<= (others => '0'); 	 --data to be transmited to the WM
+--	WS_reg_data_valid 	<=  '0';   --data to be transmited to the WM validity
+	WS_stall			<= 	'0';
+--	WS_stall			<=  not rc_dout_valid_s; -- stall - suspend wishbone transaction
 
 end architecture arc_internal_logic_analyzer_core_top_tb;

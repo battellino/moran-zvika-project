@@ -56,9 +56,11 @@ entity wishbone_master is
 --	ram_aout_valid	:	out std_logic;									--RAM Output address is valid
 --	ram_din			:	in std_logic_vector (data_width_g - 1 downto 0);	--RAM Output data
 --	ram_din_valid	:	in std_logic; 									--RAM Output data valid
+
 	--Read Controller signals
 	rc_din			: in std_logic_vector (data_width_g - 1 downto 0);	--RC Output data
-	rc_din_valid	: in std_logic; 									--RC Output data valid
+--	rc_din_valid	: in std_logic; 									--RC Output data valid
+
 	--bus side signals
     ADR_O			: out std_logic_vector (Add_width_g-1 downto 0); --contains the addr word
     DAT_O			: out std_logic_vector (data_width_g-1 downto 0); --contains the data_in word
