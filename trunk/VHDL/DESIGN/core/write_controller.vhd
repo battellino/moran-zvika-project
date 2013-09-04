@@ -47,7 +47,7 @@ entity write_controller is
 		trigger_position_in			:	in  std_logic_vector(  data_width_g -1 downto 0	);		--the percentage of the data to send out
 		trigger_type_in				:	in  std_logic_vector(  data_width_g -1 downto 0	);		--we specify 5 types of triggers	
 		config_are_set				:	in	std_logic;											--'1'-> configurations from registers are ready to be read (trigger position + type). '0'-> config are not ready
-		data_out_of_wc				:	out std_logic_vector ( num_of_signals_g -1  downto 0);	--sending the data  to be saved in the RAM. 
+		data_out_of_wc				:	out std_logic_vector ( data_width_g -1  downto 0);	--sending the data  to be saved in the RAM. 
 		addr_out_to_RAM				:	out std_logic_vector( record_depth_g -1 downto 0);	--the addr in the RAM to save the data
 		write_controller_finish		:	out std_logic;											--'1' ->WC has finish working and saving all the relevant data (RC will start work), '0' ->WC is still working
 		start_addr_out				:	out std_logic_vector( record_depth_g -1 downto 0 );	--the start addr of the data that we need to send out to the user. send now to RC
@@ -80,13 +80,13 @@ signal 		State					: 	wc_states;
 signal		config_set_s			:	std_logic	;							--1 => we get trigger position\type from registers into signals
 signal		trigger_position_s		:  	std_logic_vector(  data_width_g -1 downto 0	);	--saving
 signal		trigger_type_s			:	std_logic_vector(  data_width_g -1 downto 0	);	
-signal		current_data_s			:	std_logic_vector ( num_of_signals_g -1 downto 0);
+signal		current_data_s			:	std_logic_vector ( data_width_g -1 downto 0);
 signal		current_trigger_s		:	std_logic	;
 signal		trigger_found_s			:	std_logic	;							--'1' -> trigger found, '0' -> other
 signal		trigger_counter_s		:	integer	range 0 to 2 ;					--for trigger rise when defined as 3 ones\zeroes, we need to count until 2 + correct trigger 
 signal		current_address_s		:	std_logic_vector( signal_ram_depth_g -1 downto 0);		--the addr in specific RAM to save the data
 signal		current_row_s			:	integer range 0 to up_case(2**record_depth_g , (2**signal_ram_depth_g)) - 1 ;	--row in RAM array of current address
-signal		all_data_rec_count_s	:	integer range 0 to 2**record_depth_g ;		--count from number of data to record after trigger rise to 0
+signal		all_data_rec_count_s	:	integer range -1 to 2**record_depth_g ;		--count from number of data to record after trigger rise to 0
 signal		trigger_address_s		:	std_logic_vector( signal_ram_depth_g -1 downto 0);		--the addr of the trigger
 signal		trigger_row_s			:	integer range 0 to up_case(2**record_depth_g , (2**signal_ram_depth_g)) - 1 ;	--the row of the trigger
 ------------------	Processes	----------------
@@ -120,7 +120,7 @@ begin
 			current_row_s				<= 0;
 --			prev_address_s				<= (others => '0') ;
 --			prev_row_s					<= 0;
-			all_data_rec_count_s		<= 0;
+			all_data_rec_count_s		<= -1;
 			trigger_address_s 			<= (others => '0') ;
 			trigger_row_s 				<= 0 ;
 			start_addr_as_int_v			:= 0 ;
@@ -150,7 +150,7 @@ begin
 					trigger_counter_s			<= 0;
 					current_address_s			<= (others => '0') ;
 					current_row_s				<= 0;
-					all_data_rec_count_s		<= 0;
+					all_data_rec_count_s		<= -1;
 					trigger_address_s 			<= (others => '0') ;
 					trigger_row_s 				<= 0 ;
 					start_addr_as_int_v			:= 0 ;
@@ -164,9 +164,8 @@ begin
 						trigger_position_s 	<= 	trigger_position_in;
 						trigger_type_s		<=	trigger_type_in;
 						State <= wait_for_enable_rise ;
-						all_data_rec_count_s <= (2**record_depth_g) - (2**record_depth_g) * to_integer( unsigned( trigger_position_in(7 downto 0))) / 100 ;	--counter initial value.
-																--	the number of bits that we need to record after trigger rise
---						din_valid					<= '1' ;			--enable ram at the start	
+						all_data_rec_count_s <= (2**record_depth_g) - (2**record_depth_g) * to_integer( unsigned( trigger_position_in)) / 100 ;	--counter initial value.
+																--	the number of bits that we need to record after trigger rise	
 					end if;
 					
 				when wait_for_enable_rise =>
@@ -179,7 +178,13 @@ begin
 				when record_data =>
 					din_valid					<= '1' ;			--enable ram at the start	
 					-------getting the data and trigger signal 
-					current_data_s <= data_in;
+					
+					if( num_of_signals_g < data_width_g ) then			--in case that we record less the data width signals, we put 0 in all the non relevant places
+						current_data_s(num_of_signals_g -1 downto 0 ) <= data_in ;
+						current_data_s(data_width_g -1 downto num_of_signals_g ) <= (others => '0') ;
+					else
+						current_data_s <= data_in;
+					end if;
 					current_trigger_s <= trigger;
 					-------check if trigger rise
 					if trigger_found_s = '0' then
@@ -250,14 +255,6 @@ begin
 					--send out data and address to be save in the RAM
 					data_out_of_wc <= current_data_s ;
 					addr_out_to_RAM <= std_logic_vector( to_unsigned( to_integer( unsigned( current_address_s ) ) + ( (2**signal_ram_depth_g) *  current_row_s ) , record_depth_g));
-															
-					if	(all_data_rec_count_s = 0) and (trigger_found_s = '1')	then			--case that trigger counter is initialized to 100
-						din_valid <= '0' ;
-					elsif (all_data_rec_count_s = 1) and (trigger_found_s = '1')	then		--stop save data
-						din_valid <= '0' ;
-					else
-						din_valid <= '1' ;
-					end if;
 					
 					-- calc next address and RAM array row
 --					prev_address_s <= current_address_s;
@@ -275,21 +272,24 @@ begin
 					end if;
 				
 					--check if we need to continue save data
-					if (all_data_rec_count_s = 0) and (trigger_found_s = '1') then	--trigger was found and we dont need to save more data
+					if ((all_data_rec_count_s = -1) and (trigger_found_s = '1')) then	--trigger was found and we dont need to save more data
 						State <= send_start_addr_to_rc ;
+						din_valid <= '0' ;
 					elsif (trigger_found_s = '1') then								--trigger found but we did not finish to save all the data
 						all_data_rec_count_s <= all_data_rec_count_s - 1 ;
 						State <= record_data ;
+						din_valid <= '1' ;
 					else															--trigger not found, continue save data
 						State <= record_data ;
+						din_valid <= '1' ;
 					end if;	
 					
 					
 				when send_start_addr_to_rc =>
 				
-					rows_to_shift_v := total_number_of_rows_c - (total_number_of_rows_c *  to_integer( unsigned( trigger_position_in(7 downto 0) ) ) ) / 100 ;
+					rows_to_shift_v := total_number_of_rows_c - (total_number_of_rows_c *  to_integer( unsigned( trigger_position_in ) ) ) / 100 ;
 					trigger_address_as_int_v := trigger_row_s * (2**signal_ram_depth_g) + to_integer( unsigned( trigger_address_s)) ;
-					start_addr_as_int_v := trigger_address_as_int_v + rows_to_shift_v ;
+					start_addr_as_int_v := trigger_address_as_int_v + rows_to_shift_v + 2 ;					-- +2 comes from delay that we have in the addresses
 					
 					if ( (start_addr_as_int_v) > (total_number_of_rows_c - 1 ) ) then
 						start_addr_as_int_v := start_addr_as_int_v - total_number_of_rows_c ;					--make a cyclec addresses

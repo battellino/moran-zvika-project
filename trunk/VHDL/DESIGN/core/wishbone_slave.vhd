@@ -35,7 +35,7 @@ entity wishbone_slave is
      data_width_g               	: natural := 8;         -- defines the width of the data lines of the system    
 	 Add_width_g    				:   positive := 8;		--width of addr word in the WB
 	 len_d_g						:	positive := 1;		--Length Depth
-	 type_d_g						:	positive := 1		--Type Depth    
+	 type_d_g						:	positive := 6		--Type Depth    
 		   );	   
    port
    	   (

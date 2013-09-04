@@ -43,7 +43,7 @@ entity read_controller is
 			data_width_g            :	positive 	:= 	8;      						    -- defines the width of the data lines of the system 
 --			Add_width_g  		    :   positive 	:=  8;     								--width of address word in the RAM
 --			num_of_signals_g		:	positive	:=	8;									--number of signals that will be recorded simultaneously
-			width_in_g				:	positive 	:= 	8;									--Width of data
+			width_in_g				:	positive 	:= 	8;									--Width of data (number of signals that recorded each cycle)
 			power2_out_g			:	natural 	:= 	0;									--Output width is multiplied by this power factor (2^1). In case of 2: output will be (2^2*8=) 32 bits wide -> our output and input are at the same width
 			power_sign_g			:	integer range -1 to 1 	:= 1					 	-- '-1' => output width > input width ; '1' => input width > output width		(if power2_out_g = 0, it dosn't matter)
 	);
@@ -61,7 +61,7 @@ entity read_controller is
 		addr_out					:	out std_logic_vector ( record_depth_g - 1 downto 0);	--address send to RAM to output each cycle
 		aout_valid					:	out std_logic;											--Output address to RAM is valid
 -------- WB signals--------		
-		data_out_to_WBM				:	out std_logic_vector (data_width_g - 1 downto 0);		--data out to WBM
+		data_out_to_WBM				:	out std_logic_vector (width_in_g - 1 downto 0);		--data out to WBM
 		data_out_to_WBM_valid		:	out std_logic											--data out to WBM is valid
 	);	
 end entity read_controller;
@@ -83,7 +83,7 @@ constant last_address_c				: std_logic_vector( record_depth_g -1 downto 0 )					
 signal State						: State_type;
 signal read_controller_counter_s	: integer range 0 to 2**record_depth_g ;
 signal current_address_s			: std_logic_vector( record_depth_g -1 downto 0 ) ;		--address of data that is been send to RAM
-signal data_from_ram_to_wbs_s		: std_logic_vector( data_width_g - 1 downto 0 ) ;		--data that we extract from RAM and send to WBS
+signal data_from_ram_to_wbs_s		: std_logic_vector( width_in_g - 1 downto 0 ) ;		--data that we extract from RAM and send to WBS
 --signal next_address_s				: std_logic_vector( record_depth_g -1 downto 0 ) ;
 	
 begin

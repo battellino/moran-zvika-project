@@ -29,17 +29,17 @@ use work.ram_generic_pkg.all;
 
 entity internal_logic_analyzer_core_top_tb is
 	generic (				
-				read_loop_iter_g		:	positive	:= 150;									--Number of iterations
+				read_loop_iter_g		:	positive	:= 350;									--Number of iterations
 				
 				reset_polarity_g		:	std_logic	:= '1';									--'0' - Active Low Reset, '1' Active High Reset
 				enable_polarity_g		:	std_logic	:= '1';								--'1' the entity is active, '0' entity not active
 				signal_ram_depth_g		: 	positive  	:=	3;									--depth of RAM
 				signal_ram_width_g		:	positive 	:=  8;   								--width of basic RAM
-				record_depth_g			: 	positive  	:=	5;									--number of bits that is recorded from each signal
+				record_depth_g			: 	positive  	:=	4;									--number of bits that is recorded from each signal
 				data_width_g            :	positive 	:= 	8;      						    -- defines the width of the data lines of the system
 				Add_width_g  		    :   positive 	:=  8;     								--width of addr word in the RAM
-				num_of_signals_g		:	positive	:=	8;									--num of signals that will be recorded simultaneously	(Width of data)
-				width_in_g				:	positive 	:= 	8;									--Width of data
+				num_of_signals_g		:	positive	:=	7;									--num of signals that will be recorded simultaneously	(Width of data)
+--				width_in_g				:	positive 	:= 	8;									--Width of data
 				addr_bits_g				:	positive 	:= 	4;									--Depth of data	(2^4 = 16 addresses)
 				power2_out_g			:	natural 	:= 	0;									--Output width is multiplied by this power factor (2^1). In case of 2: output will be (2^2*8=) 32 bits wide -> our output and input are at the same width
 				power_sign_g			:	integer range -1 to 1 	:= 1;					 	-- '-1' => output width > input width ; '1' => input width > output width		(if power2_out_g = 0, it dosn't matter)
@@ -93,8 +93,7 @@ component internal_logic_analyzer_core_top is
 				
 				-- wishbone master interface
 				wm_end_out				: out std_logic; --when '1' WM ended a transaction or reseted by watchdog ERR_I signal
-				rc_dout					: out std_logic_vector (data_width_g - 1 downto 0);	--RC Output data
-				rc_dout_valid			: out std_logic; 									--RC Output data valid
+				
 				--wm_bus side signals
 				ADR_O					: out std_logic_vector (Add_width_g-1 downto 0); --contains the addr word
 				WM_DAT_O					: out std_logic_vector (data_width_g-1 downto 0); --contains the data_in word
@@ -209,8 +208,8 @@ signal WS_len_s				:  std_logic_vector ((data_width_g)*(len_d_g)-1 downto 0);   
 signal WS_wr_en				:  std_logic;
 signal WS_data	    		:  std_logic_vector (data_width_g-1 downto 0);    --data out to registers
 signal WS_data_valid		:  std_logic;	-- data valid to registers
---signal WS_reg_data       	:  std_logic_vector (data_width_g-1 downto 0); 	 --data to be transmited to the WM
---signal WS_reg_data_valid 	:  std_logic;   --data to be transmited to the WM validity
+signal WS_reg_data       	:  std_logic_vector (data_width_g-1 downto 0); 	 --data to be transmited to the WM
+signal WS_reg_data_valid 	:  std_logic;   --data to be transmited to the WM validity
 signal WS_stall				:  std_logic; -- stall - suspend wishbone transaction
 
 signal rc_dout_s			:  std_logic_vector (data_width_g - 1 downto 0);	--RC Output data
@@ -253,8 +252,7 @@ internal_logic_analyzer_core_top_inst : internal_logic_analyzer_core_top generic
 												stall			=>	stall_s,
 												
 												wm_end_out				=>	wm_end_out,
-												rc_dout					=>	rc_dout_s,
-												rc_dout_valid			=>	rc_dout_valid_s,
+												
 												
 												ADR_O					=>	WM_TO_WS_ADR,
 												WM_DAT_O					=>	WM_TO_WS_DAT,
@@ -311,28 +309,32 @@ clk_proc :
 	clk <= not clk after 50 ns;
 	
 res_proc :
-	rst <= reset_polarity_g, not reset_polarity_g after 120 ns ;
+	rst <= reset_polarity_g, not reset_polarity_g after 120 ns, reset_polarity_g after 24000 ns ;
 	
 registers_proc :
-	wr_en_s             	<= '1';				-- write enable: '1' for write, '0' for read
-	registers_address_in_s	<= std_logic_vector(to_unsigned( 1 , Add_width_g)), std_logic_vector(to_unsigned( 2 , Add_width_g)) after 400 ns, std_logic_vector(to_unsigned( 3 , Add_width_g)) after 700 ns, std_logic_vector(to_unsigned( 0 , Add_width_g)) after 1000 ns,std_logic_vector(to_unsigned( 4 , Add_width_g)) after 1400 ns;	-- reg address line
-	registers_data_in_s 	<= std_logic_vector(to_unsigned( 1 , data_width_g)), std_logic_vector(to_unsigned( 50 , data_width_g)) after 400 ns, std_logic_vector(to_unsigned( 7 , data_width_g)) after 700 ns, std_logic_vector(to_unsigned( 1 , data_width_g)) after 1000 ns; 	-- data sent from WS to registers (trigg pos, trigg type, enable, clk to start)
-	registers_valid_in_s	<= '0','1' after 200 ns,'0' after 300 ns,'1' after 400 ns,'0' after 500 ns, '1' after 700 ns,'0' after 800 ns, '1' after 1000 ns,'0' after 1100 ns, '1' after 1300 ns, '0' after 1400 ns,'1' after 2500 ns, '0' after 2600 ns; 
-	CYC_I_s         		<= '0','1' after 150 ns,'0' after 3000 ns;                     				-- '1' for bus transmition request, '0' for no bus transmition request
+	registers_address_in_s	<= std_logic_vector(to_unsigned( 1 , Add_width_g)), 	std_logic_vector(to_unsigned( 2 , Add_width_g)) after 400 ns, 	std_logic_vector(to_unsigned( 3 , Add_width_g)) after 700 ns, 	std_logic_vector(to_unsigned( 0 , Add_width_g)) after 1000 ns, 	std_logic_vector(to_unsigned( 4 , Add_width_g)) after 1400 ns , std_logic_vector(to_unsigned( 2 , Add_width_g)) after 17000 ns, 	std_logic_vector(to_unsigned( 1 , Add_width_g)) after 17300 ns	, 	std_logic_vector(to_unsigned( 0 , Add_width_g)) after 17600 ns	, 	std_logic_vector(to_unsigned( 4 , Add_width_g)) after 17900 ns;		-- simulation 4
+	registers_data_in_s 	<= std_logic_vector(to_unsigned( 3 , data_width_g)), 	std_logic_vector(to_unsigned( 15 , data_width_g)) after 400 ns, std_logic_vector(to_unsigned( 7 , data_width_g)) after 700 ns, std_logic_vector(to_unsigned( 1 , data_width_g)) after 1000 ns, 																	std_logic_vector(to_unsigned( 85 , data_width_g)) after 17000 ns, 	std_logic_vector(to_unsigned( 0 , data_width_g)) after 17300 ns	,	std_logic_vector(to_unsigned( 1 , data_width_g)) after 17600 ns ,	std_logic_vector(to_unsigned( 1 , data_width_g)) after 17900 ns; 	-- simulation 4
+	registers_valid_in_s	<= '0','1' after 200 ns,'0' after 300 ns,'1' after 400 ns,'0' after 500 ns, '1' after 700 ns,'0' after 800 ns, '1' after 1000 ns,'0' after 1100 ns, '1' after 1300 ns, '0' after 1400 ns,'1' after 2500 ns, '0' after 2600 ns, 																							'1' after 17100 ns, '0' after 17200 ns,								 '1' after 17400 ns, '0' after 17500 ns,							 '1' after 17700 ns, '0' after 17800 ns,							 '1' after 18000 ns, '0' after 18100 ns; 																																																						-- simulation 4
+	CYC_I_s         		<= '0','1' after 150 ns,'0' after 3000 ns, '1' after 17000 ns,'0' after 18500 ns;        																																																																																																											-- simulation 4
 	TGA_I_s         		<=	type_of_CORE_ws_c; 	--contains the type word
 	TGD_I_s         		<=	len_of_data_c; 		--contains the len word
 	stall_s					<= '0'; 				-- stall - suspend wishbone transaction
-	
-	
+	wr_en_s             	<= '1';				-- write enable: '1' for write, '0' for read
+-------------simulation 3-----------
+--	registers_address_in_s	<= std_logic_vector(to_unsigned( 1 , Add_width_g)), 	std_logic_vector(to_unsigned( 2 , Add_width_g)) after 400 ns, 	std_logic_vector(to_unsigned( 3 , Add_width_g)) after 700 ns, 	std_logic_vector(to_unsigned( 0 , Add_width_g)) after 1000 ns, 	std_logic_vector(to_unsigned( 4 , Add_width_g)) after 1400 ns , std_logic_vector(to_unsigned( 2 , Add_width_g)) after 10100 ns, 	std_logic_vector(to_unsigned( 0 , Add_width_g)) after 10200 ns	, 	std_logic_vector(to_unsigned( 4 , Add_width_g)) after 10300 ns;		-- simulation 3
+--	registers_data_in_s 	<= std_logic_vector(to_unsigned( 0 , data_width_g)), 	std_logic_vector(to_unsigned( 100 , data_width_g)) after 400 ns, std_logic_vector(to_unsigned( 7 , data_width_g)) after 700 ns, std_logic_vector(to_unsigned( 1 , data_width_g)) after 1000 ns, 																std_logic_vector(to_unsigned( 0 , data_width_g)) after 10100 ns, 	std_logic_vector(to_unsigned( 1 , data_width_g)) after 10200 ns	,	std_logic_vector(to_unsigned( 1 , data_width_g)) after 10300 ns; 	-- simulation 3
+--	registers_valid_in_s	<= '0','1' after 200 ns,'0' after 300 ns,'1' after 400 ns,'0' after 500 ns, '1' after 700 ns,'0' after 800 ns, '1' after 1000 ns,'0' after 1100 ns, '1' after 1300 ns, '0' after 1400 ns,'1' after 2500 ns, '0' after 2600 ns, '1' after 10100 ns, '0' after 10300 ns, '1' after 10600 ns, '0' after 10700 ns; 																																																						-- simulation 3
+--	CYC_I_s         		<= '0','1' after 150 ns,'0' after 3000 ns, '1' after 10000 ns,'0' after 11000 ns;        																																																																																																											-- simulation 3
 	
 trigg_proc :
-	trigger <= '0','1' after 780 ns, '0' after 1000 ns, '1' after 3100 ns, '0' after 5300 ns, '1' after 7500 ns;
+	trigger <= '0', '1' after 1500 ns, '0' after 7000 ns, '1' after 15000 ns, '0' after 16000 ns, '1' after 21000 ns;				-- simulation 4
+--	trigger <= '0', '1' after 5500 ns, '0' after 10000 ns, '1' after 12000 ns, '0' after 13000 ns;				-- simulation 3
 
 data_proc : process 
 	begin
 		for idx in 0 to read_loop_iter_g  - 1 loop
 			wait until rising_edge(clk);
-			data_in 	<= std_logic_vector (to_unsigned(idx, num_of_signals_g )); 	--Input data 
+			data_in 	<= std_logic_vector (to_unsigned( idx, num_of_signals_g )); 	--Input data 
 		end loop;
 		wait;
 	end process data_proc;	
@@ -345,8 +347,8 @@ WM_BUS_proc :	--(we do not get the data from WS)
 
 WS_register_side_input_proc :
 --- we do not output data to another WM
---	WS_reg_data       	<= (others => '0'); 	 --data to be transmited to the WM
---	WS_reg_data_valid 	<=  '0';   --data to be transmited to the WM validity
+	WS_reg_data       	<= (others => '0'); 	 --data to be transmited to the WM
+	WS_reg_data_valid 	<=  '0';   --data to be transmited to the WM validity
 	WS_stall			<= 	'0';
 --	WS_stall			<=  not rc_dout_valid_s; -- stall - suspend wishbone transaction
 
