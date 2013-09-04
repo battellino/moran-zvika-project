@@ -5,16 +5,16 @@
 -- Project		:	Internal Logic Analyzer
 ------------------------------------------------------------------------------------------------
 -- Description: 
--- 			Craeating an array of RAMs 
---			(using generic_ram from RunLen Project, of Beeri Schreiber and Alon Yavich) 
---			that will save the data.
+-- 			
+--			
+--			
 ------------------------------------------------------------------------------------------------
 -- Revision:
 --			Number		Date			Name							Description			
---			1.00		18.6.2013		Zvika Pery						Creation			
+--			1.00		18.6.2013		Zvika Pery						Creation
+--			1.01		03.9.2013		zvika pery						bug fix			
 ------------------------------------------------------------------------------------------------
 --	Todo:
---			(1) connect registers in get_config mode
 --
 ------------------------------------------------------------------------------------------------
 library ieee ;
@@ -33,7 +33,7 @@ entity internal_logic_analyzer_core_top is
 				enable_polarity_g		:	std_logic	:= '1';								--'1' the entity is active, '0' entity not active
 				signal_ram_depth_g		: 	positive  	:=	3;									--depth of RAM
 				signal_ram_width_g		:	positive 	:=  8;   								--width of basic RAM
-				record_depth_g			: 	positive  	:=	5;									--number of bits that is recorded from each signal
+				record_depth_g			: 	positive  	:=	4;									--number of bits that is recorded from each signal
 				data_width_g            :	positive 	:= 	8;      						    -- defines the width of the data lines of the system
 				Add_width_g  		    :   positive 	:=  8;     								--width of addr word in the RAM
 				num_of_signals_g		:	positive	:=	8;									--num of signals that will be recorded simultaneously	(Width of data)
@@ -41,13 +41,12 @@ entity internal_logic_analyzer_core_top is
 				addr_bits_g				:	positive 	:= 	4;									--Depth of data	(2^4 = 16 addresses)
 				power2_out_g			:	natural 	:= 	0;									--Output width is multiplied by this power factor (2^1). In case of 2: output will be (2^2*8=) 32 bits wide -> our output and input are at the same width
 				power_sign_g			:	integer range -1 to 1 	:= 1;					 	-- '-1' => output width > input width ; '1' => input width > output width		(if power2_out_g = 0, it dosn't matter)
-				type_d_g				:	positive 	:= 	1;		--Type Depth
-				len_d_g					:	positive 	:= 	1		--Length Depth
+				type_d_g				:	positive 	:= 	6;									--Type Depth
+				len_d_g					:	positive 	:= 	1									--Length Depth
 			);
 	port	(
 				clk							:	in std_logic;									--System clock
 				rst							:	in std_logic;									--System Reset
---				enable						:	in std_logic;									--enabling the entity. if (enable = enable_polarity_g) -> start working, else-> do nothing
 				
 				-- Signal Generator interface
 				data_in						:	in std_logic_vector (num_of_signals_g - 1 downto 0);	--Input data from Signal Generator
@@ -72,12 +71,12 @@ entity internal_logic_analyzer_core_top is
 				ACK_O          		: out std_logic;                      							--'1' when valid data is transmited to MW or for successfull write operation 
 				WS_DAT_O       		: out std_logic_vector (data_width_g-1 downto 0);   			--data transmit to MW
 				STALL_O				: out std_logic; 												--STALL - WS is not available for transaction 
-				-- wishbone master interface
+				-- wishbone master control unit signals
 --				addr_out					:	in std_logic_vector ((record_depth_g - power2_out_g*power_sign_g) - 1 downto 0); 		--Output address
 --				aout_valid					:	in std_logic;									--Output address is valid
 				wm_end_out					: out std_logic; --when '1' WM ended a transaction or reseted by watchdog ERR_I signal
-				rc_dout						: out std_logic_vector (data_width_g - 1 downto 0);	--RC Output data
-				rc_dout_valid				: out std_logic; 									--RC Output data valid
+--				rc_dout						: out std_logic_vector (data_width_g - 1 downto 0);	--RC Output data
+--				rc_dout_valid				: out std_logic; 									--RC Output data valid
 				
 				--wm_bus side signals
 				ADR_O			: out std_logic_vector (Add_width_g-1 downto 0); --contains the addr word
@@ -85,7 +84,7 @@ entity internal_logic_analyzer_core_top is
 				WE_O			: out std_logic;                     -- '1' for write, '0' for read
 				STB_O			: out std_logic;                     -- '1' for active bus operation, '0' for no bus operation
 				CYC_O			: out std_logic;                     -- '1' for bus transmition request, '0' for no bus transmition request
-				TGA_O			: out std_logic_vector (type_d_g * data_width_g-1 downto 0); --contains the type word
+				TGA_O			: out std_logic_vector ((data_width_g)*(type_d_g)-1 downto 0); --contains the type word
 				TGD_O			: out std_logic_vector (len_d_g * data_width_g-1 downto 0); --contains the len word
 				ACK_I			: in std_logic;                      --'1' when valid data is recieved from WS or for successfull write operation in WS
 --				DAT_I			: in std_logic_vector (data_width_g-1 downto 0);   --data recieved from WS
@@ -103,7 +102,7 @@ component write_controller
 			enable_polarity_g		:	std_logic	:=	'1';								--'1' the entity is active, '0' entity not active
 			signal_ram_depth_g		: 	positive  	:=	3;									--depth of RAM
 			signal_ram_width_g		:	positive 	:=  8;   								--width of basic RAM
-			record_depth_g			: 	positive  	:=	5;									--number of bits that is recorded from each signal
+			record_depth_g			: 	positive  	:=	4;									--number of bits that is recorded from each signal
 			data_width_g            :	positive 	:= 	8;      						    -- defines the width of the data lines of the system 
 			Add_width_g  		    :   positive 	:=  8;     								--width of addr word in the RAM
 			num_of_signals_g		:	positive	:=	8									--num of signals that will be recorded simultaneously
@@ -116,12 +115,12 @@ component write_controller
 		trigger_position_in			:	in  std_logic_vector(  data_width_g -1 downto 0	);		--the percentage of the data to send out
 		trigger_type_in				:	in  std_logic_vector(  data_width_g -1 downto 0	);		--we specify 5 types of triggers	
 		config_are_set				:	in	std_logic;											--configurations from registers are ready to be read
-		data_out_of_wc				:	out std_logic_vector ( num_of_signals_g -1  downto 0);	--sending the data  to be saved in the RAM. 
+		data_out_of_wc				:	out std_logic_vector ( data_width_g -1  downto 0);	--sending the data  to be saved in the RAM. 
 		addr_out_to_RAM				:	out std_logic_vector( record_depth_g -1 downto 0);	--the addr in the RAM to save the data
 		write_controller_finish		:	out std_logic;											--'1' ->WC has finish working and saving all the relevant data (RC will start work), '0' ->WC is still working
 		start_addr_out				:	out std_logic_vector( record_depth_g -1 downto 0 );	--the start addr of the data that we need to send out to the user. send now to RC
 		din_valid					:	out std_logic;	--data in valid
----------whishbone signals----------------------------					
+				
 		data_in						:	in	std_logic_vector ( num_of_signals_g -1 downto 0);	--data in. comming from user
 		trigger						:	in	std_logic											--trigger signal
 	
@@ -153,7 +152,7 @@ end component ram_generic;
 component read_controller
 	generic (
 			reset_polarity_g		:	std_logic	:=	'1';								--'1' reset active high, '0' active low
-			record_depth_g			: 	positive  	:=	10;									--number of bits that is recorded from each signal
+			record_depth_g			: 	positive  	:=	4;									--number of bits that is recorded from each signal
 			data_width_g            :	positive 	:= 	8;      						    -- defines the width of the data lines of the system 
 			width_in_g				:	positive 	:= 	8;									--Width of data
 			power2_out_g			:	natural 	:= 	0;									--Output width is multiplied by this power factor (2^1). In case of 2: output will be (2^2*8=) 32 bits wide -> our output and input are at the same width
@@ -172,7 +171,7 @@ component read_controller
 		addr_out					:	out std_logic_vector ( record_depth_g - 1 downto 0);	--address send to RAM to output each cycle
 		aout_valid					:	out std_logic;											--Output address to RAM is valid
 -------- WB signals--------		
-		data_out_to_WBM				:	out std_logic_vector (data_width_g - 1 downto 0);		--data out to WBM
+		data_out_to_WBM				:	out std_logic_vector (width_in_g - 1 downto 0);		--data out to WBM
 		data_out_to_WBM_valid		:	out std_logic											--data out to WBM is valid
 	);
 
@@ -182,7 +181,7 @@ component wishbone_master
 	generic (
 			reset_activity_polarity_g  	: std_logic := '1';     -- defines reset active polarity: '0' active low, '1' active high
 			data_width_g        		: 	natural	 := 8;      -- defines the width of the data lines of the system
-			type_d_g					:	positive := 1;		--Type Depth
+			type_d_g					:	positive := 6;		--Type Depth
 			Add_width_g    				:   positive := 8;		--width of addr word in the WB
 			len_d_g						:	positive := 1		--Length Depth
 			);
@@ -193,12 +192,12 @@ component wishbone_master
 			--control unit signals
 			wm_start		: in std_logic;	--when '1' WM starts a transaction
 			wr				: in std_logic;                      --determines if the WM will make a read('0') or write('1') transaction
-			type_in			: in std_logic_vector (type_d_g * data_width_g-1 downto 0);  --type is the client which the data is directed to
+			type_in			: in std_logic_vector ((data_width_g)*(type_d_g)-1 downto 0);  --type is the client which the data is directed to
 			len_in			: in std_logic_vector (len_d_g * data_width_g-1 downto 0);  --length of the data (in words)
 			addr_in			: in std_logic_vector (Add_width_g-1 downto 0);  --the address in the client that the information will be written to
 			wm_end			: out std_logic; --when '1' WM ended a transaction or reseted by watchdog ERR_I signal
 			--Read Controller signals
-			rc_din			: in std_logic_vector (data_width_g - 1 downto 0);	--RC Output data
+			rc_din			: in std_logic_vector (width_in_g - 1 downto 0);	--RC Output data
 --			rc_din_valid	: in std_logic; 									--RC Output data valid
 			--bus side signals
 			ADR_O			: out std_logic_vector (Add_width_g-1 downto 0); --contains the addr word
@@ -206,7 +205,7 @@ component wishbone_master
 			WE_O			: out std_logic;                     -- '1' for write, '0' for read
 			STB_O			: out std_logic;                     -- '1' for active bus operation, '0' for no bus operation
 			CYC_O			: out std_logic;                     -- '1' for bus transmition request, '0' for no bus transmition request
-			TGA_O			: out std_logic_vector (type_d_g * data_width_g-1 downto 0); --contains the type word
+			TGA_O			: out std_logic_vector ((data_width_g)*(type_d_g)-1 downto 0); --contains the type word
 			TGD_O			: out std_logic_vector (len_d_g * data_width_g-1 downto 0); --contains the len word
 			ACK_I			: in std_logic;                      --'1' when valid data is recieved from WS or for successfull write operation in WS
 			DAT_I			: in std_logic_vector (data_width_g-1 downto 0);   --data recieved from WS
@@ -236,6 +235,8 @@ component core_registers
 			wr_en            			: in std_logic; 									-- write enable: '1' for write, '0' for read
 			data_in           			: in std_logic_vector (data_width_g-1 downto 0); -- data sent from WS
 			valid_in          			: in std_logic; 									-- validity of the data directed from WS
+			rc_finish					: in std_logic;										--  1 -> reset enable register
+			wc_finish			: in std_logic;										
 --     		data_out          : out std_logic_vector (data_width_g-1 downto 0); -- data sent to WS
 --     		valid_data_out    : out std_logic; -- validity of data directed to WS
     -- write controller interface
@@ -255,7 +256,7 @@ component wishbone_slave
 			data_width_g               	: natural := 8;         -- defines the width of the data lines of the system    
 			Add_width_g    				:   positive := 8;		--width of addr word in the WB
 			len_d_g						:	positive := 1;		--Length Depth
-			type_d_g					:	positive := 1		--Type Depth    
+			type_d_g					:	positive := 6		--Type Depth    
 			);
 	port
 	(	
@@ -307,8 +308,8 @@ end component enable_fsm;
 
 -----------------------------------------------------Constants--------------------------------------------------------------------------
 constant len_of_data_c		: std_logic_vector (len_d_g * data_width_g - 1 downto 0)	:= std_logic_vector(to_unsigned( 1 , len_d_g * data_width_g));
-constant type_of_TX_ws_c	: std_logic_vector (type_d_g * data_width_g - 1 downto 0 )	:= std_logic_vector(to_unsigned( 4 , type_d_g * data_width_g));
-constant type_of_CORE_ws_c	: std_logic_vector (type_d_g * data_width_g - 1 downto 0 )	:= std_logic_vector(to_unsigned( 3 , type_d_g * data_width_g));
+constant type_of_TX_ws_c	: std_logic_vector ((data_width_g)*(type_d_g)-1 downto 0)	:= std_logic_vector(to_unsigned( 4 , type_d_g * data_width_g));
+constant type_of_CORE_ws_c	: std_logic_vector ((data_width_g)*(type_d_g)-1 downto 0)	:= std_logic_vector(to_unsigned( 3 , type_d_g * data_width_g));
 -----------------------------------------------------Types------------------------------------------------------------------------------
 
 
@@ -328,8 +329,8 @@ signal addr_out_s					: std_logic_vector ((addr_bits_g - power2_out_g*power_sign
 signal aout_valid_s					: std_logic;										--RAM output address is valid
 signal clk_to_start_s				: std_logic_vector ( data_width_g -1 downto 0 );
 signal enable_s						: std_logic;										--enabling the entity. if (enable = enable_polarity_g) -> start working, else-> do nothing
-signal enable_register_s			: std_logic;										--enabe register
-signal data_from_rc_to_wm_s			: std_logic_vector (data_width_g - 1 downto 0);
+signal enable_register_s			: std_logic;										--enable register
+signal data_from_rc_to_wm_s			: std_logic_vector (width_in_g - 1 downto 0);
 signal data_from_rc_to_wm_valid_s	: std_logic;
 ------- wishbone slave to registers signals-----------
 signal registers_address_in_s		: std_logic_vector (Add_width_g -1 downto 0); 	-- reg address line
@@ -344,7 +345,7 @@ begin
 
 RAM_inst : ram_generic generic map (
 								reset_polarity_g	=> reset_polarity_g,	
-                                width_in_g			=> num_of_signals_g,
+                                width_in_g			=> width_in_g,
                                 addr_bits_g			=> record_depth_g,			
                                 power2_out_g		=> power2_out_g,
 								power_sign_g		=> power_sign_g
@@ -425,9 +426,9 @@ read_controller_inst : read_controller generic map (
 wishbone_master_inst : wishbone_master generic map (
 											reset_activity_polarity_g  	=>	reset_polarity_g,
 											data_width_g        		=>	data_width_g,
-											type_d_g					=>	1,					--Type Depth. type is the client which the data is directed to
-											Add_width_g    				=>	Add_width_g,		--width of addr word in the WB
-											len_d_g						=>	1					--Length Depth. length of the data (in words)
+											type_d_g					=>	type_d_g,				--Type Depth. type is the client which the data is directed to
+											Add_width_g    				=>	Add_width_g,			--width of addr word in the WB
+											len_d_g						=>	len_d_g					--Length Depth. length of the data (in words)
 											
 											)
 										port map (
@@ -435,7 +436,7 @@ wishbone_master_inst : wishbone_master generic map (
 											sys_reset		=> rst, 							--system reset   
 		
 											wm_start		=> write_controller_finish_s,								--when '1' WM starts a transaction
-											wr				=> '0',                      			--determines if the WM will make a read('0') or write('1') transaction
+											wr				=> '1',                      			--determines if the WM will make a read('0') or write('1') transaction
 											type_in			=> type_of_TX_ws_c,  								--type is the client which the data is directed to
 											len_in			=> len_of_data_c,  								--length of the data (in words)
 											addr_in			=> (others => '0'),  								--the address in the client(registers) that the information will be written to
@@ -476,6 +477,8 @@ core_registers_inst : core_registers generic map (
 											wr_en             		=> wr_en_s,
 											data_in           		=> registers_data_in_s,
 											valid_in          		=> registers_valid_in_s,
+											rc_finish				=> read_controller_finish_s,
+											wc_finish				=> write_controller_finish_s,									
 											----- core blocks interface----------
 											en_out            		=> wc_is_config,		--all registers are ready to be read from
 											trigger_type_out_1      => trigger_type_s,
@@ -487,9 +490,9 @@ core_registers_inst : core_registers generic map (
 wishbone_slave_inst : wishbone_slave generic map (
 											reset_activity_polarity_g  	=>	reset_polarity_g,
 											data_width_g        		=>	data_width_g,
-											type_d_g					=>	1,					--Type Depth. type is the client which the data is directed to
-											Add_width_g    				=>	Add_width_g,		--width of addr word in the WB
-											len_d_g						=>	1					--Length Depth. length of the data (in words)
+											type_d_g					=>	type_d_g,				--Type Depth. type is the client which the data is directed to
+											Add_width_g    				=>	Add_width_g,			--width of addr word in the WB
+											len_d_g						=>	len_d_g					--Length Depth. length of the data (in words)
 										)
 										port map (
 											clk			=> clk,								--system clock
@@ -520,9 +523,6 @@ wishbone_slave_inst : wishbone_slave generic map (
 										);
 										
 -------------------------------------------------  processes ------------------------------------------------------------
-out_proc	:
-	rc_dout			<=	data_from_rc_to_wm_s;
-	rc_dout_valid	<= data_from_rc_to_wm_valid_s;
 
 end architecture arc_core;
 

@@ -1,8 +1,69 @@
-# Reading C:/altera/12.0/modelsim_ase/tcl/vsim/pref.tcl 
-# OpenFile {C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/read_controller.vhd} 
-#  
-vcom -reportprogress 300 -work work {C:/Documents and Settings/user/My Documents/Dropbox/project/VHDL/DESIGN/core/read_controller.vhd}
-# Model Technology ModelSim ALTERA vcom 10.0d Compiler 2012.01 Jan 18 2012
+# Reading C:/altera/13.0sp1/modelsim_ase/tcl/vsim/pref.tcl 
+# OpenFile C:/project/VHDL/SIMULATION/core/core_registers.vhd 
+do core_tb
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Compiling package write_controller_pkg
+# -- Compiling package body write_controller_pkg
+# -- Loading package write_controller_pkg
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Loading package write_controller_pkg
+# -- Compiling entity write_controller
+# -- Compiling architecture behave of write_controller
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_SIGNED
+# -- Compiling package ram_generic_pkg
+# -- Compiling package body ram_generic_pkg
+# -- Loading package ram_generic_pkg
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Compiling entity mux_generic
+# -- Compiling architecture mux_generic_arc of mux_generic
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Compiling entity dec_generic
+# -- Compiling architecture dec_generic_arc of dec_generic
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Compiling entity ram_simple
+# -- Compiling architecture arc_ram_simple of ram_simple
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_SIGNED
+# -- Loading package ATTRIBUTES
+# -- Loading package std_logic_misc
+# -- Loading package ram_generic_pkg
+# -- Compiling entity ram_generic
+# -- Compiling architecture rtl_ram_generic of ram_generic
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
 # -- Loading package STANDARD
 # -- Loading package TEXTIO
 # -- Loading package std_logic_1164
@@ -12,14 +73,2419 @@ vcom -reportprogress 300 -work work {C:/Documents and Settings/user/My Documents
 # -- Loading package ram_generic_pkg
 # -- Compiling entity read_controller
 # -- Compiling architecture behave of read_controller
-vsim -gui read_controller
-# vsim -gui read_controller 
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Compiling entity wishbone_master
+# -- Compiling architecture arc_wishbone_master of wishbone_master
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Compiling entity core_registers
+# -- Compiling architecture behave of core_registers
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Compiling entity enable_fsm
+# -- Compiling architecture behave of enable_fsm
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_SIGNED
+# -- Loading package NUMERIC_STD
+# -- Loading package ram_generic_pkg
+# -- Compiling entity internal_logic_analyzer_core_top
+# -- Compiling architecture arc_core of internal_logic_analyzer_core_top
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_SIGNED
+# -- Loading package ATTRIBUTES
+# -- Loading package std_logic_misc
+# -- Loading package NUMERIC_STD
+# -- Loading package ram_generic_pkg
+# -- Compiling entity internal_logic_analyzer_core_top_tb
+# -- Compiling architecture arc_internal_logic_analyzer_core_top_tb of internal_logic_analyzer_core_top_tb
+# vsim internal_logic_analyzer_core_top_tb 
 # Loading std.standard
 # Loading std.textio(body)
 # Loading ieee.std_logic_1164(body)
-# Loading ieee.numeric_std(body)
 # Loading ieee.std_logic_arith(body)
 # Loading ieee.std_logic_signed(body)
+# Loading synopsys.attributes
+# Loading ieee.std_logic_misc(body)
+# Loading ieee.numeric_std(body)
 # Loading work.ram_generic_pkg(body)
+# Loading work.internal_logic_analyzer_core_top_tb(arc_internal_logic_analyzer_core_top_tb)
+# Loading work.internal_logic_analyzer_core_top(arc_core)
+# Loading work.ram_generic(rtl_ram_generic)
+# Loading work.ram_simple(arc_ram_simple)
+# Loading work.enable_fsm(behave)
+# Loading ieee.std_logic_unsigned(body)
+# Loading work.write_controller_pkg(body)
+# Loading work.write_controller(behave)
 # Loading work.read_controller(behave)
-# WARNING: No extended dataflow license exists
+# Loading work.wishbone_master(arc_wishbone_master)
+# Loading work.core_registers(behave)
+# Loading work.wishbone_slave(arc_wb_slave)
+# ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
+# 
+#           File in use by: user  Hostname: USER-7  ProcessID: 4688
+# 
+#           Attempting to use alternate WLF file "./wlft684fyr".
+# ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
+# 
+#           Using alternate file: ./wlft684fyr
+# 
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb/internal_logic_analyzer_core_top_inst/wishbone_master_inst
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb/internal_logic_analyzer_core_top_inst/wishbone_master_inst
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 12850 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 12950 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 13050 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 13150 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 13250 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 13350 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 13450 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 13550 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 13650 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 13750 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 13850 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 13950 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 14050 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 14150 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 14250 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 14350 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 14450 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 14550 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 14650 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 14750 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 14850 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 14950 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+quit -sim
+do core_tb
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Compiling package write_controller_pkg
+# -- Compiling package body write_controller_pkg
+# -- Loading package write_controller_pkg
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Loading package write_controller_pkg
+# -- Compiling entity write_controller
+# -- Compiling architecture behave of write_controller
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_SIGNED
+# -- Compiling package ram_generic_pkg
+# -- Compiling package body ram_generic_pkg
+# -- Loading package ram_generic_pkg
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Compiling entity mux_generic
+# -- Compiling architecture mux_generic_arc of mux_generic
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Compiling entity dec_generic
+# -- Compiling architecture dec_generic_arc of dec_generic
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Compiling entity ram_simple
+# -- Compiling architecture arc_ram_simple of ram_simple
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_SIGNED
+# -- Loading package ATTRIBUTES
+# -- Loading package std_logic_misc
+# -- Loading package ram_generic_pkg
+# -- Compiling entity ram_generic
+# -- Compiling architecture rtl_ram_generic of ram_generic
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_SIGNED
+# -- Loading package ram_generic_pkg
+# -- Compiling entity read_controller
+# -- Compiling architecture behave of read_controller
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Compiling entity wishbone_master
+# -- Compiling architecture arc_wishbone_master of wishbone_master
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Compiling entity core_registers
+# -- Compiling architecture behave of core_registers
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Compiling entity enable_fsm
+# -- Compiling architecture behave of enable_fsm
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_SIGNED
+# -- Loading package NUMERIC_STD
+# -- Loading package ram_generic_pkg
+# -- Compiling entity internal_logic_analyzer_core_top
+# -- Compiling architecture arc_core of internal_logic_analyzer_core_top
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_SIGNED
+# -- Loading package ATTRIBUTES
+# -- Loading package std_logic_misc
+# -- Loading package NUMERIC_STD
+# -- Loading package ram_generic_pkg
+# -- Compiling entity internal_logic_analyzer_core_top_tb
+# -- Compiling architecture arc_internal_logic_analyzer_core_top_tb of internal_logic_analyzer_core_top_tb
+# vsim internal_logic_analyzer_core_top_tb 
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.std_logic_arith(body)
+# Loading ieee.std_logic_signed(body)
+# Loading synopsys.attributes
+# Loading ieee.std_logic_misc(body)
+# Loading ieee.numeric_std(body)
+# Loading work.ram_generic_pkg(body)
+# Loading work.internal_logic_analyzer_core_top_tb(arc_internal_logic_analyzer_core_top_tb)
+# Loading work.internal_logic_analyzer_core_top(arc_core)
+# Loading work.ram_generic(rtl_ram_generic)
+# Loading work.ram_simple(arc_ram_simple)
+# Loading work.enable_fsm(behave)
+# Loading ieee.std_logic_unsigned(body)
+# Loading work.write_controller_pkg(body)
+# Loading work.write_controller(behave)
+# Loading work.read_controller(behave)
+# Loading work.wishbone_master(arc_wishbone_master)
+# Loading work.core_registers(behave)
+# Loading work.wishbone_slave(arc_wb_slave)
+# ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
+# 
+#           File in use by: user  Hostname: USER-7  ProcessID: 4688
+# 
+#           Attempting to use alternate WLF file "./wlftamtyex".
+# ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
+# 
+#           Using alternate file: ./wlftamtyex
+# 
+# ** Fatal: (vsim-3483) Delay in signal assignment is not ascending.
+#    Time: 0 ps  Iteration: 0  Process: /internal_logic_analyzer_core_top_tb/trigg_proc File: internal_logic_analyzer_core_top_tb.vhd
+# Fatal error in Architecture arc_internal_logic_analyzer_core_top_tb at internal_logic_analyzer_core_top_tb.vhd line 330
+# 
+# HDL call sequence:
+# Stopped at internal_logic_analyzer_core_top_tb.vhd 330 Architecture arc_internal_logic_analyzer_core_top_tb
+# 
+quit -sim
+do core_tb
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Compiling package write_controller_pkg
+# -- Compiling package body write_controller_pkg
+# -- Loading package write_controller_pkg
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Loading package write_controller_pkg
+# -- Compiling entity write_controller
+# -- Compiling architecture behave of write_controller
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_SIGNED
+# -- Compiling package ram_generic_pkg
+# -- Compiling package body ram_generic_pkg
+# -- Loading package ram_generic_pkg
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Compiling entity mux_generic
+# -- Compiling architecture mux_generic_arc of mux_generic
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Compiling entity dec_generic
+# -- Compiling architecture dec_generic_arc of dec_generic
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Compiling entity ram_simple
+# -- Compiling architecture arc_ram_simple of ram_simple
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_SIGNED
+# -- Loading package ATTRIBUTES
+# -- Loading package std_logic_misc
+# -- Loading package ram_generic_pkg
+# -- Compiling entity ram_generic
+# -- Compiling architecture rtl_ram_generic of ram_generic
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_SIGNED
+# -- Loading package ram_generic_pkg
+# -- Compiling entity read_controller
+# -- Compiling architecture behave of read_controller
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Compiling entity wishbone_master
+# -- Compiling architecture arc_wishbone_master of wishbone_master
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Compiling entity core_registers
+# -- Compiling architecture behave of core_registers
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Compiling entity enable_fsm
+# -- Compiling architecture behave of enable_fsm
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_SIGNED
+# -- Loading package NUMERIC_STD
+# -- Loading package ram_generic_pkg
+# -- Compiling entity internal_logic_analyzer_core_top
+# -- Compiling architecture arc_core of internal_logic_analyzer_core_top
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_SIGNED
+# -- Loading package ATTRIBUTES
+# -- Loading package std_logic_misc
+# -- Loading package NUMERIC_STD
+# -- Loading package ram_generic_pkg
+# -- Compiling entity internal_logic_analyzer_core_top_tb
+# -- Compiling architecture arc_internal_logic_analyzer_core_top_tb of internal_logic_analyzer_core_top_tb
+# vsim internal_logic_analyzer_core_top_tb 
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.std_logic_arith(body)
+# Loading ieee.std_logic_signed(body)
+# Loading synopsys.attributes
+# Loading ieee.std_logic_misc(body)
+# Loading ieee.numeric_std(body)
+# Loading work.ram_generic_pkg(body)
+# Loading work.internal_logic_analyzer_core_top_tb(arc_internal_logic_analyzer_core_top_tb)
+# Loading work.internal_logic_analyzer_core_top(arc_core)
+# Loading work.ram_generic(rtl_ram_generic)
+# Loading work.ram_simple(arc_ram_simple)
+# Loading work.enable_fsm(behave)
+# Loading ieee.std_logic_unsigned(body)
+# Loading work.write_controller_pkg(body)
+# Loading work.write_controller(behave)
+# Loading work.read_controller(behave)
+# Loading work.wishbone_master(arc_wishbone_master)
+# Loading work.core_registers(behave)
+# Loading work.wishbone_slave(arc_wb_slave)
+# ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
+# 
+#           File in use by: user  Hostname: USER-7  ProcessID: 4688
+# 
+#           Attempting to use alternate WLF file "./wlftarhsvz".
+# ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
+# 
+#           Using alternate file: ./wlftarhsvz
+# 
+# ** Fatal: (vsim-3483) Delay in signal assignment is not ascending.
+#    Time: 0 ps  Iteration: 0  Process: /internal_logic_analyzer_core_top_tb/trigg_proc File: internal_logic_analyzer_core_top_tb.vhd
+# Fatal error in Architecture arc_internal_logic_analyzer_core_top_tb at internal_logic_analyzer_core_top_tb.vhd line 330
+# 
+# HDL call sequence:
+# Stopped at internal_logic_analyzer_core_top_tb.vhd 330 Architecture arc_internal_logic_analyzer_core_top_tb
+# 
+quit -sim
+do core_tb
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Compiling package write_controller_pkg
+# -- Compiling package body write_controller_pkg
+# -- Loading package write_controller_pkg
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Loading package write_controller_pkg
+# -- Compiling entity write_controller
+# -- Compiling architecture behave of write_controller
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_SIGNED
+# -- Compiling package ram_generic_pkg
+# -- Compiling package body ram_generic_pkg
+# -- Loading package ram_generic_pkg
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Compiling entity mux_generic
+# -- Compiling architecture mux_generic_arc of mux_generic
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Compiling entity dec_generic
+# -- Compiling architecture dec_generic_arc of dec_generic
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Compiling entity ram_simple
+# -- Compiling architecture arc_ram_simple of ram_simple
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_SIGNED
+# -- Loading package ATTRIBUTES
+# -- Loading package std_logic_misc
+# -- Loading package ram_generic_pkg
+# -- Compiling entity ram_generic
+# -- Compiling architecture rtl_ram_generic of ram_generic
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_SIGNED
+# -- Loading package ram_generic_pkg
+# -- Compiling entity read_controller
+# -- Compiling architecture behave of read_controller
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Compiling entity wishbone_master
+# -- Compiling architecture arc_wishbone_master of wishbone_master
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Compiling entity core_registers
+# -- Compiling architecture behave of core_registers
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Compiling entity enable_fsm
+# -- Compiling architecture behave of enable_fsm
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_SIGNED
+# -- Loading package NUMERIC_STD
+# -- Loading package ram_generic_pkg
+# -- Compiling entity internal_logic_analyzer_core_top
+# -- Compiling architecture arc_core of internal_logic_analyzer_core_top
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_SIGNED
+# -- Loading package ATTRIBUTES
+# -- Loading package std_logic_misc
+# -- Loading package NUMERIC_STD
+# -- Loading package ram_generic_pkg
+# -- Compiling entity internal_logic_analyzer_core_top_tb
+# -- Compiling architecture arc_internal_logic_analyzer_core_top_tb of internal_logic_analyzer_core_top_tb
+# vsim internal_logic_analyzer_core_top_tb 
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.std_logic_arith(body)
+# Loading ieee.std_logic_signed(body)
+# Loading synopsys.attributes
+# Loading ieee.std_logic_misc(body)
+# Loading ieee.numeric_std(body)
+# Loading work.ram_generic_pkg(body)
+# Loading work.internal_logic_analyzer_core_top_tb(arc_internal_logic_analyzer_core_top_tb)
+# Loading work.internal_logic_analyzer_core_top(arc_core)
+# Loading work.ram_generic(rtl_ram_generic)
+# Loading work.ram_simple(arc_ram_simple)
+# Loading work.enable_fsm(behave)
+# Loading ieee.std_logic_unsigned(body)
+# Loading work.write_controller_pkg(body)
+# Loading work.write_controller(behave)
+# Loading work.read_controller(behave)
+# Loading work.wishbone_master(arc_wishbone_master)
+# Loading work.core_registers(behave)
+# Loading work.wishbone_slave(arc_wb_slave)
+# ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
+# 
+#           File in use by: user  Hostname: USER-7  ProcessID: 4688
+# 
+#           Attempting to use alternate WLF file "./wlftgicr68".
+# ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
+# 
+#           Using alternate file: ./wlftgicr68
+# 
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb/internal_logic_analyzer_core_top_inst/wishbone_master_inst
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb/internal_logic_analyzer_core_top_inst/wishbone_master_inst
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 12850 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 12950 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 13050 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 13150 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 13250 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 13350 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 13450 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 13550 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 13650 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 13750 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 13850 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 13950 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 14050 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 14150 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 14250 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 14350 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 14450 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 14550 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 14650 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 14750 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 14850 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 14950 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+quit -sim
+do core_tb
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Compiling package write_controller_pkg
+# -- Compiling package body write_controller_pkg
+# -- Loading package write_controller_pkg
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Loading package write_controller_pkg
+# -- Compiling entity write_controller
+# -- Compiling architecture behave of write_controller
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_SIGNED
+# -- Compiling package ram_generic_pkg
+# -- Compiling package body ram_generic_pkg
+# -- Loading package ram_generic_pkg
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Compiling entity mux_generic
+# -- Compiling architecture mux_generic_arc of mux_generic
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Compiling entity dec_generic
+# -- Compiling architecture dec_generic_arc of dec_generic
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Compiling entity ram_simple
+# -- Compiling architecture arc_ram_simple of ram_simple
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_SIGNED
+# -- Loading package ATTRIBUTES
+# -- Loading package std_logic_misc
+# -- Loading package ram_generic_pkg
+# -- Compiling entity ram_generic
+# -- Compiling architecture rtl_ram_generic of ram_generic
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_SIGNED
+# -- Loading package ram_generic_pkg
+# -- Compiling entity read_controller
+# -- Compiling architecture behave of read_controller
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Compiling entity wishbone_master
+# -- Compiling architecture arc_wishbone_master of wishbone_master
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Compiling entity core_registers
+# -- Compiling architecture behave of core_registers
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Compiling entity enable_fsm
+# -- Compiling architecture behave of enable_fsm
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_SIGNED
+# -- Loading package NUMERIC_STD
+# -- Loading package ram_generic_pkg
+# -- Compiling entity internal_logic_analyzer_core_top
+# -- Compiling architecture arc_core of internal_logic_analyzer_core_top
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_SIGNED
+# -- Loading package ATTRIBUTES
+# -- Loading package std_logic_misc
+# -- Loading package NUMERIC_STD
+# -- Loading package ram_generic_pkg
+# -- Compiling entity internal_logic_analyzer_core_top_tb
+# -- Compiling architecture arc_internal_logic_analyzer_core_top_tb of internal_logic_analyzer_core_top_tb
+# vsim internal_logic_analyzer_core_top_tb 
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.std_logic_arith(body)
+# Loading ieee.std_logic_signed(body)
+# Loading synopsys.attributes
+# Loading ieee.std_logic_misc(body)
+# Loading ieee.numeric_std(body)
+# Loading work.ram_generic_pkg(body)
+# Loading work.internal_logic_analyzer_core_top_tb(arc_internal_logic_analyzer_core_top_tb)
+# Loading work.internal_logic_analyzer_core_top(arc_core)
+# Loading work.ram_generic(rtl_ram_generic)
+# Loading work.ram_simple(arc_ram_simple)
+# Loading work.enable_fsm(behave)
+# Loading ieee.std_logic_unsigned(body)
+# Loading work.write_controller_pkg(body)
+# Loading work.write_controller(behave)
+# Loading work.read_controller(behave)
+# Loading work.wishbone_master(arc_wishbone_master)
+# Loading work.core_registers(behave)
+# Loading work.wishbone_slave(arc_wb_slave)
+# ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
+# 
+#           File in use by: user  Hostname: USER-7  ProcessID: 4688
+# 
+#           Attempting to use alternate WLF file "./wlftqzz16q".
+# ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
+# 
+#           Using alternate file: ./wlftqzz16q
+# 
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb/internal_logic_analyzer_core_top_inst/wishbone_master_inst
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb/internal_logic_analyzer_core_top_inst/wishbone_master_inst
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 12850 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 12950 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 13050 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 13150 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 13250 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 13350 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 13450 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 13550 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 13650 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 13750 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 13850 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 13950 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 14050 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 14150 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 14250 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 14350 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 14450 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 14550 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 14650 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 14750 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 14850 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 14950 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+quit -sim
+do core_tb
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Compiling package write_controller_pkg
+# -- Compiling package body write_controller_pkg
+# -- Loading package write_controller_pkg
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Loading package write_controller_pkg
+# -- Compiling entity write_controller
+# -- Compiling architecture behave of write_controller
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_SIGNED
+# -- Compiling package ram_generic_pkg
+# -- Compiling package body ram_generic_pkg
+# -- Loading package ram_generic_pkg
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Compiling entity mux_generic
+# -- Compiling architecture mux_generic_arc of mux_generic
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Compiling entity dec_generic
+# -- Compiling architecture dec_generic_arc of dec_generic
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Compiling entity ram_simple
+# -- Compiling architecture arc_ram_simple of ram_simple
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_SIGNED
+# -- Loading package ATTRIBUTES
+# -- Loading package std_logic_misc
+# -- Loading package ram_generic_pkg
+# -- Compiling entity ram_generic
+# -- Compiling architecture rtl_ram_generic of ram_generic
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_SIGNED
+# -- Loading package ram_generic_pkg
+# -- Compiling entity read_controller
+# -- Compiling architecture behave of read_controller
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Compiling entity wishbone_master
+# -- Compiling architecture arc_wishbone_master of wishbone_master
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Compiling entity core_registers
+# -- Compiling architecture behave of core_registers
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Compiling entity enable_fsm
+# -- Compiling architecture behave of enable_fsm
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_SIGNED
+# -- Loading package NUMERIC_STD
+# -- Loading package ram_generic_pkg
+# -- Compiling entity internal_logic_analyzer_core_top
+# -- Compiling architecture arc_core of internal_logic_analyzer_core_top
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_SIGNED
+# -- Loading package ATTRIBUTES
+# -- Loading package std_logic_misc
+# -- Loading package NUMERIC_STD
+# -- Loading package ram_generic_pkg
+# -- Compiling entity internal_logic_analyzer_core_top_tb
+# -- Compiling architecture arc_internal_logic_analyzer_core_top_tb of internal_logic_analyzer_core_top_tb
+# vsim internal_logic_analyzer_core_top_tb 
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.std_logic_arith(body)
+# Loading ieee.std_logic_signed(body)
+# Loading synopsys.attributes
+# Loading ieee.std_logic_misc(body)
+# Loading ieee.numeric_std(body)
+# Loading work.ram_generic_pkg(body)
+# Loading work.internal_logic_analyzer_core_top_tb(arc_internal_logic_analyzer_core_top_tb)
+# Loading work.internal_logic_analyzer_core_top(arc_core)
+# Loading work.ram_generic(rtl_ram_generic)
+# Loading work.ram_simple(arc_ram_simple)
+# Loading work.enable_fsm(behave)
+# Loading ieee.std_logic_unsigned(body)
+# Loading work.write_controller_pkg(body)
+# Loading work.write_controller(behave)
+# Loading work.read_controller(behave)
+# Loading work.wishbone_master(arc_wishbone_master)
+# Loading work.core_registers(behave)
+# Loading work.wishbone_slave(arc_wb_slave)
+# ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
+# 
+#           File in use by: user  Hostname: USER-7  ProcessID: 4688
+# 
+#           Attempting to use alternate WLF file "./wlftjywwx2".
+# ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
+# 
+#           Using alternate file: ./wlftjywwx2
+# 
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb/internal_logic_analyzer_core_top_inst/wishbone_master_inst
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb/internal_logic_analyzer_core_top_inst/wishbone_master_inst
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 12850 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 12950 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 13050 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 13150 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 13250 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 13350 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 13450 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 13550 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 13650 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 13750 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 13850 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 13950 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 14050 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 14150 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 14250 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 14350 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 14450 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 14550 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 14650 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 14750 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 14850 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 14950 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+quit -sim
+do core_tb
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Compiling package write_controller_pkg
+# -- Compiling package body write_controller_pkg
+# -- Loading package write_controller_pkg
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Loading package write_controller_pkg
+# -- Compiling entity write_controller
+# -- Compiling architecture behave of write_controller
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_SIGNED
+# -- Compiling package ram_generic_pkg
+# -- Compiling package body ram_generic_pkg
+# -- Loading package ram_generic_pkg
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Compiling entity mux_generic
+# -- Compiling architecture mux_generic_arc of mux_generic
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Compiling entity dec_generic
+# -- Compiling architecture dec_generic_arc of dec_generic
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Compiling entity ram_simple
+# -- Compiling architecture arc_ram_simple of ram_simple
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_SIGNED
+# -- Loading package ATTRIBUTES
+# -- Loading package std_logic_misc
+# -- Loading package ram_generic_pkg
+# -- Compiling entity ram_generic
+# -- Compiling architecture rtl_ram_generic of ram_generic
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_SIGNED
+# -- Loading package ram_generic_pkg
+# -- Compiling entity read_controller
+# -- Compiling architecture behave of read_controller
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Compiling entity wishbone_master
+# -- Compiling architecture arc_wishbone_master of wishbone_master
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Compiling entity core_registers
+# -- Compiling architecture behave of core_registers
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Compiling entity enable_fsm
+# -- Compiling architecture behave of enable_fsm
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_SIGNED
+# -- Loading package NUMERIC_STD
+# -- Loading package ram_generic_pkg
+# -- Compiling entity internal_logic_analyzer_core_top
+# -- Compiling architecture arc_core of internal_logic_analyzer_core_top
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_SIGNED
+# -- Loading package ATTRIBUTES
+# -- Loading package std_logic_misc
+# -- Loading package NUMERIC_STD
+# -- Loading package ram_generic_pkg
+# -- Compiling entity internal_logic_analyzer_core_top_tb
+# -- Compiling architecture arc_internal_logic_analyzer_core_top_tb of internal_logic_analyzer_core_top_tb
+# vsim internal_logic_analyzer_core_top_tb 
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.std_logic_arith(body)
+# Loading ieee.std_logic_signed(body)
+# Loading synopsys.attributes
+# Loading ieee.std_logic_misc(body)
+# Loading ieee.numeric_std(body)
+# Loading work.ram_generic_pkg(body)
+# Loading work.internal_logic_analyzer_core_top_tb(arc_internal_logic_analyzer_core_top_tb)
+# Loading work.internal_logic_analyzer_core_top(arc_core)
+# Loading work.ram_generic(rtl_ram_generic)
+# Loading work.ram_simple(arc_ram_simple)
+# Loading work.enable_fsm(behave)
+# Loading ieee.std_logic_unsigned(body)
+# Loading work.write_controller_pkg(body)
+# Loading work.write_controller(behave)
+# Loading work.read_controller(behave)
+# Loading work.wishbone_master(arc_wishbone_master)
+# Loading work.core_registers(behave)
+# Loading work.wishbone_slave(arc_wb_slave)
+# ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
+# 
+#           File in use by: user  Hostname: USER-7  ProcessID: 4688
+# 
+#           Attempting to use alternate WLF file "./wlftr1209h".
+# ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
+# 
+#           Using alternate file: ./wlftr1209h
+# 
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb/internal_logic_analyzer_core_top_inst/wishbone_master_inst
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb/internal_logic_analyzer_core_top_inst/wishbone_master_inst
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 12850 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 12950 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 13050 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 13150 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 13250 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 13350 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 13450 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 13550 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 13650 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 13750 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 13850 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 13950 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 14050 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 14150 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 14250 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 14350 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 14450 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 14550 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 14650 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 14750 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 14850 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 14950 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+quit -sim
+do core_tb
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Compiling package write_controller_pkg
+# -- Compiling package body write_controller_pkg
+# -- Loading package write_controller_pkg
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Loading package write_controller_pkg
+# -- Compiling entity write_controller
+# -- Compiling architecture behave of write_controller
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_SIGNED
+# -- Compiling package ram_generic_pkg
+# -- Compiling package body ram_generic_pkg
+# -- Loading package ram_generic_pkg
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Compiling entity mux_generic
+# -- Compiling architecture mux_generic_arc of mux_generic
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Compiling entity dec_generic
+# -- Compiling architecture dec_generic_arc of dec_generic
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Compiling entity ram_simple
+# -- Compiling architecture arc_ram_simple of ram_simple
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_SIGNED
+# -- Loading package ATTRIBUTES
+# -- Loading package std_logic_misc
+# -- Loading package ram_generic_pkg
+# -- Compiling entity ram_generic
+# -- Compiling architecture rtl_ram_generic of ram_generic
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_SIGNED
+# -- Loading package ram_generic_pkg
+# -- Compiling entity read_controller
+# -- Compiling architecture behave of read_controller
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Compiling entity wishbone_master
+# -- Compiling architecture arc_wishbone_master of wishbone_master
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Compiling entity core_registers
+# -- Compiling architecture behave of core_registers
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Compiling entity enable_fsm
+# -- Compiling architecture behave of enable_fsm
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_SIGNED
+# -- Loading package NUMERIC_STD
+# -- Loading package ram_generic_pkg
+# -- Compiling entity internal_logic_analyzer_core_top
+# -- Compiling architecture arc_core of internal_logic_analyzer_core_top
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_SIGNED
+# -- Loading package ATTRIBUTES
+# -- Loading package std_logic_misc
+# -- Loading package NUMERIC_STD
+# -- Loading package ram_generic_pkg
+# -- Compiling entity internal_logic_analyzer_core_top_tb
+# -- Compiling architecture arc_internal_logic_analyzer_core_top_tb of internal_logic_analyzer_core_top_tb
+# vsim internal_logic_analyzer_core_top_tb 
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.std_logic_arith(body)
+# Loading ieee.std_logic_signed(body)
+# Loading synopsys.attributes
+# Loading ieee.std_logic_misc(body)
+# Loading ieee.numeric_std(body)
+# Loading work.ram_generic_pkg(body)
+# Loading work.internal_logic_analyzer_core_top_tb(arc_internal_logic_analyzer_core_top_tb)
+# Loading work.internal_logic_analyzer_core_top(arc_core)
+# Loading work.ram_generic(rtl_ram_generic)
+# Loading work.ram_simple(arc_ram_simple)
+# Loading work.enable_fsm(behave)
+# Loading ieee.std_logic_unsigned(body)
+# Loading work.write_controller_pkg(body)
+# Loading work.write_controller(behave)
+# Loading work.read_controller(behave)
+# Loading work.wishbone_master(arc_wishbone_master)
+# Loading work.core_registers(behave)
+# Loading work.wishbone_slave(arc_wb_slave)
+# ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
+# 
+#           File in use by: user  Hostname: USER-7  ProcessID: 4688
+# 
+#           Attempting to use alternate WLF file "./wlftd54hxy".
+# ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
+# 
+#           Using alternate file: ./wlftd54hxy
+# 
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb/internal_logic_analyzer_core_top_inst/wishbone_master_inst
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb/internal_logic_analyzer_core_top_inst/wishbone_master_inst
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 12850 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 12950 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 13050 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 13150 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 13250 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 13350 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 13450 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 13550 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 13650 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 13750 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 13850 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 13950 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 14050 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 14150 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 14250 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 14350 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 14450 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 14550 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 14650 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 14750 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 14850 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 14950 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+quit -sim
+do core_tb
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Compiling package write_controller_pkg
+# -- Compiling package body write_controller_pkg
+# -- Loading package write_controller_pkg
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Loading package write_controller_pkg
+# -- Compiling entity write_controller
+# -- Compiling architecture behave of write_controller
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_SIGNED
+# -- Compiling package ram_generic_pkg
+# -- Compiling package body ram_generic_pkg
+# -- Loading package ram_generic_pkg
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Compiling entity mux_generic
+# -- Compiling architecture mux_generic_arc of mux_generic
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Compiling entity dec_generic
+# -- Compiling architecture dec_generic_arc of dec_generic
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Compiling entity ram_simple
+# -- Compiling architecture arc_ram_simple of ram_simple
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_SIGNED
+# -- Loading package ATTRIBUTES
+# -- Loading package std_logic_misc
+# -- Loading package ram_generic_pkg
+# -- Compiling entity ram_generic
+# -- Compiling architecture rtl_ram_generic of ram_generic
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_SIGNED
+# -- Loading package ram_generic_pkg
+# -- Compiling entity read_controller
+# -- Compiling architecture behave of read_controller
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Compiling entity wishbone_master
+# -- Compiling architecture arc_wishbone_master of wishbone_master
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Compiling entity core_registers
+# -- Compiling architecture behave of core_registers
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Compiling entity enable_fsm
+# -- Compiling architecture behave of enable_fsm
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_SIGNED
+# -- Loading package NUMERIC_STD
+# -- Loading package ram_generic_pkg
+# -- Compiling entity internal_logic_analyzer_core_top
+# -- Compiling architecture arc_core of internal_logic_analyzer_core_top
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_SIGNED
+# -- Loading package ATTRIBUTES
+# -- Loading package std_logic_misc
+# -- Loading package NUMERIC_STD
+# -- Loading package ram_generic_pkg
+# -- Compiling entity internal_logic_analyzer_core_top_tb
+# -- Compiling architecture arc_internal_logic_analyzer_core_top_tb of internal_logic_analyzer_core_top_tb
+# vsim internal_logic_analyzer_core_top_tb 
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.std_logic_arith(body)
+# Loading ieee.std_logic_signed(body)
+# Loading synopsys.attributes
+# Loading ieee.std_logic_misc(body)
+# Loading ieee.numeric_std(body)
+# Loading work.ram_generic_pkg(body)
+# Loading work.internal_logic_analyzer_core_top_tb(arc_internal_logic_analyzer_core_top_tb)
+# Loading work.internal_logic_analyzer_core_top(arc_core)
+# Loading work.ram_generic(rtl_ram_generic)
+# Loading work.ram_simple(arc_ram_simple)
+# Loading work.enable_fsm(behave)
+# Loading ieee.std_logic_unsigned(body)
+# Loading work.write_controller_pkg(body)
+# Loading work.write_controller(behave)
+# Loading work.read_controller(behave)
+# Loading work.wishbone_master(arc_wishbone_master)
+# Loading work.core_registers(behave)
+# Loading work.wishbone_slave(arc_wb_slave)
+# ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
+# 
+#           File in use by: user  Hostname: USER-7  ProcessID: 4688
+# 
+#           Attempting to use alternate WLF file "./wlft9237cy".
+# ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
+# 
+#           Using alternate file: ./wlft9237cy
+# 
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb/internal_logic_analyzer_core_top_inst/wishbone_master_inst
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb/internal_logic_analyzer_core_top_inst/wishbone_master_inst
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 12850 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 12950 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 13050 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 13150 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 13250 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 13350 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 13450 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 13550 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 13650 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 13750 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 13850 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 13950 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 14050 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 14150 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 14250 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 14350 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 14450 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 14550 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 14650 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 14750 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 14850 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 14950 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 15050 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 15150 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 15250 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 15350 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 15450 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 15550 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 15650 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 15750 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 15850 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 15950 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 16050 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 16150 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 16250 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 16350 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 16450 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 16550 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 16650 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 16750 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 16850 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 16950 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 17050 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 17150 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 17250 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 17350 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 17450 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 17550 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 17650 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 17750 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 17850 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 17950 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 18050 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 18150 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 18250 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 18350 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 18450 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 18550 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 18650 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 18750 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 18850 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 18950 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 19050 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 19150 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 19250 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 19350 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 19450 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 19550 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 19650 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 19750 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 19850 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 19950 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 20050 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 20150 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 20250 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 20350 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 20450 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 20550 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 20650 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 20750 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 20850 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 20950 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 21050 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 21150 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 21250 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 21350 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 21450 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 21550 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 21650 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 21750 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 21850 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 21950 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 22050 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 22150 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 22250 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 22350 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 22450 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 22550 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 22650 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 22750 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 22850 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 22950 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 23050 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 23150 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 23250 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 23350 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 23450 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 23550 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 23650 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 23750 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 23850 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 23950 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 24050 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 24150 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 24250 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 24350 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 24450 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 24550 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 24650 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 24750 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 24850 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 24950 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 25050 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 25150 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 25250 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 25350 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 25450 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 25550 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 25650 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 25750 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 25850 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 25950 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 26050 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 26150 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 26250 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 26350 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 26450 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 26550 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 26650 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 26750 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 26850 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 26950 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 27050 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 27150 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 27250 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 27350 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 27450 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 27550 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 27650 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 27750 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 27850 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 27950 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 28050 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 28150 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 28250 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 28350 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 28450 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 28550 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 28650 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 28750 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 28850 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 28950 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 29050 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 29150 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 29250 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 29350 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 29450 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 29550 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 29650 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 29750 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 29850 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 29950 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+quit -sim
+do core_tb
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Compiling package write_controller_pkg
+# -- Compiling package body write_controller_pkg
+# -- Loading package write_controller_pkg
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Loading package write_controller_pkg
+# -- Compiling entity write_controller
+# -- Compiling architecture behave of write_controller
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_SIGNED
+# -- Compiling package ram_generic_pkg
+# -- Compiling package body ram_generic_pkg
+# -- Loading package ram_generic_pkg
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Compiling entity mux_generic
+# -- Compiling architecture mux_generic_arc of mux_generic
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Compiling entity dec_generic
+# -- Compiling architecture dec_generic_arc of dec_generic
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Compiling entity ram_simple
+# -- Compiling architecture arc_ram_simple of ram_simple
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_SIGNED
+# -- Loading package ATTRIBUTES
+# -- Loading package std_logic_misc
+# -- Loading package ram_generic_pkg
+# -- Compiling entity ram_generic
+# -- Compiling architecture rtl_ram_generic of ram_generic
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_SIGNED
+# -- Loading package ram_generic_pkg
+# -- Compiling entity read_controller
+# -- Compiling architecture behave of read_controller
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Compiling entity wishbone_master
+# -- Compiling architecture arc_wishbone_master of wishbone_master
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Compiling entity core_registers
+# -- Compiling architecture behave of core_registers
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Compiling entity enable_fsm
+# -- Compiling architecture behave of enable_fsm
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_SIGNED
+# -- Loading package NUMERIC_STD
+# -- Loading package ram_generic_pkg
+# -- Compiling entity internal_logic_analyzer_core_top
+# -- Compiling architecture arc_core of internal_logic_analyzer_core_top
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_SIGNED
+# -- Loading package ATTRIBUTES
+# -- Loading package std_logic_misc
+# -- Loading package NUMERIC_STD
+# -- Loading package ram_generic_pkg
+# -- Compiling entity internal_logic_analyzer_core_top_tb
+# -- Compiling architecture arc_internal_logic_analyzer_core_top_tb of internal_logic_analyzer_core_top_tb
+# vsim internal_logic_analyzer_core_top_tb 
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.std_logic_arith(body)
+# Loading ieee.std_logic_signed(body)
+# Loading synopsys.attributes
+# Loading ieee.std_logic_misc(body)
+# Loading ieee.numeric_std(body)
+# Loading work.ram_generic_pkg(body)
+# Loading work.internal_logic_analyzer_core_top_tb(arc_internal_logic_analyzer_core_top_tb)
+# Loading work.internal_logic_analyzer_core_top(arc_core)
+# Loading work.ram_generic(rtl_ram_generic)
+# Loading work.ram_simple(arc_ram_simple)
+# Loading work.enable_fsm(behave)
+# Loading ieee.std_logic_unsigned(body)
+# Loading work.write_controller_pkg(body)
+# Loading work.write_controller(behave)
+# Loading work.read_controller(behave)
+# Loading work.wishbone_master(arc_wishbone_master)
+# Loading work.core_registers(behave)
+# Loading work.wishbone_slave(arc_wb_slave)
+# ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
+# 
+#           File in use by: user  Hostname: USER-7  ProcessID: 4688
+# 
+#           Attempting to use alternate WLF file "./wlft20d3xj".
+# ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
+# 
+#           Using alternate file: ./wlft20d3xj
+# 
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb/internal_logic_analyzer_core_top_inst/wishbone_master_inst
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb/internal_logic_analyzer_core_top_inst/wishbone_master_inst
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 12850 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 12950 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 13050 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 13150 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 13250 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 13350 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 13450 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 13550 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 13650 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 13750 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 13850 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 13950 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 14050 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 14150 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 14250 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 14350 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 14450 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 14550 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 14650 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 14750 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 14850 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 14950 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 15050 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 15150 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 15250 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 15350 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 15450 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 15550 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 15650 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 15750 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 15850 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 15950 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 16050 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 16150 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 16250 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 16350 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 16450 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 16550 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 16650 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 16750 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 16850 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 16950 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 17050 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 17150 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 17250 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 17350 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 17450 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 17550 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 17650 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 17750 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 17850 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 17950 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 18050 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 18150 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 18250 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 18350 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 18450 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 18550 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 18650 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 18750 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 18850 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 18950 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 19050 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 19150 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 19250 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 19350 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 19450 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 19550 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 19650 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 19750 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 19850 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 19950 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 20050 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 20150 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 20250 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 20350 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 20450 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 20550 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 20650 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 20750 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 20850 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 20950 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 21050 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 21150 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 21250 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 21350 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 21450 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 21550 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 21650 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 21750 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 21850 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 21950 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 22050 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 22150 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 22250 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 22350 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 22450 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 22550 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 22650 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 22750 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 22850 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 22950 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 23050 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 23150 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 23250 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 23350 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 23450 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 23550 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 23650 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 23750 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 23850 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 23950 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 24050 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 24150 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 24250 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 24350 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 24450 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 24550 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 24650 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 24750 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 24850 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 24950 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 25050 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 25150 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 25250 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 25350 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 25450 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 25550 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 25650 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 25750 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 25850 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 25950 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 26050 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 26150 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 26250 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 26350 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 26450 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 26550 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 26650 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 26750 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 26850 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 26950 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 27050 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 27150 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 27250 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 27350 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 27450 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 27550 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 27650 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 27750 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 27850 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 27950 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 28050 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 28150 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 28250 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 28350 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 28450 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 28550 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 28650 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 28750 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 28850 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 28950 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 29050 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 29150 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 29250 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 29350 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 29450 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 29550 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 29650 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 29750 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 29850 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+# ** Warning: NUMERIC_STD.TO_UNSIGNED: vector truncated
+#    Time: 29950 ns  Iteration: 0  Instance: /internal_logic_analyzer_core_top_tb
+quit -sim
+quit
