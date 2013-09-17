@@ -17,12 +17,7 @@
 --	Todo:
 --			
 ------------------------------------------------------------------------------------------------
---library ieee ;
---use ieee.std_logic_1164.all ;
---use ieee.std_logic_signed.all;
---use ieee.std_logic_arith.all;
---use ieee.std_logic_misc.all;
---use ieee.numeric_std.all;
+
 
 library ieee ;
 use ieee.std_logic_1164.all ;
@@ -36,14 +31,9 @@ use work.ram_generic_pkg.all;
 entity read_controller is
 	GENERIC (
 			reset_polarity_g		:	std_logic	:=	'1';								--'1' reset active high, '0' active low
---			enable_polarity_g		:	std_logic	:=	'1';								--'1' the entity is active, '0' entity not active
---			signal_ram_depth_g		: 	positive  	:=	3;									--depth of RAM
---			signal_ram_width_g		:	positive 	:=  8;   								--width of basic RAM
 			record_depth_g			: 	positive  	:=	4;									--number of bits that is recorded from each signal
 			data_width_g            :	positive 	:= 	8;      						    -- defines the width of the data lines of the system 
---			Add_width_g  		    :   positive 	:=  8;     								--width of address word in the RAM
---			num_of_signals_g		:	positive	:=	8;									--number of signals that will be recorded simultaneously
-			width_in_g				:	positive 	:= 	8;									--Width of data (number of signals that recorded each cycle)
+			num_of_signals_g		:	positive	:=	8;									--number of signals that will be recorded simultaneously
 			power2_out_g			:	natural 	:= 	0;									--Output width is multiplied by this power factor (2^1). In case of 2: output will be (2^2*8=) 32 bits wide -> our output and input are at the same width
 			power_sign_g			:	integer range -1 to 1 	:= 1					 	-- '-1' => output width > input width ; '1' => input width > output width		(if power2_out_g = 0, it dosn't matter)
 	);
@@ -57,11 +47,11 @@ entity read_controller is
 		read_controller_finish		:	out std_logic;											--1-> rc is finish, 0-> other. needed to the enable FSM
 --------RAM signals--------
 		dout_valid					:	in std_logic;		 									--Output data from RAM valid
-		data_from_ram				:	in std_logic_vector (data_wcalc(width_in_g, power2_out_g, power_sign_g) - 1 downto 0);	-- data came from RAM 
+		data_from_ram				:	in std_logic_vector (num_of_signals_g - 1 downto 0);	-- data came from RAM 
 		addr_out					:	out std_logic_vector ( record_depth_g - 1 downto 0);	--address send to RAM to output each cycle
 		aout_valid					:	out std_logic;											--Output address to RAM is valid
 -------- WB signals--------		
-		data_out_to_WBM				:	out std_logic_vector (width_in_g - 1 downto 0);		--data out to WBM
+		data_out_to_WBM				:	out std_logic_vector (data_width_g - 1 downto 0);		--data out to WBM
 		data_out_to_WBM_valid		:	out std_logic											--data out to WBM is valid
 	);	
 end entity read_controller;
@@ -83,8 +73,7 @@ constant last_address_c				: std_logic_vector( record_depth_g -1 downto 0 )					
 signal State						: State_type;
 signal read_controller_counter_s	: integer range 0 to 2**record_depth_g ;
 signal current_address_s			: std_logic_vector( record_depth_g -1 downto 0 ) ;		--address of data that is been send to RAM
-signal data_from_ram_to_wbs_s		: std_logic_vector( width_in_g - 1 downto 0 ) ;		--data that we extract from RAM and send to WBS
---signal next_address_s				: std_logic_vector( record_depth_g -1 downto 0 ) ;
+signal data_from_ram_to_wbs_s		: std_logic_vector( data_width_g - 1 downto 0 ) ;		--data that we extract from RAM and send to WBS
 	
 begin
 -----------------------------------------------------------------
@@ -139,17 +128,23 @@ begin
 					
 				when get_data_from_ram_and_calc_next_address =>
 					aout_valid <= '0';												--don't continue to sent out an address to the RAM
---					read_controller_counter_s <= read_controller_counter_s - 1 ;	--reduce one from the counter
 					if dout_valid = '1' then										--data that came from the RAM is valid (according current_address_s)
-						data_from_ram_to_wbs_s <= data_from_ram ;					--sample the data that come from the RAM
-						State <= send_data_to_wbm ;
+						if (num_of_signals_g = data_width_g) then
+							data_from_ram_to_wbs_s <= data_from_ram ;					--sample the data that come from the RAM	
+						elsif ( num_of_signals_g > data_width_g) then
+							data_from_ram_to_wbs_s <= data_from_ram( data_width_g - 1 downto 0) ;
+						else
+							data_from_ram_to_wbs_s(num_of_signals_g -1 downto 0) <= data_from_ram ;
+							data_from_ram_to_wbs_s(data_width_g -1 downto num_of_signals_g) <= (others => '0') ;
+						end if;
+						
 						-- calculating the new address
 						if current_address_s = last_address_c then					--current_address_s was the last address	
 							current_address_s <= (others => '0');
 						else		
 							current_address_s <= std_logic_vector( to_unsigned( to_integer( unsigned( current_address_s ) ) + 1 , record_depth_g));	--promote address in one
 						end if;
-						
+					State <= send_data_to_wbm ;
 					end if;
 					
 				when send_data_to_wbm =>											--send correct data and change valid to 1

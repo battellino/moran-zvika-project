@@ -31,6 +31,7 @@ use ieee.std_logic_arith.all;
 entity core_registers is
    generic (
 			reset_polarity_g			   		:	std_logic	:= '1';								--'1' reset active highe, '0' active low
+			enable_polarity_g					:	std_logic	:= '1';								--'1' the entity is active, '0' entity not active
 			data_width_g           		   		:	natural 	:= 8;         							-- the width of the data lines of the system    (width of bus)
 			Add_width_g  		   		   		:   positive	:= 8;     								--width of addr word in the WB
 			en_reg_address_g      		   		: 	natural 	:= 0;
@@ -102,12 +103,12 @@ en_reg_proc:
 process(clk,reset)
 	begin
  		if reset = reset_polarity_g then
- 		  		 en_reg <= (others => '0');
+ 		  		 en_reg(0) <= not (enable_polarity_g);
  		elsif rising_edge(clk) then
  		   if ( (valid_in = '1') and (wr_en = '1') and (address_in = en_reg_address_c) ) then
  		       en_reg <= data_in;
  		   elsif (wc_finish = '1' ) then
-				en_reg <= (others => '0');
+				en_reg(0) <= not (enable_polarity_g);
 		   else
  		     en_reg <= en_reg;
       end if; 			
@@ -160,12 +161,12 @@ enable_reg_4_proc:
 process(clk,reset)
 	begin
  		if reset = reset_polarity_g then
- 		  		 enable_reg_4 <= (others => '0');
+ 		  		 enable_reg_4(0) <= not (enable_polarity_g);
  		elsif rising_edge(clk) then
  		   if ( (valid_in = '1') and (wr_en = '1') and (address_in = enable_reg_4_address_c) ) then
  		       enable_reg_4 <= data_in;
  		   elsif (rc_finish = '1' ) then
-				enable_reg_4 <= (others => '0');
+				enable_reg_4(0) <= not (enable_polarity_g);
 		   else
  		     enable_reg_4 <= enable_reg_4;
        end if; 			

@@ -53,6 +53,7 @@ type enable_states is (
 ------------------Signals--------------------
 signal State: enable_states;
 signal		enable_trig_s		: std_logic;														--replace enable in enable trig -> identify for enable rise
+signal		not_enable_trig_s	: std_logic;
 signal		enable_d1_s			: std_logic;														-- delayed enable
 
 ------------------	Processes	----------------
@@ -63,27 +64,38 @@ begin
 	begin
 		if reset = reset_polarity_g then
 			State <= idle;
-			enable_d1_s <= '0';
+			enable_d1_s <= not (enable_polarity_g);
 			enable_trig_s <= '0';
 			enable_out <= not (enable_polarity_g);
 		elsif rising_edge(clk) then
 			enable_d1_s <= enable;
 			enable_trig_s <= (enable) and (not(enable_d1_s)) ;
-						
+			not_enable_trig_s <= ( not (enable)) and (enable_d1_s) ;
+			
 			case State is
 				when idle =>		-- start state. 
 						State <= wait_for_enable_rise ;
 						enable_out <= not (enable_polarity_g);
 									
 				when wait_for_enable_rise =>		-- waiting for WC to detect trigger rise
-					if enable_trig_s = '1' then		--check if enable_trigger has rised => meaning that enable rise
-						State <= system_is_enable ;
-						enable_out <=  (enable_polarity_g);
+					if enable_polarity_g = '1' then
+						if enable_trig_s = '1' then		--check if enable_trigger has rised => meaning that enable rise
+							State <= system_is_enable ;
+							enable_out <=  (enable_polarity_g);
+						else
+							State <= wait_for_enable_rise;
+							enable_out <= not (enable_polarity_g);
+						end if;
 					else
-						State <= wait_for_enable_rise;
-						enable_out <= not (enable_polarity_g);
+						if not_enable_trig_s = '1' then		--check if enable_trigger has rised => meaning that enable rise
+							State <= system_is_enable ;
+							enable_out <=  (enable_polarity_g);
+						else
+							State <= wait_for_enable_rise;
+							enable_out <= not (enable_polarity_g);
+						end if;
 					end if;
-				
+						
 				when system_is_enable =>
 					if wc_finish = '1' then
 						State <= write_controller_finish ;

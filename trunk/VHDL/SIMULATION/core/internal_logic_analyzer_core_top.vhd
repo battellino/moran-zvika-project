@@ -5,9 +5,12 @@
 -- Project		:	Internal Logic Analyzer
 ------------------------------------------------------------------------------------------------
 -- Description: 
--- 			
---			
---			
+-- 			The main entity of the system. The core is assembled by: WBS, registers, write controller, 
+--			read controller, RAM, WBM.
+--			Initial configurations are input to the registers according user's choice, data and trigger 
+--			signals are inputting from the signal generator and sampling (saved in the RAM) every clock cycle.
+--			According user configurations the system detect trigger "rise" and in the end the read controller 
+--			extract the relevant data from the RAM and send it out through the WBM. 
 ------------------------------------------------------------------------------------------------
 -- Revision:
 --			Number		Date			Name							Description			
@@ -30,18 +33,17 @@ use work.ram_generic_pkg.all;
 entity internal_logic_analyzer_core_top is
 	generic (				
 				reset_polarity_g		:	std_logic	:= '1';									--'0' - Active Low Reset, '1' Active High Reset
-				enable_polarity_g		:	std_logic	:= '1';								--'1' the entity is active, '0' entity not active
+				enable_polarity_g		:	std_logic	:= '1';									--'1' the entity is active, '0' entity not active
 				signal_ram_depth_g		: 	positive  	:=	3;									--depth of RAM
 				signal_ram_width_g		:	positive 	:=  8;   								--width of basic RAM
 				record_depth_g			: 	positive  	:=	4;									--number of bits that is recorded from each signal
-				data_width_g            :	positive 	:= 	8;      						    -- defines the width of the data lines of the system
+				data_width_g            :	positive 	:= 	8;      						    --defines the width of the data lines of the system
 				Add_width_g  		    :   positive 	:=  8;     								--width of addr word in the RAM
 				num_of_signals_g		:	positive	:=	8;									--num of signals that will be recorded simultaneously	(Width of data)
-				width_in_g				:	positive 	:= 	8;									--Width of data
-				addr_bits_g				:	positive 	:= 	4;									--Depth of data	(2^4 = 16 addresses)
+--				addr_bits_g				:	positive 	:= 	4;									--Depth of data	(2^4 = 16 addresses)
 				power2_out_g			:	natural 	:= 	0;									--Output width is multiplied by this power factor (2^1). In case of 2: output will be (2^2*8=) 32 bits wide -> our output and input are at the same width
 				power_sign_g			:	integer range -1 to 1 	:= 1;					 	-- '-1' => output width > input width ; '1' => input width > output width		(if power2_out_g = 0, it dosn't matter)
-				type_d_g				:	positive 	:= 	6;									--Type Depth
+				type_d_g				:	positive 	:= 	1;									--Type Depth
 				len_d_g					:	positive 	:= 	1									--Length Depth
 			);
 	port	(
@@ -51,14 +53,8 @@ entity internal_logic_analyzer_core_top is
 				-- Signal Generator interface
 				data_in						:	in std_logic_vector (num_of_signals_g - 1 downto 0);	--Input data from Signal Generator
 				trigger						:	in std_logic;											--trigger signal from Signal Generator
-				--     data_out          		: out std_logic_vector (data_width_g-1 downto 0); -- data sent to WS
-				--     valid_data_out    		: out std_logic; -- validity of data directed to WS
 				
 				-- wishbone slave interface	
---				registers_address_in_s			: in std_logic_vector (Add_width_g -1 downto 0); 	-- reg address line
---				wr_en_s             			: in std_logic; 									-- write enable: '1' for write, '0' for read
---				registers_data_in_s 			: in std_logic_vector (data_width_g-1 downto 0); 	-- data sent from WS to registers (trigg pos, trigg type, enable, clk to start)
---				registers_valid_in_s			: in std_logic; 									-- validity of the data directed from WS
 				ADR_I          		: in std_logic_vector (Add_width_g -1 downto 0);	--contains the addr word
 				DAT_I          		: in std_logic_vector (data_width_g-1 downto 0); 	--contains the data_in word
 				WE_I           		: in std_logic;                     				-- '1' for write, '0' for read
@@ -72,11 +68,7 @@ entity internal_logic_analyzer_core_top is
 				WS_DAT_O       		: out std_logic_vector (data_width_g-1 downto 0);   			--data transmit to MW
 				STALL_O				: out std_logic; 												--STALL - WS is not available for transaction 
 				-- wishbone master control unit signals
---				addr_out					:	in std_logic_vector ((record_depth_g - power2_out_g*power_sign_g) - 1 downto 0); 		--Output address
---				aout_valid					:	in std_logic;									--Output address is valid
-				wm_end_out					: out std_logic; --when '1' WM ended a transaction or reseted by watchdog ERR_I signal
---				rc_dout						: out std_logic_vector (data_width_g - 1 downto 0);	--RC Output data
---				rc_dout_valid				: out std_logic; 									--RC Output data valid
+				wm_end_out			: out std_logic; --when '1' WM ended a transaction or reseted by watchdog ERR_I signal
 				
 				--wm_bus side signals
 				ADR_O			: out std_logic_vector (Add_width_g-1 downto 0); --contains the addr word
@@ -87,7 +79,7 @@ entity internal_logic_analyzer_core_top is
 				TGA_O			: out std_logic_vector ((data_width_g)*(type_d_g)-1 downto 0); --contains the type word
 				TGD_O			: out std_logic_vector (len_d_g * data_width_g-1 downto 0); --contains the len word
 				ACK_I			: in std_logic;                      --'1' when valid data is recieved from WS or for successfull write operation in WS
---				DAT_I			: in std_logic_vector (data_width_g-1 downto 0);   --data recieved from WS
+				DAT_I_WM		: in std_logic_vector (data_width_g-1 downto 0);   --data recieved from WS
 				STALL_I			: in std_logic; --STALL - WS is not available for transaction 
 				ERR_I			: in std_logic  --Watchdog interrupts, resets wishbone master
 				
@@ -115,7 +107,7 @@ component write_controller
 		trigger_position_in			:	in  std_logic_vector(  data_width_g -1 downto 0	);		--the percentage of the data to send out
 		trigger_type_in				:	in  std_logic_vector(  data_width_g -1 downto 0	);		--we specify 5 types of triggers	
 		config_are_set				:	in	std_logic;											--configurations from registers are ready to be read
-		data_out_of_wc				:	out std_logic_vector ( data_width_g -1  downto 0);	--sending the data  to be saved in the RAM. 
+		data_out_of_wc				:	out std_logic_vector ( num_of_signals_g -1  downto 0);	--sending the data  to be saved in the RAM. 
 		addr_out_to_RAM				:	out std_logic_vector( record_depth_g -1 downto 0);	--the addr in the RAM to save the data
 		write_controller_finish		:	out std_logic;											--'1' ->WC has finish working and saving all the relevant data (RC will start work), '0' ->WC is still working
 		start_addr_out				:	out std_logic_vector( record_depth_g -1 downto 0 );	--the start addr of the data that we need to send out to the user. send now to RC
@@ -154,7 +146,7 @@ component read_controller
 			reset_polarity_g		:	std_logic	:=	'1';								--'1' reset active high, '0' active low
 			record_depth_g			: 	positive  	:=	4;									--number of bits that is recorded from each signal
 			data_width_g            :	positive 	:= 	8;      						    -- defines the width of the data lines of the system 
-			width_in_g				:	positive 	:= 	8;									--Width of data
+			num_of_signals_g		:	positive	:=	8;
 			power2_out_g			:	natural 	:= 	0;									--Output width is multiplied by this power factor (2^1). In case of 2: output will be (2^2*8=) 32 bits wide -> our output and input are at the same width
 			power_sign_g			:	integer range -1 to 1 	:= 1					 	-- '-1' => output width > input width ; '1' => input width > output width		(if power2_out_g = 0, it dosn't matter)
 			);
@@ -167,11 +159,11 @@ component read_controller
 		read_controller_finish		:	out std_logic;											--1-> rc is finish, 0-> other. needed to the enable FSM
 --------RAM signals--------
 		dout_valid					:	in std_logic;		 									--Output data from RAM valid
-		data_from_ram				:	in std_logic_vector (data_wcalc(width_in_g, power2_out_g, power_sign_g) - 1 downto 0);	-- data came from RAM 
+		data_from_ram				:	in std_logic_vector (num_of_signals_g - 1 downto 0);	-- data came from RAM 
 		addr_out					:	out std_logic_vector ( record_depth_g - 1 downto 0);	--address send to RAM to output each cycle
 		aout_valid					:	out std_logic;											--Output address to RAM is valid
 -------- WB signals--------		
-		data_out_to_WBM				:	out std_logic_vector (width_in_g - 1 downto 0);		--data out to WBM
+		data_out_to_WBM				:	out std_logic_vector (data_width_g - 1 downto 0);		--data out to WBM
 		data_out_to_WBM_valid		:	out std_logic											--data out to WBM is valid
 	);
 
@@ -197,7 +189,7 @@ component wishbone_master
 			addr_in			: in std_logic_vector (Add_width_g-1 downto 0);  --the address in the client that the information will be written to
 			wm_end			: out std_logic; --when '1' WM ended a transaction or reseted by watchdog ERR_I signal
 			--Read Controller signals
-			rc_din			: in std_logic_vector (width_in_g - 1 downto 0);	--RC Output data
+			rc_din			: in std_logic_vector (data_width_g - 1 downto 0);	--RC Output data
 --			rc_din_valid	: in std_logic; 									--RC Output data valid
 			--bus side signals
 			ADR_O			: out std_logic_vector (Add_width_g-1 downto 0); --contains the addr word
@@ -218,6 +210,7 @@ end component wishbone_master;
 component core_registers
 	generic (
 			reset_polarity_g			   		:	std_logic	:= '1';								--'1' reset active highe, '0' active low
+			enable_polarity_g					:	std_logic	:= '1';								--'1' the entity is active, '0' entity not active
 			data_width_g           		   		:	natural 	:= 8;         							-- the width of the data lines of the system    (width of bus)
 			Add_width_g  		   		   		:   positive	:= 8;     								--width of addr word in the WB
 			en_reg_address_g      		   		: 	natural 	:= 0;
@@ -315,7 +308,7 @@ constant type_of_CORE_ws_c	: std_logic_vector ((data_width_g)*(type_d_g)-1 downt
 
 ----------------------   Signals   ------------------------------
 signal addr_in_s					: std_logic_vector (record_depth_g - 1 downto 0); 	--Input address
-signal data_from_wc_to_ram_s		: std_logic_vector (width_in_g - 1 downto 0);		--Input data
+signal data_from_wc_to_ram_s		: std_logic_vector (num_of_signals_g - 1 downto 0);		--Input data
 signal din_valid_s					: std_logic;										--Input data valid
 signal trigger_position_s			: std_logic_vector( data_width_g -1 downto 0 );
 signal trigger_type_s				: std_logic_vector( data_width_g -1 downto 0 );
@@ -324,13 +317,13 @@ signal start_address_s				: std_logic_vector( record_depth_g -1 downto 0 );	--st
 signal write_controller_finish_s	: std_logic;
 signal wc_is_config					: std_logic;										-- '1'-> trigger_position_s & trigger_type_s is update according to registers. '0' -> not update
 signal read_controller_finish_s		: std_logic;
-signal data_out_s					: std_logic_vector (data_wcalc(width_in_g, power2_out_g, power_sign_g) - 1 downto 0);
-signal addr_out_s					: std_logic_vector ((addr_bits_g - power2_out_g*power_sign_g) - 1 downto 0); 		-- RAM output address
+signal data_out_s					: std_logic_vector (num_of_signals_g - 1 downto 0);
+signal addr_out_s					: std_logic_vector ((record_depth_g - power2_out_g*power_sign_g) - 1 downto 0); 		-- RAM output address
 signal aout_valid_s					: std_logic;										--RAM output address is valid
 signal clk_to_start_s				: std_logic_vector ( data_width_g -1 downto 0 );
 signal enable_s						: std_logic;										--enabling the entity. if (enable = enable_polarity_g) -> start working, else-> do nothing
 signal enable_register_s			: std_logic;										--enable register
-signal data_from_rc_to_wm_s			: std_logic_vector (width_in_g - 1 downto 0);
+signal data_from_rc_to_wm_s			: std_logic_vector (data_width_g - 1 downto 0);
 signal data_from_rc_to_wm_valid_s	: std_logic;
 ------- wishbone slave to registers signals-----------
 signal registers_address_in_s		: std_logic_vector (Add_width_g -1 downto 0); 	-- reg address line
@@ -345,7 +338,7 @@ begin
 
 RAM_inst : ram_generic generic map (
 								reset_polarity_g	=> reset_polarity_g,	
-                                width_in_g			=> width_in_g,
+                                width_in_g			=> num_of_signals_g,
                                 addr_bits_g			=> record_depth_g,			
                                 power2_out_g		=> power2_out_g,
 								power_sign_g		=> power_sign_g
@@ -405,7 +398,7 @@ read_controller_inst : read_controller generic map (
 											reset_polarity_g	=>	reset_polarity_g,
 											record_depth_g		=>	record_depth_g,
 											data_width_g		=>	data_width_g,
-											width_in_g			=>	width_in_g,
+											num_of_signals_g	=>	num_of_signals_g,
 											power2_out_g		=>	power2_out_g,
 											power_sign_g		=>	power_sign_g
 											)
@@ -452,7 +445,7 @@ wishbone_master_inst : wishbone_master generic map (
 											TGA_O			=> TGA_O, 							--contains the type word
 											TGD_O			=> TGD_O, 							--contains the len word
 											ACK_I			=> ACK_I,                     		--'1' when valid data is recieved from WS or for successfull write operation in WS
-											DAT_I			=> DAT_I,   						--data recieved from WS
+											DAT_I			=> DAT_I_WM,   						--data recieved from WS
 											STALL_I			=> STALL_I, 						--STALL - WS is not available for transaction 
 											ERR_I			=> ERR_I							--Watchdog interrupts, resets wishbone master
 											);
@@ -461,6 +454,7 @@ wishbone_master_inst : wishbone_master generic map (
 core_registers_inst : core_registers generic map (
 
 											reset_polarity_g					=>	reset_polarity_g,
+											enable_polarity_g					=>	enable_polarity_g,
 											data_width_g           		   		=>	data_width_g,
 											Add_width_g  		   		   		=>	Add_width_g,
 											en_reg_address_g      		   		=>	0,
