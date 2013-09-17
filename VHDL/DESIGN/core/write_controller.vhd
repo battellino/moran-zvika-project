@@ -47,7 +47,7 @@ entity write_controller is
 		trigger_position_in			:	in  std_logic_vector(  data_width_g -1 downto 0	);		--the percentage of the data to send out
 		trigger_type_in				:	in  std_logic_vector(  data_width_g -1 downto 0	);		--we specify 5 types of triggers	
 		config_are_set				:	in	std_logic;											--'1'-> configurations from registers are ready to be read (trigger position + type). '0'-> config are not ready
-		data_out_of_wc				:	out std_logic_vector ( data_width_g -1  downto 0);	--sending the data  to be saved in the RAM. 
+		data_out_of_wc				:	out std_logic_vector ( num_of_signals_g -1  downto 0);	--sending the data  to be saved in the RAM. 
 		addr_out_to_RAM				:	out std_logic_vector( record_depth_g -1 downto 0);	--the addr in the RAM to save the data
 		write_controller_finish		:	out std_logic;											--'1' ->WC has finish working and saving all the relevant data (RC will start work), '0' ->WC is still working
 		start_addr_out				:	out std_logic_vector( record_depth_g -1 downto 0 );	--the start addr of the data that we need to send out to the user. send now to RC
@@ -80,7 +80,7 @@ signal 		State					: 	wc_states;
 signal		config_set_s			:	std_logic	;							--1 => we get trigger position\type from registers into signals
 signal		trigger_position_s		:  	std_logic_vector(  data_width_g -1 downto 0	);	--saving
 signal		trigger_type_s			:	std_logic_vector(  data_width_g -1 downto 0	);	
-signal		current_data_s			:	std_logic_vector ( data_width_g -1 downto 0);
+signal		current_data_s			:	std_logic_vector ( num_of_signals_g -1 downto 0);
 signal		current_trigger_s		:	std_logic	;
 signal		trigger_found_s			:	std_logic	;							--'1' -> trigger found, '0' -> other
 signal		trigger_counter_s		:	integer	range 0 to 2 ;					--for trigger rise when defined as 3 ones\zeroes, we need to count until 2 + correct trigger 
@@ -95,7 +95,7 @@ begin
 							
 	State_machine: process (clk, reset)
 	
-	variable	start_addr_as_int_v				: 	integer range 0 to 2 * total_number_of_rows_c ;		--saving the address as integer for easy calculations
+	variable	start_addr_as_int_v				: 	integer range 0 to 2 * total_number_of_rows_c + 2 ;		--saving the address as integer for easy calculations
 	variable	trigger_address_as_int_v		: 	integer range 0 to total_number_of_rows_c ;		--saving the address as integer for easy calculations
 	variable	start_ram_row_v					:	integer range 0 to number_of_ram_c ;
 	variable	rows_to_shift_v					:	integer range 0 to total_number_of_rows_c;		--how many addresses we need to shift from trigger rise to get the start address
@@ -160,7 +160,7 @@ begin
 					State <= set_configurations ;
 									
 				when set_configurations =>		-- getting config from registers
-					if config_are_set = '1' then
+					if config_are_set = enable_polarity_g then
 						trigger_position_s 	<= 	trigger_position_in;
 						trigger_type_s		<=	trigger_type_in;
 						State <= wait_for_enable_rise ;
@@ -178,13 +178,7 @@ begin
 				when record_data =>
 					din_valid					<= '1' ;			--enable ram at the start	
 					-------getting the data and trigger signal 
-					
-					if( num_of_signals_g < data_width_g ) then			--in case that we record less the data width signals, we put 0 in all the non relevant places
-						current_data_s(num_of_signals_g -1 downto 0 ) <= data_in ;
-						current_data_s(data_width_g -1 downto num_of_signals_g ) <= (others => '0') ;
-					else
-						current_data_s <= data_in;
-					end if;
+					current_data_s <= data_in;
 					current_trigger_s <= trigger;
 					-------check if trigger rise
 					if trigger_found_s = '0' then
@@ -287,7 +281,7 @@ begin
 					
 				when send_start_addr_to_rc =>
 				
-					rows_to_shift_v := total_number_of_rows_c - (total_number_of_rows_c *  to_integer( unsigned( trigger_position_in ) ) ) / 100 ;
+					rows_to_shift_v := total_number_of_rows_c - (total_number_of_rows_c *  to_integer( unsigned( trigger_position_s ) ) ) / 100 ;
 					trigger_address_as_int_v := trigger_row_s * (2**signal_ram_depth_g) + to_integer( unsigned( trigger_address_s)) ;
 					start_addr_as_int_v := trigger_address_as_int_v + rows_to_shift_v + 2 ;					-- +2 comes from delay that we have in the addresses
 					
