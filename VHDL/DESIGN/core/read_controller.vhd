@@ -32,7 +32,7 @@ entity read_controller is
 	GENERIC (
 			reset_polarity_g		:	std_logic	:=	'1';								--'1' reset active high, '0' active low
 			record_depth_g			: 	positive  	:=	4;									--number of bits that is recorded from each signal
-			data_width_g            :	positive 	:= 	8;      						    -- defines the width of the data lines of the system 
+			data_width_g            :	positive 	:= 	6;      						    -- defines the width of the data lines of the system 
 			num_of_signals_g		:	positive	:=	8;									--number of signals that will be recorded simultaneously
 			power2_out_g			:	natural 	:= 	0;									--Output width is multiplied by this power factor (2^1). In case of 2: output will be (2^2*8=) 32 bits wide -> our output and input are at the same width
 			power_sign_g			:	integer range -1 to 1 	:= 1					 	-- '-1' => output width > input width ; '1' => input width > output width		(if power2_out_g = 0, it dosn't matter)
@@ -68,7 +68,8 @@ architecture behave of read_controller is
 
 ----------------------------------------------------CONSTANTS---------------------------------------------------------------
 constant last_address_c				: std_logic_vector( record_depth_g -1 downto 0 )					:= (others => '1');
-
+constant size_of_input_data_c		: integer range 0 to num_of_signals_g								:= num_of_signals_g;
+constant size_of_output_data_c		: integer range 0 to data_width_g									:= data_width_g;
 ----------------------------------------------------SIGNALS-----------------------------------------------------------------
 signal State						: State_type;
 signal read_controller_counter_s	: integer range 0 to 2**record_depth_g ;
@@ -111,8 +112,7 @@ begin
 					data_out_to_WBM_valid <= '0';
 					data_from_ram_to_wbs_s 	<= (others => '0');
 					read_controller_finish <= '0';
---					next_address_s <= (others => '0');
---					cuurent_addr_as_int_v := 0;
+
 					
 				when wait_for_start_address =>		-- write controller finish working. sample the start addr into next_addr_s
 					if write_controller_finish = '1' then
@@ -129,13 +129,19 @@ begin
 				when get_data_from_ram_and_calc_next_address =>
 					aout_valid <= '0';												--don't continue to sent out an address to the RAM
 					if dout_valid = '1' then										--data that came from the RAM is valid (according current_address_s)
-						if (num_of_signals_g = data_width_g) then
-							data_from_ram_to_wbs_s <= data_from_ram ;					--sample the data that come from the RAM	
-						elsif ( num_of_signals_g > data_width_g) then
-							data_from_ram_to_wbs_s <= data_from_ram( data_width_g - 1 downto 0) ;
+						if (size_of_input_data_c = size_of_output_data_c) then
+							for i in 0 to size_of_input_data_c  - 1 loop
+								data_from_ram_to_wbs_s(i) <= data_from_ram(i) ;					--sample the data that come from the RAM	
+							end loop;
+						elsif ( size_of_input_data_c < size_of_output_data_c) then
+							for i in 0 to size_of_input_data_c  - 1 loop
+								data_from_ram_to_wbs_s(i) <= data_from_ram(i)  ;
+								data_from_ram_to_wbs_s(data_width_g -1 downto num_of_signals_g) <= (others => '0') ;
+							end loop;
 						else
-							data_from_ram_to_wbs_s(num_of_signals_g -1 downto 0) <= data_from_ram ;
-							data_from_ram_to_wbs_s(data_width_g -1 downto num_of_signals_g) <= (others => '0') ;
+							for i in 0 to size_of_output_data_c  - 1 loop
+							data_from_ram_to_wbs_s(i) <= data_from_ram(i) ;
+							end loop;
 						end if;
 						
 						-- calculating the new address
