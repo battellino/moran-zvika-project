@@ -44,8 +44,8 @@ entity write_controller is
 		clk							:	in  std_logic;											--system clock
 		reset						:	in  std_logic;											--system reset
 		enable						:	in	std_logic;											--enabling the entity. if (enable = enable_polarity_g) -> start working, else-> do nothing
-		trigger_position_in			:	in  std_logic_vector(  data_width_g -1 downto 0	);		--the percentage of the data to send out
-		trigger_type_in				:	in  std_logic_vector(  data_width_g -1 downto 0	);		--we specify 5 types of triggers	
+		trigger_position_in			:	in  std_logic_vector(  6 downto 0	);		--the percentage of the data to send out
+		trigger_type_in				:	in  std_logic_vector(  6 downto 0	);		--we specify 5 types of triggers	
 		config_are_set				:	in	std_logic;											--'1'-> configurations from registers are ready to be read (trigger position + type). '0'-> config are not ready
 		data_out_of_wc				:	out std_logic_vector ( num_of_signals_g -1  downto 0);	--sending the data  to be saved in the RAM. 
 		addr_out_to_RAM				:	out std_logic_vector( record_depth_g -1 downto 0);	--the addr in the RAM to save the data
@@ -78,8 +78,8 @@ type wc_states is (
 ------------------Signals--------------------
 signal 		State					: 	wc_states;
 signal		config_set_s			:	std_logic	;							--1 => we get trigger position\type from registers into signals
-signal		trigger_position_s		:  	std_logic_vector(  data_width_g -1 downto 0	);	--saving
-signal		trigger_type_s			:	std_logic_vector(  data_width_g -1 downto 0	);	
+signal		trigger_position_s		:  	std_logic_vector(  6 downto 0	);	--saving
+signal		trigger_type_s			:	std_logic_vector(  6 downto 0	);	
 signal		current_data_s			:	std_logic_vector ( num_of_signals_g -1 downto 0);
 signal		current_trigger_s		:	std_logic	;
 signal		trigger_found_s			:	std_logic	;							--'1' -> trigger found, '0' -> other

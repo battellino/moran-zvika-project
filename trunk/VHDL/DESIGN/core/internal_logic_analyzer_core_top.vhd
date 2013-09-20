@@ -104,8 +104,8 @@ component write_controller
 		clk							:	in  std_logic;											--system clock
 		reset						:	in  std_logic;											--system reset
 		enable						:	in	std_logic;											--enabling the entity. if (enable = enable_polarity_g) -> start working, else-> do nothing
-		trigger_position_in			:	in  std_logic_vector(  data_width_g -1 downto 0	);		--the percentage of the data to send out
-		trigger_type_in				:	in  std_logic_vector(  data_width_g -1 downto 0	);		--we specify 5 types of triggers	
+		trigger_position_in			:	in  std_logic_vector(  6 downto 0	);		--the percentage of the data to send out
+		trigger_type_in				:	in  std_logic_vector(  6 downto 0	);		--we specify 5 types of triggers	
 		config_are_set				:	in	std_logic;											--configurations from registers are ready to be read
 		data_out_of_wc				:	out std_logic_vector ( num_of_signals_g -1  downto 0);	--sending the data  to be saved in the RAM. 
 		addr_out_to_RAM				:	out std_logic_vector( record_depth_g -1 downto 0);	--the addr in the RAM to save the data
@@ -234,8 +234,8 @@ component core_registers
 --     		valid_data_out    : out std_logic; -- validity of data directed to WS
     -- write controller interface
 			en_out            			: out std_logic;						 			-- enable data sent to trigger pos, triiger type, clk to stars, enable
-			trigger_type_out_1        	: out std_logic_vector (data_width_g-1 downto 0); 	-- trigger type
-			trigger_positionout_2      	: out std_logic_vector (data_width_g-1 downto 0); 	-- trigger pos
+			trigger_type_out_1        	: out std_logic_vector ( 6 downto 0); 	-- trigger type
+			trigger_positionout_2      	: out std_logic_vector ( 6 downto 0); 	-- trigger pos
 			clk_to_start_out_3        	: out std_logic_vector (data_width_g-1 downto 0);	-- count cycles that passed since trigger rise
 			enable_out_4        		: out std_logic								  		-- enable sent by the GUI
 	
@@ -310,8 +310,8 @@ constant type_of_CORE_ws_c	: std_logic_vector ((data_width_g)*(type_d_g)-1 downt
 signal addr_in_s					: std_logic_vector (record_depth_g - 1 downto 0); 	--Input address
 signal data_from_wc_to_ram_s		: std_logic_vector (num_of_signals_g - 1 downto 0);		--Input data
 signal din_valid_s					: std_logic;										--Input data valid
-signal trigger_position_s			: std_logic_vector( data_width_g -1 downto 0 );
-signal trigger_type_s				: std_logic_vector( data_width_g -1 downto 0 );
+signal trigger_position_s			: std_logic_vector( 6 downto 0 );
+signal trigger_type_s				: std_logic_vector( 6 downto 0 );
 signal dout_valid_s					: std_logic;										--Output data valid
 signal start_address_s				: std_logic_vector( record_depth_g -1 downto 0 );	--start addr that sent to RC
 signal write_controller_finish_s	: std_logic;
