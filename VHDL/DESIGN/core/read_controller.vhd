@@ -75,6 +75,8 @@ signal State						: State_type;
 signal read_controller_counter_s	: integer range 0 to 2**record_depth_g ;
 signal current_address_s			: std_logic_vector( record_depth_g -1 downto 0 ) ;		--address of data that is been send to RAM
 signal data_from_ram_to_wbs_s		: std_logic_vector( data_width_g - 1 downto 0 ) ;		--data that we extract from RAM and send to WBS
+signal remain_length_s				: integer range 0 to num_of_signals_g ;
+signal next_output_s				: integer range 0 to num_of_signals_g ;
 	
 begin
 -----------------------------------------------------------------
@@ -95,6 +97,8 @@ begin
 			data_out_to_WBM_valid <= '0';
 			data_from_ram_to_wbs_s 	<= (others => '0');
 			read_controller_finish <= '0';
+			remain_length_s <= 0;
+			next_output_s <= 0;
 --			next_address_s <= (others => '0');
 --			cuurent_addr_as_int_v := 0;
 			
@@ -112,7 +116,8 @@ begin
 					data_out_to_WBM_valid <= '0';
 					data_from_ram_to_wbs_s 	<= (others => '0');
 					read_controller_finish <= '0';
-
+					remain_length_s <= 0;
+					next_output_s <= 0;
 					
 				when wait_for_start_address =>		-- write controller finish working. sample the start addr into next_addr_s
 					if write_controller_finish = '1' then
@@ -130,18 +135,15 @@ begin
 					aout_valid <= '0';												--don't continue to sent out an address to the RAM
 					if dout_valid = '1' then										--data that came from the RAM is valid (according current_address_s)
 						if (size_of_input_data_c = size_of_output_data_c) then
-							for i in 0 to size_of_input_data_c  - 1 loop
-								data_from_ram_to_wbs_s(i) <= data_from_ram(i) ;					--sample the data that come from the RAM	
-							end loop;
+								data_from_ram_to_wbs_s <= data_from_ram ;					--sample the data that come from the RAM	
 						elsif ( size_of_input_data_c < size_of_output_data_c) then
 							for i in 0 to size_of_input_data_c  - 1 loop
 								data_from_ram_to_wbs_s(i) <= data_from_ram(i)  ;
 								data_from_ram_to_wbs_s(data_width_g -1 downto num_of_signals_g) <= (others => '0') ;
 							end loop;
-						else
-							for i in 0 to size_of_output_data_c  - 1 loop
-							data_from_ram_to_wbs_s(i) <= data_from_ram(i) ;
-							end loop;
+						else										--output data is smaller then input data
+							remain_length_s <= size_of_input_data_c;
+							next_output_s <= 0;
 						end if;
 						
 						-- calculating the new address
@@ -157,6 +159,37 @@ begin
 					if read_controller_counter_s = 0 then
 						read_controller_finish <= '1';
 						State <= idle ;
+					
+					elsif (remain_length_s > 0) then								--output data is smaller then input data
+						
+						if remain_length_s = size_of_output_data_c then				--we finish to output the current input data
+							data_out_to_WBM_valid <= '1';
+							data_out_to_WBM <= data_from_ram(size_of_input_data_c -1 downto remain_length_s);
+							read_controller_counter_s <= read_controller_counter_s - 1 ;
+							remain_length_s <= 0;
+							next_output_s <= 0;
+							State <= send_current_address_to_ram ;
+					
+						elsif remain_length_s < size_of_output_data_c then				--we finish to output the data but need to fill in 0 to get valid output length
+							data_out_to_WBM_valid <= '1';
+							read_controller_counter_s <= read_controller_counter_s - 1 ;
+							
+							for i in 0 to remain_length_s  - 1 loop
+							data_out_to_WBM(i) <= data_from_ram(next_output_s + i) ;
+							end loop;
+							data_out_to_WBM(size_of_output_data_c - 1 downto remain_length_s) <= (others => '0');
+							remain_length_s <= 0;
+							next_output_s <= 0;
+							State <= send_current_address_to_ram ;
+							
+						else								-- we do not finish to output the data (remain_length_s > size_of_output_data_c)
+							data_out_to_WBM_valid <= '1';
+							data_out_to_WBM <= data_from_ram(size_of_output_data_c + next_output_s - 1 downto next_output_s  );
+							remain_length_s <= remain_length_s - size_of_output_data_c;
+							next_output_s <= next_output_s + size_of_output_data_c;
+							State <= send_data_to_wbm ;									--stay in output data state
+						end if;
+						
 					else
 						data_out_to_WBM_valid <= '1';
 						data_out_to_WBM <= data_from_ram_to_wbs_s;
