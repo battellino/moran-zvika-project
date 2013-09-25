@@ -36,9 +36,9 @@ entity internal_logic_analyzer_core_top_tb is
 				signal_ram_depth_g		: 	positive  	:=	3;									--depth of RAM
 				signal_ram_width_g		:	positive 	:=  8;   								--width of basic RAM
 				record_depth_g			: 	positive  	:=	4;									--number of bits that is recorded from each signal
-				data_width_g            :	positive 	:= 	3;      						    -- defines the width of the data lines of the system
+				data_width_g            :	positive 	:= 	7;      						    -- defines the width of the data lines of the system
 				Add_width_g  		    :   positive 	:=  6;     								--width of addr word in the RAM
-				num_of_signals_g		:	positive	:=	8;									--num of signals that will be recorded simultaneously	(Width of data)
+				num_of_signals_g		:	positive	:=	7;									--num of signals that will be recorded simultaneously	(Width of data)
 --				addr_bits_g				:	positive 	:= 	4;									--Depth of data	(2^4 = 16 addresses)
 				power2_out_g			:	natural 	:= 	0;									--Output width is multiplied by this power factor (2^1). In case of 2: output will be (2^2*8=) 32 bits wide -> our output and input are at the same width
 				power_sign_g			:	integer range -1 to 1 	:= 1;					 	-- '-1' => output width > input width ; '1' => input width > output width		(if power2_out_g = 0, it dosn't matter)
@@ -300,7 +300,7 @@ clk_proc :
 	clk <= not clk after 50 ns;
 	
 res_proc :
-	rst <= reset_polarity_g, not reset_polarity_g after 120 ns,reset_polarity_g after 9750 ns, not reset_polarity_g after 9800 ns ;
+	rst <= reset_polarity_g, not reset_polarity_g after 120 ns, reset_polarity_g after 9900 ns, not reset_polarity_g after 10000 ns ;
 	
 registers_proc :
 	registers_address_in_s	<= std_logic_vector(to_unsigned( 1 , Add_width_g)), 								std_logic_vector(to_unsigned( 2 , Add_width_g)) after 2400 ns	, 			std_logic_vector(to_unsigned( 3 , Add_width_g)) after 2900 ns, 					std_logic_vector(to_unsigned( 0 , Add_width_g)) after 3300 ns, 			std_logic_vector(to_unsigned( 4 , Add_width_g)) after 3500 ns,								std_logic_vector(to_unsigned( 1 , Add_width_g)) after 10600 ns	, std_logic_vector(to_unsigned( 2 , Add_width_g)) after 10900 ns		, 	std_logic_vector(to_unsigned( 0 , Add_width_g)) after 11200 ns, 	std_logic_vector(to_unsigned( 4 , Add_width_g)) after 11500 ns 	;

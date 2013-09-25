@@ -47,7 +47,7 @@ entity core_registers is
      -- wishbone slave interface
 	 address_in        	: in std_logic_vector (Add_width_g -1 downto 0); 	-- address line
 	 wr_en             	: in std_logic; 									-- write enable: '1' for write, '0' for read
-	 data_in_reg       	: in std_logic_vector ( 6 downto 0); 	-- data sent from WS
+	 data_in_reg       	: in std_logic_vector ( data_width_g - 1 downto 0); 	-- data sent from WS
      valid_in          	: in std_logic; 									-- validity of the data directed from WS
 	 rc_finish			: in std_logic;										--  1 -> reset enable register
 	 wc_finish			: in std_logic;										
@@ -81,7 +81,7 @@ constant register_size_c     				: integer range 0 to 7 := 7;
 ---------- SIGNALS	------------------------------------------------------------------------------------------------------------------------------------------------
 --*****************************************************************************************************************************************************************--
 -- registers:
-signal en_reg            			: std_logic_vector (6 downto 0); -- enable data of registers
+signal en_reg            			: std_logic_vector( 6 downto 0 ); -- enable data of registers
 signal trigger_type_reg_1			: std_logic_vector( 6 downto 0 );	--type of trigger
 signal trigger_position_reg_2       : std_logic_vector( 6 downto 0 );	--determine from where we start to send data out to the user after we detect trigger rise
 signal clk_to_start_reg_3        	: std_logic_vector( 6 downto 0 ); 	-- count clk cycles since system start to work until trigger rise
@@ -109,7 +109,7 @@ process(clk,reset)
 				en_reg(6 downto 1) <= (others => '0');
  		elsif rising_edge(clk) then
  		   if ( (valid_in = '1') and (wr_en = '1') and (address_in = en_reg_address_c) ) then
- 		       en_reg <= data_in_reg;
+ 		       en_reg <= data_in_reg(6 downto 0);
  		   elsif (wc_finish = '1' ) then
 				en_reg(0) <= not (enable_polarity_g);
 		   else
@@ -125,7 +125,7 @@ process(clk,reset)
  		  		 trigger_type_reg_1 <= (others => '0');
  		elsif rising_edge(clk) then
  		   if ( (valid_in = '1') and (wr_en = '1') and (address_in = trigger_type_reg_1_address_c) ) then
-				trigger_type_reg_1 <= data_in_reg;
+				trigger_type_reg_1 <= data_in_reg(6 downto 0);
 		   else
  		     trigger_type_reg_1 <= trigger_type_reg_1;
        end if; 			
@@ -139,7 +139,7 @@ process(clk,reset)
  		  		 trigger_position_reg_2 <= (others => '0');
  		elsif rising_edge(clk) then
 			if ( (valid_in = '1') and (wr_en = '1') and (address_in = trigger_position_reg_2_address_c) ) then
-				trigger_position_reg_2 <= data_in_reg;
+				trigger_position_reg_2 <= data_in_reg(6 downto 0);
 			else
  		     trigger_position_reg_2 <= trigger_position_reg_2;
 			end if;
@@ -153,7 +153,7 @@ process(clk,reset)
  		  	clk_to_start_reg_3 <= (others => '0');
  		elsif rising_edge(clk) then
  		   if ( (valid_in = '1') and (wr_en = '1') and (address_in = clk_to_start_reg_3_address_c) ) then
- 		       clk_to_start_reg_3 <= data_in_reg;
+ 		       clk_to_start_reg_3 <= data_in_reg(6 downto 0);
  		   else
  		     clk_to_start_reg_3 <= clk_to_start_reg_3;
        end if; 			
@@ -168,7 +168,7 @@ process(clk,reset)
 			enable_reg_4(6 downto 1) <= (others => '0');
  		elsif rising_edge(clk) then
  		   if ( (valid_in = '1') and (wr_en = '1') and (address_in = enable_reg_4_address_c) ) then
-				enable_reg_4 <= data_in_reg;
+				enable_reg_4 <= data_in_reg(6 downto 0);
  		   elsif (rc_finish = '1' ) then
 				enable_reg_4(0) <= not (enable_polarity_g);
 		   else

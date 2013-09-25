@@ -226,7 +226,7 @@ component core_registers
 	-- wishbone slave interface
 			address_in       			: in std_logic_vector (Add_width_g -1 downto 0); -- address line
 			wr_en            			: in std_logic; 									-- write enable: '1' for write, '0' for read
-			data_in           			: in std_logic_vector (data_width_g-1 downto 0); -- data sent from WS
+			data_in_reg        			: in std_logic_vector (data_width_g - 1 downto 0); -- data sent from WS
 			valid_in          			: in std_logic; 									-- validity of the data directed from WS
 			rc_finish					: in std_logic;										--  1 -> reset enable register
 			wc_finish			: in std_logic;										
@@ -236,7 +236,7 @@ component core_registers
 			en_out            			: out std_logic;						 			-- enable data sent to trigger pos, triiger type, clk to stars, enable
 			trigger_type_out_1        	: out std_logic_vector ( 6 downto 0); 	-- trigger type
 			trigger_positionout_2      	: out std_logic_vector ( 6 downto 0); 	-- trigger pos
-			clk_to_start_out_3        	: out std_logic_vector (data_width_g-1 downto 0);	-- count cycles that passed since trigger rise
+			clk_to_start_out_3        	: out std_logic_vector (6 downto 0);	-- count cycles that passed since trigger rise
 			enable_out_4        		: out std_logic								  		-- enable sent by the GUI
 	
 	);
@@ -299,10 +299,48 @@ component enable_fsm is
 	);
 end component enable_fsm;
 
+component in_out_cordinator_generic is
+	GENERIC (
+			reset_polarity_g		:	std_logic	:=	'1';								--'1' reset active high, '0' active low
+			out_width_g           	:	positive 	:= 	3;      						    -- defines the width of the data lines of the system 
+			in_width_g				:	positive	:=	8									--number of signals that will be recorded simultaneously
+	);
+	port
+	(
+		clk							:	in std_logic;											--system clock
+		reset						:	in std_logic;											--system reset
+		data_in						:	in std_logic_vector (in_width_g - 1 downto 0);	-- data came from RAM 
+		data_in_valid				:	in std_logic;											--data in valid
+		data_out					:	out std_logic_vector (out_width_g - 1 downto 0);		--data out to WBM
+		data_out_valid				:	out std_logic											--data out valid
+	);	
+end component in_out_cordinator_generic;
+
+component data_input_generic is
+	GENERIC (
+			reset_polarity_g		:	std_logic	:=	'1';								--'1' reset active high, '0' active low
+			Add_width_g		   		:   positive	:= 	8;     								--width of addr word in the WB
+			out_width_g           	:	positive 	:= 	3;      						    -- defines the width of the data lines of the system 
+			in_width_g				:	positive	:=	8									--number of signals that will be recorded simultaneously
+	);
+	port
+	(
+		clk							:	in std_logic;											--system clock
+		reset						:	in std_logic;											--system reset
+		addr_in						:	in std_logic_vector (Add_width_g - 1 downto 0);
+		data_in						:	in std_logic_vector (in_width_g - 1 downto 0);	-- data came from RAM 
+		data_in_valid				:	in std_logic;											--data in valid
+		addr_out					:	out std_logic_vector (Add_width_g - 1 downto 0);
+		data_out					:	out std_logic_vector (out_width_g - 1 downto 0);		--data out to WBM
+		data_out_valid				:	out std_logic											--data out valid
+	);	
+end component data_input_generic;
+
 -----------------------------------------------------Constants--------------------------------------------------------------------------
 constant len_of_data_c		: std_logic_vector (len_d_g * data_width_g - 1 downto 0)	:= std_logic_vector(to_unsigned( 1 , len_d_g * data_width_g));
 constant type_of_TX_ws_c	: std_logic_vector ((data_width_g)*(type_d_g)-1 downto 0)	:= std_logic_vector(to_unsigned( 4 , type_d_g * data_width_g));
 constant type_of_CORE_ws_c	: std_logic_vector ((data_width_g)*(type_d_g)-1 downto 0)	:= std_logic_vector(to_unsigned( 3 , type_d_g * data_width_g));
+constant size_of_register_c	: integer range 0 to 7 := 7;
 -----------------------------------------------------Types------------------------------------------------------------------------------
 
 
@@ -320,16 +358,20 @@ signal read_controller_finish_s		: std_logic;
 signal data_out_s					: std_logic_vector (num_of_signals_g - 1 downto 0);
 signal addr_out_s					: std_logic_vector ((record_depth_g - power2_out_g*power_sign_g) - 1 downto 0); 		-- RAM output address
 signal aout_valid_s					: std_logic;										--RAM output address is valid
-signal clk_to_start_s				: std_logic_vector ( data_width_g -1 downto 0 );
+signal clk_to_start_s				: std_logic_vector ( 6 downto 0 );
 signal enable_s						: std_logic;										--enabling the entity. if (enable = enable_polarity_g) -> start working, else-> do nothing
 signal enable_register_s			: std_logic;										--enable register
-signal data_from_rc_to_wm_s			: std_logic_vector (data_width_g - 1 downto 0);
-signal data_from_rc_to_wm_valid_s	: std_logic;
-------- wishbone slave to registers signals-----------
-signal registers_address_in_s		: std_logic_vector (Add_width_g -1 downto 0); 	-- reg address line
+signal data_from_cordinator_to_wm_s			: std_logic_vector (data_width_g - 1 downto 0);
+signal data_from_cordinator_to_wm_valid_s	: std_logic;
+signal data_from_rc_to_cordinator_s			: std_logic_vector (num_of_signals_g - 1 downto 0);
+signal data_from_rc_to_cordinator_valid_s	: std_logic;
+signal data_in_reg_valid_s					: std_logic;
+signal data_in_reg_s						: std_logic_vector (size_of_register_c - 1 downto 0);
+------- wishbone slave to data_in signals-----------
+signal ws_to_reg_add_s				: std_logic_vector (Add_width_g -1 downto 0); 	-- reg address line
 signal wr_en_s             			: std_logic; 									-- write enable: '1' for write, '0' for read
-signal registers_data_in_s 			: std_logic_vector (data_width_g-1 downto 0); 	-- data sent from WS to registers (trigg pos, trigg type, enable, clk to start)
-signal registers_valid_in_s			: std_logic; 									-- validity of the data directed from WS
+signal ws_to_reg_data_s 			: std_logic_vector (data_width_g-1 downto 0);	-- data sent from WS to registers (trigg pos, trigg type, enable, clk to start)
+signal ws_to_reg_valid_s			: std_logic; 									-- validity of the data directed from WS
 signal typ_s						: std_logic_vector ((data_width_g)*(type_d_g)-1 downto 0); 	-- Type
 signal len_s						: std_logic_vector ((data_width_g)*(len_d_g)-1 downto 0);   --Length
 -------------------------------------------------  Implementation ------------------------------------------------------------
@@ -412,8 +454,8 @@ read_controller_inst : read_controller generic map (
 											data_from_ram			=> data_out_s,
 											addr_out				=> addr_out_s,
 											aout_valid				=> aout_valid_s,
-											data_out_to_WBM			=> data_from_rc_to_wm_s,
-											data_out_to_WBM_valid	=> data_from_rc_to_wm_valid_s
+											data_out_to_WBM			=> data_from_rc_to_cordinator_s,
+											data_out_to_WBM_valid	=> data_from_rc_to_cordinator_valid_s
 											);
 
 wishbone_master_inst : wishbone_master generic map (
@@ -435,7 +477,7 @@ wishbone_master_inst : wishbone_master generic map (
 											addr_in			=> (others => '0'),  								--the address in the client(registers) that the information will be written to
 											wm_end			=> wm_end_out, 								--when '1' WM ended a transaction or reseted by watchdog ERR_I signal
 											
-											rc_din			=> data_from_rc_to_wm_s,			--RC Output data
+											rc_din			=> data_from_cordinator_to_wm_s,			--RC Output data
 --											rc_din_valid	=> data_from_rc_to_wm_valid_s, 		--RC Output data valid
 											ADR_O			=> ADR_O, 							--contains the addr word
 											DAT_O			=> WM_DAT_O, 							--contains the data_in word
@@ -448,8 +490,7 @@ wishbone_master_inst : wishbone_master generic map (
 											DAT_I			=> DAT_I_WM,   						--data recieved from WS
 											STALL_I			=> STALL_I, 						--STALL - WS is not available for transaction 
 											ERR_I			=> ERR_I							--Watchdog interrupts, resets wishbone master
-											);
-
+											);				
 											
 core_registers_inst : core_registers generic map (
 
@@ -467,10 +508,10 @@ core_registers_inst : core_registers generic map (
 											clk						=> clk,
 											reset					=> rst,
 											------ wishbone slave interface------
-											address_in        		=> registers_address_in_s,
+											address_in        		=> ws_to_reg_add_s,
 											wr_en             		=> wr_en_s,
-											data_in           		=> registers_data_in_s,
-											valid_in          		=> registers_valid_in_s,
+											data_in_reg        		=> ws_to_reg_data_s,
+											valid_in          		=> ws_to_reg_valid_s,
 											rc_finish				=> read_controller_finish_s,
 											wc_finish				=> write_controller_finish_s,									
 											----- core blocks interface----------
@@ -504,20 +545,36 @@ wishbone_slave_inst : wishbone_slave generic map (
 											STALL_O			=> STALL_O,
 											
 											typ				=> typ_s, -- Type
-											addr	        => registers_address_in_s,  --the address of the relevant register
+											addr	        => ws_to_reg_add_s,  --the address of the relevant register
 											len				=> len_s,   --Length
 											wr_en			=> wr_en_s,
-											ws_data	    	=> registers_data_in_s,   --data out to registers
-											ws_data_valid	=> registers_valid_in_s,	-- data valid to registers
+											ws_data	    	=> ws_to_reg_data_s,   --data out to registers
+											ws_data_valid	=> ws_to_reg_valid_s,	-- data valid to registers
 											-- we do not send data out from the registers
 											reg_data       	=> (others => '0'),	 --data to be transmited to the WM
 											reg_data_valid 	=> '0',  --data to be transmited to the WM validity
 											active_cycle	=> TOP_active_cycle,	--CYC_I outputed to user side
 											stall			=> stall
 										);
-										
+						
+data_out_size_inst: in_out_cordinator_generic generic map (
+													reset_polarity_g		=> reset_polarity_g,
+													out_width_g           	=> data_width_g,
+													in_width_g				=> num_of_signals_g
+											)
+											port map
+											(
+													clk							=>	clk,
+													reset						=>	rst,
+													data_in						=>	data_from_rc_to_cordinator_s,
+													data_in_valid				=>	data_from_rc_to_cordinator_valid_s,
+													data_out					=>	data_from_cordinator_to_wm_s,
+													data_out_valid				=>	data_from_cordinator_to_wm_valid_s
+											);
+						
+
+						
+						
 -------------------------------------------------  processes ------------------------------------------------------------
 
 end architecture arc_core;
-
-
