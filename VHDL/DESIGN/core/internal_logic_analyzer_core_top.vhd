@@ -226,7 +226,7 @@ component core_registers
 	-- wishbone slave interface
 			address_in       			: in std_logic_vector (Add_width_g -1 downto 0); -- address line
 			wr_en            			: in std_logic; 									-- write enable: '1' for write, '0' for read
-			data_in_reg        			: in std_logic_vector (6 downto 0); -- data sent from WS
+			data_in_reg        			: in std_logic_vector (data_width_g - 1 downto 0); -- data sent from WS
 			valid_in          			: in std_logic; 									-- validity of the data directed from WS
 			rc_finish					: in std_logic;										--  1 -> reset enable register
 			wc_finish			: in std_logic;										
@@ -368,16 +368,12 @@ signal data_from_rc_to_cordinator_valid_s	: std_logic;
 signal data_in_reg_valid_s					: std_logic;
 signal data_in_reg_s						: std_logic_vector (size_of_register_c - 1 downto 0);
 ------- wishbone slave to data_in signals-----------
-signal ws_to_add_in_s				: std_logic_vector (Add_width_g -1 downto 0); 	-- reg address line
+signal ws_to_reg_add_s				: std_logic_vector (Add_width_g -1 downto 0); 	-- reg address line
 signal wr_en_s             			: std_logic; 									-- write enable: '1' for write, '0' for read
-signal ws_to_din_s 					: std_logic_vector (data_width_g-1 downto 0);	-- data sent from WS to registers (trigg pos, trigg type, enable, clk to start)
-signal ws_to_din_valid_s			: std_logic; 									-- validity of the data directed from WS
+signal ws_to_reg_data_s 			: std_logic_vector (data_width_g-1 downto 0);	-- data sent from WS to registers (trigg pos, trigg type, enable, clk to start)
+signal ws_to_reg_valid_s			: std_logic; 									-- validity of the data directed from WS
 signal typ_s						: std_logic_vector ((data_width_g)*(type_d_g)-1 downto 0); 	-- Type
 signal len_s						: std_logic_vector ((data_width_g)*(len_d_g)-1 downto 0);   --Length
--------  data_in to registers signals-----------
-signal add_in_to_registers_s		: std_logic_vector (Add_width_g -1 downto 0); 	-- reg address line
-signal din_to_registers_s 			: std_logic_vector (size_of_register_c - 1 downto 0);
-signal din_to_registers_valid_s		: std_logic; 									-- validity of the data 
 -------------------------------------------------  Implementation ------------------------------------------------------------
 
 begin
@@ -494,26 +490,7 @@ wishbone_master_inst : wishbone_master generic map (
 											DAT_I			=> DAT_I_WM,   						--data recieved from WS
 											STALL_I			=> STALL_I, 						--STALL - WS is not available for transaction 
 											ERR_I			=> ERR_I							--Watchdog interrupts, resets wishbone master
-											);
-
-data_in_ins : data_input_generic generic map (
-											reset_polarity_g	=>	reset_polarity_g,
-											Add_width_g		   	=>	Add_width_g,
-											out_width_g         =>	size_of_register_c,
-											in_width_g			=>	data_width_g
-											)
-								port map	(
-											clk				=> clk,
-											reset			=> rst,
-											addr_in			=> ws_to_add_in_s,
-											data_in			=> ws_to_din_s,
-											data_in_valid	=> ws_to_din_valid_s,
-											addr_out		=> add_in_to_registers_s,
-											data_out		=> din_to_registers_s, 
-											data_out_valid	=> din_to_registers_valid_s	
-											);											
-
-											
+											);				
 											
 core_registers_inst : core_registers generic map (
 
@@ -531,10 +508,10 @@ core_registers_inst : core_registers generic map (
 											clk						=> clk,
 											reset					=> rst,
 											------ wishbone slave interface------
-											address_in        		=> add_in_to_registers_s,
+											address_in        		=> ws_to_reg_add_s,
 											wr_en             		=> wr_en_s,
-											data_in_reg        		=> din_to_registers_s,
-											valid_in          		=> din_to_registers_valid_s,
+											data_in_reg        		=> ws_to_reg_data_s,
+											valid_in          		=> ws_to_reg_valid_s,
 											rc_finish				=> read_controller_finish_s,
 											wc_finish				=> write_controller_finish_s,									
 											----- core blocks interface----------
@@ -568,11 +545,11 @@ wishbone_slave_inst : wishbone_slave generic map (
 											STALL_O			=> STALL_O,
 											
 											typ				=> typ_s, -- Type
-											addr	        => ws_to_add_in_s,  --the address of the relevant register
+											addr	        => ws_to_reg_add_s,  --the address of the relevant register
 											len				=> len_s,   --Length
 											wr_en			=> wr_en_s,
-											ws_data	    	=> ws_to_din_s,   --data out to registers
-											ws_data_valid	=> ws_to_din_valid_s,	-- data valid to registers
+											ws_data	    	=> ws_to_reg_data_s,   --data out to registers
+											ws_data_valid	=> ws_to_reg_valid_s,	-- data valid to registers
 											-- we do not send data out from the registers
 											reg_data       	=> (others => '0'),	 --data to be transmited to the WM
 											reg_data_valid 	=> '0',  --data to be transmited to the WM validity
