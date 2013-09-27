@@ -1,0 +1,8 @@
+# Reading C:/altera/13.0/modelsim_ase/tcl/vsim/pref.tcl 
+# error: Layout::Clairvoyance can't read "map(?)": no such element in array
+# can't read "map(?)": no such element in array
+#     while executing
+# "Layout::Clairvoyance"
+# OpenFile C:/Users/оешп/Desktop/moran-zvika/VHDL/DESIGN/wrire_controller/write_controller_tb.vhd 
+quit
+quit
