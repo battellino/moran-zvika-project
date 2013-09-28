@@ -146,9 +146,7 @@ component read_controller
 			reset_polarity_g		:	std_logic	:=	'1';								--'1' reset active high, '0' active low
 			record_depth_g			: 	positive  	:=	4;									--number of bits that is recorded from each signal
 			data_width_g            :	positive 	:= 	8;      						    -- defines the width of the data lines of the system 
-			num_of_signals_g		:	positive	:=	8;
-			power2_out_g			:	natural 	:= 	0;									--Output width is multiplied by this power factor (2^1). In case of 2: output will be (2^2*8=) 32 bits wide -> our output and input are at the same width
-			power_sign_g			:	integer range -1 to 1 	:= 1					 	-- '-1' => output width > input width ; '1' => input width > output width		(if power2_out_g = 0, it dosn't matter)
+			num_of_signals_g		:	positive	:=	8
 			);
 	port
 	(	
@@ -190,7 +188,6 @@ component wishbone_master
 			wm_end			: out std_logic; --when '1' WM ended a transaction or reseted by watchdog ERR_I signal
 			--Read Controller signals
 			rc_din			: in std_logic_vector (data_width_g - 1 downto 0);	--RC Output data
---			rc_din_valid	: in std_logic; 									--RC Output data valid
 			--bus side signals
 			ADR_O			: out std_logic_vector (Add_width_g-1 downto 0); --contains the addr word
 			DAT_O			: out std_logic_vector (data_width_g-1 downto 0); --contains the data_in word
@@ -230,8 +227,6 @@ component core_registers
 			valid_in          			: in std_logic; 									-- validity of the data directed from WS
 			rc_finish					: in std_logic;										--  1 -> reset enable register
 			wc_finish			: in std_logic;										
---     		data_out          : out std_logic_vector (data_width_g-1 downto 0); -- data sent to WS
---     		valid_data_out    : out std_logic; -- validity of data directed to WS
     -- write controller interface
 			en_out            			: out std_logic;						 			-- enable data sent to trigger pos, triiger type, clk to stars, enable
 			trigger_type_out_1        	: out std_logic_vector ( 6 downto 0); 	-- trigger type
@@ -343,7 +338,6 @@ constant type_of_CORE_ws_c	: std_logic_vector ((data_width_g)*(type_d_g)-1 downt
 constant size_of_register_c	: integer range 0 to 7 := 7;
 -----------------------------------------------------Types------------------------------------------------------------------------------
 
-
 ----------------------   Signals   ------------------------------
 signal addr_in_s					: std_logic_vector (record_depth_g - 1 downto 0); 	--Input address
 signal data_from_wc_to_ram_s		: std_logic_vector (num_of_signals_g - 1 downto 0);		--Input data
@@ -365,8 +359,6 @@ signal data_from_cordinator_to_wm_s			: std_logic_vector (data_width_g - 1 downt
 signal data_from_cordinator_to_wm_valid_s	: std_logic;
 signal data_from_rc_to_cordinator_s			: std_logic_vector (num_of_signals_g - 1 downto 0);
 signal data_from_rc_to_cordinator_valid_s	: std_logic;
-signal data_in_reg_valid_s					: std_logic;
-signal data_in_reg_s						: std_logic_vector (size_of_register_c - 1 downto 0);
 ------- wishbone slave to data_in signals-----------
 signal ws_to_reg_add_s				: std_logic_vector (Add_width_g -1 downto 0); 	-- reg address line
 signal wr_en_s             			: std_logic; 									-- write enable: '1' for write, '0' for read
@@ -440,9 +432,7 @@ read_controller_inst : read_controller generic map (
 											reset_polarity_g	=>	reset_polarity_g,
 											record_depth_g		=>	record_depth_g,
 											data_width_g		=>	data_width_g,
-											num_of_signals_g	=>	num_of_signals_g,
-											power2_out_g		=>	power2_out_g,
-											power_sign_g		=>	power_sign_g
+											num_of_signals_g	=>	num_of_signals_g
 											)
 										port map (
 											clk						=> clk,
