@@ -5,11 +5,18 @@
 -- Project		:	Internal Logic Analyzer
 ------------------------------------------------------------------------------------------------
 -- Description: 
---			The entity inject  
+--			The entity generates a trigger and data signals according the chosen scene
+--			The user chose one of different scenes that are defined in the entity, (we have 5 scenes for now)
+--			The output data is a cyclic counter that change between 0 to 2^record_depth_g
+--			We can also get the data and trigger signals from an external source 
 --			
---			
---			
---			
+--			Scene description:
+--			scene 1:	first half- high					second half- low
+--			scene 2:	first half- low						second half- high
+--			scene 3:	first/forth quarter- high			second/third  quarter- low
+--			scene 4:	first/forth quarter- low			second/third  quarter- high
+--			scene 5:	cyclic (one duty cycle = 4 clock cycles)
+--
 ------------------------------------------------------------------------------------------------
 -- Revision:
 --			Number		Date		Name							Description			
@@ -18,85 +25,157 @@
 --	Todo:
 --			
 --			
---			connect WB 
 ------------------------------------------------------------------------------------------------
 library ieee ;
 use ieee.std_logic_1164.all ;
 use ieee.numeric_std.all;
-
-library work ;
-use work.write_controller_pkg.all;
+use ieee.std_logic_unsigned.all;
+use ieee.std_logic_arith.all;
 ---------------------------------------------------------------------------------------------------------------------------------------
 
 entity signal_generator is
 	generic (
-			reset_polarity_g		:	std_logic	:=	'1';								--'1' reset active highe, '0' active low
-			enable_polarity_g		:	std_logic	:=	'1';								--'1' the entity is active, '0' entity not active
-			signal_ram_depth_g		: 	positive  	:=	3;									--depth of RAM is 2^signal_ram_depth_g
-			signal_ram_width_g		:	positive 	:=  8;   								--width of basic RAM
-			record_depth_g			: 	positive  	:=	4;									--number of bits that are recorded from each signal is 2^record_depth_g
-			data_width_g            :	positive 	:= 	8;      						    -- defines the width of the data lines of the system 
-			Add_width_g  		    :   positive 	:=  8;     								--width of addr word in the RAM
-			trigger_type_g			:	positive 	:= 	3;									--Trigger type
-			num_of_signals_g		:	positive	:=	8									--num of signals that will be recorded simultaneously
+			reset_polarity_g		:	std_logic	:=	'1';									--'1' reset active high, '0' active low
+			data_width_g            :	positive 	:= 	8;      						    	--defines the width of the data lines of the system 
+			num_of_signals_g		:	positive	:=	4;										--number of signals that will be recorded simultaneously
+			external_en_g			:	std_logic	:=	'0'										-- 1 -> getting the data from an external source . 0 -> dout is a counter
 			);
 	port
 	(
 		clk							:	in  std_logic;											--system clock
 		reset						:	in  std_logic;											--system reset
---		enable						:	in	std_logic;											--enabling the entity
-		trigger_type    		    : 	in std_logic_vector (data_width_g * addr_d_g -1 downto 0); -- address line
-		din							:	in	std_logic_vector ( num_of_signals_g -1 downto 0);	-- in case that we want to store a data from external source
-		trigger_in					:	in	std_logic											--trigger in external signal
-		din_valid					:	in	std_logic;											-- 1 -> getting the data from an external source (dout = din). 0 -> dout is a counter
-		dout						:	out	std_logic_vector ( num_of_signals_g -1 downto 0);	--data out. counter that start counting after reset fall
-		trigger_out					:	out	std_logic											--trigger signal
----------whishbone signals----------------------------					
---		dout						:	out	std_logic_vector ( num_of_signals_g -1 downto 0);	--data out. counter that start counting after reset fall
---		trigger_out					:	out	std_logic											--trigger signal
+		scene_number_in				:	in	std_logic_vector ( data_width_g - 1 downto 0);						--type of trigger scene
+		scene_valid					:	in	std_logic;											--scene in is valid
+		data_in						:	in	std_logic_vector ( num_of_signals_g -1 downto 0);	-- in case that we want to store a data from external source
+		trigger_in					:	in	std_logic;											--trigger in external signal
+--		external_en					:	in	std_logic;											-- 1 -> getting the data from an external source . 0 -> dout is a counter
+--		generator_finish			:	in	std_logic;											--read controller is finish -> ready to read a new scene
+		data_out					:	out	std_logic_vector ( num_of_signals_g -1 downto 0);	--data out
+		trigger_out					:	out	std_logic											--trigger out signal
 	
 	);
 end entity signal_generator;
 
 architecture behave of signal_generator is
 
+-- SYMBOLIC ENCODED state machine: State
+	type State_type is (
+	idle,										--first state, initial all signals
+	wait_for_scene_number,						--wait for receiving a scene number
+	output_data									--output the data and the trigger according the chosen scene
+	);
+	
 ------------------Constants------
-constant	total_number_of_rows_c	:	natural := (2**signal_ram_depth_g) * up_case(2**record_depth_g , 2**signal_ram_depth_g)	  ; --number of "lines" in the total RAM array (depth, not width)
+constant ex_enable_c	:	std_logic									:= external_en_g;
+constant max_counter_c	:	positive 									:= 2**num_of_signals_g	- 1  ;					--maximum value of counter
+constant scene_1_c 		: 	std_logic_vector(data_width_g - 1 downto 0)	:= conv_std_logic_vector(1, data_width_g);		-- 0 is saved for initialize
+constant scene_2_c 		: 	std_logic_vector(data_width_g - 1 downto 0)	:= conv_std_logic_vector(2, data_width_g);
+constant scene_3_c 		: 	std_logic_vector(data_width_g - 1 downto 0)	:= conv_std_logic_vector(3, data_width_g);
+constant scene_4_c 		: 	std_logic_vector(data_width_g - 1 downto 0)	:= conv_std_logic_vector(4, data_width_g);
+constant scene_5_c 		: 	std_logic_vector(data_width_g - 1 downto 0)	:= conv_std_logic_vector(5, data_width_g);
 -------------------------Types------
 
 ------------------Signals--------------------
-signal 	dout_s					:	std_logic_vector ( num_of_signals_g -1 downto 0);
+signal 	State					: 	State_type;
+signal 	data_out_s				:	std_logic_vector ( num_of_signals_g -1 downto 0);
 signal	trigger_s				:  	std_logic;
-signal	counter_s				:	integer range 0 to 1000; 
+signal	data_counter_s			:	integer range 0 to  2**num_of_signals_g ; 
+signal 	scene_number_s			:	std_logic_vector ( data_width_g - 1 downto 0);
 ------------------	Processes	----------------
 
 begin
-							
-	data_out: process (clk, reset)
-	
+	State_machine: process (clk, reset)
+		
 	begin
 		if reset = reset_polarity_g then
-			dout_s		<= (others => '0') ;
-			trigger_s	<= '0';
-			counter_s	<= 1;
-			
+			State <= idle;
+			data_out <= (others => '0');
+			trigger_out <= '0';
+			data_out_s	<= (others => '0');
+			trigger_s <= '0';
+			scene_number_s 	<= (others => '0');
+			data_counter_s <= 0;
 		elsif rising_edge(clk) then
-			
 			case State is
-				when idle =>
-					din_valid					<=  '0' ;
-						
-				when others =>
-						State <= idle ;
+				when idle =>						-- start state. initial all signals and variables
+					State <= wait_for_scene_number;
+					data_out <= (others => '0');
+					trigger_out <= '0';
+					data_out_s	<= (others => '0');
+					trigger_s <= '0';
+					scene_number_s 	<= (others => '0');
+					data_counter_s <= 0;
+					
+				when wait_for_scene_number =>		
+					if scene_valid = '1' then
+						scene_number_s <= scene_number_in ;						
+						State <= output_data ;
+					else
+						State <= wait_for_scene_number ;
+					end if;
+				
+				when output_data =>
+--					if generator_finish = '1' then																	--return to initial state
+--						State <= idle ;
+--					else																					--continue output the data
+						State 		<= output_data ;
+						data_out_s 	<= std_logic_vector( to_unsigned( data_counter_s , num_of_signals_g));
+						if data_counter_s = max_counter_c then												--counter receive maximum value
+							data_counter_s	<= 0 ;
+						else
+							data_counter_s	<= data_counter_s + 1 ;
+						end if;
+					
+						------send data out
+						if ex_enable_c = '1' then				--get the data from an external source
+							data_out		<= data_in;
+							trigger_out		<= trigger_in;
+						else									--get the data from internal counter
+							data_out		<=  data_out_s ;
+							trigger_out		<=  trigger_s ;
+						end if;
+					---------determine trigger scene
+						if (scene_number_s = scene_1_c) then				---scene 1
+							if (	(data_counter_s < (2**num_of_signals_g)/2 )	)	 then
+								trigger_s <= '1';
+							else
+								trigger_s <= '0';
+							end if;
 
+						elsif (scene_number_s = scene_2_c) then				---scene 2
+							if (	(data_counter_s > (2**num_of_signals_g)/2 )	)	 then
+								trigger_s <= '1';
+							else
+								trigger_s <= '0';
+							end if;
+						
+						elsif (scene_number_s = scene_3_c) then				---scene 3
+							if (	((data_counter_s > 0 )and(data_counter_s < (2**num_of_signals_g)/4 ))	or	(data_counter_s > (2**num_of_signals_g)*(3/4) )	) then
+								trigger_s <= '1';
+							else
+								trigger_s <= '0';
+							end if;
+						
+						elsif (scene_number_s = scene_4_c) then				---scene 4
+							if (	((data_counter_s > 0 )and(data_counter_s < (2**num_of_signals_g)/4 ))	or	(data_counter_s > (2**num_of_signals_g)*(3/4) )	) then
+								trigger_s <= '0';
+							else
+								trigger_s <= '1';
+							end if;
+						
+						elsif (scene_number_s = scene_5_c) then				---scene 5
+							if (	(data_counter_s mod 4) = 0 	) then
+								trigger_s <= not trigger_s;
+							else
+								trigger_s <= trigger_s;
+							end if;
+						
+						else
+							trigger_s <= '0';
+						end if;
+--					end if;
 			end case;
-		counter_s	<= 0 	when  counter_s = 1000	else counter_s + 1 ;
-		dout_s 		<= std_logic_vector( to_unsigned( counter_s , num_of_signals_g)); 
 		end if;
-	end process data_out;
+	end process;				
 	
-dout_proc	:
-	dout		<= din 			when  din_valid = '1'		else dout_s ;
-	trigger_out	<= trigger_in 	when  trigger_valid = '1'	else trigger_s ;
---------------------------------------------------------------------------
 end architecture behave;
