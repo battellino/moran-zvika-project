@@ -1,0 +1,818 @@
+# Reading C:/altera/13.0sp1/modelsim_ase/tcl/vsim/pref.tcl 
+# OpenFile C:/project/VHDL/DESIGN/TOP/bus_to_enc_fsm.vhd 
+vcom -reportprogress 300 -work work C:/project/VHDL/DESIGN/TOP/bus_to_enc_fsm.vhd
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Compiling entity bus_to_enc_fsm
+# -- Compiling architecture arc_bus_to_enc_fsm of bus_to_enc_fsm
+vcom -reportprogress 300 -work work C:/project/VHDL/DESIGN/TOP/core_registers.vhd
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Compiling entity core_registers
+# -- Compiling architecture behave of core_registers
+vcom -reportprogress 300 -work work C:/project/VHDL/DESIGN/TOP/crc_gen.vhd
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Compiling entity mp_dec
+# -- Compiling architecture rtl_mp_dec of mp_dec
+vcom -reportprogress 30 -work work C:/project/VHDL/DESIGN/TOP/data_input_big.vhd
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Compiling entity data_input_big
+# -- Compiling architecture behave of data_input_big
+vcom -reportprogress 30 -work work C:/project/VHDL/DESIGN/TOP/data_input_generic.vhd
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Compiling entity data_input_generic
+# -- Compiling architecture behave of data_input_generic
+vcom -reportprogress 30 -work work C:/project/VHDL/DESIGN/TOP/data_input_small.vhd
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Compiling entity data_input_small
+# -- Compiling architecture behave of data_input_small
+vcom -reportprogress 30 -work work C:/project/VHDL/DESIGN/TOP/dec_generic.vhd
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Compiling entity dec_generic
+# -- Compiling architecture dec_generic_arc of dec_generic
+vcom -reportprogress 30 -work work C:/project/VHDL/DESIGN/TOP/enable_fsm.vhd
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Compiling entity enable_fsm
+# -- Compiling architecture behave of enable_fsm
+vcom -reportprogress 30 -work work C:/project/VHDL/DESIGN/TOP/error_register.vhd
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Loading package ATTRIBUTES
+# -- Loading package std_logic_misc
+# -- Compiling entity error_register
+# -- Compiling architecture arc_error_register of error_register
+vcom -reportprogress 30 -work work C:/project/VHDL/DESIGN/TOP/general_fifo.vhd
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Compiling entity general_fifo
+# -- Compiling architecture arc_general_fifo of general_fifo
+vcom -reportprogress 30 -work work C:/project/VHDL/DESIGN/TOP/generic_ram_tb.vhd
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_SIGNED
+# -- Loading package ram_generic_pkg
+# -- Compiling entity generic_ram_tb
+# -- Compiling architecture arc_generic_ram_tb of generic_ram_tb
+vcom -reportprogress 30 -work work C:/project/VHDL/DESIGN/TOP/in_big_out_cordinator.vhd
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Compiling entity in_big_out_cordinator
+# -- Compiling architecture behave of in_big_out_cordinator
+vcom -reportprogress 30 -work work C:/project/VHDL/DESIGN/TOP/in_equal_out_cordinator.vhd
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Compiling entity in_equal_out_cordinator
+# -- Compiling architecture behave of in_equal_out_cordinator
+vcom -reportprogress 30 -work work C:/project/VHDL/DESIGN/TOP/in_out_cordinator_generic.vhd
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Compiling entity in_out_cordinator_generic
+# -- Compiling architecture behave of in_out_cordinator_generic
+vcom -reportprogress 30 -work work C:/project/VHDL/DESIGN/TOP/in_small_out_cordinator.vhd
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Compiling entity in_small_out_cordinator
+# -- Compiling architecture behave of in_small_out_cordinator
+vcom -reportprogress 30 -work work C:/project/VHDL/DESIGN/TOP/internal_logic_analyzer_core_top.vhd
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_SIGNED
+# -- Loading package NUMERIC_STD
+# -- Loading package ram_generic_pkg
+# -- Compiling entity internal_logic_analyzer_core_top
+# -- Compiling architecture arc_core of internal_logic_analyzer_core_top
+vcom -reportprogress 30 -work work C:/project/VHDL/DESIGN/TOP/mp_dec.vhd
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Compiling entity mp_dec
+# -- Compiling architecture rtl_mp_dec of mp_dec
+vcom -reportprogress 30 -work work C:/project/VHDL/DESIGN/TOP/mp_enc.vhd
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Compiling entity mp_enc
+# -- Compiling architecture rtl_mp_enc of mp_enc
+vcom -reportprogress 30 -work work C:/project/VHDL/DESIGN/TOP/mux_generic.vhd
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Compiling entity mux_generic
+# -- Compiling architecture mux_generic_arc of mux_generic
+vcom -reportprogress 30 -work work C:/project/VHDL/DESIGN/TOP/ram_generic.vhd
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_SIGNED
+# -- Loading package ATTRIBUTES
+# -- Loading package std_logic_misc
+# -- Loading package ram_generic_pkg
+# -- Compiling entity ram_generic
+# -- Compiling architecture rtl_ram_generic of ram_generic
+vcom -reportprogress 30 -work work C:/project/VHDL/DESIGN/TOP/ram_generic_pkg.vhd
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_SIGNED
+# -- Compiling package ram_generic_pkg
+# -- Compiling package body ram_generic_pkg
+# -- Loading package ram_generic_pkg
+vcom -reportprogress 30 -work work C:/project/VHDL/DESIGN/TOP/ram_simple.vhd
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Compiling entity ram_simple
+# -- Compiling architecture arc_ram_simple of ram_simple
+vcom -reportprogress 30 -work work C:/project/VHDL/DESIGN/TOP/read_controller.vhd
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Compiling entity read_controller
+# -- Compiling architecture behave of read_controller
+vcom -reportprogress 30 -work work C:/project/VHDL/DESIGN/TOP/rx_path.vhd
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Compiling entity rx_path
+# -- Compiling architecture arc_rx_path of rx_path
+vcom -reportprogress 30 -work work C:/project/VHDL/DESIGN/TOP/signal_generator.vhd
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Compiling entity signal_generator
+# -- Compiling architecture behave of signal_generator
+vcom -reportprogress 30 -work work C:/project/VHDL/DESIGN/TOP/signal_generator_registers.vhd
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Compiling entity signal_generator_registers
+# -- Compiling architecture behave of signal_generator_registers
+vcom -reportprogress 30 -work work C:/project/VHDL/DESIGN/TOP/signal_generator_top.vhd
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_SIGNED
+# -- Loading package NUMERIC_STD
+# -- Compiling entity signal_generator_top
+# -- Compiling architecture arc_core of signal_generator_top
+vcom -reportprogress 30 -work work C:/project/VHDL/DESIGN/TOP/timer.vhd
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Compiling entity timer
+# -- Compiling architecture arc_timer of timer
+vcom -reportprogress 30 -work work C:/project/VHDL/DESIGN/TOP/top_internal_logic_analyzer.vhd
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Loading package NUMERIC_STD
+# -- Compiling entity top_internal_logic_analyzer
+# -- Compiling architecture arc_top_internal_logic_analyzer of top_internal_logic_analyzer
+vcom -reportprogress 30 -work work C:/project/VHDL/DESIGN/TOP/tx_path.vhd
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Compiling entity tx_path
+# -- Compiling architecture arc_tx_path of tx_path
+vcom -reportprogress 30 -work work C:/project/VHDL/DESIGN/TOP/uart_rx.vhd
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Loading package ATTRIBUTES
+# -- Loading package std_logic_misc
+# -- Compiling entity uart_rx
+# -- Compiling architecture arc_uart_rx of uart_rx
+vcom -reportprogress 30 -work work C:/project/VHDL/DESIGN/TOP/uart_tx.vhd
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Loading package ATTRIBUTES
+# -- Loading package std_logic_misc
+# -- Compiling entity uart_tx
+# -- Compiling architecture arc_uart_tx of uart_tx
+# ** Warning: C:/project/VHDL/DESIGN/TOP/uart_tx.vhd(180): (vcom-1074) Non-locally static OTHERS choice is allowed only if it is the only choice of the only association.
+# 
+vcom -reportprogress 30 -work work C:/project/VHDL/DESIGN/TOP/wishbone_intercon.vhd
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Compiling entity wishbone_intercon
+# -- Compiling architecture arc_wishbone_intercon of wishbone_intercon
+vcom -reportprogress 30 -work work C:/project/VHDL/DESIGN/TOP/wishbone_master.vhd
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Compiling entity wishbone_master
+# -- Compiling architecture arc_wishbone_master of wishbone_master
+vcom -reportprogress 30 -work work C:/project/VHDL/DESIGN/TOP/wishbone_slave.vhd
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Compiling entity wishbone_slave
+# -- Compiling architecture arc_wb_slave of wishbone_slave
+vcom -reportprogress 30 -work work C:/project/VHDL/DESIGN/TOP/write_controller.vhd
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Loading package write_controller_pkg
+# -- Compiling entity write_controller
+# -- Compiling architecture behave of write_controller
+vcom -reportprogress 30 -work work C:/project/VHDL/DESIGN/TOP/write_controller_pkg.vhd
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Compiling package write_controller_pkg
+# -- Compiling package body write_controller_pkg
+# -- Loading package write_controller_pkg
+vsim -gui work.top_internal_logic_analyzer
+# vsim -gui work.top_internal_logic_analyzer 
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.std_logic_arith(body)
+# Loading ieee.std_logic_unsigned(body)
+# Loading ieee.numeric_std(body)
+# Loading work.top_internal_logic_analyzer(arc_top_internal_logic_analyzer)
+# Loading work.rx_path(arc_rx_path)
+# Loading synopsys.attributes
+# Loading ieee.std_logic_misc(body)
+# Loading work.uart_rx(arc_uart_rx)
+# Loading work.mp_dec(rtl_mp_dec)
+# ** Warning: (vsim-3473) Component instance "crc_gen_inst : crc_gen" is not bound.
+#    Time: 0 ps  Iteration: 0  Instance: /top_internal_logic_analyzer/rx_path_unit File: C:/project/VHDL/DESIGN/TOP/rx_path.vhd
+# Loading work.ram_simple(arc_ram_simple)
+# Loading work.wishbone_master(arc_wishbone_master)
+# Loading work.error_register(arc_error_register)
+# Loading work.wishbone_slave(arc_wb_slave)
+# Loading work.wishbone_intercon(arc_wishbone_intercon)
+# Loading work.timer(arc_timer)
+# Loading ieee.std_logic_signed(body)
+# Loading work.ram_generic_pkg(body)
+# Loading work.internal_logic_analyzer_core_top(arc_core)
+# Loading work.ram_generic(rtl_ram_generic)
+# Loading work.enable_fsm(behave)
+# Loading work.write_controller_pkg(body)
+# Loading work.write_controller(behave)
+# Loading work.read_controller(behave)
+# Loading work.core_registers(behave)
+# Loading work.in_out_cordinator_generic(behave)
+# Loading work.in_equal_out_cordinator(behave)
+# Loading work.signal_generator_top(arc_core)
+# Loading work.signal_generator(behave)
+# Loading work.signal_generator_registers(behave)
+# Loading work.tx_path(arc_tx_path)
+# Loading work.bus_to_enc_fsm(arc_bus_to_enc_fsm)
+# Loading work.mp_enc(rtl_mp_enc)
+# Loading work.uart_tx(arc_uart_tx)
+# ** Warning: (vsim-3473) Component instance "tx_crc_inst : crc_gen" is not bound.
+#    Time: 0 ps  Iteration: 0  Instance: /top_internal_logic_analyzer/tx_path_unit File: C:/project/VHDL/DESIGN/TOP/tx_path.vhd
+# Loading work.general_fifo(arc_general_fifo)
+quit -sim
+vsim -gui work.top_internal_logic_analyzer
+# vsim -gui work.top_internal_logic_analyzer 
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.std_logic_arith(body)
+# Loading ieee.std_logic_unsigned(body)
+# Loading ieee.numeric_std(body)
+# Loading work.top_internal_logic_analyzer(arc_top_internal_logic_analyzer)
+# Loading work.rx_path(arc_rx_path)
+# Loading synopsys.attributes
+# Loading ieee.std_logic_misc(body)
+# Loading work.uart_rx(arc_uart_rx)
+# Loading work.mp_dec(rtl_mp_dec)
+# ** Warning: (vsim-3473) Component instance "crc_gen_inst : crc_gen" is not bound.
+#    Time: 0 ps  Iteration: 0  Instance: /top_internal_logic_analyzer/rx_path_unit File: C:/project/VHDL/DESIGN/TOP/rx_path.vhd
+# Loading work.ram_simple(arc_ram_simple)
+# Loading work.wishbone_master(arc_wishbone_master)
+# Loading work.error_register(arc_error_register)
+# Loading work.wishbone_slave(arc_wb_slave)
+# Loading work.wishbone_intercon(arc_wishbone_intercon)
+# Loading work.timer(arc_timer)
+# Loading ieee.std_logic_signed(body)
+# Loading work.ram_generic_pkg(body)
+# Loading work.internal_logic_analyzer_core_top(arc_core)
+# Loading work.ram_generic(rtl_ram_generic)
+# Loading work.enable_fsm(behave)
+# Loading work.write_controller_pkg(body)
+# Loading work.write_controller(behave)
+# Loading work.read_controller(behave)
+# Loading work.core_registers(behave)
+# Loading work.in_out_cordinator_generic(behave)
+# Loading work.in_equal_out_cordinator(behave)
+# Loading work.signal_generator_top(arc_core)
+# Loading work.signal_generator(behave)
+# Loading work.signal_generator_registers(behave)
+# Loading work.tx_path(arc_tx_path)
+# Loading work.bus_to_enc_fsm(arc_bus_to_enc_fsm)
+# Loading work.mp_enc(rtl_mp_enc)
+# Loading work.uart_tx(arc_uart_tx)
+# ** Warning: (vsim-3473) Component instance "tx_crc_inst : crc_gen" is not bound.
+#    Time: 0 ps  Iteration: 0  Instance: /top_internal_logic_analyzer/tx_path_unit File: C:/project/VHDL/DESIGN/TOP/tx_path.vhd
+# Loading work.general_fifo(arc_general_fifo)
+quit -sim
+vcom -reportprogress 300 -work work C:/project/VHDL/DESIGN/TOP/bus_to_enc_fsm.vhd
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Compiling entity bus_to_enc_fsm
+# -- Compiling architecture arc_bus_to_enc_fsm of bus_to_enc_fsm
+vcom -reportprogress 300 -work work C:/project/VHDL/DESIGN/TOP/core_registers.vhd
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Compiling entity core_registers
+# -- Compiling architecture behave of core_registers
+vcom -reportprogress 300 -work work C:/project/VHDL/DESIGN/TOP/crc_gen.vhd
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Compiling entity crc_gen
+# -- Compiling architecture behave of crc_gen
+vcom -reportprogress 300 -work work C:/project/VHDL/DESIGN/TOP/data_input_big.vhd
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Compiling entity data_input_big
+# -- Compiling architecture behave of data_input_big
+vcom -reportprogress 300 -work work C:/project/VHDL/DESIGN/TOP/data_input_generic.vhd
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Compiling entity data_input_generic
+# -- Compiling architecture behave of data_input_generic
+vcom -reportprogress 300 -work work C:/project/VHDL/DESIGN/TOP/data_input_small.vhd
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Compiling entity data_input_small
+# -- Compiling architecture behave of data_input_small
+vcom -reportprogress 300 -work work C:/project/VHDL/DESIGN/TOP/dec_generic.vhd
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Compiling entity dec_generic
+# -- Compiling architecture dec_generic_arc of dec_generic
+vcom -reportprogress 300 -work work C:/project/VHDL/DESIGN/TOP/enable_fsm.vhd
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Compiling entity enable_fsm
+# -- Compiling architecture behave of enable_fsm
+vcom -reportprogress 300 -work work C:/project/VHDL/DESIGN/TOP/error_register.vhd
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Loading package ATTRIBUTES
+# -- Loading package std_logic_misc
+# -- Compiling entity error_register
+# -- Compiling architecture arc_error_register of error_register
+vcom -reportprogress 300 -work work C:/project/VHDL/DESIGN/TOP/general_fifo.vhd
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Compiling entity general_fifo
+# -- Compiling architecture arc_general_fifo of general_fifo
+vcom -reportprogress 300 -work work C:/project/VHDL/DESIGN/TOP/generic_ram_tb.vhd
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_SIGNED
+# -- Loading package ram_generic_pkg
+# -- Compiling entity generic_ram_tb
+# -- Compiling architecture arc_generic_ram_tb of generic_ram_tb
+vcom -reportprogress 300 -work work C:/project/VHDL/DESIGN/TOP/in_big_out_cordinator.vhd
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Compiling entity in_big_out_cordinator
+# -- Compiling architecture behave of in_big_out_cordinator
+vcom -reportprogress 300 -work work C:/project/VHDL/DESIGN/TOP/in_equal_out_cordinator.vhd
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Compiling entity in_equal_out_cordinator
+# -- Compiling architecture behave of in_equal_out_cordinator
+vcom -reportprogress 300 -work work C:/project/VHDL/DESIGN/TOP/in_out_cordinator_generic.vhd
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Compiling entity in_out_cordinator_generic
+# -- Compiling architecture behave of in_out_cordinator_generic
+vcom -reportprogress 300 -work work C:/project/VHDL/DESIGN/TOP/in_small_out_cordinator.vhd
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Compiling entity in_small_out_cordinator
+# -- Compiling architecture behave of in_small_out_cordinator
+vcom -reportprogress 300 -work work C:/project/VHDL/DESIGN/TOP/internal_logic_analyzer_core_top.vhd
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_SIGNED
+# -- Loading package NUMERIC_STD
+# -- Loading package ram_generic_pkg
+# -- Compiling entity internal_logic_analyzer_core_top
+# -- Compiling architecture arc_core of internal_logic_analyzer_core_top
+vcom -reportprogress 30 -work work C:/project/VHDL/DESIGN/TOP/mp_dec.vhd
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Compiling entity mp_dec
+# -- Compiling architecture rtl_mp_dec of mp_dec
+vcom -reportprogress 30 -work work C:/project/VHDL/DESIGN/TOP/mp_enc.vhd
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Compiling entity mp_enc
+# -- Compiling architecture rtl_mp_enc of mp_enc
+vcom -reportprogress 30 -work work C:/project/VHDL/DESIGN/TOP/mux_generic.vhd
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Compiling entity mux_generic
+# -- Compiling architecture mux_generic_arc of mux_generic
+vcom -reportprogress 30 -work work C:/project/VHDL/DESIGN/TOP/ram_generic.vhd
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_SIGNED
+# -- Loading package ATTRIBUTES
+# -- Loading package std_logic_misc
+# -- Loading package ram_generic_pkg
+# -- Compiling entity ram_generic
+# -- Compiling architecture rtl_ram_generic of ram_generic
+vcom -reportprogress 30 -work work C:/project/VHDL/DESIGN/TOP/ram_generic_pkg.vhd
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_SIGNED
+# -- Compiling package ram_generic_pkg
+# -- Compiling package body ram_generic_pkg
+# -- Loading package ram_generic_pkg
+vcom -reportprogress 30 -work work C:/project/VHDL/DESIGN/TOP/ram_simple.vhd
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Compiling entity ram_simple
+# -- Compiling architecture arc_ram_simple of ram_simple
+vcom -reportprogress 30 -work work C:/project/VHDL/DESIGN/TOP/read_controller.vhd
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Compiling entity read_controller
+# -- Compiling architecture behave of read_controller
+vcom -reportprogress 30 -work work C:/project/VHDL/DESIGN/TOP/rx_path.vhd
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Compiling entity rx_path
+# -- Compiling architecture arc_rx_path of rx_path
+vcom -reportprogress 30 -work work C:/project/VHDL/DESIGN/TOP/signal_generator.vhd
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Compiling entity signal_generator
+# -- Compiling architecture behave of signal_generator
+vcom -reportprogress 30 -work work C:/project/VHDL/DESIGN/TOP/signal_generator_registers.vhd
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Compiling entity signal_generator_registers
+# -- Compiling architecture behave of signal_generator_registers
+vcom -reportprogress 30 -work work C:/project/VHDL/DESIGN/TOP/signal_generator_top.vhd
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_SIGNED
+# -- Loading package NUMERIC_STD
+# -- Compiling entity signal_generator_top
+# -- Compiling architecture arc_core of signal_generator_top
+vcom -reportprogress 30 -work work C:/project/VHDL/DESIGN/TOP/timer.vhd
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Compiling entity timer
+# -- Compiling architecture arc_timer of timer
+vcom -reportprogress 30 -work work C:/project/VHDL/DESIGN/TOP/top_internal_logic_analyzer.vhd
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Loading package NUMERIC_STD
+# -- Compiling entity top_internal_logic_analyzer
+# -- Compiling architecture arc_top_internal_logic_analyzer of top_internal_logic_analyzer
+vcom -reportprogress 30 -work work C:/project/VHDL/DESIGN/TOP/tx_path.vhd
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Compiling entity tx_path
+# -- Compiling architecture arc_tx_path of tx_path
+vcom -reportprogress 30 -work work C:/project/VHDL/DESIGN/TOP/uart_rx.vhd
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Loading package ATTRIBUTES
+# -- Loading package std_logic_misc
+# -- Compiling entity uart_rx
+# -- Compiling architecture arc_uart_rx of uart_rx
+vcom -reportprogress 30 -work work C:/project/VHDL/DESIGN/TOP/uart_tx.vhd
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Loading package ATTRIBUTES
+# -- Loading package std_logic_misc
+# -- Compiling entity uart_tx
+# -- Compiling architecture arc_uart_tx of uart_tx
+# ** Warning: C:/project/VHDL/DESIGN/TOP/uart_tx.vhd(180): (vcom-1074) Non-locally static OTHERS choice is allowed only if it is the only choice of the only association.
+# 
+vcom -reportprogress 30 -work work C:/project/VHDL/DESIGN/TOP/wishbone_intercon.vhd
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Compiling entity wishbone_intercon
+# -- Compiling architecture arc_wishbone_intercon of wishbone_intercon
+vcom -reportprogress 30 -work work C:/project/VHDL/DESIGN/TOP/wishbone_master.vhd
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Compiling entity wishbone_master
+# -- Compiling architecture arc_wishbone_master of wishbone_master
+vcom -reportprogress 30 -work work C:/project/VHDL/DESIGN/TOP/wishbone_slave.vhd
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Compiling entity wishbone_slave
+# -- Compiling architecture arc_wb_slave of wishbone_slave
+vcom -reportprogress 30 -work work C:/project/VHDL/DESIGN/TOP/write_controller.vhd
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Loading package write_controller_pkg
+# -- Compiling entity write_controller
+# -- Compiling architecture behave of write_controller
+vcom -reportprogress 30 -work work C:/project/VHDL/DESIGN/TOP/write_controller_pkg.vhd
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package std_logic_arith
+# -- Loading package STD_LOGIC_UNSIGNED
+# -- Compiling package write_controller_pkg
+# -- Compiling package body write_controller_pkg
+# -- Loading package write_controller_pkg
+vsim -gui work.top_internal_logic_analyzer
+# vsim -gui work.top_internal_logic_analyzer 
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.std_logic_arith(body)
+# Loading ieee.std_logic_unsigned(body)
+# Loading ieee.numeric_std(body)
+# Loading work.top_internal_logic_analyzer(arc_top_internal_logic_analyzer)
+# Loading work.rx_path(arc_rx_path)
+# Loading synopsys.attributes
+# Loading ieee.std_logic_misc(body)
+# Loading work.uart_rx(arc_uart_rx)
+# Loading work.mp_dec(rtl_mp_dec)
+# Loading work.crc_gen(behave)
+# Loading work.ram_simple(arc_ram_simple)
+# Loading work.wishbone_master(arc_wishbone_master)
+# Loading work.error_register(arc_error_register)
+# Loading work.wishbone_slave(arc_wb_slave)
+# Loading work.wishbone_intercon(arc_wishbone_intercon)
+# Loading work.timer(arc_timer)
+# Loading ieee.std_logic_signed(body)
+# Loading work.ram_generic_pkg(body)
+# Loading work.internal_logic_analyzer_core_top(arc_core)
+# Loading work.ram_generic(rtl_ram_generic)
+# Loading work.enable_fsm(behave)
+# Loading work.write_controller_pkg(body)
+# Loading work.write_controller(behave)
+# Loading work.read_controller(behave)
+# Loading work.core_registers(behave)
+# Loading work.in_out_cordinator_generic(behave)
+# Loading work.in_equal_out_cordinator(behave)
+# Loading work.signal_generator_top(arc_core)
+# Loading work.signal_generator(behave)
+# Loading work.signal_generator_registers(behave)
+# Loading work.tx_path(arc_tx_path)
+# Loading work.bus_to_enc_fsm(arc_bus_to_enc_fsm)
+# Loading work.mp_enc(rtl_mp_enc)
+# Loading work.uart_tx(arc_uart_tx)
+# Loading work.general_fifo(arc_general_fifo)
+quit -sim
+quit
