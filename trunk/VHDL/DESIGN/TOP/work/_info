@@ -1,0 +1,1464 @@
+m255
+K3
+13
+cModel Technology
+dC:\Users\A\Dropbox\project\VHDL\DESIGN\TOP
+Ebus_to_enc_fsm
+Z0 w1382811690
+Z1 DPx4 ieee 15 std_logic_arith 0 22 4`Y?g_lkdn;7UL9IiJck01
+Z2 DPx4 ieee 18 std_logic_unsigned 0 22 RYmj;=TK`k=k>D@Cz`zoB3
+Z3 DPx3 std 6 textio 0 22 5>J:;AW>W0[[dW0I6EN1Q0
+Z4 DPx4 ieee 14 std_logic_1164 0 22 5=aWaoGZSMWIcH0i^f`XF1
+Z5 dC:\project\VHDL\DESIGN\TOP
+Z6 8C:/project/VHDL/DESIGN/TOP/bus_to_enc_fsm.vhd
+Z7 FC:/project/VHDL/DESIGN/TOP/bus_to_enc_fsm.vhd
+l0
+L27
+VV0DoGPL<<bnAXCCM3jZOe3
+Z8 OV;C;10.1d;51
+32
+Z9 !s108 1382887898.811000
+Z10 !s90 -reportprogress|300|-work|work|C:/project/VHDL/DESIGN/TOP/bus_to_enc_fsm.vhd|
+Z11 !s107 C:/project/VHDL/DESIGN/TOP/bus_to_enc_fsm.vhd|
+Z12 o-work work -O0
+Z13 tExplicit 1
+!s100 [GkZ5LAoVhfM463UEiACL1
+!i10b 1
+Aarc_bus_to_enc_fsm
+R1
+R2
+R3
+R4
+DEx4 work 14 bus_to_enc_fsm 0 22 V0DoGPL<<bnAXCCM3jZOe3
+l91
+L63
+VF;gX_aiX2LjA2M^H97=E63
+R8
+32
+R9
+R10
+R11
+R12
+R13
+!s100 oF@mgFIFkjDo6;gR>Q>[P0
+!i10b 1
+Ecore_registers
+Z14 w1380267142
+R1
+R2
+R3
+R4
+R5
+Z15 8C:/project/VHDL/DESIGN/TOP/core_registers.vhd
+Z16 FC:/project/VHDL/DESIGN/TOP/core_registers.vhd
+l0
+L31
+VT2AMHMdCPPG56jdHh;9@N0
+R8
+32
+Z17 !s108 1382887898.991000
+Z18 !s90 -reportprogress|300|-work|work|C:/project/VHDL/DESIGN/TOP/core_registers.vhd|
+Z19 !s107 C:/project/VHDL/DESIGN/TOP/core_registers.vhd|
+R12
+R13
+!s100 OMFd7MA6:0QeLXiX@21;I2
+!i10b 1
+Abehave
+R1
+R2
+R3
+R4
+DEx4 work 14 core_registers 0 22 T2AMHMdCPPG56jdHh;9@N0
+l88
+L63
+V[lk5Z5>R]TM3U<h:IX3HK1
+R8
+32
+R17
+R18
+R19
+R12
+R13
+!s100 Uk`TT6TbBRThDXlGOLVT`3
+!i10b 1
+Ecrc_gen
+Z20 w1382887811
+R2
+R1
+R3
+R4
+R5
+Z21 8C:/project/VHDL/DESIGN/TOP/crc_gen.vhd
+Z22 FC:/project/VHDL/DESIGN/TOP/crc_gen.vhd
+l0
+L36
+VI>93[ihdfVD2jFQ5PL_@G1
+R8
+32
+Z23 !s108 1382887899.167000
+Z24 !s90 -reportprogress|300|-work|work|C:/project/VHDL/DESIGN/TOP/crc_gen.vhd|
+Z25 !s107 C:/project/VHDL/DESIGN/TOP/crc_gen.vhd|
+R12
+R13
+!s100 jF>WYEhYHc5SfZ[bBeg>13
+!i10b 1
+Abehave
+R2
+R1
+R3
+R4
+DEx4 work 7 crc_gen 0 22 I>93[ihdfVD2jFQ5PL_@G1
+l59
+L52
+VH1bO]YfImB>IP2Ro@nImV3
+R8
+32
+R23
+R24
+R25
+R12
+R13
+!s100 4R5CcMcTGXhIWEh?7]7B;2
+!i10b 1
+Edata_input_big
+Z26 w1379942371
+Z27 DPx4 ieee 11 numeric_std 0 22 O3PF8EB`?j9=z7KT`fn941
+R3
+R4
+R5
+Z28 8C:/project/VHDL/DESIGN/TOP/data_input_big.vhd
+Z29 FC:/project/VHDL/DESIGN/TOP/data_input_big.vhd
+l0
+L30
+VOkkK=CXkfGN_gXPAoSR9b3
+R8
+32
+Z30 !s108 1382887899.367000
+Z31 !s90 -reportprogress|300|-work|work|C:/project/VHDL/DESIGN/TOP/data_input_big.vhd|
+Z32 !s107 C:/project/VHDL/DESIGN/TOP/data_input_big.vhd|
+R12
+R13
+!s100 aiC15b5NL0lYj2hPPeIQn3
+!i10b 1
+Abehave
+R27
+R3
+R4
+DEx4 work 14 data_input_big 0 22 OkkK=CXkfGN_gXPAoSR9b3
+l64
+L50
+VG9W98Rj6@TSO=CnOajmPd3
+R8
+32
+R30
+R31
+R32
+R12
+R13
+!s100 ?f`@a;K:c=3[kgD<QF[Xz1
+!i10b 1
+Edata_input_generic
+Z33 w1379940368
+R27
+R3
+R4
+R5
+Z34 8C:/project/VHDL/DESIGN/TOP/data_input_generic.vhd
+Z35 FC:/project/VHDL/DESIGN/TOP/data_input_generic.vhd
+l0
+L28
+VS:4>i5EWgcP]Z`8U00Zl]0
+R8
+32
+Z36 !s108 1382887899.706000
+Z37 !s90 -reportprogress|300|-work|work|C:/project/VHDL/DESIGN/TOP/data_input_generic.vhd|
+Z38 !s107 C:/project/VHDL/DESIGN/TOP/data_input_generic.vhd|
+R12
+R13
+!s100 HPlOfY2bogkz5ZL9NN[eI0
+!i10b 1
+Abehave
+R27
+R3
+R4
+DEx4 work 18 data_input_generic 0 22 S:4>i5EWgcP]Z`8U00Zl]0
+l91
+L48
+VT?dS4SX=OVbZFkUE2^=dg1
+R8
+32
+R36
+R37
+R38
+R12
+R13
+!s100 1Wa]6kc867mW8IWe4PNEN0
+!i10b 1
+Edata_input_small
+Z39 w1379944364
+R27
+R3
+R4
+R5
+Z40 8C:/project/VHDL/DESIGN/TOP/data_input_small.vhd
+Z41 FC:/project/VHDL/DESIGN/TOP/data_input_small.vhd
+l0
+L30
+VicfY7f3X7Tn[[o;kE]eG63
+R8
+32
+Z42 !s108 1382887899.910000
+Z43 !s90 -reportprogress|300|-work|work|C:/project/VHDL/DESIGN/TOP/data_input_small.vhd|
+Z44 !s107 C:/project/VHDL/DESIGN/TOP/data_input_small.vhd|
+R12
+R13
+!s100 meLz4^4FJzSWe@UTMl3FL3
+!i10b 1
+Abehave
+R27
+R3
+R4
+DEx4 work 16 data_input_small 0 22 icfY7f3X7Tn[[o;kE]eG63
+l68
+L50
+V]`ONbIO75A1jWA=;bb6Y;2
+R8
+32
+R42
+R43
+R44
+R12
+R13
+!s100 :ZH<HPCXQ<<>3HKj<<Q5R0
+!i10b 1
+Edec_generic
+Z45 w1339155894
+R1
+R2
+R3
+R4
+R5
+Z46 8C:/project/VHDL/DESIGN/TOP/dec_generic.vhd
+Z47 FC:/project/VHDL/DESIGN/TOP/dec_generic.vhd
+l0
+L59
+VeQcBaXaJDEN1LhC^XN]FH1
+R8
+32
+Z48 !s108 1382887900.108000
+Z49 !s90 -reportprogress|300|-work|work|C:/project/VHDL/DESIGN/TOP/dec_generic.vhd|
+Z50 !s107 C:/project/VHDL/DESIGN/TOP/dec_generic.vhd|
+R12
+R13
+!s100 Z[a:RC7j_<DS7XCh3SSZ:2
+!i10b 1
+Adec_generic_arc
+R1
+R2
+R3
+R4
+DEx4 work 11 dec_generic 0 22 eQcBaXaJDEN1LhC^XN]FH1
+l72
+L70
+VP>_TS51IWzQ:bSQIemcRC0
+R8
+32
+R48
+R49
+R50
+R12
+R13
+!s100 J_R8d5=]>l[]MIBT2eH]22
+!i10b 1
+Eenable_fsm
+Z51 w1380271528
+R3
+R4
+R5
+Z52 8C:/project/VHDL/DESIGN/TOP/enable_fsm.vhd
+Z53 FC:/project/VHDL/DESIGN/TOP/enable_fsm.vhd
+l0
+L25
+V@_:k?Ph1`>o@d?YT7G_mP1
+R8
+32
+Z54 !s108 1382887900.345000
+Z55 !s90 -reportprogress|300|-work|work|C:/project/VHDL/DESIGN/TOP/enable_fsm.vhd|
+Z56 !s107 C:/project/VHDL/DESIGN/TOP/enable_fsm.vhd|
+R12
+R13
+!s100 D:7hSUJJhh_KZMC>1bMa?3
+!i10b 1
+Abehave
+R3
+R4
+DEx4 work 10 enable_fsm 0 22 @_:k?Ph1`>o@d?YT7G_mP1
+l59
+L41
+VVR`_L2R4E7=bkW4k>?iiW1
+R8
+32
+R54
+R55
+R56
+R12
+R13
+!s100 JGddoQ^3WFO3_Uh@gC5j00
+!i10b 1
+Eerror_register
+Z57 w1382351155
+Z58 DPx8 synopsys 10 attributes 0 22 J^T`lPA_8_J<l8kQiVE]>2
+Z59 DPx4 ieee 14 std_logic_misc 0 22 >dU:RInm^_6_mBJ^<6QGY2
+R1
+R2
+R3
+R4
+R5
+Z60 8C:/project/VHDL/DESIGN/TOP/error_register.vhd
+Z61 FC:/project/VHDL/DESIGN/TOP/error_register.vhd
+l0
+L30
+VBb>G5lYM0=8:KS6CY`8D@1
+R8
+32
+Z62 !s108 1382887900.563000
+Z63 !s90 -reportprogress|300|-work|work|C:/project/VHDL/DESIGN/TOP/error_register.vhd|
+Z64 !s107 C:/project/VHDL/DESIGN/TOP/error_register.vhd|
+R12
+R13
+!s100 EG;Of]C^cAHAn8O^=`Bbc3
+!i10b 1
+Aarc_error_register
+R58
+R59
+R1
+R2
+R3
+R4
+DEx4 work 14 error_register 0 22 Bb>G5lYM0=8:KS6CY`8D@1
+l69
+L56
+VGH]T>YV;4Eia5i:PMLM?a2
+R8
+32
+R62
+R63
+R64
+R12
+R13
+!s100 LeFOAB91kZDA[f7]Z5gn20
+!i10b 1
+Egeneral_fifo
+Z65 w1382351451
+R1
+R2
+R3
+R4
+R5
+Z66 8C:/project/VHDL/DESIGN/TOP/general_fifo.vhd
+Z67 FC:/project/VHDL/DESIGN/TOP/general_fifo.vhd
+l0
+L61
+V=_ck6enmQhlM7FCVm;9U72
+R8
+32
+Z68 !s108 1382887900.762000
+Z69 !s90 -reportprogress|300|-work|work|C:/project/VHDL/DESIGN/TOP/general_fifo.vhd|
+Z70 !s107 C:/project/VHDL/DESIGN/TOP/general_fifo.vhd|
+R12
+R13
+!s100 HHV@Dd3^flG4XOJEAVKD31
+!i10b 1
+Aarc_general_fifo
+R1
+R2
+R3
+R4
+DEx4 work 12 general_fifo 0 22 =_ck6enmQhlM7FCVm;9U72
+l106
+L87
+Vo003KaXiW=e@C;f]6SzCL0
+R8
+32
+R68
+R69
+R70
+R12
+R13
+!s100 KC8UR>]Rn3TQgXhUeUiYX3
+!i10b 1
+Egeneric_ram_tb
+Z71 w1339157042
+Z72 DPx4 work 15 ram_generic_pkg 0 22 AzA>^k6b00O]EQe26GbkW1
+R1
+Z73 DPx4 ieee 16 std_logic_signed 0 22 E>OLoMaBGQ?hbGgOoNXM^1
+R3
+R4
+R5
+Z74 8C:/project/VHDL/DESIGN/TOP/generic_ram_tb.vhd
+Z75 FC:/project/VHDL/DESIGN/TOP/generic_ram_tb.vhd
+l0
+L26
+VzCm`ST;J>[AX0OUK33COF2
+R8
+32
+Z76 !s108 1382887901.002000
+Z77 !s90 -reportprogress|300|-work|work|C:/project/VHDL/DESIGN/TOP/generic_ram_tb.vhd|
+Z78 !s107 C:/project/VHDL/DESIGN/TOP/generic_ram_tb.vhd|
+R12
+R13
+!s100 PGJB4?eE[D42GNOPkbo5Y3
+!i10b 1
+Aarc_generic_ram_tb
+R72
+R1
+R73
+R3
+R4
+DEx4 work 14 generic_ram_tb 0 22 zCm`ST;J>[AX0OUK33COF2
+l78
+L38
+VFJk:8]UBSVckPHkeMADga0
+R8
+32
+R76
+R77
+R78
+R12
+R13
+!s100 `MF^l9iP:j4^5>^72Wm?22
+!i10b 1
+Ein_big_out_cordinator
+Z79 w1380285417
+R27
+R3
+R4
+R5
+Z80 8C:/project/VHDL/DESIGN/TOP/in_big_out_cordinator.vhd
+Z81 FC:/project/VHDL/DESIGN/TOP/in_big_out_cordinator.vhd
+l0
+L28
+V:TGIXhgNNkMo4o:LcR<:o2
+R8
+32
+Z82 !s108 1382887901.253000
+Z83 !s90 -reportprogress|300|-work|work|C:/project/VHDL/DESIGN/TOP/in_big_out_cordinator.vhd|
+Z84 !s107 C:/project/VHDL/DESIGN/TOP/in_big_out_cordinator.vhd|
+R12
+R13
+!s100 I1fUa4;z[7R20k>1acR353
+!i10b 1
+Abehave
+R27
+R3
+R4
+DEx4 work 21 in_big_out_cordinator 0 22 :TGIXhgNNkMo4o:LcR<:o2
+l59
+L45
+VPN5:cJ<N7^5i0k@iQ<WDY1
+R8
+32
+R82
+R83
+R84
+R12
+R13
+!s100 05cEcB<XHaaUzJ0L^5NYF2
+!i10b 1
+Ein_equal_out_cordinator
+Z85 w1380627989
+R27
+R3
+R4
+R5
+Z86 8C:/project/VHDL/DESIGN/TOP/in_equal_out_cordinator.vhd
+Z87 FC:/project/VHDL/DESIGN/TOP/in_equal_out_cordinator.vhd
+l0
+L28
+V`VWonOZnIknmTfz?fj77P1
+R8
+32
+Z88 !s108 1382887901.520000
+Z89 !s90 -reportprogress|300|-work|work|C:/project/VHDL/DESIGN/TOP/in_equal_out_cordinator.vhd|
+Z90 !s107 C:/project/VHDL/DESIGN/TOP/in_equal_out_cordinator.vhd|
+R12
+R13
+!s100 h?Kj[AHzX>kbmac]fM]1U3
+!i10b 1
+Abehave
+R27
+R3
+R4
+DEx4 work 23 in_equal_out_cordinator 0 22 `VWonOZnIknmTfz?fj77P1
+l47
+L45
+V9MLhJUO_>5LNAoHSd1??60
+R8
+32
+R88
+R89
+R90
+R12
+R13
+!s100 RBbOLKTg>d2T`oPM1W8RC0
+!i10b 1
+Ein_out_cordinator_generic
+Z91 w1380628062
+R27
+R3
+R4
+R5
+Z92 8C:/project/VHDL/DESIGN/TOP/in_out_cordinator_generic.vhd
+Z93 FC:/project/VHDL/DESIGN/TOP/in_out_cordinator_generic.vhd
+l0
+L29
+VKnlzP[oHPNa`Lg<hmD]NA0
+R8
+32
+Z94 !s108 1382887901.763000
+Z95 !s90 -reportprogress|300|-work|work|C:/project/VHDL/DESIGN/TOP/in_out_cordinator_generic.vhd|
+Z96 !s107 C:/project/VHDL/DESIGN/TOP/in_out_cordinator_generic.vhd|
+R12
+R13
+!s100 I@7TTOoXOoOZ49X2ig^=;2
+!i10b 1
+Abehave
+R27
+R3
+R4
+DEx4 work 25 in_out_cordinator_generic 0 22 KnlzP[oHPNa`Lg<hmD]NA0
+l99
+L46
+V_^QI[;@fjkzoW=9B5C>bS0
+R8
+32
+R94
+R95
+R96
+R12
+R13
+!s100 n36H7JhnaF?=JoS;A5[cD0
+!i10b 1
+Ein_small_out_cordinator
+Z97 w1380284879
+R27
+R3
+R4
+R5
+Z98 8C:/project/VHDL/DESIGN/TOP/in_small_out_cordinator.vhd
+Z99 FC:/project/VHDL/DESIGN/TOP/in_small_out_cordinator.vhd
+l0
+L28
+Vj5MRjF8>H=4[@k;eU^ifH2
+R8
+32
+Z100 !s108 1382887902.028000
+Z101 !s90 -reportprogress|300|-work|work|C:/project/VHDL/DESIGN/TOP/in_small_out_cordinator.vhd|
+Z102 !s107 C:/project/VHDL/DESIGN/TOP/in_small_out_cordinator.vhd|
+R12
+R13
+!s100 kmP[i3a<G;HDUG^SAVU0h3
+!i10b 1
+Abehave
+R27
+R3
+R4
+DEx4 work 23 in_small_out_cordinator 0 22 j5MRjF8>H=4[@k;eU^ifH2
+l58
+L45
+VE?G]f95?WehF>FRHnVdm80
+R8
+32
+R100
+R101
+R102
+R12
+R13
+!s100 Po2AAT@jkaP^Z?KkZ2[3l1
+!i10b 1
+Einternal_logic_analyzer_core_top
+Z103 w1382810836
+R72
+R27
+R1
+R73
+R3
+R4
+R5
+Z104 8C:/project/VHDL/DESIGN/TOP/internal_logic_analyzer_core_top.vhd
+Z105 FC:/project/VHDL/DESIGN/TOP/internal_logic_analyzer_core_top.vhd
+l0
+L33
+Vd<jBQAU=U^EOFh_4cHU;H2
+R8
+32
+Z106 !s108 1382887902.292000
+Z107 !s90 -reportprogress|300|-work|work|C:/project/VHDL/DESIGN/TOP/internal_logic_analyzer_core_top.vhd|
+Z108 !s107 C:/project/VHDL/DESIGN/TOP/internal_logic_analyzer_core_top.vhd|
+R12
+R13
+!s100 C3lII3hjWEl=Z@N3_=^lz3
+!i10b 1
+Aarc_core
+R72
+R27
+R1
+R73
+R3
+R4
+DEx4 work 32 internal_logic_analyzer_core_top 0 22 d<jBQAU=U^EOFh_4cHU;H2
+l378
+L88
+V94>UMEQBJ[3[[HIKgo10l2
+R8
+32
+R106
+R107
+R108
+R12
+R13
+!s100 I3TGbGmNObX8bMcA_Um4m0
+!i10b 1
+Emp_dec
+Z109 w1382812832
+R1
+R2
+R3
+R4
+R5
+Z110 8C:/project/VHDL/DESIGN/TOP/mp_dec.vhd
+Z111 FC:/project/VHDL/DESIGN/TOP/mp_dec.vhd
+l0
+L51
+VXRRJK;aFZ[TIA:oIR4m>h2
+R8
+32
+Z112 !s108 1382887902.652000
+Z113 !s90 -reportprogress|30|-work|work|C:/project/VHDL/DESIGN/TOP/mp_dec.vhd|
+Z114 !s107 C:/project/VHDL/DESIGN/TOP/mp_dec.vhd|
+R12
+R13
+!s100 Tn2n0BJW0V@b5hSW7BHR?0
+!i10b 1
+Artl_mp_dec
+R1
+R2
+R3
+R4
+DEx4 work 6 mp_dec 0 22 XRRJK;aFZ[TIA:oIR4m>h2
+l161
+L103
+V7=T?`k9OX@YWMS@[dE9Mi2
+R8
+32
+R112
+R113
+R114
+R12
+R13
+!s100 VkalNIHV@LO40FoU7hXIX3
+!i10b 1
+Emp_enc
+Z115 w1382812360
+R1
+R2
+R3
+R4
+R5
+Z116 8C:/project/VHDL/DESIGN/TOP/mp_enc.vhd
+Z117 FC:/project/VHDL/DESIGN/TOP/mp_enc.vhd
+l0
+L45
+VbGJ0`3mjEg^Om;PZOW`nD2
+R8
+32
+Z118 !s108 1382887902.985000
+Z119 !s90 -reportprogress|30|-work|work|C:/project/VHDL/DESIGN/TOP/mp_enc.vhd|
+Z120 !s107 C:/project/VHDL/DESIGN/TOP/mp_enc.vhd|
+R12
+R13
+!s100 3DL=7O3[HiIiR^ge9TMmV2
+!i10b 1
+Artl_mp_enc
+R1
+R2
+R3
+R4
+DEx4 work 6 mp_enc 0 22 bGJ0`3mjEg^Om;PZOW`nD2
+l162
+L97
+V;3^8TU<gTbnIkDO]SBAG63
+R8
+32
+R118
+R119
+R120
+R12
+R13
+!s100 GSWK5`I194dSMLSm;OS_31
+!i10b 1
+Emux_generic
+R45
+R1
+R2
+R3
+R4
+R5
+Z121 8C:/project/VHDL/DESIGN/TOP/mux_generic.vhd
+Z122 FC:/project/VHDL/DESIGN/TOP/mux_generic.vhd
+l0
+L47
+Vmd:8XLc>EzFl^30hG[ae02
+R8
+32
+Z123 !s108 1382887903.301000
+Z124 !s90 -reportprogress|30|-work|work|C:/project/VHDL/DESIGN/TOP/mux_generic.vhd|
+Z125 !s107 C:/project/VHDL/DESIGN/TOP/mux_generic.vhd|
+R12
+R13
+!s100 g`nnC<LlE]gKCHmGP2lR@0
+!i10b 1
+Amux_generic_arc
+R1
+R2
+R3
+R4
+DEx4 work 11 mux_generic 0 22 md:8XLc>EzFl^30hG[ae02
+l68
+L59
+VigYUb6d:M40<j^De`9mZf0
+R8
+32
+R123
+R124
+R125
+R12
+R13
+!s100 GhXYU6^=om6D1783DZibQ2
+!i10b 1
+Eram_generic
+Z126 w1377759919
+R72
+R58
+R59
+R1
+R73
+R3
+R4
+R5
+Z127 8C:/project/VHDL/DESIGN/TOP/ram_generic.vhd
+Z128 FC:/project/VHDL/DESIGN/TOP/ram_generic.vhd
+l0
+L59
+VJ@2<SL]SP=]WWd3V2SP4X1
+R8
+32
+Z129 !s108 1382887903.676000
+Z130 !s90 -reportprogress|30|-work|work|C:/project/VHDL/DESIGN/TOP/ram_generic.vhd|
+Z131 !s107 C:/project/VHDL/DESIGN/TOP/ram_generic.vhd|
+R12
+R13
+!s100 3Wb824AOYaBd>1Dd`S?=z3
+!i10b 1
+Artl_ram_generic
+R72
+R58
+R59
+R1
+R73
+R3
+R4
+DEx4 work 11 ram_generic 0 22 J@2<SL]SP=]WWd3V2SP4X1
+l142
+L80
+VgBKNOEM2bE9I@i_]gNOCh2
+R8
+32
+R129
+R130
+R131
+R12
+R13
+!s100 0Ef13i2F21K3lo_>z^mF90
+!i10b 1
+Pram_generic_pkg
+R1
+R73
+R3
+R4
+R45
+R5
+Z132 8C:/project/VHDL/DESIGN/TOP/ram_generic_pkg.vhd
+Z133 FC:/project/VHDL/DESIGN/TOP/ram_generic_pkg.vhd
+l0
+L23
+VAzA>^k6b00O]EQe26GbkW1
+R8
+32
+b1
+Z134 !s108 1382887903.947000
+Z135 !s90 -reportprogress|30|-work|work|C:/project/VHDL/DESIGN/TOP/ram_generic_pkg.vhd|
+Z136 !s107 C:/project/VHDL/DESIGN/TOP/ram_generic_pkg.vhd|
+R12
+R13
+!s100 Pn<1QgoHNS=O8o8H>XFmH2
+!i10b 1
+Bbody
+R72
+R1
+R73
+R3
+R4
+l0
+L41
+Vz1Hko;BBfFZf6z<X417PW3
+R8
+32
+R134
+R135
+R136
+R12
+R13
+nbody
+!s100 b:SECfBED?l1MHz5I2EPK3
+!i10b 1
+Eram_simple
+Z137 w1373635912
+R1
+R3
+R4
+R5
+Z138 8C:/project/VHDL/DESIGN/TOP/ram_simple.vhd
+Z139 FC:/project/VHDL/DESIGN/TOP/ram_simple.vhd
+l0
+L45
+VKH4Q`zJ`:hnmRE8[KhaI<0
+R8
+32
+Z140 !s108 1382887904.236000
+Z141 !s90 -reportprogress|30|-work|work|C:/project/VHDL/DESIGN/TOP/ram_simple.vhd|
+Z142 !s107 C:/project/VHDL/DESIGN/TOP/ram_simple.vhd|
+R12
+R13
+!s100 1N0J2=RY_z;BEJSIBZo8@0
+!i10b 1
+Aarc_ram_simple
+R1
+R3
+R4
+DEx4 work 10 ram_simple 0 22 KH4Q`zJ`:hnmRE8[KhaI<0
+l72
+L64
+VXkOTQ4kH8Ia0P54aVE[]o0
+R8
+32
+R140
+R141
+R142
+R12
+R13
+!s100 aP:P5Mm;^L^GRHW=??F6_3
+!i10b 1
+Eread_controller
+Z143 w1380277481
+R27
+R3
+R4
+R5
+Z144 8C:/project/VHDL/DESIGN/TOP/read_controller.vhd
+Z145 FC:/project/VHDL/DESIGN/TOP/read_controller.vhd
+l0
+L28
+VZUV`k<g29`@I31_ccJJNn1
+R8
+32
+Z146 !s108 1382887904.498000
+Z147 !s90 -reportprogress|30|-work|work|C:/project/VHDL/DESIGN/TOP/read_controller.vhd|
+Z148 !s107 C:/project/VHDL/DESIGN/TOP/read_controller.vhd|
+R12
+R13
+!s100 @NUFVNQaZ3iPk7[aOzYoV1
+!i10b 1
+Abehave
+R27
+R3
+R4
+DEx4 work 15 read_controller 0 22 ZUV`k<g29`@I31_ccJJNn1
+l71
+L53
+V4X@FZHYV;LX3cE9:oAm7D3
+R8
+32
+R146
+R147
+R148
+R12
+R13
+!s100 ?ecJT7APS`Y0kd0>FC@aB0
+!i10b 1
+Erx_path
+Z149 w1382789737
+R1
+R2
+R3
+R4
+R5
+Z150 8C:/project/VHDL/DESIGN/TOP/rx_path.vhd
+Z151 FC:/project/VHDL/DESIGN/TOP/rx_path.vhd
+l0
+L36
+VoVXL^hPQkW:JMX:BIijHZ1
+R8
+32
+Z152 !s108 1382887904.763000
+Z153 !s90 -reportprogress|30|-work|work|C:/project/VHDL/DESIGN/TOP/rx_path.vhd|
+Z154 !s107 C:/project/VHDL/DESIGN/TOP/rx_path.vhd|
+R12
+R13
+!s100 ?c4`dE7Occ3LN?=@5NX?60
+!i10b 1
+Aarc_rx_path
+R1
+R2
+R3
+R4
+DEx4 work 7 rx_path 0 22 oVXL^hPQkW:JMX:BIijHZ1
+l350
+L97
+V51=hlTFjZ:TBa2zFCIEmo0
+R8
+32
+R152
+R153
+R154
+R12
+R13
+!s100 N<AFW[]IL;?Xd>ZfKhC:J2
+!i10b 1
+Esignal_generator
+Z155 w1381836203
+R1
+R2
+R27
+R3
+R4
+R5
+Z156 8C:/project/VHDL/DESIGN/TOP/signal_generator.vhd
+Z157 FC:/project/VHDL/DESIGN/TOP/signal_generator.vhd
+l0
+L36
+VaOSIToF9CiX1nY<_ncU<80
+R8
+32
+Z158 !s108 1382887905.061000
+Z159 !s90 -reportprogress|30|-work|work|C:/project/VHDL/DESIGN/TOP/signal_generator.vhd|
+Z160 !s107 C:/project/VHDL/DESIGN/TOP/signal_generator.vhd|
+R12
+R13
+!s100 <RPhVh^`HdA;I0Ugzbe1>1
+!i10b 1
+Abehave
+R1
+R2
+R27
+R3
+R4
+DEx4 work 16 signal_generator 0 22 aOSIToF9CiX1nY<_ncU<80
+l85
+L58
+VXGiRz6UGEV`kLjS_YaITL2
+R8
+32
+R158
+R159
+R160
+R12
+R13
+!s100 XajPeg;?H3QlGZaLRB;ez1
+!i10b 1
+Esignal_generator_registers
+Z161 w1381753471
+R1
+R2
+R3
+R4
+R5
+Z162 8C:/project/VHDL/DESIGN/TOP/signal_generator_registers.vhd
+Z163 FC:/project/VHDL/DESIGN/TOP/signal_generator_registers.vhd
+l0
+L29
+Vo`7Qb``eJ5@kKU8H2`Ta:3
+R8
+32
+Z164 !s108 1382887905.342000
+Z165 !s90 -reportprogress|30|-work|work|C:/project/VHDL/DESIGN/TOP/signal_generator_registers.vhd|
+Z166 !s107 C:/project/VHDL/DESIGN/TOP/signal_generator_registers.vhd|
+R12
+R13
+!s100 F681QblmR_fAN<RUcDCJd0
+!i10b 1
+Abehave
+R1
+R2
+R3
+R4
+DEx4 work 26 signal_generator_registers 0 22 o`7Qb``eJ5@kKU8H2`Ta:3
+l73
+L53
+V>9ZQj^K3i<bg_haP3>mSB3
+R8
+32
+R164
+R165
+R166
+R12
+R13
+!s100 agzZM1<jG6M`Pfn7EQZ4F1
+!i10b 1
+Esignal_generator_top
+Z167 w1381838953
+R27
+R1
+R73
+R3
+R4
+R5
+Z168 8C:/project/VHDL/DESIGN/TOP/signal_generator_top.vhd
+Z169 FC:/project/VHDL/DESIGN/TOP/signal_generator_top.vhd
+l0
+L27
+VAELU^TE3`YDa2G:A>z>EG3
+R8
+32
+Z170 !s108 1382887905.815000
+Z171 !s90 -reportprogress|30|-work|work|C:/project/VHDL/DESIGN/TOP/signal_generator_top.vhd|
+Z172 !s107 C:/project/VHDL/DESIGN/TOP/signal_generator_top.vhd|
+R12
+R13
+!s100 :c==>R]8>04:k_8?U9f7b2
+!i10b 1
+Aarc_core
+R27
+R1
+R73
+R3
+R4
+DEx4 work 20 signal_generator_top 0 22 AELU^TE3`YDa2G:A>z>EG3
+l172
+L71
+V7[VzY@dfK]Ye>DJ?J>QPM1
+R8
+32
+R170
+R171
+R172
+R12
+R13
+!s100 d4MeZ@Y4Z2b:I7czIoo1X1
+!i10b 1
+Etimer
+Z173 w1382433998
+R1
+R2
+R3
+R4
+R5
+Z174 8C:/project/VHDL/DESIGN/TOP/timer.vhd
+Z175 FC:/project/VHDL/DESIGN/TOP/timer.vhd
+l0
+L23
+V3zbZUPCk43idUi>6FBC>W0
+R8
+32
+Z176 !s108 1382887906.166000
+Z177 !s90 -reportprogress|30|-work|work|C:/project/VHDL/DESIGN/TOP/timer.vhd|
+Z178 !s107 C:/project/VHDL/DESIGN/TOP/timer.vhd|
+R12
+R13
+!s100 1cW3jdhJYj`Dd708DB2bT2
+!i10b 1
+Aarc_timer
+R1
+R2
+R3
+R4
+DEx4 work 5 timer 0 22 3zbZUPCk43idUi>6FBC>W0
+l53
+L40
+VVGTc<FEjQm8mA9kc2cee73
+R8
+32
+R176
+R177
+R178
+R12
+R13
+!s100 U=[[l;T7lSU<C9>i@5icj2
+!i10b 1
+Etop_internal_logic_analyzer
+Z179 w1382875175
+R27
+R1
+R2
+R3
+R4
+R5
+Z180 8C:/project/VHDL/DESIGN/TOP/top_internal_logic_analyzer.vhd
+Z181 FC:/project/VHDL/DESIGN/TOP/top_internal_logic_analyzer.vhd
+l0
+L30
+VbOP@MTf[@9_R@e9O^B:8S3
+R8
+32
+Z182 !s108 1382887906.497000
+Z183 !s90 -reportprogress|30|-work|work|C:/project/VHDL/DESIGN/TOP/top_internal_logic_analyzer.vhd|
+Z184 !s107 C:/project/VHDL/DESIGN/TOP/top_internal_logic_analyzer.vhd|
+R12
+R13
+!s100 c;0jXmUhE4RkE1]SA>_;R0
+!i10b 1
+Aarc_top_internal_logic_analyzer
+R27
+R1
+R2
+R3
+R4
+DEx4 work 27 top_internal_logic_analyzer 0 22 bOP@MTf[@9_R@e9O^B:8S3
+l582
+L104
+VID0?U`T[DgUm7KEP@2EKk2
+R8
+32
+R182
+R183
+R184
+R12
+R13
+!s100 =R44?3T^SAP_iV8Pz[4Kn2
+!i10b 1
+Etx_path
+Z185 w1382887537
+R1
+R2
+R3
+R4
+R5
+Z186 8C:/project/VHDL/DESIGN/TOP/tx_path.vhd
+Z187 FC:/project/VHDL/DESIGN/TOP/tx_path.vhd
+l0
+L30
+V6JHNbYU4jNcNaZl4JgEHz1
+R8
+32
+Z188 !s108 1382887907.074000
+Z189 !s90 -reportprogress|30|-work|work|C:/project/VHDL/DESIGN/TOP/tx_path.vhd|
+Z190 !s107 C:/project/VHDL/DESIGN/TOP/tx_path.vhd|
+R12
+R13
+!s100 A`2Oi9gBA5:e8Z7]G<U_:3
+!i10b 1
+Aarc_tx_path
+R1
+R2
+R3
+R4
+DEx4 work 7 tx_path 0 22 6JHNbYU4jNcNaZl4JgEHz1
+l415
+L81
+VU0=[h6?Xm3a4I?1B2X^l?1
+R8
+32
+R188
+R189
+R190
+R12
+R13
+!s100 iZQ;8SEdLzIiO@fdO:DP`0
+!i10b 1
+Euart_rx
+Z191 w1382350793
+R58
+R59
+R1
+R2
+R3
+R4
+R5
+Z192 8C:/project/VHDL/DESIGN/TOP/uart_rx.vhd
+Z193 FC:/project/VHDL/DESIGN/TOP/uart_rx.vhd
+l0
+L46
+V9O`B=fPfKg@FhgEa7O]J=3
+R8
+32
+Z194 !s108 1382887907.352000
+Z195 !s90 -reportprogress|30|-work|work|C:/project/VHDL/DESIGN/TOP/uart_rx.vhd|
+Z196 !s107 C:/project/VHDL/DESIGN/TOP/uart_rx.vhd|
+R12
+R13
+!s100 4<I]jj<EmO30N>DVP:HHK1
+!i10b 1
+Aarc_uart_rx
+R58
+R59
+R1
+R2
+R3
+R4
+DEx4 work 7 uart_rx 0 22 9O`B=fPfKg@FhgEa7O]J=3
+l94
+L68
+VSo:=KI?H:gQgfa1QUE`383
+R8
+32
+R194
+R195
+R196
+R12
+R13
+!s100 0OkS@XkQ>`i8D2SHJ:SH?1
+!i10b 1
+Euart_tx
+Z197 w1382351391
+R58
+R59
+R1
+R2
+R3
+R4
+R5
+Z198 8C:/project/VHDL/DESIGN/TOP/uart_tx.vhd
+Z199 FC:/project/VHDL/DESIGN/TOP/uart_tx.vhd
+l0
+L42
+Vg`@`;A9zlH@IILUe;6lY33
+R8
+32
+Z200 !s108 1382887907.796000
+Z201 !s90 -reportprogress|30|-work|work|C:/project/VHDL/DESIGN/TOP/uart_tx.vhd|
+Z202 !s107 C:/project/VHDL/DESIGN/TOP/uart_tx.vhd|
+R12
+R13
+!s100 ORCVBh>OM1Wdh:7ebkYY31
+!i10b 1
+Aarc_uart_tx
+R58
+R59
+R1
+R2
+R3
+R4
+DEx4 work 7 uart_tx 0 22 g`@`;A9zlH@IILUe;6lY33
+l87
+L65
+VzAGMTFi>7[^POJ4P1@D]M1
+R8
+32
+R200
+R201
+R202
+R12
+R13
+!s100 2;KZV?B4W9`bgmE8m<C5S3
+!i10b 1
+Ewishbone_intercon
+Z203 w1382809924
+R1
+R2
+R3
+R4
+R5
+Z204 8C:/project/VHDL/DESIGN/TOP/wishbone_intercon.vhd
+Z205 FC:/project/VHDL/DESIGN/TOP/wishbone_intercon.vhd
+l0
+L33
+Vz4k<nC2g[C[2A;I4P4?i92
+R8
+32
+Z206 !s108 1382887908.118000
+Z207 !s90 -reportprogress|30|-work|work|C:/project/VHDL/DESIGN/TOP/wishbone_intercon.vhd|
+Z208 !s107 C:/project/VHDL/DESIGN/TOP/wishbone_intercon.vhd|
+R12
+R13
+!s100 C==HlOk54kI9N`AY=<zB<1
+!i10b 1
+Aarc_wishbone_intercon
+R1
+R2
+R3
+R4
+DEx4 work 17 wishbone_intercon 0 22 z4k<nC2g[C[2A;I4P4?i92
+l235
+L173
+Vj`1;XUeCoh5Xe_b_=>KEl0
+R8
+32
+R206
+R207
+R208
+R12
+R13
+!s100 WTOLoZj1f@5an0JSRz^c@3
+!i10b 1
+Ewishbone_master
+Z209 w1382809950
+R1
+R2
+R3
+R4
+R5
+Z210 8C:/project/VHDL/DESIGN/TOP/wishbone_master.vhd
+Z211 FC:/project/VHDL/DESIGN/TOP/wishbone_master.vhd
+l0
+L28
+V6O=EMDQ4ICV2?9Qb24RU51
+R8
+32
+Z212 !s108 1382887908.426000
+Z213 !s90 -reportprogress|30|-work|work|C:/project/VHDL/DESIGN/TOP/wishbone_master.vhd|
+Z214 !s107 C:/project/VHDL/DESIGN/TOP/wishbone_master.vhd|
+R12
+R13
+!s100 [36jN5YWQaWXcBn176;dh2
+!i10b 1
+Aarc_wishbone_master
+R1
+R2
+R3
+R4
+DEx4 work 15 wishbone_master 0 22 6O=EMDQ4ICV2?9Qb24RU51
+l134
+L79
+V7ZfVV`<UP>O[2^MC3>`7;1
+R8
+32
+R212
+R213
+R214
+R12
+R13
+!s100 J<2cY?A>ig[5b::nQ=1[a1
+!i10b 1
+Ewishbone_slave
+Z215 w1377508092
+R1
+R2
+R3
+R4
+R5
+Z216 8C:/project/VHDL/DESIGN/TOP/wishbone_slave.vhd
+Z217 FC:/project/VHDL/DESIGN/TOP/wishbone_slave.vhd
+l0
+L32
+V1BekFm`;EX1cjN@9D83:o1
+R8
+32
+Z218 !s108 1382887908.712000
+Z219 !s90 -reportprogress|30|-work|work|C:/project/VHDL/DESIGN/TOP/wishbone_slave.vhd|
+Z220 !s107 C:/project/VHDL/DESIGN/TOP/wishbone_slave.vhd|
+R12
+R13
+!s100 IaID=>NRAIhP82M^6A=4o0
+!i10b 1
+Aarc_wb_slave
+R1
+R2
+R3
+R4
+DEx4 work 14 wishbone_slave 0 22 1BekFm`;EX1cjN@9D83:o1
+l75
+L69
+VF]6TC`0RNFdPao6KU9@7e0
+R8
+32
+R218
+R219
+R220
+R12
+R13
+!s100 z=NKnkI8^AegeHBoTiV901
+!i10b 1
+Ewrite_controller
+Z221 w1380198487
+R1
+R2
+Z222 DPx4 work 20 write_controller_pkg 0 22 LeBZ1o:8o>N]meS^a[IGY3
+R27
+R3
+R4
+R5
+Z223 8C:/project/VHDL/DESIGN/TOP/write_controller.vhd
+Z224 FC:/project/VHDL/DESIGN/TOP/write_controller.vhd
+l0
+L29
+VSHJPL;LG4[9`Q51?5>3=S3
+R8
+32
+Z225 !s108 1382887908.987000
+Z226 !s90 -reportprogress|30|-work|work|C:/project/VHDL/DESIGN/TOP/write_controller.vhd|
+Z227 !s107 C:/project/VHDL/DESIGN/TOP/write_controller.vhd|
+R12
+R13
+!s100 RZ@RY0M2HKJDQC[8`5BRf0
+!i10b 1
+Abehave
+R1
+R2
+R222
+R27
+R3
+R4
+DEx4 work 16 write_controller 0 22 SHJPL;LG4[9`Q51?5>3=S3
+l92
+L60
+VlaoFTjaVIknTQjliZdMFQ0
+!s100 :QiNjX>hM@R[gi16eSU9A1
+R8
+32
+R225
+R226
+R227
+R12
+R13
+!i10b 1
+Pwrite_controller_pkg
+R1
+R2
+R3
+R4
+Z228 w1369927763
+R5
+Z229 8C:/project/VHDL/DESIGN/TOP/write_controller_pkg.vhd
+Z230 FC:/project/VHDL/DESIGN/TOP/write_controller_pkg.vhd
+l0
+L27
+VLeBZ1o:8o>N]meS^a[IGY3
+!s100 e9>A;z`S7LZ1C[LcndmAL2
+R8
+32
+b1
+!i10b 1
+Z231 !s108 1382887909.250000
+Z232 !s90 -reportprogress|30|-work|work|C:/project/VHDL/DESIGN/TOP/write_controller_pkg.vhd|
+Z233 !s107 C:/project/VHDL/DESIGN/TOP/write_controller_pkg.vhd|
+R12
+R13
+Bbody
+R222
+R1
+R2
+R3
+R4
+l0
+L47
+Z234 V8YNQ8SoU30zELlYT]`GLb0
+Z235 !s100 J`nRRhSI5?TdGWZcPGz:h3
+R8
+32
+!i10b 1
+R231
+R232
+R233
+R12
+R13
+nbody
