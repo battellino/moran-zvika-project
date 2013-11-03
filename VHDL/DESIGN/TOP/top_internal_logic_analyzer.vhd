@@ -244,7 +244,7 @@ COMPONENT wishbone_intercon is
 		sys_clk           : in std_logic;                                             -- system clock
 		sys_reset         : in std_logic;                                             -- system reset
 		--Wishbone Master 1 interfaces (rx_path)
-		ADR_O_M1          : in std_logic_vector (Add_width_g-1 downto 0); -- contains the addr word
+		ADR_O_M1          : in std_logic_vector (Add_width_g-1 downto 0); -- contains the address word
 		DAT_O_M1          : in std_logic_vector (data_width_g-1 downto 0);            -- contains the data_in word
 		WE_O_M1           : in std_logic;                                             -- '1' for write, '0' for read
 		STB_O_M1          : in std_logic;                                             -- '1' for active bus operation, '0' for no bus operation
@@ -256,7 +256,7 @@ COMPONENT wishbone_intercon is
 		STALL_I_M1		      : out std_logic;                                            -- STALL - WS is not available for transaction 
 		ERR_I_M1		        : out std_logic;                                            -- Watchdog interrupts, resets wishbone master
 		--Wishbone Master 2 interfaces  (tx_path)
-		ADR_O_M2          : in std_logic_vector (Add_width_g-1 downto 0); -- contains the addr word
+		ADR_O_M2          : in std_logic_vector (Add_width_g-1 downto 0); -- contains the address word
 		DAT_O_M2          : in std_logic_vector (data_width_g-1 downto 0);            -- contains the data_in word
 		WE_O_M2           : in std_logic;                                             -- '1' for write, '0' for read
 		STB_O_M2          : in std_logic;                                             -- '1' for active bus operation, '0' for no bus operation
@@ -268,7 +268,7 @@ COMPONENT wishbone_intercon is
 		STALL_I_M2		      : out std_logic;                                            -- STALL - WS is not available for transaction 
 		ERR_I_M2		        : out std_logic;                                            -- Watchdog interrupts, resets wishbone master
 		--Wishbone Master 3 interfaces (config_control)
-		ADR_O_M3          : in std_logic_vector (Add_width_g-1 downto 0); -- contains the addr word
+		ADR_O_M3          : in std_logic_vector (Add_width_g-1 downto 0); -- contains the address word
 		DAT_O_M3          : in std_logic_vector (data_width_g-1 downto 0);            -- contains the data_in word
 		WE_O_M3           : in std_logic;                                             -- '1' for write, '0' for read
 		STB_O_M3          : in std_logic;                                             -- '1' for active bus operation, '0' for no bus operation
@@ -280,18 +280,18 @@ COMPONENT wishbone_intercon is
 		STALL_I_M3		      : out std_logic;                                            -- STALL - WS is not available for transaction 
 		ERR_I_M3		        : out std_logic;                                            -- Watchdog interrupts, resets wishbone master
 		--Wishbone Slave 1 interfaces (error_register - rx_path)
-		ADR_I_S1          : out std_logic_vector (Add_width_g-1 downto 0);	 --contains the addr word
+		ADR_I_S1          : out std_logic_vector (Add_width_g-1 downto 0);	 --contains the address word
 		DAT_I_S1          : out std_logic_vector (data_width_g-1 downto 0); 	             --contains the data_in word
 		WE_I_S1           : out std_logic;                     				                       -- '1' for write, '0' for read
 		STB_I_S1          : out std_logic;                     				                       -- '1' for active bus operation, '0' for no bus operation
 		CYC_I_S1          : out std_logic;                     				                       -- '1' for bus transmition request, '0' for no bus transmition request
 		TGA_I_S1          : out std_logic_vector ((data_width_g)*(type_d_g)-1 downto 0); 	--contains the type word
 		TGD_I_S1          : out std_logic_vector ((data_width_g)*(len_d_g)-1 downto 0); 	 --contains the len word
-		ACK_O_S1          : in std_logic;                      				                       --'1' when valid data is transmited to MW or for successfull write operation 
+		ACK_O_S1          : in std_logic;                      				                       --'1' when valid data is transmitted to MW or for successful write operation 
 		DAT_O_S1          : in std_logic_vector (data_width_g-1 downto 0);   	            --data transmit to MW
 		STALL_O_S1        : in std_logic;                                                 --STALL - WS is not available for transaction 
 		--Wishbone Slave 2 interfaces (tx_path)
-		ADR_I_S2          : out std_logic_vector (Add_width_g-1 downto 0);	 --contains the addr word
+		ADR_I_S2          : out std_logic_vector (Add_width_g-1 downto 0);	 --contains the address word
 		DAT_I_S2          : out std_logic_vector (data_width_g-1 downto 0); 	             --contains the data_in word
 		WE_I_S2           : out std_logic;                     				                       -- '1' for write, '0' for read
 		STB_I_S2          : out std_logic;                     				                       -- '1' for active bus operation, '0' for no bus operation
@@ -302,7 +302,7 @@ COMPONENT wishbone_intercon is
 		DAT_O_S2          : in std_logic_vector (data_width_g-1 downto 0);   	            --data transmit to MW
 		STALL_O_S2        : in std_logic;                                                 --STALL - WS is not available for transaction 
 		--Wishbone Slave 3 interfaces (wait client)
-		ADR_I_S3          : out std_logic_vector (Add_width_g-1 downto 0);	 --contains the addr word
+		ADR_I_S3          : out std_logic_vector (Add_width_g-1 downto 0);	 --contains the address word
 		DAT_I_S3          : out std_logic_vector (data_width_g-1 downto 0); 	             --contains the data_in word
 		WE_I_S3           : out std_logic;                     				                       -- '1' for write, '0' for read
 		STB_I_S3          : out std_logic;                     				                       -- '1' for active bus operation, '0' for no bus operation
@@ -313,7 +313,7 @@ COMPONENT wishbone_intercon is
 		DAT_O_S3          : in std_logic_vector (data_width_g-1 downto 0);   	            --data transmit to MW
 		STALL_O_S3        : in std_logic;                                                 --STALL - WS is not available for transaction 
 		--Wishbone Slave 4 interfaces (led client)
-		ADR_I_S4          : out std_logic_vector (Add_width_g-1 downto 0);	 --contains the addr word
+		ADR_I_S4          : out std_logic_vector (Add_width_g-1 downto 0);	 --contains the address word
 		DAT_I_S4          : out std_logic_vector (data_width_g-1 downto 0); 	             --contains the data_in word
 		WE_I_S4           : out std_logic;                     				                       -- '1' for write, '0' for read
 		STB_I_S4          : out std_logic;                     				                       -- '1' for active bus operation, '0' for no bus operation
@@ -324,7 +324,7 @@ COMPONENT wishbone_intercon is
 		DAT_O_S4          : in std_logic_vector (data_width_g-1 downto 0);   	            --data transmit to MW
 		STALL_O_S4        : in std_logic;                                                 	--STALL - WS is not available for transaction    
 		--Wishbone Slave 5 interfaces (display client)
-		ADR_I_S5          : out std_logic_vector (Add_width_g-1 downto 0);	 --contains the addr word
+		ADR_I_S5          : out std_logic_vector (Add_width_g-1 downto 0);	 --contains the address word
 		DAT_I_S5          : out std_logic_vector (data_width_g-1 downto 0); 	             --contains the data_in word
 		WE_I_S5           : out std_logic;                     				                       -- '1' for write, '0' for read
 		STB_I_S5          : out std_logic;                     				                       -- '1' for active bus operation, '0' for no bus operation
@@ -335,7 +335,7 @@ COMPONENT wishbone_intercon is
 		DAT_O_S5          : in std_logic_vector (data_width_g-1 downto 0);   	            --data transmit to MW
 		STALL_O_S5        : in std_logic;                                                 --STALL - WS is not available for transaction     
 		--Wishbone Slave 6 interfaces (flash control)
-		ADR_I_S6          : out std_logic_vector (Add_width_g-1 downto 0);	 --contains the addr word
+		ADR_I_S6          : out std_logic_vector (Add_width_g-1 downto 0);	 --contains the address word
 		DAT_I_S6          : out std_logic_vector (data_width_g-1 downto 0); 	             --contains the data_in word
 		WE_I_S6           : out std_logic;                     				                       -- '1' for write, '0' for read
 		STB_I_S6          : out std_logic;                     				                       -- '1' for active bus operation, '0' for no bus operation
@@ -346,7 +346,7 @@ COMPONENT wishbone_intercon is
 		DAT_O_S6          : in std_logic_vector (data_width_g-1 downto 0);   	            --data transmit to MW
 		STALL_O_S6        : in std_logic;                                                 --STALL - WS is not available for transaction     
 		--Wishbone Slave 7 interface (led client)
-		ADR_I_S7          : out std_logic_vector (Add_width_g-1 downto 0);	 --contains the addr word
+		ADR_I_S7          : out std_logic_vector (Add_width_g-1 downto 0);	 --contains the address word
 		DAT_I_S7          : out std_logic_vector (data_width_g-1 downto 0); 	             --contains the data_in word
 		WE_I_S7           : out std_logic;                     				                       -- '1' for write, '0' for read
 		STB_I_S7          : out std_logic;                     				                       -- '1' for active bus operation, '0' for no bus operation
@@ -367,7 +367,7 @@ COMPONENT internal_logic_analyzer_core_top
 				signal_ram_width_g		:	positive 	:=  8;   								--width of basic RAM
 				record_depth_g			: 	positive  	:=	4;									--number of bits that is recorded from each signal
 				data_width_g            :	positive 	:= 	8;      						    --defines the width of the data lines of the system
-				Add_width_g  		    :   positive 	:=  8;     								--width of addr word in the RAM
+				Add_width_g  		    :   positive 	:=  8;     								--width of address word in the RAM
 				num_of_signals_g		:	positive	:=	8;									--num of signals that will be recorded simultaneously	(Width of data)
 				power2_out_g			:	natural 	:= 	0;									--Output width is multiplied by this power factor (2^1). In case of 2: output will be (2^2*8=) 32 bits wide -> our output and input are at the same width
 				power_sign_g			:	integer range -1 to 1 	:= 1;					 	-- '-1' => output width > input width ; '1' => input width > output width		(if power2_out_g = 0, it dosn't matter)
@@ -383,7 +383,7 @@ COMPONENT internal_logic_analyzer_core_top
 				trigger						:	in std_logic;											--trigger signal from Signal Generator
 				
 				-- wishbone slave interface	
-				ADR_I          		: in std_logic_vector (Add_width_g -1 downto 0);	--contains the addr word
+				ADR_I          		: in std_logic_vector (Add_width_g -1 downto 0);	--contains the address word
 				DAT_I          		: in std_logic_vector (data_width_g-1 downto 0); 	--contains the data_in word
 				WE_I           		: in std_logic;                     				-- '1' for write, '0' for read
 				STB_I          		: in std_logic;                     				-- '1' for active bus operation, '0' for no bus operation
@@ -398,13 +398,13 @@ COMPONENT internal_logic_analyzer_core_top
 				TOP_active_cycle	: out std_logic; --CYC_I outputed to user side
 				stall				: in std_logic; -- stall - suspend wishbone transaction
 				--wm_bus side signals
-				ADR_O			: out std_logic_vector (Add_width_g-1 downto 0); --contains the addr word
+				ADR_O			: out std_logic_vector (Add_width_g-1 downto 0); --contains the address word
 				WM_DAT_O			: out std_logic_vector (data_width_g-1 downto 0); --contains the data_in word
 				WE_O			: out std_logic;                     -- '1' for write, '0' for read
 				STB_O			: out std_logic;                     -- '1' for active bus operation, '0' for no bus operation
 				CYC_O			: out std_logic;                     -- '1' for bus transmition request, '0' for no bus transmition request
 				TGA_O			: out std_logic_vector ((data_width_g)*(type_d_g)-1 downto 0); --contains the type word
-				TGD_O			: out std_logic_vector (len_d_g * data_width_g-1 downto 0); --contains the len word
+				TGD_O			: out std_logic_vector ((len_d_g )*(data_width_g)-1 downto 0); --contains the len word
 				ACK_I			: in std_logic;                      --'1' when valid data is recieved from WS or for successfull write operation in WS
 				DAT_I_WM		: in std_logic_vector (data_width_g-1 downto 0);   --data recieved from WS
 				STALL_I			: in std_logic; --STALL - WS is not available for transaction 
@@ -439,7 +439,7 @@ COMPONENT signal_generator_top
 		STB_I          	: in std_logic;                     							-- '1' for active bus operation, '0' for no bus operation
 		CYC_I          	: in std_logic;                     							-- '1' for bus transition request, '0' for no bus transition request
 		TGA_I          	: in std_logic_vector ((data_width_g)*(type_d_g)-1 downto 0); 	--contains the type word
-		TGD_I          	: in std_logic_vector ((data_width_g)*(len_d_g)-1 downto 0); 	--contains the len word
+		TGD_I          	: in std_logic_vector ((data_width_g)*(len_d_g)-1 downto 0); 	--contains the length word
 		ACK_O          	: out std_logic;                      							--'1' when valid data is transmitted to MW or for successful write operation 
 		DAT_O          	: out std_logic_vector (data_width_g-1 downto 0);   			--data transmit to MW
 		STALL_O			: out std_logic; 												--STALL - WS is not available for transaction 
