@@ -1,0 +1,70 @@
+vcom write_controller_pkg.vhd
+vcom in_big_out_cordinator.vhd
+vcom in_equal_out_cordinator.vhd
+vcom in_small_out_cordinator.vhd
+vcom in_out_cordinator_generic.vhd
+vcom data_input_big.vhd
+vcom data_input_small.vhd
+vcom data_input_generic.vhd
+vcom write_controller.vhd
+vcom ram_generic_pkg.vhd
+vcom mux_generic.vhd
+vcom dec_generic.vhd
+vcom ram_simple.vhd
+vcom ram_generic.vhd
+vcom read_controller.vhd
+vcom wishbone_master.vhd
+vcom wishbone_slave.vhd
+vcom core_registers.vhd
+vcom enable_fsm.vhd
+vcom internal_logic_analyzer_core_top.vhd
+vcom crc_gen.vhd
+vcom dec_generic.vhd
+vcom error_register.vhd
+vcom general_fifo.vhd
+vcom mp_dec.vhd
+vcom mp_enc.vhd
+vcom mux_generic.vhd
+vcom signal_generator_registers.vhd
+vcom signal_generator.vhd
+vcom signal_generator_top.vhd
+vcom timer.vhd
+vcom uart_rx.vhd
+vcom uart_tx.vhd
+vcom wishbone_intercon.vhd
+vcom rx_path.vhd
+vcom tx_path.vhd
+vcom uart_tx_gen_model.vhd
+vcom top_internal_logic_analyzer.vhd
+vcom top_internal_logic_analyzer_tb.vhd
+vsim top_internal_logic_analyzer_tb
+
+add wave *
+add wave /top_internal_logic_analyzer_TB/uut/rx_path_unit/mp_dec_inst/crc_in
+-------- core registers
+add wave /top_internal_logic_analyzer_TB/uut/core_inst/core_registers_inst/trigger_type_reg_1
+add wave /top_internal_logic_analyzer_TB/uut/core_inst/core_registers_inst/trigger_position_reg_2
+add wave /top_internal_logic_analyzer_TB/uut/core_inst/core_registers_inst/enable_reg_4
+add wave /top_internal_logic_analyzer_TB/uut/core_inst/core_registers_inst/en_reg
+-------- wishbone intercon
+add wave /top_internal_logic_analyzer_TB/uut/intercon/ADR_O_M1
+-------- RX
+add wave /top_internal_logic_analyzer_TB/uut/rx_path_unit/ADR_O
+add wave /top_internal_logic_analyzer_TB/uut/rx_path_unit/DAT_O
+add wave /top_internal_logic_analyzer_TB/uut/rx_path_unit/ACK_I
+add wave /top_internal_logic_analyzer_TB/uut/rx_path_unit/DAT_I
+
+add wave /top_internal_logic_analyzer_TB/uut/rx_path_unit/ADR_I
+add wave /top_internal_logic_analyzer_TB/uut/rx_path_unit/STB_I
+add wave /top_internal_logic_analyzer_TB/uut/rx_path_unit/TGA_I
+
+
+
+
+
+
+
+
+
+
+run 10000 ns
