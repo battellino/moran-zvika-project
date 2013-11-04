@@ -1,0 +1,46 @@
+----- FILE MATA DATA ----- 
+-- DATA BURST:25 [BYTE] 
+-- TOTAL     :38 [BYTE] 
+-------------------------- 
+3C        	-- START OF FRAME (SOF)
+03        	-- TYPE 03	(CORE)
+00 00 01  	-- ADDRESS	(trigger_type_reg_1_address_g)
+00        	-- DATA LANGTH -1
+00			-- 0 in DEC
+EA        	-- CRC
+A5        	-- EOF
+3C        	-- START OF FRAME (SOF)
+03        	-- TYPE 03	(CORE)
+00 00 02  	-- ADDRESS	(trigger_position_reg_2_address_g)
+00        	-- ONE BYTE OF DATA 
+32			-- 50 in DEC
+EA        	-- CRC
+A5		  	-- EOF
+3C        	-- START OF FRAME (SOF)
+03        	-- TYPE 03	(CORE)
+00 00 04  	-- ADDRESS	(enable_reg_address_4_g)
+01        	-- ONE BYTE OF DATA 
+32			-- 50 in DEC
+EA        	-- CRC
+A5		  	-- EOF
+3C        	-- START OF FRAME (SOF)
+03        	-- TYPE 03	(CORE)
+00 00 00  	-- ADDRESS	(en_reg_address_g)
+01        	-- ONE BYTE OF DATA 
+32			-- 50 in DEC
+EA        	-- CRC
+A5		  	-- EOF
+3C        	-- START OF FRAME (SOF)
+04        	-- TYPE 04	(SIGNAL GENERATOR)
+00 00 01  	-- ADDRESS	(scene_number_reg_1_address_g)
+02        	-- ONE BYTE OF DATA 
+32			-- 50 in DEC
+EA        	-- CRC
+A5		  	-- EOF
+3C        	-- START OF FRAME (SOF)
+04        	-- TYPE 04	(SIGNAL GENERATOR)
+00 00 01  	-- ADDRESS	(enable_reg_address_2_g)
+01        	-- ONE BYTE OF DATA 
+32			-- 50 in DEC
+EA        	-- CRC
+A5		  	-- EOF
