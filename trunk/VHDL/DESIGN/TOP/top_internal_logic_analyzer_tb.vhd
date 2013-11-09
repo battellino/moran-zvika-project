@@ -191,7 +191,7 @@ ARCHITECTURE behavior OF top_internal_logic_analyzer_TB IS
         ); 
  END COMPONENT; 
  
- COMPONENT uart_tx_gen_model is 
+ COMPONENT uart_trans_gen_model is 
     generic (
             --File name explanasion:
 			-- File name is being named <file_name_g>_<file_idx>.<file_extension_g>
@@ -360,7 +360,7 @@ uut: top_internal_logic_analyzer
 
         );         
 
-data_transmitter: uart_tx_gen_model
+data_transmitter: uart_trans_gen_model
     GENERIC MAP (
 		file_name_g			  		=> file_name_g,
 		file_extension_g	        => file_extension_g,
