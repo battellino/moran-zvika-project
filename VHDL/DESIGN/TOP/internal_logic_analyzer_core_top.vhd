@@ -32,19 +32,24 @@ use work.ram_generic_pkg.all;
 
 entity internal_logic_analyzer_core_top is
 	generic (				
-				reset_polarity_g		:	std_logic	:= '1';									--'0' - Active Low Reset, '1' Active High Reset
-				enable_polarity_g		:	std_logic	:= '1';									--'1' the entity is active, '0' entity not active
-				signal_ram_depth_g		: 	positive  	:=	3;									--depth of RAM
-				signal_ram_width_g		:	positive 	:=  8;   								--width of basic RAM
-				record_depth_g			: 	positive  	:=	4;									--number of bits that is recorded from each signal
-				data_width_g            :	positive 	:= 	8;      						    --defines the width of the data lines of the system
-				Add_width_g  		    :   positive 	:=  8;     								--width of addr word in the RAM
-				num_of_signals_g		:	positive	:=	8;									--num of signals that will be recorded simultaneously	(Width of data)
---				addr_bits_g				:	positive 	:= 	4;									--Depth of data	(2^4 = 16 addresses)
-				power2_out_g			:	natural 	:= 	0;									--Output width is multiplied by this power factor (2^1). In case of 2: output will be (2^2*8=) 32 bits wide -> our output and input are at the same width
-				power_sign_g			:	integer range -1 to 1 	:= 1;					 	-- '-1' => output width > input width ; '1' => input width > output width		(if power2_out_g = 0, it dosn't matter)
-				type_d_g				:	positive 	:= 	1;									--Type Depth
-				len_d_g					:	positive 	:= 	1									--Length Depth
+		reset_polarity_g					:	std_logic	:= '1';									--'0' - Active Low Reset, '1' Active High Reset
+		enable_polarity_g					:	std_logic	:= '1';									--'1' the entity is active, '0' entity not active
+		signal_ram_depth_g					: 	positive  	:=	3;									--depth of RAM
+		signal_ram_width_g					:	positive 	:=  8;   								--width of basic RAM
+		record_depth_g						: 	positive  	:=	4;									--number of bits that is recorded from each signal
+		data_width_g            			:	positive 	:= 	8;      						    --defines the width of the data lines of the system
+		Add_width_g  		    			:   positive 	:=  8;     								--width of addr word in the RAM
+		num_of_signals_g					:	positive	:=	8;									--num of signals that will be recorded simultaneously	(Width of data)
+--		addr_bits_g							:	positive 	:= 	4;									--Depth of data	(2^4 = 16 addresses)
+		en_reg_address_g      		   		: 	natural 	:= 0;
+		trigger_type_reg_1_address_g 		: 	natural 	:= 1;
+		trigger_position_reg_2_address_g	: 	natural 	:= 2;
+		clk_to_start_reg_3_address_g 	   	: 	natural 	:= 3;
+		enable_reg_address_4_g 		   		: 	natural 	:= 4;
+		power2_out_g						:	natural 	:= 	0;									--Output width is multiplied by this power factor (2^1). In case of 2: output will be (2^2*8=) 32 bits wide -> our output and input are at the same width
+		power_sign_g						:	integer range -1 to 1 	:= 1;					 	-- '-1' => output width > input width ; '1' => input width > output width		(if power2_out_g = 0, it dosn't matter)
+		type_d_g							:	positive 	:= 	1;									--Type Depth
+		len_d_g								:	positive 	:= 	1									--Length Depth
 			);
 	port	(
 				clk							:	in std_logic;									--System clock
@@ -340,7 +345,7 @@ end component data_input_generic;
 
 -----------------------------------------------------Constants--------------------------------------------------------------------------
 constant len_of_data_c		: std_logic_vector (len_d_g * data_width_g - 1 downto 0)	:= std_logic_vector(to_unsigned( 1 , len_d_g * data_width_g));
-constant type_of_TX_ws_c	: std_logic_vector ((data_width_g)*(type_d_g)-1 downto 0)	:= std_logic_vector(to_unsigned( 4 , type_d_g * data_width_g));
+constant type_of_TX_ws_c	: std_logic_vector ((data_width_g)*(type_d_g)-1 downto 0)	:= std_logic_vector(to_unsigned( 2 , type_d_g * data_width_g));
 constant type_of_CORE_ws_c	: std_logic_vector ((data_width_g)*(type_d_g)-1 downto 0)	:= std_logic_vector(to_unsigned( 3 , type_d_g * data_width_g));
 constant size_of_register_c	: integer range 0 to 7 := 7;
 -----------------------------------------------------Types------------------------------------------------------------------------------
@@ -502,11 +507,11 @@ core_registers_inst : core_registers generic map (
 											enable_polarity_g					=>	enable_polarity_g,
 											data_width_g           		   		=>	data_width_g,
 											Add_width_g  		   		   		=>	Add_width_g,
-											en_reg_address_g      		   		=>	0,
-											trigger_type_reg_1_address_g 		=>	1,
-											trigger_position_reg_2_address_g	=>	2,
-											clk_to_start_reg_3_address_g 	   	=>	3,
-											enable_reg_address_4_g 		   		=>	4
+											en_reg_address_g      		   		=>	en_reg_address_g,
+											trigger_type_reg_1_address_g 		=>	trigger_type_reg_1_address_g,
+											trigger_position_reg_2_address_g	=>	trigger_position_reg_2_address_g,
+											clk_to_start_reg_3_address_g 	   	=>	clk_to_start_reg_3_address_g,
+											enable_reg_address_4_g 		   		=>	enable_reg_address_4_g
 										)
 										port map (
 											clk						=> clk,
