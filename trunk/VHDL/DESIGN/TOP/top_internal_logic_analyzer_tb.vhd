@@ -52,6 +52,11 @@ use std.textio.all;
 		data_width_g            		: positive 	:= 	8;      						    --defines the width of the data lines of the system
 		Add_width_g  		    		: positive 	:=  8;     								--width of address word in the WB
 		num_of_signals_g				: positive	:=	8;									--number of signals that will be recorded simultaneously	(Width of data)
+		en_reg_address_g      		   		: 	natural 	:= 0;
+		trigger_type_reg_1_address_g 		: 	natural 	:= 1;
+		trigger_position_reg_2_address_g	: 	natural 	:= 2;
+		clk_to_start_reg_3_address_g 	   	: 	natural 	:= 3;
+		enable_reg_address_4_g 		   		: 	natural 	:= 4;
 		power2_out_g					: natural 	:= 	0;									--Output width is multiplied by this power factor (2^1). In case of 2: output will be (2^2*8=) 32 bits wide -> our output and input are at the same width
 		power_sign_g					: integer range -1 to 1 	:= 1;					 	-- '-1' => output width > input width ; '1' => input width > output width		(if power2_out_g = 0, it dosn't matter)
 		type_d_g						: positive 	:= 	1;									--Type Depth
@@ -105,7 +110,7 @@ use std.textio.all;
 		-- UART TX GEN MODEL generics
 		file_name_g			            : string           := "uart_tx"; -- File name to be transmitted
 		file_extension_g	          	: string		   := "txt";			  -- File extension
-		file_max_idx_g	           		: positive	       := 3;				     -- Maximum file index.
+		file_max_idx_g	           		: positive	       := 2;				     -- Maximum file index.
 		delay_g				            : positive	       := 10;				    -- Number of clock cycles delay between two files transmission			 
 		clock_period_g		           	: time		       := 8.68 us;			-- 8.68us = 115,200 Bits/sec
         msb_first_g			            : boolean 	       := false  		 	-- TRUE = MSB First, FALSE = LSB first				
@@ -129,6 +134,11 @@ ARCHITECTURE behavior OF top_internal_logic_analyzer_TB IS
 		data_width_g            		: positive 	:= 	8;      						    --defines the width of the data lines of the system
 		Add_width_g  		    		: positive 	:=  8;     								--width of address word in the WB
 		num_of_signals_g				: positive	:=	8;									--number of signals that will be recorded simultaneously	(Width of data)
+		en_reg_address_g      		   		: 	natural 	:= 0;
+		trigger_type_reg_1_address_g 		: 	natural 	:= 1;
+		trigger_position_reg_2_address_g	: 	natural 	:= 2;
+		clk_to_start_reg_3_address_g 	   	: 	natural 	:= 3;
+		enable_reg_address_4_g 		   		: 	natural 	:= 4;
 		power2_out_g					: natural 	:= 	0;									--Output width is multiplied by this power factor (2^1). In case of 2: output will be (2^2*8=) 32 bits wide -> our output and input are at the same width
 		power_sign_g					: integer range -1 to 1 	:= 1;					 	-- '-1' => output width > input width ; '1' => input width > output width		(if power2_out_g = 0, it dosn't matter)
 		type_d_g						: positive 	:= 	1;									--Type Depth
@@ -200,16 +210,16 @@ ARCHITECTURE behavior OF top_internal_logic_analyzer_TB IS
 			-- parameter is 2, then transmission file order will be:
 			-- (1)uart_tx_1.txt (2)uart_tx_2.txt (3) uart_tx_1.txt (4) uart_tx_2.txt ...
 			
-			file_name_g			   :		string 		:= "uart_tx"; 	    	-- File name to be transmitted
-			file_extension_g	:		string		 := "txt";			        -- File extension
-			file_max_idx_g	 	:		positive	:= 2;				           -- Maximum file index.
-			delay_g				      :		positive	:= 10;				          -- Number of clock cycles delay between two files transmission
+			file_name_g			   	:		string 		:= "uart_tx"; 	    	-- File name to be transmitted
+			file_extension_g		:		string		 := "txt";			        -- File extension
+			file_max_idx_g	 		:		positive	:= 1;				           -- Maximum file index.
+			delay_g				  	:		positive	:= 10;				          -- Number of clock cycles delay between two files transmission
 			 
-			clock_period_g	  :		time		     := 8.68 us;		     -- 8.68us = 115,200 Bits/sec
-			parity_en_g			   :		natural range 0 to 1 := 0; 		-- 1 to Enable parity bit, 0 to disable parity bit
-			parity_odd_g		   :		boolean 	  := false; 			     -- TRUE = odd, FALSE = even
-			msb_first_g			   :		boolean 	  := false; 			     -- TRUE = MSB First, FALSE = LSB first
-			uart_idle_g			   :		std_logic 	:= '1' 				       -- Idle line value
+			clock_period_g	  		:		time		     := 8.68 us;		     -- 8.68us = 115,200 Bits/sec
+			parity_en_g			   	:		natural range 0 to 1 := 0; 		-- 1 to Enable parity bit, 0 to disable parity bit
+			parity_odd_g		   	:		boolean 	  := false; 			     -- TRUE = odd, FALSE = even
+			msb_first_g			   	:		boolean 	  := false; 			     -- TRUE = MSB First, FALSE = LSB first
+			uart_idle_g			   	:		std_logic 	:= '1' 				       -- Idle line value
            );
  PORT
 	   (
@@ -298,7 +308,12 @@ uut: top_internal_logic_analyzer
         data_width_g           		=> data_width_g,      	
 		Add_width_g                 => Add_width_g,      			           
 		num_of_signals_g    		=> num_of_signals_g,
-	    power2_out_g               	=> power2_out_g,         
+	    en_reg_address_g      		   		=>	en_reg_address_g,
+		trigger_type_reg_1_address_g 		=>	trigger_type_reg_1_address_g,
+		trigger_position_reg_2_address_g	=>	trigger_position_reg_2_address_g,
+		clk_to_start_reg_3_address_g 	   	=>	clk_to_start_reg_3_address_g,
+		enable_reg_address_4_g 		   		=>	enable_reg_address_4_g,
+		power2_out_g               	=> power2_out_g,         
 	    power_sign_g	        	=> power_sign_g,                   
 		type_d_g       				=> type_d_g,			
 		len_d_g      				=> len_d_g,			                      

@@ -34,37 +34,57 @@ vcom uart_tx.vhd
 vcom wishbone_intercon.vhd
 vcom rx_path.vhd
 vcom tx_path.vhd
-vcom uart_tx_gen_model.vhd
+vcom uart_trans_gen_model.vhd
 vcom top_internal_logic_analyzer.vhd
 vcom top_internal_logic_analyzer_tb.vhd
 vsim top_internal_logic_analyzer_tb
 
 add wave *
+-------- mp_dec
+add wave /top_internal_logic_analyzer_TB/uut/rx_path_unit/mp_dec_inst/crc_err
+add wave /top_internal_logic_analyzer_TB/uut/rx_path_unit/mp_dec_inst/din
+add wave /top_internal_logic_analyzer_TB/uut/rx_path_unit/mp_dec_inst/valid
+add wave /top_internal_logic_analyzer_TB/uut/rx_path_unit/mp_dec_inst/crc_in_val
 add wave /top_internal_logic_analyzer_TB/uut/rx_path_unit/mp_dec_inst/crc_in
--------- core registers
+add wave /top_internal_logic_analyzer_TB/uut/rx_din
+
+-------- core
 add wave /top_internal_logic_analyzer_TB/uut/core_inst/core_registers_inst/trigger_type_reg_1
 add wave /top_internal_logic_analyzer_TB/uut/core_inst/core_registers_inst/trigger_position_reg_2
 add wave /top_internal_logic_analyzer_TB/uut/core_inst/core_registers_inst/enable_reg_4
 add wave /top_internal_logic_analyzer_TB/uut/core_inst/core_registers_inst/en_reg
+add wave /top_internal_logic_analyzer_TB/uut/core_inst/ADR_O
+add wave /top_internal_logic_analyzer_TB/uut/core_inst/WM_DAT_O
+add wave /top_internal_logic_analyzer_TB/uut/core_inst/write_controller_inst/trigger_found_s
+
+-------- signal generator registers
+add wave /top_internal_logic_analyzer_TB/uut/signal_generator_inst/registers_inst/scene_number_reg_1
+add wave /top_internal_logic_analyzer_TB/uut/signal_generator_inst/registers_inst/enable_reg_2
+
 -------- wishbone intercon
 add wave /top_internal_logic_analyzer_TB/uut/intercon/ADR_O_M1
+add wave /top_internal_logic_analyzer_TB/uut/intercon/ADR_O_M2
+add wave /top_internal_logic_analyzer_TB/uut/intercon/ADR_O_M3
+
 -------- RX
 add wave /top_internal_logic_analyzer_TB/uut/rx_path_unit/ADR_O
 add wave /top_internal_logic_analyzer_TB/uut/rx_path_unit/DAT_O
 add wave /top_internal_logic_analyzer_TB/uut/rx_path_unit/ACK_I
 add wave /top_internal_logic_analyzer_TB/uut/rx_path_unit/DAT_I
-
 add wave /top_internal_logic_analyzer_TB/uut/rx_path_unit/ADR_I
 add wave /top_internal_logic_analyzer_TB/uut/rx_path_unit/STB_I
 add wave /top_internal_logic_analyzer_TB/uut/rx_path_unit/TGA_I
 
+-------- TOP
+add wave /top_internal_logic_analyzer_TB/uut/trigger_sig
+add wave /top_internal_logic_analyzer_TB/uut/data_in_sig
+
+-------- uart_trans_gen_model
+--add wave /top_internal_logic_analyzer_TB/data_transmitter/uart_out
+--add wave /top_internal_logic_analyzer_TB/data_transmitter/input
+--add wave /top_internal_logic_analyzer_TB/data_transmitter/clk_i
+--add wave /top_internal_logic_analyzer_TB/data_transmitter/file_status
 
 
 
-
-
-
-
-
-
-run 10000 ns
+run 4800000 ns
