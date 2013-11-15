@@ -344,7 +344,7 @@ component data_input_generic is
 end component data_input_generic;
 
 -----------------------------------------------------Constants--------------------------------------------------------------------------
-constant len_of_data_c		: std_logic_vector (len_d_g * data_width_g - 1 downto 0)	:= std_logic_vector(to_unsigned( 1 , len_d_g * data_width_g));
+constant len_of_data_c		: std_logic_vector (len_d_g * data_width_g - 1 downto 0)	:= std_logic_vector(to_unsigned( (2**record_depth_g) - 1 , len_d_g * data_width_g));
 constant type_of_TX_ws_c	: std_logic_vector ((data_width_g)*(type_d_g)-1 downto 0)	:= std_logic_vector(to_unsigned( 2 , type_d_g * data_width_g));
 constant type_of_CORE_ws_c	: std_logic_vector ((data_width_g)*(type_d_g)-1 downto 0)	:= std_logic_vector(to_unsigned( 3 , type_d_g * data_width_g));
 constant size_of_register_c	: integer range 0 to 7 := 7;
@@ -486,7 +486,7 @@ wishbone_master_inst : wishbone_master generic map (
 											ram_aout		=> open,
 											ram_aout_valid	=> open,
 											ram_din			=> data_from_cordinator_to_wm_s,	--DAT_O
-											ram_din_valid	=> '0',
+											ram_din_valid	=> data_from_cordinator_to_wm_valid_s,
 											--bus side signals
 											ADR_O			=> ADR_O, 							--contains the addr word
 											DAT_O			=> WM_DAT_O, 							--contains the data_in word

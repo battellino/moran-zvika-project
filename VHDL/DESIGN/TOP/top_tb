@@ -53,9 +53,14 @@ add wave /top_internal_logic_analyzer_TB/uut/core_inst/core_registers_inst/trigg
 add wave /top_internal_logic_analyzer_TB/uut/core_inst/core_registers_inst/trigger_position_reg_2
 add wave /top_internal_logic_analyzer_TB/uut/core_inst/core_registers_inst/enable_reg_4
 add wave /top_internal_logic_analyzer_TB/uut/core_inst/core_registers_inst/en_reg
-add wave /top_internal_logic_analyzer_TB/uut/core_inst/ADR_O
-add wave /top_internal_logic_analyzer_TB/uut/core_inst/WM_DAT_O
 add wave /top_internal_logic_analyzer_TB/uut/core_inst/write_controller_inst/trigger_found_s
+add wave /top_internal_logic_analyzer_TB/uut/core_inst/wishbone_master_inst/wm_start
+add wave /top_internal_logic_analyzer_TB/uut/core_inst/wishbone_master_inst/wr
+add wave /top_internal_logic_analyzer_TB/uut/core_inst/wishbone_master_inst/type_in
+add wave /top_internal_logic_analyzer_TB/uut/core_inst/wishbone_master_inst/len_in
+add wave /top_internal_logic_analyzer_TB/uut/core_inst/wishbone_master_inst/addr_in
+add wave /top_internal_logic_analyzer_TB/uut/core_inst/wishbone_master_inst/ram_start_addr
+add wave /top_internal_logic_analyzer_TB/uut/core_inst/wishbone_master_inst/wm_end
 
 -------- signal generator registers
 add wave /top_internal_logic_analyzer_TB/uut/signal_generator_inst/registers_inst/scene_number_reg_1
@@ -67,13 +72,13 @@ add wave /top_internal_logic_analyzer_TB/uut/intercon/ADR_O_M2
 add wave /top_internal_logic_analyzer_TB/uut/intercon/ADR_O_M3
 
 -------- RX
-add wave /top_internal_logic_analyzer_TB/uut/rx_path_unit/ADR_O
-add wave /top_internal_logic_analyzer_TB/uut/rx_path_unit/DAT_O
-add wave /top_internal_logic_analyzer_TB/uut/rx_path_unit/ACK_I
-add wave /top_internal_logic_analyzer_TB/uut/rx_path_unit/DAT_I
-add wave /top_internal_logic_analyzer_TB/uut/rx_path_unit/ADR_I
-add wave /top_internal_logic_analyzer_TB/uut/rx_path_unit/STB_I
-add wave /top_internal_logic_analyzer_TB/uut/rx_path_unit/TGA_I
+--add wave /top_internal_logic_analyzer_TB/uut/rx_path_unit/ADR_O
+--add wave /top_internal_logic_analyzer_TB/uut/rx_path_unit/DAT_O
+--add wave /top_internal_logic_analyzer_TB/uut/rx_path_unit/ACK_I
+--add wave /top_internal_logic_analyzer_TB/uut/rx_path_unit/DAT_I
+--add wave /top_internal_logic_analyzer_TB/uut/rx_path_unit/ADR_I
+--add wave /top_internal_logic_analyzer_TB/uut/rx_path_unit/STB_I
+--add wave /top_internal_logic_analyzer_TB/uut/rx_path_unit/TGA_I
 
 -------- TOP
 add wave /top_internal_logic_analyzer_TB/uut/trigger_sig
@@ -85,6 +90,16 @@ add wave /top_internal_logic_analyzer_TB/uut/data_in_sig
 --add wave /top_internal_logic_analyzer_TB/data_transmitter/clk_i
 --add wave /top_internal_logic_analyzer_TB/data_transmitter/file_status
 
-
+-------- TX
+add wave /top_internal_logic_analyzer_TB/uut/tx_path_unit/DAT_I_S
+add wave /top_internal_logic_analyzer_TB/uut/tx_path_unit/ADR_I_S_TX
+add wave /top_internal_logic_analyzer_TB/uut/tx_path_unit/TGA_I_S_TX
+add wave /top_internal_logic_analyzer_TB/uut/tx_path_unit/TGD_I_S_TX
+add wave /top_internal_logic_analyzer_TB/uut/tx_path_unit/WE_I_S_TX
+add wave /top_internal_logic_analyzer_TB/uut/tx_path_unit/STB_I_S_TX
+add wave /top_internal_logic_analyzer_TB/uut/tx_path_unit/CYC_I_S_TX
+add wave /top_internal_logic_analyzer_TB/uut/tx_path_unit/ACK_O_TO_M
+add wave /top_internal_logic_analyzer_TB/uut/tx_path_unit/DAT_O_TO_M
+add wave /top_internal_logic_analyzer_TB/uut/tx_path_unit/STALL_O_TO_M
 
 run 4800000 ns
