@@ -725,7 +725,7 @@ intercon: wishbone_intercon
      ACK_O_S1                  => ACK_O_S1_sig,           
      DAT_O_S1                  => DAT_O_S1_sig,          
 	 STALL_O_S1                => STALL_O_S1_sig,       
-     --Wishbone Slave 2 interfaces (CORE) 
+     --Wishbone Slave 2 interfaces (tx_path) 
      ADR_I_S2                  => ADR_I_S2_sig,          
      DAT_I_S2                  => DAT_I_S2_sig,           
      WE_I_S2                   => WE_I_S2_sig,            
@@ -736,7 +736,7 @@ intercon: wishbone_intercon
      ACK_O_S2                  => ACK_O_S2_sig,            
      DAT_O_S2                  => DAT_O_S2_sig,          
    	 STALL_O_S2                => STALL_O_S2_sig,         
-     --Wishbone Slave 3 interfaces (tx_path) 
+     --Wishbone Slave 3 interfaces (CORE) 
      ADR_I_S3                  => ADR_I_S3_sig,          
      DAT_I_S3                  => DAT_I_S3_sig,           
      WE_I_S3                   => WE_I_S3_sig,            
