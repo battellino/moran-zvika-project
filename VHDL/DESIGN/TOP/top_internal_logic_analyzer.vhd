@@ -50,48 +50,49 @@ use ieee.numeric_std.all ;
 		-- signal generator generics   
 		external_en_g					: std_logic	:= 	'0';								-- 1 -> getting the data from an external source . 0 -> dout is a counter		 
 --      -- OUTPUT BLOCK generics
-        fifo_depth_g 			      	: positive 	:= 32768;	         -- Maximum elements in FIFO
-	    fifo_log_depth_g			   	: natural	:= 15;	            -- (2^25 = 32K) Logarithm of depth_g (Number of bits to represent depth_g. 2^4=16 > 9)
-	    fifo_almost_full_g		  		: positive	:= 32767;   	      -- Rise almost full flag at this number of elements in FIFO
-	    fifo_almost_empty_g	 			: positive	:= 1;	             -- Rise almost empty flag at this number of elements in FIFO				    
+        byte_size_g			            : positive 	:= 8;          							-- One byte
+		fifo_depth_g 			      	: positive 	:= 32768;	         					-- Maximum elements in FIFO
+	    fifo_log_depth_g			   	: natural	:= 15;	            					-- (2^25 = 32K) Logarithm of depth_g (Number of bits to represent depth_g. 2^4=16 > 9)
+	    fifo_almost_full_g		  		: positive	:= 32767;   	      					-- Rise almost full flag at this number of elements in FIFO
+	    fifo_almost_empty_g	 			: positive	:= 1;	             					-- Rise almost empty flag at this number of elements in FIFO				    
 		--  RX PATH (and UART) generics
-		clkrate_g		     			: positive	:= 125000000;		                -- Sys. clock [Hz]      
---		addr_d_g		      			: positive  := 3;		            -- Address Depth
+		clkrate_g		     			: positive	:= 125000000;		                	-- Sys. clock [Hz]      
+--		addr_d_g		      			: positive  := 3;		            				-- Address Depth
 	   --uart_rx generics
-		parity_en_g		    			: natural range 0 to 1 := 0; 		             -- 1 to Enable parity bit, 0 to disable parity bit
-		parity_odd_g		   			: boolean 	:= false; 			                  -- TRUE = odd, FALSE = even
+		parity_en_g		    			: natural range 0 to 1 := 0; 		             	-- 1 to Enable parity bit, 0 to disable parity bit
+		parity_odd_g		   			: boolean 	:= false; 			                 	-- TRUE = odd, FALSE = even
 		uart_idle_g		    			: std_logic := '1';				                    -- IDLE_ST line value
-		baudrate_g			    		: positive	:= 115200;			                  -- UART baudrate [Hz]
+		baudrate_g			    		: positive	:= 115200;			                  	-- UART baudrate [Hz]
 		--mp_dec generics
-		len_dec1_g	     				: boolean   := true;	                      -- TRUE - Recieved length is decreased by 1 ,to save 1 bit  --FALSE - Recieved length is the actual length
-		sof_d_g				      		: positive  := 1;		                        -- SOF Depth
-		crc_d_g				      		: positive  := 1;		                        -- CRC Depth
-		eof_d_g			 	     		: positive  := 1;		                        -- EOF Depth					
-		sof_val_g			     		: natural   := 60;	                       	-- (3Ch) SOF block value. Upper block is MSB
-		eof_val_g			     		: natural   := 165;		                      -- (A5h) EOF block value. Upper block is MSB				
+		len_dec1_g	     				: boolean   := true;	                      		-- TRUE - Recieved length is decreased by 1 ,to save 1 bit  --FALSE - Recieved length is the actual length
+		sof_d_g				      		: positive  := 1;		                        	-- SOF Depth
+		crc_d_g				      		: positive  := 1;		                        	-- CRC Depth
+		eof_d_g			 	     		: positive  := 1;		                        	-- EOF Depth					
+		sof_val_g			     		: natural   := 60;	                       			-- (3Ch) SOF block value. Upper block is MSB
+		eof_val_g			     		: natural   := 165;		                      		-- (A5h) EOF block value. Upper block is MSB				
 		--ram_simple_generics
-		rx_path_addr_bits_g		        : positive  := 8;            -- Depth of data	(2^10 = 1024 addresses)  
+		rx_path_addr_bits_g		        : positive  := 8;            						-- Depth of data	(2^10 = 1024 addresses)  
 		--error_register_generics
-		error_register_address_g       	: natural   :=0 ;            -- defines the address that should be sent on access to the unit
-		led_active_polarity_g          	: std_logic :='1';           -- defines the active state of the error signal input: '0' active low, '1' active high
-		error_active_polarity_g        	: std_logic :='1';           -- defines the polarity which the error signal is active in  
-		code_version_g			        : natural	:= 0	;           -- Hardware code version
+		error_register_address_g       	: natural   :=0 ;            						-- defines the address that should be sent on access to the unit
+		led_active_polarity_g          	: std_logic :='1';           						-- defines the active state of the error signal input: '0' active low, '1' active high
+		error_active_polarity_g        	: std_logic :='1';          					 	-- defines the polarity which the error signal is active in  
+		code_version_g			        : natural	:= 0	;           					-- Hardware code version
 		--  TX PATH generics				
-		fifo_d_g				        : positive	:= 9;	           -- Maximum elements in FIFO
-		tx_path_addr_bits_g		        : positive  := 8;           	-- Depth of data	(2^10 = 1024 addresses)    
-		databits_g				        : natural range 5 to 8 := 8;  	-- Number of databits								
+		fifo_d_g				        : positive	:= 9;	           						-- Maximum elements in FIFO
+		tx_path_addr_bits_g		        : positive  := 8;           						-- Depth of data	(2^10 = 1024 addresses)    
+		databits_g				        : natural range 5 to 8 := 8;  						-- Number of databits								
 		-- WISHBONE INTERCON generics      
-        type_slave_1_g             		: std_logic_vector  := "0001";     -- slave 1 type
-        type_slave_2_g             		: std_logic_vector  := "0010";     -- slave 2 type
-        type_slave_3_g             		: std_logic_vector  := "0011";     -- slave 3 type
-        type_slave_4_g             		: std_logic_vector  := "0100";     -- slave 4 type
-        type_slave_5_g             		: std_logic_vector  := "0101";     -- slave 5 type
-        type_slave_6_g             		: std_logic_vector  := "0110";     -- slave 6 type
-        type_slave_7_g             		: std_logic_vector  := "0111";     -- slave 7 type
+        type_slave_1_g             		: std_logic_vector  := "0001";     					-- slave 1 type
+        type_slave_2_g             		: std_logic_vector  := "0010";     					-- slave 2 type
+        type_slave_3_g             		: std_logic_vector  := "0011";     						-- slave 3 type
+        type_slave_4_g             		: std_logic_vector  := "0100";     					-- slave 4 type
+        type_slave_5_g             		: std_logic_vector  := "0101";     					-- slave 5 type
+        type_slave_6_g             		: std_logic_vector  := "0110";     					-- slave 6 type
+        type_slave_7_g             		: std_logic_vector  := "0111";     					-- slave 7 type
 	    --timer generics
-	    watchdog_timer_freq_g      		: positive         := 100;         -- timer tick after (clk_freq_g/watchdog_timer_freq_g) ==> 10msec
-        timer_en_polarity_g        		: std_logic        := '1';         -- defines the polarity which the timer enable (timer_en) is active on: '0' active low, '1' active high  
-	    watchdog_en_vector_g	      	: std_logic_vector := "11111111"   -- watchdog enabled for the clients which have '1' on their matching bit in the vector
+	    watchdog_timer_freq_g      		: positive         := 100;         					-- timer tick after (clk_freq_g/watchdog_timer_freq_g) ==> 10msec
+        timer_en_polarity_g        		: std_logic        := '1';         					-- defines the polarity which the timer enable (timer_en) is active on: '0' active low, '1' active high  
+	    watchdog_en_vector_g	      	: std_logic_vector := "11111111"   					-- watchdog enabled for the clients which have '1' on their matching bit in the vector
         );
         
     port( 
@@ -196,7 +197,6 @@ COMPONENT tx_path
 	port   (
 	    sys_clk  			      : in std_logic; 		             --system clock
 	    sys_reset     		  : in std_logic;		 	            --system reset
-	
 	     ----input and output to SLAVE TX from master RX
 	    DAT_I_S			       	: in std_logic_vector (data_width_g-1 downto 0) ; 
 	    ADR_I_S_TX				    : in std_logic_vector (Add_width_g-1 downto 0) ; 
@@ -257,7 +257,7 @@ COMPONENT wishbone_intercon is
 		CYC_O_M1          : in std_logic;                                             -- '1' for bus transmition request, '0' for no bus transmition request
 		TGA_O_M1          : in std_logic_vector (type_d_g * data_width_g-1 downto 0); -- contains the type word
 		TGD_O_M1          : in std_logic_vector (len_d_g * data_width_g-1 downto 0);  -- contains the len word
-		ACK_I_M1          : out std_logic;                                            -- '1' when valid data is recieved from WS or for successfull write operation in WS
+		ACK_I_M1          : out std_logic;                                            -- '1' when valid data is recieved from WS or for successful write operation in WS
 		DAT_I_M1          : out std_logic_vector (data_width_g-1 downto 0);           -- data recieved from WS
 		STALL_I_M1		      : out std_logic;                                            -- STALL - WS is not available for transaction 
 		ERR_I_M1		        : out std_logic;                                            -- Watchdog interrupts, resets wishbone master
@@ -269,11 +269,11 @@ COMPONENT wishbone_intercon is
 		CYC_O_M2          : in std_logic;                                             -- '1' for bus transmition request, '0' for no bus transmition request
 		TGA_O_M2          : in std_logic_vector (type_d_g * data_width_g-1 downto 0); -- contains the type word
 		TGD_O_M2          : in std_logic_vector (len_d_g * data_width_g-1 downto 0);  -- contains the len word
-		ACK_I_M2          : out std_logic;                                            -- '1' when valid data is recieved from WS or for successfull write operation in WS
+		ACK_I_M2          : out std_logic;                                            -- '1' when valid data is recieved from WS or for successful write operation in WS
 		DAT_I_M2          : out std_logic_vector (data_width_g-1 downto 0);           -- data recieved from WS
 		STALL_I_M2		      : out std_logic;                                            -- STALL - WS is not available for transaction 
 		ERR_I_M2		        : out std_logic;                                            -- Watchdog interrupts, resets wishbone master
-		--Wishbone Master 3 interfaces (config_control)
+		--Wishbone Master 3 interfaces (output block)
 		ADR_O_M3          : in std_logic_vector (Add_width_g-1 downto 0); -- contains the address word
 		DAT_O_M3          : in std_logic_vector (data_width_g-1 downto 0);            -- contains the data_in word
 		WE_O_M3           : in std_logic;                                             -- '1' for write, '0' for read
@@ -281,11 +281,11 @@ COMPONENT wishbone_intercon is
 		CYC_O_M3          : in std_logic;                                             -- '1' for bus transmition request, '0' for no bus transmition request
 		TGA_O_M3          : in std_logic_vector (type_d_g * data_width_g-1 downto 0); -- contains the type word
 		TGD_O_M3          : in std_logic_vector (len_d_g * data_width_g-1 downto 0);  -- contains the len word
-		ACK_I_M3          : out std_logic;                                            -- '1' when valid data is recieved from WS or for successfull write operation in WS
+		ACK_I_M3          : out std_logic;                                            -- '1' when valid data is recieved from WS or for successful write operation in WS
 		DAT_I_M3          : out std_logic_vector (data_width_g-1 downto 0);           -- data recieved from WS
 		STALL_I_M3		      : out std_logic;                                            -- STALL - WS is not available for transaction 
-		ERR_I_M3		        : out std_logic;                                            -- Watchdog interrupts, resets wishbone master
-		--Wishbone Slave 1 interfaces (error_register - rx_path)
+		ERR_I_M3		        : out std_logic;                                            -- Watchdog interrupts, resets wishbone master	
+		--Wishbone Slave 1 interfaces (core)
 		ADR_I_S1          : out std_logic_vector (Add_width_g-1 downto 0);	 --contains the address word
 		DAT_I_S1          : out std_logic_vector (data_width_g-1 downto 0); 	             --contains the data_in word
 		WE_I_S1           : out std_logic;                     				                       -- '1' for write, '0' for read
@@ -307,7 +307,7 @@ COMPONENT wishbone_intercon is
 		ACK_O_S2          : in std_logic;                      				                       --'1' when valid data is transmited to MW or for successfull write operation 
 		DAT_O_S2          : in std_logic_vector (data_width_g-1 downto 0);   	            --data transmit to MW
 		STALL_O_S2        : in std_logic;                                                 --STALL - WS is not available for transaction 
-		--Wishbone Slave 3 interfaces (wait client)
+		--Wishbone Slave 3 interfaces (output block)
 		ADR_I_S3          : out std_logic_vector (Add_width_g-1 downto 0);	 --contains the address word
 		DAT_I_S3          : out std_logic_vector (data_width_g-1 downto 0); 	             --contains the data_in word
 		WE_I_S3           : out std_logic;                     				                       -- '1' for write, '0' for read
@@ -318,7 +318,7 @@ COMPONENT wishbone_intercon is
 		ACK_O_S3          : in std_logic;                      				                       --'1' when valid data is transmited to MW or for successfull write operation 
 		DAT_O_S3          : in std_logic_vector (data_width_g-1 downto 0);   	            --data transmit to MW
 		STALL_O_S3        : in std_logic;                                                 --STALL - WS is not available for transaction 
-		--Wishbone Slave 4 interfaces (led client)
+		--Wishbone Slave 4 interfaces (signal generator)
 		ADR_I_S4          : out std_logic_vector (Add_width_g-1 downto 0);	 --contains the address word
 		DAT_I_S4          : out std_logic_vector (data_width_g-1 downto 0); 	             --contains the data_in word
 		WE_I_S4           : out std_logic;                     				                       -- '1' for write, '0' for read
@@ -329,7 +329,7 @@ COMPONENT wishbone_intercon is
 		ACK_O_S4          : in std_logic;                      				                       --'1' when valid data is transmited to MW or for successfull write operation 
 		DAT_O_S4          : in std_logic_vector (data_width_g-1 downto 0);   	            --data transmit to MW
 		STALL_O_S4        : in std_logic;                                                 	--STALL - WS is not available for transaction    
-		--Wishbone Slave 5 interfaces (display client)
+		--Wishbone Slave 5 interfaces (not in use)
 		ADR_I_S5          : out std_logic_vector (Add_width_g-1 downto 0);	 --contains the address word
 		DAT_I_S5          : out std_logic_vector (data_width_g-1 downto 0); 	             --contains the data_in word
 		WE_I_S5           : out std_logic;                     				                       -- '1' for write, '0' for read
@@ -340,7 +340,7 @@ COMPONENT wishbone_intercon is
 		ACK_O_S5          : in std_logic;                      				                       --'1' when valid data is transmited to MW or for successfull write operation 
 		DAT_O_S5          : in std_logic_vector (data_width_g-1 downto 0);   	            --data transmit to MW
 		STALL_O_S5        : in std_logic;                                                 --STALL - WS is not available for transaction     
-		--Wishbone Slave 6 interfaces (flash control)
+		--Wishbone Slave 6 interfaces (not in use)
 		ADR_I_S6          : out std_logic_vector (Add_width_g-1 downto 0);	 --contains the address word
 		DAT_I_S6          : out std_logic_vector (data_width_g-1 downto 0); 	             --contains the data_in word
 		WE_I_S6           : out std_logic;                     				                       -- '1' for write, '0' for read
@@ -351,7 +351,7 @@ COMPONENT wishbone_intercon is
 		ACK_O_S6          : in std_logic;                      				                       --'1' when valid data is transmited to MW or for successfull write operation 
 		DAT_O_S6          : in std_logic_vector (data_width_g-1 downto 0);   	            --data transmit to MW
 		STALL_O_S6        : in std_logic;                                                 --STALL - WS is not available for transaction     
-		--Wishbone Slave 7 interface (led client)
+		--Wishbone Slave 7 interface (not in use)
 		ADR_I_S7          : out std_logic_vector (Add_width_g-1 downto 0);	 --contains the address word
 		DAT_I_S7          : out std_logic_vector (data_width_g-1 downto 0); 	             --contains the data_in word
 		WE_I_S7           : out std_logic;                     				                       -- '1' for write, '0' for read
@@ -364,7 +364,82 @@ COMPONENT wishbone_intercon is
 		STALL_O_S7        : in std_logic                                                  --STALL - WS is not available for transaction    
    );
 END COMPONENT;  
-   
+
+COMPONENT output_block is
+    generic (
+		reset_polarity_g	           :	std_logic 	:= '1';	                                              -- '0' - Active Low Reset, '1' Active High Reset.
+		byte_size_g			              :	positive 	 := 8  ;          -- One byte				
+		data_width_g                :	positive 	 := 8  ;          -- Width of data (8 bits holdes one literal)                  
+		-- FIFO generics
+        fifo_depth_g 			            : positive 	 := 4;	           -- Maximum elements in FIFO
+		fifo_log_depth_g			         : natural	   := 2;	           -- Logarithm of depth_g (Number of bits to represent depth_g. 2^4=16 > 9)
+		fifo_almost_full_g		        : positive	  := 3;   	        -- Rise almost full flag at this number of elements in FIFO
+		fifo_almost_empty_g	 	      : positive	  := 1;	           -- Rise almost empty flag at this number of elements in FIFO				
+		-- SHORT FIFO generics
+        short_fifo_depth_g 			      : positive 	 := 8;	           -- Maximum elements in FIFO
+		short_fifo_log_depth_g			   : natural	   := 3;	           -- Logarithm of depth_g (Number of bits to represent depth_g. 2^4=16 > 9)
+		short_fifo_almost_full_g		  : positive	  := 8;   	        -- Rise almost full flag at this number of elements in FIFO
+		short_fifo_almost_empty_g	 	: positive	  := 1;	           -- Rise almost empty flag at this number of elements in FIFO				     		    
+		-- WISHBONE slave generics
+--	      addr_d_g			                 :	positive   := 3 ;		         -- Address Depth
+	    Add_width_g  		    			:   positive 	:=  8;     								--width of addr word in the RAM
+		len_d_g				                 :	positive   := 1 ;		         -- Length Depth
+	    type_d_g				                :	positive   := 1 ; 	         -- Type Depth		
+		-- WISHBONE master generics
+	    addr_bits_g			             	:	positive   := 8	;
+	    -- block and client (TX PATH) hand-shake (frames header length = bytes of SOF, ADDR, TYPE, LEN, CRC, EOF )         
+	    baudrate_g			               :	positive	  := 115200 ;	 	   -- UART baudrate [Hz]
+	    clkrate_g		 	               :	positive	  := 125000000 ;	  -- Sys. clock [Hz]
+	    databits_g			              	:	positive   := 8	;
+	    parity_en_g                 :	natural	range 0 to 1 := 1 ;
+	    tx_fifo_d_g                 : positive	  := 9             -- Maximum elements in TX PATH FIFO 
+        );
+	port (
+        clk			                   :	in std_logic ;	
+        reset			                 :	in std_logic ;	  
+        -- data provider side (compressor core)
+--          data_in                  : in std_logic_vector (byte_size_g -1 downto 0) ;	
+--         data_in_valid            :	in std_logic ;	 	
+--          lzrw3_done               :	in std_logic ;                                             -- lzrw3_done for one clock
+--          client_ready             :	out std_logic ;
+        -- data input side (compatible to WB SLAVE)
+		wm_end_2				: in std_logic; 										--when '1' WM ended a transaction or reseted by watchdog ERR_I signal
+		ADR_I_2                 : in std_logic_vector (Add_width_g-1 downto 0);	   -- contains the addr word
+        DAT_I_2                 : in std_logic_vector (data_width_g-1 downto 0); 	               -- contains the data_in word
+        WE_I_2              	: in std_logic;                     				                         -- '1' for write, '0' for read
+        STB_I_2                 : in std_logic;                     				                         -- '1' for active bus operation, '0' for no bus operation
+        CYC_I_2                 : in std_logic;                     				                         -- '1' for bus transmition request, '0' for no bus transmition request
+        TGA_I_2                 : in std_logic_vector ((data_width_g)*(type_d_g)-1 downto 0); 	  -- contains the type word
+        TGD_I_2                 : in std_logic_vector ((data_width_g)*(len_d_g)-1 downto 0); 	   -- contains the len word
+        ACK_O_2                 : out std_logic;                      				                       -- '1' when valid data is transmited to MW or for successfull write operation 
+        DAT_O_2                 : out std_logic_vector (data_width_g-1 downto 0);   	            -- data transmit to MW
+	    STALL_O_2		        : out std_logic;
+        -- wishbone master BUS side
+        ADR_O		       	          : out std_logic_vector (Add_width_g-1 downto 0); -- contains the addr word
+        WM_DAT_O			              : out std_logic_vector (data_width_g-1 downto 0);            -- contains the data_in word
+        WE_O			                  : out std_logic;                                             -- '1' for write, '0' for read
+        STB_O			                 : out std_logic;                                             -- '1' for active bus operation, '0' for no bus operation
+        CYC_O			                 : out std_logic;                                             -- '1' for bus transmition request, '0' for no bus transmition request
+        TGA_O			                 : out std_logic_vector (type_d_g * data_width_g-1 downto 0); -- contains the type word
+        TGD_O			                 : out std_logic_vector (len_d_g * data_width_g-1 downto 0);  -- contains the len word
+        ACK_I			                 : in std_logic;                                              -- '1' when valid data is recieved from WS or for successfull write operation in WS
+        WM_DAT_I		               : in std_logic_vector (data_width_g-1 downto 0);             -- data recieved from WS
+	    STALL_I			               : in std_logic;                                              -- STALL - WS is not available for transaction 
+	    ERR_I		                  : in std_logic;                              
+        -- wishbone slave BUS side
+        ADR_I                    : in std_logic_vector (Add_width_g-1 downto 0);	   -- contains the addr word
+        DAT_I                    : in std_logic_vector (data_width_g-1 downto 0); 	               -- contains the data_in word
+        WE_I                     : in std_logic;                     				                         -- '1' for write, '0' for read
+        STB_I                    : in std_logic;                     				                         -- '1' for active bus operation, '0' for no bus operation
+        CYC_I                    : in std_logic;                     				                         -- '1' for bus transmition request, '0' for no bus transmition request
+        TGA_I                    : in std_logic_vector ((data_width_g)*(type_d_g)-1 downto 0); 	  -- contains the type word
+        TGD_I                    : in std_logic_vector ((data_width_g)*(len_d_g)-1 downto 0); 	   -- contains the len word
+        ACK_O                    : out std_logic;                      				                       -- '1' when valid data is transmited to MW or for successfull write operation 
+        DAT_O                    : out std_logic_vector (data_width_g-1 downto 0);   	            -- data transmit to MW
+	    STALL_O		                : out std_logic          	 	
+        ); 
+END COMPONENT;
+
 COMPONENT internal_logic_analyzer_core_top 
     generic (				
 		reset_polarity_g		:	std_logic	:= '1';									--'0' - Active Low Reset, '1' Active High Reset
@@ -494,17 +569,6 @@ signal ACK_I_M1_sig               :  std_logic;
 signal DAT_I_M1_sig               :  std_logic_vector (data_width_g-1 downto 0);          
 signal STALL_I_M1_sig             :  std_logic;		
 signal ERR_I_M1_sig               :  std_logic;		
--- slave signals
-signal ADR_I_S1_sig               :  std_logic_vector (Add_width_g-1 downto 0);              
-signal DAT_I_S1_sig               :  std_logic_vector (data_width_g-1 downto 0);        
-signal WE_I_S1_sig                :  std_logic;        
-signal STB_I_S1_sig               :  std_logic;           
-signal CYC_I_S1_sig               :  std_logic;              				                     
-signal TGA_I_S1_sig               :  std_logic_vector ((data_width_g)*(type_d_g)-1 downto 0);
-signal TGD_I_S1_sig               :  std_logic_vector ((data_width_g)*(len_d_g)-1 downto 0);
-signal ACK_O_S1_sig               :  std_logic;
-signal DAT_O_S1_sig               :  std_logic_vector (data_width_g-1 downto 0);  
-signal STALL_O_S1_sig             :  std_logic;   
 
 -- internal connectors signals (TX PATH to INTERCON)
 -- master signals
@@ -531,7 +595,7 @@ signal ACK_O_S2_sig               :  std_logic;
 signal DAT_O_S2_sig               :  std_logic_vector (data_width_g-1 downto 0);  
 signal STALL_O_S2_sig             :  std_logic; 
 
--- internal connectors signals (CORE to INTERCON)
+-- internal connectors signals (OUTPUT BLOCK to INTERCON)
 -- master signals
 signal ADR_O_M3_sig               :  std_logic_vector (Add_width_g-1 downto 0);           
 signal DAT_O_M3_sig               :  std_logic_vector (data_width_g-1 downto 0);          
@@ -556,6 +620,19 @@ signal ACK_O_S3_sig               :  std_logic;
 signal DAT_O_S3_sig               :  std_logic_vector (data_width_g-1 downto 0);  
 signal STALL_O_S3_sig             :  std_logic; 
 
+-- internal connectors signals (CORE to INTERCON)
+-- slave signals
+signal ADR_I_S1_sig               :  std_logic_vector (Add_width_g-1 downto 0);              
+signal DAT_I_S1_sig               :  std_logic_vector (data_width_g-1 downto 0);        
+signal WE_I_S1_sig                :  std_logic;        
+signal STB_I_S1_sig               :  std_logic;           
+signal CYC_I_S1_sig               :  std_logic;              				                     
+signal TGA_I_S1_sig               :  std_logic_vector ((data_width_g)*(type_d_g)-1 downto 0);
+signal TGD_I_S1_sig               :  std_logic_vector ((data_width_g)*(len_d_g)-1 downto 0);
+signal ACK_O_S1_sig               :  std_logic;
+signal DAT_O_S1_sig               :  std_logic_vector (data_width_g-1 downto 0);  
+signal STALL_O_S1_sig             :  std_logic;   
+
 -- internal connectors signals (SIGNAL GENERATOR to INTERCON)
 -- slave signals
 signal ADR_I_S4_sig               :  std_logic_vector (Add_width_g-1 downto 0);              
@@ -572,7 +649,21 @@ signal STALL_O_S4_sig             :  std_logic;
 -- internal connectors signals (SIGNAL GENERATOR to CORE)
 signal trigger_sig				  :  std_logic ;
 signal data_in_sig        		  :  std_logic_vector (num_of_signals_g - 1 downto 0) ;    
-  
+
+-- internal connectors signals (CORE to OUTPUT_BLOCK)
+signal wm_end_sig				  :  std_logic;
+signal ADR_O_sig               	  :  std_logic_vector (Add_width_g-1 downto 0);           
+signal DAT_O_sig               	  :  std_logic_vector (data_width_g-1 downto 0);          
+signal WE_O_sig                	  :  std_logic;            
+signal STB_O_sig               	  :  std_logic;            
+signal CYC_O_sig               	  :  std_logic;            
+signal TGA_O_sig               	  :  std_logic_vector ((data_width_g)*(type_d_g)-1 downto 0);          
+signal TGD_O_sig               	  :  std_logic_vector ((data_width_g)*(len_d_g)-1 downto 0);         
+signal ACK_I_sig               	  :  std_logic;          
+signal DAT_I_sig               	  :  std_logic_vector (data_width_g-1 downto 0);          
+signal STALL_I_sig             	  :  std_logic;		
+signal ERR_I_sig               	  :  std_logic;	
+
 -- data output (UART)
 signal uart_out_sig               :  std_logic ;
 
@@ -641,16 +732,16 @@ rx_path_unit: rx_path
 		STALL_I		   		        => 	STALL_I_M1_sig,
 		ERR_I			    		=> 	ERR_I_M1_sig,  
 		--Wishbone Slave interface
-		ADR_I               		=> 	ADR_I_S1_sig,              
-		WS_DAT_I               		=> 	DAT_I_S1_sig,           
-        WE_I               			=> 	WE_I_S1_sig,             
-        STB_I               		=> 	STB_I_S1_sig,               
-        CYC_I               		=> 	CYC_I_S1_sig,                  				                     
-        TGA_I               		=> 	TGA_I_S1_sig,
-        TGD_I               		=> 	TGD_I_S1_sig,
-        ACK_O               		=> 	ACK_O_S1_sig,
-        WS_DAT_O               		=> 	DAT_O_S1_sig,
-	    STALL_O		 	          	=> 	STALL_O_S1_sig	
+		ADR_I     		            => zero_vector_ADR_c,   
+		WS_DAT_I					=> zero_vector_DAT_c,
+		WE_I      		            => zero_bit_c,   
+		STB_I      		            => zero_bit_c,    
+		CYC_I      		            => zero_bit_c,    
+		TGA_I       		        => zero_vector_TGA_c,   
+		TGD_I       		        => zero_vector_TGD_c,   
+		ACK_O        		        => open,  
+		WS_DAT_O     		        => open,  
+		STALL_O	     		        => open	
        );    
      
     
@@ -713,8 +804,8 @@ intercon: wishbone_intercon
      ACK_I_M3                  => ACK_I_M3_sig,          
      DAT_I_M3                  => DAT_I_M3_sig,          
   	 STALL_I_M3                => STALL_I_M3_sig,		      
-	 ERR_I_M3                  => ERR_I_M3_sig,		       
-  	  --Wishbone Slave 1 interfaces (rx_path)
+	 ERR_I_M3                  => ERR_I_M3_sig,	
+	 --Wishbone Slave 1 interfaces (output block)
      ADR_I_S1                  => ADR_I_S1_sig, 
      DAT_I_S1                  => DAT_I_S1_sig,          
      WE_I_S1                   => WE_I_S1_sig,          
@@ -759,18 +850,18 @@ intercon: wishbone_intercon
      DAT_O_S4                  => DAT_O_S4_sig,          
    	 STALL_O_S4                => STALL_O_S4_sig,  
      --Wishbone Slave 5 interfaces (NOT in use) 
-     ADR_I_S5                  => open,          
-     DAT_I_S5                  => open,           
-     WE_I_S5                   => open,            
-     STB_I_S5                  => open,           
-     CYC_I_S5                  => open,           
+     ADR_I_S5                  => open,
+     DAT_I_S5                  => open,     
+     WE_I_S5                   => open,      
+     STB_I_S5                  => open,      
+     CYC_I_S5                  => open,
      TGA_I_S5                  => open,           
      TGD_I_S5                  => open,           
-     ACK_O_S5                  => zero_bit_c,            
-     DAT_O_S5                  => zero_vector_DAT_c,          
-   	 STALL_O_S5                => zero_bit_c,   
+     ACK_O_S5                  => zero_bit_c,
+     DAT_O_S5                  => zero_vector_DAT_c,
+   	 STALL_O_S5                => zero_bit_c,
      --Wishbone Slave 6 interfaces (NOT in use) 
-     ADR_I_S6                  => open,          
+     ADR_I_S6                  => open,
      DAT_I_S6                  => open,           
      WE_I_S6                   => open,            
      STB_I_S6                  => open,           
@@ -792,8 +883,7 @@ intercon: wishbone_intercon
      DAT_O_S7                  => zero_vector_DAT_c,          
    	 STALL_O_S7                => zero_bit_c  
  );
-      
-                 
+      	  
 core_inst: internal_logic_analyzer_core_top 
     GENERIC MAP (
 		reset_polarity_g		=>	reset_polarity_g,
@@ -818,37 +908,36 @@ core_inst: internal_logic_analyzer_core_top
         clk			        => 	clk,
         rst			        => 	reset,               		
 	   -- WISHBONE slave BUS interface
-        ADR_I               => 	ADR_I_S3_sig,              
-        DAT_I               => 	DAT_I_S3_sig,           
-        WE_I                => 	WE_I_S3_sig,             
-        STB_I               => 	STB_I_S3_sig,               
-        CYC_I               => 	CYC_I_S3_sig,                  				                     
-        TGA_I               => 	TGA_I_S3_sig,
-        TGD_I               => 	TGD_I_S3_sig,
-        ACK_O               => 	ACK_O_S3_sig,
-        WS_DAT_O            => 	DAT_O_S3_sig,
-	    STALL_O		        => 	STALL_O_S3_sig,
-		-- WISHBONE master BUS interface
-	    ADR_O    		    => 	ADR_O_M3_sig,      
-		WM_DAT_O   		    => 	DAT_O_M3_sig,      
-		WE_O           	    => 	WE_O_M3_sig,
-		STB_O         	    => 	STB_O_M3_sig,
-		CYC_O      		    =>	CYC_O_M3_sig,     
-		TGA_O       	    => 	TGA_O_M3_sig, 
-		TGD_O      		    => 	TGD_O_M3_sig,   
-		ACK_I       	    => 	ACK_I_M3_sig,                    
-		DAT_I_WM       	    => 	DAT_I_M3_sig, 
-		STALL_I		   		=> 	STALL_I_M3_sig,
-		ERR_I			    => 	ERR_I_M3_sig,                                           
+        ADR_I               => 	ADR_I_S1_sig,              
+        DAT_I               => 	DAT_I_S1_sig,           
+        WE_I                => 	WE_I_S1_sig,             
+        STB_I               => 	STB_I_S1_sig,               
+        CYC_I               => 	CYC_I_S1_sig,                  				                     
+        TGA_I               => 	TGA_I_S1_sig,
+        TGD_I               => 	TGD_I_S1_sig,
+        ACK_O               => 	ACK_O_S1_sig,
+        WS_DAT_O            => 	DAT_O_S1_sig,
+	    STALL_O		        => 	STALL_O_S1_sig,
+		-- DATA TO OUTPUT BLOCK (WISHBONE master BUS interface)
+	    ADR_O    		    => 	ADR_O_sig,      
+		WM_DAT_O   		    => 	DAT_O_sig,      
+		WE_O           	    => 	WE_O_sig,
+		STB_O         	    => 	STB_O_sig,
+		CYC_O      		    =>	CYC_O_sig,     
+		TGA_O       	    => 	TGA_O_sig, 
+		TGD_O      		    => 	TGD_O_sig,   
+		ACK_I       	    => 	ACK_I_sig,                    
+		DAT_I_WM       	    => 	DAT_I_sig, 
+		STALL_I		   		=> 	STALL_I_sig,
+		ERR_I			    => 	zero_bit_c,                                           
 		-- SIGNAL GENERATOR to CORE interface
 		data_in				=>	data_in_sig,
 		trigger				=>	trigger_sig,
 		-- WISHBONE MASTER control unit signals
 		TOP_active_cycle	=>	open,
 		stall				=>	zero_bit_c,
-		wm_end_out			=>	open
+		wm_end_out			=>	wm_end_sig
 	  );
-   
    
 signal_generator_inst: signal_generator_top 
     GENERIC MAP (
@@ -889,6 +978,74 @@ signal_generator_inst: signal_generator_top
 		stall				=>	zero_bit_c
         ); 
 
+output_block_unit: output_block 
+    GENERIC MAP (
+		reset_polarity_g	=> reset_polarity_g,                                           
+		byte_size_g			=> byte_size_g,       				
+		data_width_g        => data_width_g,                   
+		-- FIFO generics 
+        fifo_depth_g 		=> fifo_depth_g,  
+		fifo_log_depth_g	=> fifo_log_depth_g,  
+		fifo_almost_full_g	=> fifo_almost_full_g,	  
+		fifo_almost_empty_g =>	fifo_almost_empty_g, 	 			
+		-- WISHBONE slave generics
+--	    addr_d_g			=> addr_d_g,        
+	    len_d_g				=> len_d_g,       
+	    type_d_g			=> type_d_g,
+		-- WISHBONE master generics
+	    addr_bits_g			=> tx_path_addr_bits_g	,
+	    -- block and client hand-shake          
+	    baudrate_g			=> baudrate_g ,
+	    clkrate_g		 	=> clkrate_g ,
+	    databits_g			=> databits_g ,
+	    parity_en_g         => parity_en_g ,
+	    tx_fifo_d_g         => fifo_d_g  	    -- gets the RX path FIFO usage       	             
+		)
+    PORT MAP( 
+        clk			        => clk,        
+        reset			    => reset,         
+        -- data provider side (compressor core)
+--        data_in             => data_out_sig,          
+--        data_in_valid       => data_out_valid_sig,          	
+--        lzrw3_done          => lzrw3_done_sig,                                             
+--        client_ready        => client_ready_sig,          
+        -- data input side (compatible to WB SLAVE)
+		wm_end_2			=> wm_end_sig,
+		ADR_I_2             => ADR_O_sig,
+        DAT_I_2             => DAT_O_sig,
+        WE_I_2              => WE_O_sig,
+        STB_I_2             => STB_O_sig,
+        CYC_I_2             => CYC_O_sig,
+        TGA_I_2             => TGA_O_sig,
+        TGD_I_2             => TGD_O_sig,
+        ACK_O_2             => ACK_I_sig,
+        DAT_O_2             => DAT_I_sig,
+	    STALL_O_2		    => STALL_I_sig,
+		-- wishbone master BUS side
+        ADR_O		        => ADR_O_M3_sig, 	        
+        WM_DAT_O			=> DAT_O_M3_sig,         
+        WE_O			    => WE_O_M3_sig,       
+        STB_O			    => STB_O_M3_sig,                                        
+        CYC_O			    => CYC_O_M3_sig,                                               
+        TGA_O			    => TGA_O_M3_sig,          
+        TGD_O			    => TGD_O_M3_sig,        
+        ACK_I			    => ACK_I_M3_sig,         
+        WM_DAT_I		    => DAT_I_M3_sig,         
+	    STALL_I			    => STALL_I_M3_sig,                                                   
+	    ERR_I		        => ERR_I_M3_sig,                                      
+        -- wishbone slave BUS side
+        ADR_I               => ADR_I_S3_sig,           
+        DAT_I               => DAT_I_S3_sig,           
+        WE_I                => WE_I_S3_sig,           
+        STB_I               => STB_I_S3_sig,                               				                       
+        CYC_I               => CYC_I_S3_sig,                               				                     
+        TGA_I               => TGA_I_S3_sig,          
+        TGD_I               => TGD_I_S3_sig,           
+        ACK_O               => ACK_O_S3_sig,                       				                     
+        DAT_O               => DAT_O_S3_sig,           	            
+	    STALL_O		     	=> STALL_O_S3_sig                   	 	
+        );
+		
 tx_path_unit: tx_path  
     GENERIC MAP (
 	    reset_polarity_g	=> 	reset_polarity_g,
