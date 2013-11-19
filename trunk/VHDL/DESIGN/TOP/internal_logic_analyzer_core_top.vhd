@@ -344,10 +344,10 @@ component data_input_generic is
 end component data_input_generic;
 
 -----------------------------------------------------Constants--------------------------------------------------------------------------
-constant len_of_data_c		: std_logic_vector (len_d_g * data_width_g - 1 downto 0)	:= std_logic_vector(to_unsigned( (2**record_depth_g) - 1 , len_d_g * data_width_g));
-constant type_of_TX_ws_c	: std_logic_vector ((data_width_g)*(type_d_g)-1 downto 0)	:= std_logic_vector(to_unsigned( 2 , type_d_g * data_width_g));
-constant type_of_CORE_ws_c	: std_logic_vector ((data_width_g)*(type_d_g)-1 downto 0)	:= std_logic_vector(to_unsigned( 3 , type_d_g * data_width_g));
-constant size_of_register_c	: integer range 0 to 7 := 7;
+constant len_of_data_c				: std_logic_vector (len_d_g * data_width_g - 1 downto 0)	:= std_logic_vector(to_unsigned( (2**record_depth_g) - 1 , len_d_g * data_width_g));
+constant type_of_OUTPUT_BLOCK_ws_c	: std_logic_vector ((data_width_g)*(type_d_g)-1 downto 0)	:= std_logic_vector(to_unsigned( 4 , type_d_g * data_width_g));
+--constant type_of_CORE_ws_c			: std_logic_vector ((data_width_g)*(type_d_g)-1 downto 0)	:= std_logic_vector(to_unsigned( 3 , type_d_g * data_width_g));
+constant size_of_register_c			: integer range 0 to 7 := 7;
 -----------------------------------------------------Types------------------------------------------------------------------------------
 
 ----------------------   Signals   ------------------------------
@@ -474,7 +474,7 @@ wishbone_master_inst : wishbone_master generic map (
 											--control unit signals
 											wm_start		=> write_controller_finish_s,								--when '1' WM starts a transaction
 											wr				=> '1',                      			--determines if the WM will make a read('0') or write('1') transaction
-											type_in			=> type_of_TX_ws_c,  								--type is the client which the data is directed to
+											type_in			=> type_of_OUTPUT_BLOCK_ws_c,  								--type is the client which the data is directed to
 											len_in			=> len_of_data_c,  								--length of the data (in words)
 											addr_in			=> (others => '0'),  								--the address in the client(registers) that the information will be written to
 											ram_start_addr	=> (others => '0'),
@@ -485,13 +485,17 @@ wishbone_master_inst : wishbone_master generic map (
 											ram_dout_valid	=> open,
 											ram_aout		=> open,
 											ram_aout_valid	=> open,
-											ram_din			=> data_from_cordinator_to_wm_s,	--DAT_O
-											ram_din_valid	=> data_from_cordinator_to_wm_valid_s,
+--											ram_din			=> data_from_cordinator_to_wm_s,	--DAT_O
+--											ram_din_valid	=> data_from_cordinator_to_wm_valid_s,
+											ram_din			=> (others => '0'),
+											ram_din_valid	=> '0',
 											--bus side signals
 											ADR_O			=> ADR_O, 							--contains the addr word
-											DAT_O			=> WM_DAT_O, 							--contains the data_in word
+--											DAT_O			=> WM_DAT_O, 							--contains the data_in word
+											DAT_O			=> open,
 											WE_O			=> WE_O,                     		-- '1' for write, '0' for read
-											STB_O			=> STB_O,                     		-- '1' for active bus operation, '0' for no bus operation
+--											STB_O			=> STB_O,                     		-- '1' for active bus operation, '0' for no bus operation
+											STB_O			=> open,
 											CYC_O			=> CYC_O,                     		-- '1' for bus transmition request, '0' for no bus transmition request
 											TGA_O			=> TGA_O, 							--contains the type word
 											TGD_O			=> TGD_O, 							--contains the len word
@@ -502,7 +506,6 @@ wishbone_master_inst : wishbone_master generic map (
 											);				
 											
 core_registers_inst : core_registers generic map (
-
 											reset_polarity_g					=>	reset_polarity_g,
 											enable_polarity_g					=>	enable_polarity_g,
 											data_width_g           		   		=>	data_width_g,
@@ -585,5 +588,9 @@ data_out_size_inst: in_out_cordinator_generic generic map (
 						
 						
 -------------------------------------------------  processes ------------------------------------------------------------
+
+data_out_proc:
+WM_DAT_O 	<= data_from_cordinator_to_wm_s;
+STB_O		<= data_from_cordinator_to_wm_valid_s;
 
 end architecture arc_core;
