@@ -186,7 +186,7 @@ end process st_en_sample_proc;
 wm_ws_proc:
 wm_start	<= '1' when ws_read_req_st_en_sample='1' and wm_read_st_en = '1' else '0';
 wr			<= '0';		
-type_in		<= "00000100"; -- type 4 --type_reg;
+type_in		<= "00000011"; -- type 4 --type_reg;									---------------------------------------------------------------CHANGED TO 3 (OUTPUT BLOCK)!!!!!!!
 addr_in		<= (others => '0');--addr_reg;
 len_in		<= len_reg;
 ram_start_addr	<= (others => '0');

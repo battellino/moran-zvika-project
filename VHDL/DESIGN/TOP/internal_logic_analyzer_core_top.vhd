@@ -478,7 +478,8 @@ wishbone_master_inst : wishbone_master generic map (
 											len_in			=> len_of_data_c,  								--length of the data (in words)
 											addr_in			=> (others => '0'),  								--the address in the client(registers) that the information will be written to
 											ram_start_addr	=> (others => '0'),
-											wm_end			=> wm_end_out, 								--when '1' WM ended a transaction or reseted by watchdog ERR_I signal
+--											wm_end			=> wm_end_out, 								--when '1' WM ended a transaction or reseted by watchdog ERR_I signal
+											wm_end			=> open,
 											--RAM signals
 											ram_addr		=> open,
 											ram_dout		=> open,
@@ -592,5 +593,6 @@ data_out_size_inst: in_out_cordinator_generic generic map (
 data_out_proc:
 WM_DAT_O 	<= data_from_cordinator_to_wm_s;
 STB_O		<= data_from_cordinator_to_wm_valid_s;
+wm_end_out	<= read_controller_finish_s;
 
 end architecture arc_core;
