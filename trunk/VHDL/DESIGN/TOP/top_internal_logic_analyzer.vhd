@@ -165,7 +165,7 @@ COMPONENT rx_path is
 		ERR_I			       : in std_logic;                                                -- Watchdog interrupts, resets wishbone master	
 		--Wishbone Slave interface
 		ADR_I          : in std_logic_vector (Add_width_g-1 downto 0);	 -- contains the addr word
-		WS_DAT_I 	   : in std_logic_vector (data_width_g-1 downto 0);
+--		WS_DAT_I 	   : in std_logic_vector (data_width_g-1 downto 0);
 		WE_I           : in std_logic;                     			                       	-- '1' for write, '0' for read
 		STB_I          : in std_logic;                     				                       -- '1' for active bus operation, '0' for no bus operation
 		CYC_I          : in std_logic;                     				                       -- '1' for bus transmition request, '0' for no bus transmition request
@@ -285,7 +285,7 @@ COMPONENT wishbone_intercon is
 		DAT_I_M3          : out std_logic_vector (data_width_g-1 downto 0);           -- data recieved from WS
 		STALL_I_M3		      : out std_logic;                                            -- STALL - WS is not available for transaction 
 		ERR_I_M3		        : out std_logic;                                            -- Watchdog interrupts, resets wishbone master	
-		--Wishbone Slave 1 interfaces (core)
+		--Wishbone Slave 1 interfaces (rx_path)
 		ADR_I_S1          : out std_logic_vector (Add_width_g-1 downto 0);	 --contains the address word
 		DAT_I_S1          : out std_logic_vector (data_width_g-1 downto 0); 	             --contains the data_in word
 		WE_I_S1           : out std_logic;                     				                       -- '1' for write, '0' for read
@@ -329,7 +329,7 @@ COMPONENT wishbone_intercon is
 		ACK_O_S4          : in std_logic;                      				                       --'1' when valid data is transmited to MW or for successfull write operation 
 		DAT_O_S4          : in std_logic_vector (data_width_g-1 downto 0);   	            --data transmit to MW
 		STALL_O_S4        : in std_logic;                                                 	--STALL - WS is not available for transaction    
-		--Wishbone Slave 5 interfaces (not in use)
+		--Wishbone Slave 5 interfaces (core)
 		ADR_I_S5          : out std_logic_vector (Add_width_g-1 downto 0);	 --contains the address word
 		DAT_I_S5          : out std_logic_vector (data_width_g-1 downto 0); 	             --contains the data_in word
 		WE_I_S5           : out std_logic;                     				                       -- '1' for write, '0' for read
@@ -569,6 +569,17 @@ signal ACK_I_M1_sig               :  std_logic;
 signal DAT_I_M1_sig               :  std_logic_vector (data_width_g-1 downto 0);          
 signal STALL_I_M1_sig             :  std_logic;		
 signal ERR_I_M1_sig               :  std_logic;		
+-- slave signals
+signal ADR_I_S1_sig               :  std_logic_vector (Add_width_g-1 downto 0);              
+signal DAT_I_S1_sig               :  std_logic_vector (data_width_g-1 downto 0);        
+signal WE_I_S1_sig                :  std_logic;        
+signal STB_I_S1_sig               :  std_logic;           
+signal CYC_I_S1_sig               :  std_logic;              				                     
+signal TGA_I_S1_sig               :  std_logic_vector ((data_width_g)*(type_d_g)-1 downto 0);
+signal TGD_I_S1_sig               :  std_logic_vector ((data_width_g)*(len_d_g)-1 downto 0);
+signal ACK_O_S1_sig               :  std_logic;
+signal DAT_O_S1_sig               :  std_logic_vector (data_width_g-1 downto 0);  
+signal STALL_O_S1_sig             :  std_logic;   
 
 -- internal connectors signals (TX PATH to INTERCON)
 -- master signals
@@ -622,16 +633,16 @@ signal STALL_O_S3_sig             :  std_logic;
 
 -- internal connectors signals (CORE to INTERCON)
 -- slave signals
-signal ADR_I_S1_sig               :  std_logic_vector (Add_width_g-1 downto 0);              
-signal DAT_I_S1_sig               :  std_logic_vector (data_width_g-1 downto 0);        
-signal WE_I_S1_sig                :  std_logic;        
-signal STB_I_S1_sig               :  std_logic;           
-signal CYC_I_S1_sig               :  std_logic;              				                     
-signal TGA_I_S1_sig               :  std_logic_vector ((data_width_g)*(type_d_g)-1 downto 0);
-signal TGD_I_S1_sig               :  std_logic_vector ((data_width_g)*(len_d_g)-1 downto 0);
-signal ACK_O_S1_sig               :  std_logic;
-signal DAT_O_S1_sig               :  std_logic_vector (data_width_g-1 downto 0);  
-signal STALL_O_S1_sig             :  std_logic;   
+signal ADR_I_S5_sig               :  std_logic_vector (Add_width_g-1 downto 0);              
+signal DAT_I_S5_sig               :  std_logic_vector (data_width_g-1 downto 0);        
+signal WE_I_S5_sig                :  std_logic;        
+signal STB_I_S5_sig               :  std_logic;           
+signal CYC_I_S5_sig               :  std_logic;              				                     
+signal TGA_I_S5_sig               :  std_logic_vector ((data_width_g)*(type_d_g)-1 downto 0);
+signal TGD_I_S5_sig               :  std_logic_vector ((data_width_g)*(len_d_g)-1 downto 0);
+signal ACK_O_S5_sig               :  std_logic;
+signal DAT_O_S5_sig               :  std_logic_vector (data_width_g-1 downto 0);  
+signal STALL_O_S5_sig             :  std_logic;   
 
 -- internal connectors signals (SIGNAL GENERATOR to INTERCON)
 -- slave signals
@@ -732,19 +743,17 @@ rx_path_unit: rx_path
 		STALL_I		   		        => 	STALL_I_M1_sig,
 		ERR_I			    		=> 	ERR_I_M1_sig,  
 		--Wishbone Slave interface
-		ADR_I     		            => zero_vector_ADR_c,   
-		WS_DAT_I					=> zero_vector_DAT_c,
-		WE_I      		            => zero_bit_c,   
-		STB_I      		            => zero_bit_c,    
-		CYC_I      		            => zero_bit_c,    
-		TGA_I       		        => zero_vector_TGA_c,   
-		TGD_I       		        => zero_vector_TGD_c,   
-		ACK_O        		        => open,  
-		WS_DAT_O     		        => open,  
-		STALL_O	     		        => open	
-       );    
-     
-    
+		ADR_I     		            => ADR_I_S1_sig,   
+--		WS_DAT_I					=> DAT_I_S1_sig,
+		WE_I      		            => WE_I_S1_sig,   
+		STB_I      		            => STB_I_S1_sig,    
+		CYC_I      		            => CYC_I_S1_sig,    
+		TGA_I       		        => TGA_I_S1_sig,   
+		TGD_I       		        => TGD_I_S1_sig,   
+		ACK_O        		        => ACK_O_S1_sig,  
+		WS_DAT_O     		        => DAT_O_S1_sig,  
+		STALL_O	     		        => STALL_O_S1_sig	
+       );      
   
 intercon: wishbone_intercon 
   GENERIC MAP (
@@ -793,7 +802,7 @@ intercon: wishbone_intercon
      DAT_I_M2                  => DAT_I_M2_sig,          
 	 STALL_I_M2                => STALL_I_M2_sig,		      
 	 ERR_I_M2                  => ERR_I_M2_sig,		        
-     --Wishbone Master 3 interfaces (CORE) 
+     --Wishbone Master 3 interfaces (output block) 
      ADR_O_M3                  => ADR_O_M3_sig,          
      DAT_O_M3                  => DAT_O_M3_sig,         
      WE_O_M3                   => WE_O_M3_sig,          
@@ -805,7 +814,7 @@ intercon: wishbone_intercon
      DAT_I_M3                  => DAT_I_M3_sig,          
   	 STALL_I_M3                => STALL_I_M3_sig,		      
 	 ERR_I_M3                  => ERR_I_M3_sig,	
-	 --Wishbone Slave 1 interfaces (output block)
+	 --Wishbone Slave 1 interfaces (rx_path)
      ADR_I_S1                  => ADR_I_S1_sig, 
      DAT_I_S1                  => DAT_I_S1_sig,          
      WE_I_S1                   => WE_I_S1_sig,          
@@ -827,7 +836,7 @@ intercon: wishbone_intercon
      ACK_O_S2                  => ACK_O_S2_sig,            
      DAT_O_S2                  => DAT_O_S2_sig,          
    	 STALL_O_S2                => STALL_O_S2_sig,         
-     --Wishbone Slave 3 interfaces (CORE) 
+     --Wishbone Slave 3 interfaces (output block) 
      ADR_I_S3                  => ADR_I_S3_sig,          
      DAT_I_S3                  => DAT_I_S3_sig,           
      WE_I_S3                   => WE_I_S3_sig,            
@@ -849,17 +858,17 @@ intercon: wishbone_intercon
      ACK_O_S4                  => ACK_O_S4_sig,            
      DAT_O_S4                  => DAT_O_S4_sig,          
    	 STALL_O_S4                => STALL_O_S4_sig,  
-     --Wishbone Slave 5 interfaces (NOT in use) 
-     ADR_I_S5                  => open,
-     DAT_I_S5                  => open,     
-     WE_I_S5                   => open,      
-     STB_I_S5                  => open,      
-     CYC_I_S5                  => open,
-     TGA_I_S5                  => open,           
-     TGD_I_S5                  => open,           
-     ACK_O_S5                  => zero_bit_c,
-     DAT_O_S5                  => zero_vector_DAT_c,
-   	 STALL_O_S5                => zero_bit_c,
+     --Wishbone Slave 5 interfaces (CORE) 
+     ADR_I_S5                  => ADR_I_S5_sig,
+     DAT_I_S5                  => DAT_I_S5_sig,     
+     WE_I_S5                   => WE_I_S5_sig,      
+     STB_I_S5                  => STB_I_S5_sig,      
+     CYC_I_S5                  => CYC_I_S5_sig,
+     TGA_I_S5                  => TGA_I_S5_sig,           
+     TGD_I_S5                  => TGD_I_S5_sig,           
+     ACK_O_S5                  => ACK_O_S5_sig,
+     DAT_O_S5                  => DAT_O_S5_sig,
+   	 STALL_O_S5                => STALL_O_S5_sig,
      --Wishbone Slave 6 interfaces (NOT in use) 
      ADR_I_S6                  => open,
      DAT_I_S6                  => open,           
@@ -908,16 +917,16 @@ core_inst: internal_logic_analyzer_core_top
         clk			        => 	clk,
         rst			        => 	reset,               		
 	   -- WISHBONE slave BUS interface
-        ADR_I               => 	ADR_I_S1_sig,              
-        DAT_I               => 	DAT_I_S1_sig,           
-        WE_I                => 	WE_I_S1_sig,             
-        STB_I               => 	STB_I_S1_sig,               
-        CYC_I               => 	CYC_I_S1_sig,                  				                     
-        TGA_I               => 	TGA_I_S1_sig,
-        TGD_I               => 	TGD_I_S1_sig,
-        ACK_O               => 	ACK_O_S1_sig,
-        WS_DAT_O            => 	DAT_O_S1_sig,
-	    STALL_O		        => 	STALL_O_S1_sig,
+        ADR_I               => 	ADR_I_S5_sig,              
+        DAT_I               => 	DAT_I_S5_sig,           
+        WE_I                => 	WE_I_S5_sig,             
+        STB_I               => 	STB_I_S5_sig,               
+        CYC_I               => 	CYC_I_S5_sig,                  				                     
+        TGA_I               => 	TGA_I_S5_sig,
+        TGD_I               => 	TGD_I_S5_sig,
+        ACK_O               => 	ACK_O_S5_sig,
+        WS_DAT_O            => 	DAT_O_S5_sig,
+	    STALL_O		        => 	STALL_O_S5_sig,
 		-- DATA TO OUTPUT BLOCK (WISHBONE master BUS interface)
 	    ADR_O    		    => 	ADR_O_sig,      
 		WM_DAT_O   		    => 	DAT_O_sig,      
