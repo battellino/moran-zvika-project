@@ -285,7 +285,7 @@ COMPONENT wishbone_intercon is
 		DAT_I_M3          : out std_logic_vector (data_width_g-1 downto 0);           -- data recieved from WS
 		STALL_I_M3		      : out std_logic;                                            -- STALL - WS is not available for transaction 
 		ERR_I_M3		        : out std_logic;                                            -- Watchdog interrupts, resets wishbone master	
-		--Wishbone Slave 1 interfaces (rx_path)
+		--Wishbone Slave 1 interfaces (core)
 		ADR_I_S1          : out std_logic_vector (Add_width_g-1 downto 0);	 --contains the address word
 		DAT_I_S1          : out std_logic_vector (data_width_g-1 downto 0); 	             --contains the data_in word
 		WE_I_S1           : out std_logic;                     				                       -- '1' for write, '0' for read
@@ -329,7 +329,7 @@ COMPONENT wishbone_intercon is
 		ACK_O_S4          : in std_logic;                      				                       --'1' when valid data is transmited to MW or for successfull write operation 
 		DAT_O_S4          : in std_logic_vector (data_width_g-1 downto 0);   	            --data transmit to MW
 		STALL_O_S4        : in std_logic;                                                 	--STALL - WS is not available for transaction    
-		--Wishbone Slave 5 interfaces (core)
+		--Wishbone Slave 5 interfaces (not in use)
 		ADR_I_S5          : out std_logic_vector (Add_width_g-1 downto 0);	 --contains the address word
 		DAT_I_S5          : out std_logic_vector (data_width_g-1 downto 0); 	             --contains the data_in word
 		WE_I_S5           : out std_logic;                     				                       -- '1' for write, '0' for read
@@ -743,17 +743,19 @@ rx_path_unit: rx_path
 		STALL_I		   		        => 	STALL_I_M1_sig,
 		ERR_I			    		=> 	ERR_I_M1_sig,  
 		--Wishbone Slave interface
-		ADR_I     		            => ADR_I_S1_sig,   
---		WS_DAT_I					=> DAT_I_S1_sig,
-		WE_I      		            => WE_I_S1_sig,   
-		STB_I      		            => STB_I_S1_sig,    
-		CYC_I      		            => CYC_I_S1_sig,    
-		TGA_I       		        => TGA_I_S1_sig,   
-		TGD_I       		        => TGD_I_S1_sig,   
-		ACK_O        		        => ACK_O_S1_sig,  
-		WS_DAT_O     		        => DAT_O_S1_sig,  
-		STALL_O	     		        => STALL_O_S1_sig	
-       );      
+		ADR_I               		=> ADR_I_S1_sig,           
+--        DAT_I              		 	=> DAT_I_S1_sig,           
+        WE_I                		=> WE_I_S1_sig,           
+        STB_I              	 		=> STB_I_S1_sig,                               				                       
+        CYC_I               		=> CYC_I_S1_sig,                               				                     
+        TGA_I               		=> TGA_I_S1_sig,          
+        TGD_I               		=> TGD_I_S1_sig,           
+        ACK_O               		=> ACK_O_S1_sig,                       				                     
+        WS_DAT_O               		=> DAT_O_S1_sig,           	            
+	    STALL_O		     			=> STALL_O_S1_sig 
+       );    
+     
+    
   
 intercon: wishbone_intercon 
   GENERIC MAP (
@@ -816,7 +818,7 @@ intercon: wishbone_intercon
 	 ERR_I_M3                  => ERR_I_M3_sig,	
 	 --Wishbone Slave 1 interfaces (rx_path)
      ADR_I_S1                  => ADR_I_S1_sig, 
-     DAT_I_S1                  => DAT_I_S1_sig,          
+--     DAT_I_S1                  => DAT_I_S1_sig,          
      WE_I_S1                   => WE_I_S1_sig,          
      STB_I_S1                  => STB_I_S1_sig,       
      CYC_I_S1                  => CYC_I_S1_sig,        
@@ -866,8 +868,8 @@ intercon: wishbone_intercon
      CYC_I_S5                  => CYC_I_S5_sig,
      TGA_I_S5                  => TGA_I_S5_sig,           
      TGD_I_S5                  => TGD_I_S5_sig,           
-     ACK_O_S5                  => ACK_O_S5_sig,
-     DAT_O_S5                  => DAT_O_S5_sig,
+     ACK_O_S5                  => ACK_O_S5_sig,            
+     DAT_O_S5                  => DAT_O_S5_sig,          
    	 STALL_O_S5                => STALL_O_S5_sig,
      --Wishbone Slave 6 interfaces (NOT in use) 
      ADR_I_S6                  => open,

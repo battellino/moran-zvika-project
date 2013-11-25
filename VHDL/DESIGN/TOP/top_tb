@@ -1,5 +1,4 @@
 vcom write_controller_pkg.vhd
-vcom ram_generic_pkg.vhd
 vcom in_big_out_cordinator.vhd
 vcom in_equal_out_cordinator.vhd
 vcom in_small_out_cordinator.vhd
@@ -8,6 +7,7 @@ vcom data_input_big.vhd
 vcom data_input_small.vhd
 vcom data_input_generic.vhd
 vcom write_controller.vhd
+vcom ram_generic_pkg.vhd
 vcom mux_generic.vhd
 vcom dec_generic.vhd
 vcom ram_simple.vhd
@@ -17,6 +17,7 @@ vcom wishbone_master.vhd
 vcom wishbone_slave.vhd
 vcom core_registers.vhd
 vcom enable_fsm.vhd
+vcom internal_logic_analyzer_core_top.vhd
 vcom crc_gen.vhd
 vcom dec_generic.vhd
 vcom error_register.vhd
@@ -36,7 +37,6 @@ vcom wishbone_intercon.vhd
 vcom rx_path.vhd
 vcom tx_path.vhd
 vcom uart_trans_gen_model.vhd
-vcom internal_logic_analyzer_core_top.vhd
 vcom top_internal_logic_analyzer.vhd
 vcom top_internal_logic_analyzer_tb.vhd
 vsim top_internal_logic_analyzer_tb
@@ -88,8 +88,7 @@ add wave /top_internal_logic_analyzer_TB/uut/intercon/STALL_O_S3
 
 -------- TX
 ---bus_to_enc_fsm_inst
-add wave /top_internal_logic_analyzer_TB/uut/tx_path_unit/bus_to_enc_fsm_inst/clk
-add wave /top_internal_logic_analyzer_TB/uut/tx_path_unit/bus_to_enc_fsm_inst/reset
+
 add wave /top_internal_logic_analyzer_TB/uut/tx_path_unit/bus_to_enc_fsm_inst/typ
 add wave /top_internal_logic_analyzer_TB/uut/tx_path_unit/bus_to_enc_fsm_inst/addr
 add wave /top_internal_logic_analyzer_TB/uut/tx_path_unit/bus_to_enc_fsm_inst/ws_data
@@ -130,4 +129,9 @@ add wave /top_internal_logic_analyzer_TB/uut/tx_path_unit/wb_slave_inst/reg_data
 add wave /top_internal_logic_analyzer_TB/uut/tx_path_unit/wb_slave_inst/active_cycle
 add wave /top_internal_logic_analyzer_TB/uut/tx_path_unit/wb_slave_inst/stall
 
-run 5800000 ns
+---------OUTPUT BLOCK
+add wave /top_internal_logic_analyzer_TB/uut/output_block_unit/data_in_sig
+add wave /top_internal_logic_analyzer_TB/uut/output_block_unit/data_in_valid_sig
+
+
+run 3600000 ns
