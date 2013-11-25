@@ -629,7 +629,7 @@ ram_start_addr_sig  <= (others => '0') ;
 
 data_in_sig       <= DAT_I_2 ;       
 data_in_valid_sig <= STB_I_2 ;     	 	     
-
+--TGD_I_2				<= std_logic_vector(to_unsigned( 3 , type_d_g * data_width_g));
 
 -- OUTPUT BLOCK - BUS interface connections
 

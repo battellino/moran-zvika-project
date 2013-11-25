@@ -48,7 +48,7 @@ port   (
 	sys_reset     		 : in std_logic;		 	--system reset
 	
 	----input and output to SLAVE TX from master RX
-	DAT_I_S				:in std_logic_vector (data_width_g-1 downto 0) ; 
+	DAT_I_S					:in std_logic_vector (data_width_g-1 downto 0) ; 
 	ADR_I_S_TX				:in std_logic_vector (Add_width_g-1 downto 0) ; 
 	TGA_I_S_TX				:in std_logic_vector ((data_width_g)*(type_d_g)-1 downto 0) ; 	--TYPE
 	TGD_I_S_TX				:in std_logic_vector ((data_width_g)*(len_d_g)-1 downto 0) ; 			--LEN
@@ -404,7 +404,7 @@ signal fifo_wr_en_sig      :std_logic;
 
 
 
-
+signal     TGA_O_CLIENT_s          	:  std_logic_vector ((data_width_g)*(type_d_g)-1 downto 0) ;
 	 
 
  
@@ -653,13 +653,16 @@ wishbone_master_inst : wishbone_master
     WE_O       => WE_O_CLIENT,    
     STB_O      => STB_O_CLIENT,    
     CYC_O      => CYC_O_CLIENT,    
-    TGA_O      => TGA_O_CLIENT,    
+    TGA_O      => TGA_O_CLIENT_s,    
     TGD_O      => TGD_O_CLIENT,   
     ACK_I      => ACK_I_CLIENT,    
     DAT_I      => DAT_I_CLIENT,
     STALL_I	   => STALL_I_CLIENT,
 	ERR_I	   => ERR_I_CLIENT
 );
-				
+
+TGA_PROC :
+TGA_O_CLIENT <= "00000011";
+
 end architecture arc_tx_path;			
 			

@@ -48,7 +48,7 @@ use std.textio.all;
 		-- core generics
 	    signal_ram_depth_g				: positive  :=	3;									--depth of RAM
 		signal_ram_width_g				: positive 	:=  8;   								--width of basic RAM
-		record_depth_g					: positive  :=	4;									--number of bits that is recorded from each signal
+		record_depth_g					: positive  :=	3;									--number of bits that is recorded from each signal
 		data_width_g            		: positive 	:= 	8;      						    --defines the width of the data lines of the system
 		Add_width_g  		    		: positive 	:=  8;     								--width of address word in the WB
 		num_of_signals_g				: positive	:=	8;									--number of signals that will be recorded simultaneously	(Width of data)

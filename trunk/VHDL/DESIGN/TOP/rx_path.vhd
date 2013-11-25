@@ -83,6 +83,7 @@ entity rx_path is
 		ERR_I			       		: in std_logic;                                                -- Watchdog interrupts, resets wishbone master	
 		--Wishbone Slave interface
 		ADR_I          				: in std_logic_vector (Add_width_g-1 downto 0);	 -- contains the addr word
+--		WS_DAT_I       				: in std_logic_vector (data_width_g-1 downto 0);
 		WE_I           				: in std_logic;                     			                       	-- '1' for write, '0' for read
 		STB_I          				: in std_logic;                     				                       -- '1' for active bus operation, '0' for no bus operation
 		CYC_I          				: in std_logic;                     				                       -- '1' for bus transmition request, '0' for no bus transmition request

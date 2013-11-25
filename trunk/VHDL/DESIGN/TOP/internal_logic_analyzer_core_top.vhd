@@ -594,5 +594,5 @@ data_out_proc:
 WM_DAT_O 	<= data_from_cordinator_to_wm_s;
 STB_O		<= data_from_cordinator_to_wm_valid_s;
 wm_end_out	<= read_controller_finish_s;
-
+TGD_O 		<= std_logic_vector(to_unsigned( 2 , type_d_g * data_width_g));
 end architecture arc_core;
