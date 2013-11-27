@@ -1,0 +1,138 @@
+vcom write_controller_pkg.vhd
+vcom in_big_out_cordinator.vhd
+vcom in_equal_out_cordinator.vhd
+vcom in_small_out_cordinator.vhd
+vcom in_out_cordinator_generic.vhd
+vcom data_input_big.vhd
+vcom data_input_small.vhd
+vcom data_input_generic.vhd
+vcom write_controller.vhd
+vcom ram_generic_pkg.vhd
+vcom mux_generic.vhd
+vcom dec_generic.vhd
+vcom ram_simple.vhd
+vcom ram_generic.vhd
+vcom read_controller.vhd
+vcom wishbone_master.vhd
+vcom wishbone_slave.vhd
+vcom core_registers.vhd
+vcom enable_fsm.vhd
+vcom internal_logic_analyzer_core_top.vhd
+vcom crc_gen.vhd
+vcom dec_generic.vhd
+vcom error_register.vhd
+vcom general_fifo.vhd
+vcom mp_dec.vhd
+vcom mp_enc.vhd
+vcom mux_generic.vhd
+vcom signal_generator_registers.vhd
+vcom signal_generator.vhd
+vcom signal_generator_top.vhd
+vcom timer.vhd
+vcom general_fifo.vhd
+vcom output_block.vhd
+vcom uart_rx.vhd
+vcom uart_tx.vhd
+vcom bus_to_enc_fsm.vhd
+vcom wishbone_intercon.vhd
+vcom rx_path.vhd
+vcom tx_path.vhd
+vcom uart_trans_gen_model.vhd
+vcom top_internal_logic_analyzer.vhd
+vcom top_internal_logic_analyzer_tb.vhd
+vsim top_internal_logic_analyzer_tb
+
+add wave *
+
+-------- mp_dec
+add wave /top_internal_logic_analyzer_TB/uut/rx_path_unit/mp_dec_inst/crc_err
+add wave /top_internal_logic_analyzer_TB/uut/rx_path_unit/mp_dec_inst/din
+add wave /top_internal_logic_analyzer_TB/uut/rx_path_unit/mp_dec_inst/valid
+add wave /top_internal_logic_analyzer_TB/uut/rx_path_unit/mp_dec_inst/crc_in_val
+add wave /top_internal_logic_analyzer_TB/uut/rx_path_unit/mp_dec_inst/crc_in
+add wave /top_internal_logic_analyzer_TB/uut/rx_din
+
+-------- core
+add wave /top_internal_logic_analyzer_TB/uut/core_inst/core_registers_inst/trigger_type_reg_1
+add wave /top_internal_logic_analyzer_TB/uut/core_inst/core_registers_inst/trigger_position_reg_2
+add wave /top_internal_logic_analyzer_TB/uut/core_inst/core_registers_inst/enable_reg_4
+add wave /top_internal_logic_analyzer_TB/uut/signal_generator_inst/registers_inst/scene_number_reg_1
+add wave /top_internal_logic_analyzer_TB/uut/signal_generator_inst/registers_inst/enable_reg_2
+
+-------- TOP
+add wave /top_internal_logic_analyzer_TB/uut/wm_end_sig
+add wave /top_internal_logic_analyzer_TB/uut/DAT_O_sig
+add wave /top_internal_logic_analyzer_TB/uut/STB_O_sig
+
+-------- wishbone intercon
+add wave /top_internal_logic_analyzer_TB/uut/intercon/ADR_O_M2
+add wave /top_internal_logic_analyzer_TB/uut/intercon/DAT_O_M2
+add wave /top_internal_logic_analyzer_TB/uut/intercon/WE_O_M2
+add wave /top_internal_logic_analyzer_TB/uut/intercon/STB_O_M2
+add wave /top_internal_logic_analyzer_TB/uut/intercon/CYC_O_M2
+add wave /top_internal_logic_analyzer_TB/uut/intercon/TGA_O_M2
+add wave /top_internal_logic_analyzer_TB/uut/intercon/TGD_O_M2
+add wave /top_internal_logic_analyzer_TB/uut/intercon/ACK_I_M2
+add wave /top_internal_logic_analyzer_TB/uut/intercon/DAT_I_M2
+add wave /top_internal_logic_analyzer_TB/uut/intercon/STALL_I_M2
+add wave /top_internal_logic_analyzer_TB/uut/intercon/ERR_I_M2
+add wave /top_internal_logic_analyzer_TB/uut/intercon/ADR_I_S3
+add wave /top_internal_logic_analyzer_TB/uut/intercon/DAT_I_S3
+add wave /top_internal_logic_analyzer_TB/uut/intercon/WE_I_S3
+add wave /top_internal_logic_analyzer_TB/uut/intercon/STB_I_S3
+add wave /top_internal_logic_analyzer_TB/uut/intercon/CYC_I_S3
+add wave /top_internal_logic_analyzer_TB/uut/intercon/TGA_I_S3
+add wave /top_internal_logic_analyzer_TB/uut/intercon/TGD_I_S3
+add wave /top_internal_logic_analyzer_TB/uut/intercon/ACK_O_S3
+add wave /top_internal_logic_analyzer_TB/uut/intercon/DAT_O_S3
+add wave /top_internal_logic_analyzer_TB/uut/intercon/STALL_O_S3
+
+-------- TX
+---bus_to_enc_fsm_inst
+
+add wave /top_internal_logic_analyzer_TB/uut/tx_path_unit/bus_to_enc_fsm_inst/typ
+add wave /top_internal_logic_analyzer_TB/uut/tx_path_unit/bus_to_enc_fsm_inst/addr
+add wave /top_internal_logic_analyzer_TB/uut/tx_path_unit/bus_to_enc_fsm_inst/ws_data
+add wave /top_internal_logic_analyzer_TB/uut/tx_path_unit/bus_to_enc_fsm_inst/ws_data_valid
+add wave /top_internal_logic_analyzer_TB/uut/tx_path_unit/bus_to_enc_fsm_inst/active_cycle
+add wave /top_internal_logic_analyzer_TB/uut/tx_path_unit/bus_to_enc_fsm_inst/stall
+add wave /top_internal_logic_analyzer_TB/uut/tx_path_unit/bus_to_enc_fsm_inst/wm_start
+add wave /top_internal_logic_analyzer_TB/uut/tx_path_unit/bus_to_enc_fsm_inst/wr
+add wave /top_internal_logic_analyzer_TB/uut/tx_path_unit/bus_to_enc_fsm_inst/type_in
+add wave /top_internal_logic_analyzer_TB/uut/tx_path_unit/bus_to_enc_fsm_inst/len_in
+add wave /top_internal_logic_analyzer_TB/uut/tx_path_unit/bus_to_enc_fsm_inst/addr_in
+add wave /top_internal_logic_analyzer_TB/uut/tx_path_unit/bus_to_enc_fsm_inst/ram_start_addr
+add wave /top_internal_logic_analyzer_TB/uut/tx_path_unit/bus_to_enc_fsm_inst/wm_end
+add wave /top_internal_logic_analyzer_TB/uut/tx_path_unit/bus_to_enc_fsm_inst/reg_ready
+add wave /top_internal_logic_analyzer_TB/uut/tx_path_unit/bus_to_enc_fsm_inst/type_mp_enc
+add wave /top_internal_logic_analyzer_TB/uut/tx_path_unit/bus_to_enc_fsm_inst/addr_mp_enc
+add wave /top_internal_logic_analyzer_TB/uut/tx_path_unit/bus_to_enc_fsm_inst/len_mp_enc
+add wave /top_internal_logic_analyzer_TB/uut/tx_path_unit/bus_to_enc_fsm_inst/mp_done
+---SALVE
+add wave /top_internal_logic_analyzer_TB/uut/tx_path_unit/wb_slave_inst/ADR_I
+add wave /top_internal_logic_analyzer_TB/uut/tx_path_unit/wb_slave_inst/DAT_I
+add wave /top_internal_logic_analyzer_TB/uut/tx_path_unit/wb_slave_inst/WE_I
+add wave /top_internal_logic_analyzer_TB/uut/tx_path_unit/wb_slave_inst/STB_I
+add wave /top_internal_logic_analyzer_TB/uut/tx_path_unit/wb_slave_inst/CYC_I
+add wave /top_internal_logic_analyzer_TB/uut/tx_path_unit/wb_slave_inst/TGA_I
+add wave /top_internal_logic_analyzer_TB/uut/tx_path_unit/wb_slave_inst/TGD_I
+add wave /top_internal_logic_analyzer_TB/uut/tx_path_unit/wb_slave_inst/ACK_O
+add wave /top_internal_logic_analyzer_TB/uut/tx_path_unit/wb_slave_inst/DAT_O
+add wave /top_internal_logic_analyzer_TB/uut/tx_path_unit/wb_slave_inst/STALL_O
+add wave /top_internal_logic_analyzer_TB/uut/tx_path_unit/wb_slave_inst/typ
+add wave /top_internal_logic_analyzer_TB/uut/tx_path_unit/wb_slave_inst/addr
+add wave /top_internal_logic_analyzer_TB/uut/tx_path_unit/wb_slave_inst/len
+add wave /top_internal_logic_analyzer_TB/uut/tx_path_unit/wb_slave_inst/wr_en
+add wave /top_internal_logic_analyzer_TB/uut/tx_path_unit/wb_slave_inst/ws_data
+add wave /top_internal_logic_analyzer_TB/uut/tx_path_unit/wb_slave_inst/ws_data_valid
+add wave /top_internal_logic_analyzer_TB/uut/tx_path_unit/wb_slave_inst/reg_data
+add wave /top_internal_logic_analyzer_TB/uut/tx_path_unit/wb_slave_inst/reg_data_valid
+add wave /top_internal_logic_analyzer_TB/uut/tx_path_unit/wb_slave_inst/active_cycle
+add wave /top_internal_logic_analyzer_TB/uut/tx_path_unit/wb_slave_inst/stall
+
+---------OUTPUT BLOCK
+add wave /top_internal_logic_analyzer_TB/uut/output_block_unit/data_in_sig
+add wave /top_internal_logic_analyzer_TB/uut/output_block_unit/data_in_valid_sig
+
+
+run 51000000 ns
