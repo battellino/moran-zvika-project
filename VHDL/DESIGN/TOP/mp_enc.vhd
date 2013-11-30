@@ -47,16 +47,16 @@ entity mp_enc is
 				reset_polarity_g	:	std_logic := '0'; 	--'0' = Active Low, '1' = Active High
 				len_dec1_g			:	boolean := true;	--TRUE - Recieved length is decreased by 1 ,to save 1 bit
 															--FALSE - Recieved length is the actual length
-				
 				sof_d_g				:	positive := 1;		--SOF Depth
 				type_d_g			:	positive := 1;		--Type Depth
-				Add_width_g    		: 	positive := 8;		--width of addr word in the WB
-				len_d_g				:	positive := 1;		--Length Depth
+--				addr_d_g			: positive := 3;		--Address Depth
+				Add_width_g    		:   positive := 8;		--width of addr word in the WB
+				len_d_g				:	positive := 2;		--Length Depth
 				crc_d_g				:	positive := 1;		--CRC Depth
 				eof_d_g				:	positive := 1;		--EOF Depth
 						
-				sof_val_g			:	natural := 60;		-- (64h) SOF block value. Upper block is MSB
-				eof_val_g			:	natural := 165;		-- (A5h) EOF block value. Upper block is MSB
+				sof_val_g			:	natural := 100;		-- (64h) SOF block value. Upper block is MSB
+				eof_val_g			:	natural := 200;		-- (C8h) EOF block value. Upper block is MSB
 				
 				width_g				:	positive := 8		--Data Width (UART = 8 bits)
            );
@@ -132,16 +132,13 @@ begin  -- function max
 end function maximum;
   
 ------------------  SIGNALS AND VARIABLES ------
-signal reg_ready_sig : std_logic ;-- netanel * lzrw3 project
 --Blocks
-signal sof_blk		:	std_logic_vector (width_g * type_d_g - 1 downto 0);	 --SOF Block
+signal sof_blk		:	std_logic_vector (width_g * type_d_g - 1 downto 0);	--SOF Block
 signal type_blk		:	std_logic_vector (width_g * type_d_g - 1 downto 0);	--Type Block
 signal addr_blk		:	std_logic_vector (Add_width_g - 1 downto 0);	--Address Block
-signal len_blk		:	std_logic_vector (width_g * len_d_g - 1 downto 0);	  --Length block
-signal crc_blk		:	std_logic_vector (width_g * crc_d_g - 1 downto 0); 	 --CRC Block
-signal eof_blk		:	std_logic_vector (width_g * eof_d_g - 1 downto 0);	  --EOF Block
-
-signal mp_done_blink_done :	std_logic;                                 -- indication that all blocks has been transmitted
+signal len_blk		:	std_logic_vector (width_g * len_d_g - 1 downto 0);	--Length block
+signal crc_blk		:	std_logic_vector (width_g * crc_d_g - 1 downto 0); 	--CRC Block
+signal eof_blk		:	std_logic_vector (width_g * eof_d_g - 1 downto 0);	--EOF Block
 
 --RAM
 signal ram_addr_i:	std_logic_vector (width_g * len_d_g - 1 downto 0); 		--RAM Address
@@ -154,8 +151,6 @@ signal len_data		:	std_logic_vector (width_g * len_d_g - 1 downto 0);	--Data len
 
 --CRC Flags
 signal crc_ack_i	:	std_logic;											--Internal CRC has been acknowledged from CRC block
-
- 
 
 constant  zero_c:	std_logic_vector (width_g * len_d_g - 1 downto 0) := (others => '0');
 ------------------  Design ----------------------
@@ -202,13 +197,13 @@ begin
 		elsif rising_edge(clk) then
 			
 			--Request data from MP Encoder
-			if (fifo_full = '0' and dout_valid_i = '0') then --Request for new data
+			if (fifo_full = '0') and (dout_valid_i = '0') then --Request for new data
 				case cur_st is
 					when idle_st =>
 						read_addr_en	<= '0';						--Address to RAM is not valid
 						ram_addr_i		<= (others => '0');			--ZERO address to RAM
 						dout_valid_i 	<= '0';						--Output data is not valid
-						if (reg_ready_sig = '1') then --When Registers are ready - Aquire registers value
+						if (reg_ready = '1') then --When Registers are ready - Aquire registers value
 							--Initilize SOF end EOF Shift Registers
 							sof_blk <= conv_std_logic_vector(sof_val_g, sof_d_g * width_g); 
 							eof_blk <= conv_std_logic_vector(eof_val_g, eof_d_g * width_g); 
@@ -272,17 +267,17 @@ begin
 						
 					when addr_st =>
 						--Transmit Address
-						dout 		<= addr_blk (Add_width_g - 1 downto (Add_width_g - width_g)); 	--Transmit Address
+						dout 		<= addr_blk (Add_width_g - 1 downto Add_width_g - width_g ); 	--Transmit Address
 						dout_valid_i<= '1';									--Data is valid
 						read_addr_en<= '0';									--Address to RAM is not valid
 						ram_addr_i	<= (others => '0');						--Zero Address to RAM
 
-						if ((Add_width_g / width_g) > 1) then								--Shift Left the Shift Register
-							addr_blk (Add_width_g - 1 downto 0) <= addr_blk ((Add_width_g - width_g)  - 1 downto 0) & zeros_c;
+						if (Add_width_g > 1) then								--Shift Left the Shift Register
+							addr_blk (Add_width_g - 1 downto 0) <= addr_blk (Add_width_g - width_g - 1 downto 0) & zeros_c;
 						end if;
 
 						--Check if all Address block has been transmitted. If so - switch to next block
-						if (blk_pos = (Add_width_g / width_g)) then--Address block has been transmitted
+						if (blk_pos = Add_width_g) then--Address block has been transmitted
 							cur_st 	<= len_st;		--Switch to next block transmit
 							blk_pos <= 1;			--Prepare block position at start of next block
 						else
@@ -382,8 +377,8 @@ begin
 						end if;
 						
 					when others =>	--This should never happen, since all states are covered
-						--report "Time: " & time'image(now) & ", Message Pack Encoder - Unimplemented state is being executed in FSM"
-						--severity error;
+						report "Time: " & time'image(now) & ", Message Pack Encoder - Unimplemented state is being executed in FSM"
+						severity error;
 					
 				end case;
 			else
@@ -395,59 +390,26 @@ begin
 			end if;
 		end if;
 	end process fsm_proc;
-
---------------------------------------------------------	
-----------------reg_ready_proc---------------------------
----------------------------------------------------------
----- This process catch the reg ready input trigger that 
----- initiate data trsnmittion, till the FSM 
----- use this information.
----------------------------------------------------------
-	reg_ready_proc: process (clk, rst)
-	begin 
-	  if(rst = reset_polarity_g) then	   -- Reset
-	    reg_ready_sig <= '0';
-		elsif rising_edge (clk) then
-		  if(cur_st = sof_st) then       
-		    reg_ready_sig <= reg_ready ;   -- new frame tramsmittion has start, reset the stored data.
-		  elsif(reg_ready_sig = '1') then  -- catch trigger
-		    reg_ready_sig <= '1' ;         
-		  else
-		    reg_ready_sig <= reg_ready ;   -- try to catch the trigger
-		  end if;
-		end if;
-	end process reg_ready_proc;		    
 	
-	---------------------------------------------------------------
-	-----------  Process mp_done_proc -----------------------------
-	---------------------------------------------------------------
-	-- The process rises the mp_done flag for ONE clock cycle only ,
-	-- which means that all block has been transmitted
-	---------------------------------------------------------------
-	mp_done_blink_proc: process (clk, rst)
+	---------------------------------------------------
+	-----------  Process mp_done_proc -----------------
+	---------------------------------------------------
+	-- The process rises the mp_done flag, which means
+	-- that all block has been transmitted
+	---------------------------------------------------
+	mp_done_proc: process (clk, rst)
 	begin
 		if (rst = reset_polarity_g) then	-- Reset
-			mp_done		<= '0'; 
-			mp_done_blink_done <= '0';					
+			mp_done		<= '0'; 					
 		elsif rising_edge (clk) then
-		  if (cur_st = idle_st) then                           -- reset mp_done_blink_done sig any new frame transmittion
-			  mp_done		<= '0'; 
-     			mp_done_blink_done <= '0';
-   			else
-     			if (mp_done_blink_done = '0') then
-     			  if(cur_st = eof_st) and (blk_pos = eof_d_g) then -- blink for one clock cycle	
-    			  			mp_done		<= '1';
-    			  			mp_done_blink_done <= '1';
-			  		end if; 
-			  else
-			  		mp_done		<= '0';
-			  		mp_done_blink_done <= '1';
-			  end if;
+			if (cur_st = eof_st) and (blk_pos = eof_d_g) then
+				mp_done <= '1';				-- Message pack has been successfully transmitted
+			else
+				mp_done <= '0';
 			end if;
 		end if;
-	end process mp_done_blink_proc;		
-						      
-		  	 
+	end process mp_done_proc;
+
 	---------------------------------------------------
 	-----------  Process req_crc_proc -----------------
 	---------------------------------------------------

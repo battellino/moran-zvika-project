@@ -31,76 +31,64 @@ use ieee.numeric_std.all ;
  
   entity output_block is
     generic (
-		reset_polarity_g	           :	std_logic 	:= '1';	                                              -- '0' - Active Low Reset, '1' Active High Reset.
-		byte_size_g			              :	positive 	 := 8  ;          -- One byte				
-		data_width_g                :	positive 	 := 8  ;          -- Width of data (8 bits holdes one literal)                  
-		-- FIFO generics
+				reset_polarity_g	           :	std_logic 	:= '1';	                                              -- '0' - Active Low Reset, '1' Active High Reset.
+				byte_size_g			              :	positive 	 := 8  ;          -- One byte				
+				data_width_g                :	positive 	 := 8  ;          -- Width of data (8 bits holdes one literal)                  
+      -- FIFO generics
         fifo_depth_g 			            : positive 	 := 4;	           -- Maximum elements in FIFO
-		fifo_log_depth_g			         : natural	   := 2;	           -- Logarithm of depth_g (Number of bits to represent depth_g. 2^4=16 > 9)
-		fifo_almost_full_g		        : positive	  := 3;   	        -- Rise almost full flag at this number of elements in FIFO
-		fifo_almost_empty_g	 	      : positive	  := 1;	           -- Rise almost empty flag at this number of elements in FIFO				
-		-- SHORT FIFO generics
+		    fifo_log_depth_g			         : natural	   := 2;	           -- Logarithm of depth_g (Number of bits to represent depth_g. 2^4=16 > 9)
+		    fifo_almost_full_g		        : positive	  := 3;   	        -- Rise almost full flag at this number of elements in FIFO
+		    fifo_almost_empty_g	 	      : positive	  := 1;	           -- Rise almost empty flag at this number of elements in FIFO				
+      -- SHORT FIFO generics
         short_fifo_depth_g 			      : positive 	 := 8;	           -- Maximum elements in FIFO
-		short_fifo_log_depth_g			   : natural	   := 3;	           -- Logarithm of depth_g (Number of bits to represent depth_g. 2^4=16 > 9)
-		short_fifo_almost_full_g		  : positive	  := 8;   	        -- Rise almost full flag at this number of elements in FIFO
-		short_fifo_almost_empty_g	 	: positive	  := 1;	           -- Rise almost empty flag at this number of elements in FIFO				     		    
-		-- WISHBONE slave generics
---	      addr_d_g			                 :	positive   := 3 ;		         -- Address Depth
-	    Add_width_g  		    			:   positive 	:=  8;     								--width of addr word in the RAM
-		len_d_g				                 :	positive   := 1 ;		         -- Length Depth
-	    type_d_g				                :	positive   := 1 ; 	         -- Type Depth		
-		-- WISHBONE master generics
-	    addr_bits_g			             	:	positive   := 8	;
+		    short_fifo_log_depth_g			   : natural	   := 3;	           -- Logarithm of depth_g (Number of bits to represent depth_g. 2^4=16 > 9)
+		    short_fifo_almost_full_g		  : positive	  := 8;   	        -- Rise almost full flag at this number of elements in FIFO
+		    short_fifo_almost_empty_g	 	: positive	  := 1;	           -- Rise almost empty flag at this number of elements in FIFO				     		    
+      -- WISHBONE slave generics
+--	addr_d_g				: positive := 3;		--Address Depth
+			Add_width_g    			:   positive := 8;		--width of addr word in the WB
+			len_d_g				                 :	positive   := 1 ;		         -- Length Depth
+			type_d_g				                :	positive   := 1 ; 	         -- Type Depth		
+      -- WISHBONE master generics
+	      addr_bits_g			             	:	positive   := 8	;
 	    -- block and client (TX PATH) hand-shake (frames header length = bytes of SOF, ADDR, TYPE, LEN, CRC, EOF )         
-	    baudrate_g			               :	positive	  := 115200 ;	 	   -- UART baudrate [Hz]
-	    clkrate_g		 	               :	positive	  := 125000000 ;	  -- Sys. clock [Hz]
-	    databits_g			              	:	positive   := 8	;
-	    parity_en_g                 :	natural	range 0 to 1 := 1 ;
-	    tx_fifo_d_g                 : positive	  := 9             -- Maximum elements in TX PATH FIFO 
-        );
-	port (
-        clk			            : in std_logic ;	
-        reset			      	: in std_logic ;	  
-        -- data provider side (compressor core)
---          data_in                  : in std_logic_vector (byte_size_g -1 downto 0) ;	
---         data_in_valid            :	in std_logic ;	 	
---          lzrw3_done               :	in std_logic ;                                             -- lzrw3_done for one clock
---          client_ready             :	out std_logic ;
-        -- data input side (compatible to WB SLAVE)
-		wm_end_2				: in std_logic; 										--when '1' WM ended a transaction or reseted by watchdog ERR_I signal    (REPLACE lzrw3_done)
-		ADR_I_2                 : in std_logic_vector (Add_width_g-1 downto 0);	   -- contains the addr word
-        DAT_I_2                 : in std_logic_vector (data_width_g-1 downto 0); 	               -- contains the data_in word									(REPLACE data_in)
-        WE_I_2              	: in std_logic;                     				                         -- '1' for write, '0' for read
-        STB_I_2                 : in std_logic;                     				                         -- '1' for active bus operation, '0' for no bus operation	(REPLACE data_in_valid)
-        CYC_I_2                 : in std_logic;                     				                         -- '1' for bus transmition request, '0' for no bus transmition request
-        TGA_I_2                 : in std_logic_vector ((data_width_g)*(type_d_g)-1 downto 0); 	  -- contains the type word
-        TGD_I_2                 : in std_logic_vector ((data_width_g)*(len_d_g)-1 downto 0); 	   -- contains the len word
-        ACK_O_2                 : out std_logic;                      				                       -- '1' when valid data is transmited to MW or for successfull write operation 
-        DAT_O_2                 : out std_logic_vector (data_width_g-1 downto 0);   	            -- data transmit to MW
-	    STALL_O_2		        : out std_logic;
-		-- wishbone master BUS side
-        ADR_O		       	    : out std_logic_vector (Add_width_g-1 downto 0); -- contains the addr word
-        WM_DAT_O			    : out std_logic_vector (data_width_g-1 downto 0);            -- contains the data_in word
-        WE_O			        : out std_logic;                                             -- '1' for write, '0' for read
-        STB_O			        : out std_logic;                                             -- '1' for active bus operation, '0' for no bus operation
-        CYC_O			        : out std_logic;                                             -- '1' for bus transmition request, '0' for no bus transmition request
-        TGA_O			        : out std_logic_vector (type_d_g * data_width_g-1 downto 0); -- contains the type word
-        TGD_O			        : out std_logic_vector (len_d_g * data_width_g-1 downto 0);  -- contains the len word
-        ACK_I			        : in std_logic;                                              -- '1' when valid data is recieved from WS or for successfull write operation in WS
-        WM_DAT_I		        : in std_logic_vector (data_width_g-1 downto 0);             -- data recieved from WS
-	    STALL_I			        : in std_logic;                                              -- STALL - WS is not available for transaction 
-	    ERR_I		            : in std_logic;                              
-        -- wishbone slave BUS side
-        ADR_I                   : in std_logic_vector (Add_width_g-1 downto 0);	   -- contains the addr word
-        DAT_I                   : in std_logic_vector (data_width_g-1 downto 0); 	               -- contains the data_in word
-        WE_I                    : in std_logic;                     				                         -- '1' for write, '0' for read
-        STB_I                   : in std_logic;                     				                         -- '1' for active bus operation, '0' for no bus operation
-        CYC_I                   : in std_logic;                     				                         -- '1' for bus transmition request, '0' for no bus transmition request
-        TGA_I                   : in std_logic_vector ((data_width_g)*(type_d_g)-1 downto 0); 	  -- contains the type word
-        TGD_I                   : in std_logic_vector ((data_width_g)*(len_d_g)-1 downto 0); 	   -- contains the len word
-        ACK_O                   : out std_logic;                      				                       -- '1' when valid data is transmited to MW or for successfull write operation 
-        DAT_O                   : out std_logic_vector (data_width_g-1 downto 0);   	            -- data transmit to MW
-	    STALL_O		            : out std_logic          	 	
+	      baudrate_g			               :	positive	  := 115200 ;	 	   -- UART baudrate [Hz]
+	      clkrate_g		 	               :	positive	  := 125000000 ;	  -- Sys. clock [Hz]
+	      databits_g			              	:	positive   := 8	;
+	      parity_en_g                 :	natural	range 0 to 1 := 1 ;
+	      tx_fifo_d_g                 : positive	  := 9             -- Maximum elements in TX PATH FIFO 
+        	);
+		port (
+          clk			                   :	in std_logic ;	
+          reset			                 :	in std_logic ;	  
+          -- data provider side (compressor core)
+          data_in                  : in std_logic_vector (byte_size_g -1 downto 0) ;	
+          data_in_valid            :	in std_logic ;	 	
+          lzrw3_done               :	in std_logic ;                                             -- lzrw3_done for one clock
+          client_ready             :	out std_logic ;
+          -- wishbone master BUS side
+          ADR_O		       	          : out std_logic_vector (Add_width_g-1 downto 0); -- contains the addr word
+          WM_DAT_O			              : out std_logic_vector (data_width_g-1 downto 0);            -- contains the data_in word
+          WE_O			                  : out std_logic;                                             -- '1' for write, '0' for read
+          STB_O			                 : out std_logic;                                             -- '1' for active bus operation, '0' for no bus operation
+          CYC_O			                 : out std_logic;                                             -- '1' for bus transmition request, '0' for no bus transmition request
+          TGA_O			                 : out std_logic_vector (type_d_g * data_width_g-1 downto 0); -- contains the type word
+          TGD_O			                 : out std_logic_vector (len_d_g * data_width_g-1 downto 0);  -- contains the len word
+          ACK_I			                 : in std_logic;                                              -- '1' when valid data is recieved from WS or for successfull write operation in WS
+          WM_DAT_I		               : in std_logic_vector (data_width_g-1 downto 0);             -- data recieved from WS
+	        STALL_I			               : in std_logic;                                              -- STALL - WS is not available for transaction 
+	        ERR_I		                  : in std_logic;                              
+          -- wishbone slave BUS side
+          ADR_I                    : in std_logic_vector (Add_width_g-1 downto 0);	   -- contains the addr word
+          DAT_I                    : in std_logic_vector (data_width_g-1 downto 0); 	               -- contains the data_in word
+          WE_I                     : in std_logic;                     				                         -- '1' for write, '0' for read
+          STB_I                    : in std_logic;                     				                         -- '1' for active bus operation, '0' for no bus operation
+          CYC_I                    : in std_logic;                     				                         -- '1' for bus transmition request, '0' for no bus transmition request
+          TGA_I                    : in std_logic_vector ((data_width_g)*(type_d_g)-1 downto 0); 	  -- contains the type word
+          TGD_I                    : in std_logic_vector ((data_width_g)*(len_d_g)-1 downto 0); 	   -- contains the len word
+          ACK_O                    : out std_logic;                      				                       -- '1' when valid data is transmited to MW or for successfull write operation 
+          DAT_O                    : out std_logic_vector (data_width_g-1 downto 0);   	            -- data transmit to MW
+	        STALL_O		                : out std_logic          	 	
         ); 
   end entity output_block;  
   
@@ -112,111 +100,112 @@ use ieee.numeric_std.all ;
   
   COMPONENT general_fifo  
 	generic(	 
-		reset_polarity_g		: std_logic	:= '0';	 -- Reset Polarity
-		width_g				    : positive	 := 8; 	  -- Width of data
-		depth_g 			    : positive 	:= 9;	   -- Maximum elements in FIFO
-		log_depth_g			   	: natural	  := 4;	   -- Logarithm of depth_g (Number of bits to represent depth_g. 2^4=16 > 9)
-		almost_full_g		  	: positive	 := 8;   	-- Rise almost full flag at this number of elements in FIFO
-		almost_empty_g	 		: positive	 := 1 	   -- Rise almost empty flag at this number of elements in FIFO
+		reset_polarity_g	: std_logic	:= '0';	 -- Reset Polarity
+		width_g				      : positive	 := 8; 	  -- Width of data
+		depth_g 			      : positive 	:= 9;	   -- Maximum elements in FIFO
+		log_depth_g			   : natural	  := 4;	   -- Logarithm of depth_g (Number of bits to represent depth_g. 2^4=16 > 9)
+		almost_full_g		  : positive	 := 8;   	-- Rise almost full flag at this number of elements in FIFO
+		almost_empty_g	 	: positive	 := 1 	   -- Rise almost empty flag at this number of elements in FIFO
 	     	);
 	 port(
-		clk 		     		: in 	std_logic;									                          -- Clock
-		rst 		     		: in 	std_logic;                                   -- Reset
-		din 		     		: in 	std_logic_vector (width_g-1 downto 0);       -- Input Data
-		wr_en 		   			: in 	std_logic;                                   -- Write Enable
-		rd_en 	   				: in 	std_logic;                                   -- Read Enable (request for data)
-		flush		    		: in	 std_logic;									                          -- Flush data
-		dout 	    			: out 	std_logic_vector (width_g-1 downto 0);	     -- Output Data
-		dout_valid				: out 	std_logic;                                  -- Output data is valid
-		afull  	   				: out 	std_logic;                                  -- FIFO is almost full
-		full 		    		: out 	std_logic;	                                 -- FIFO is full
-		aempty 	   				: out 	std_logic;                                  -- FIFO is almost empty
-		empty 		   			: out 	std_logic;                                  -- FIFO is empty
-		used 		    		: out 	std_logic_vector (log_depth_g  downto 0) 	  -- Current number of elements is FIFO. Note the range. In case depth_g is 2^x, then the extra bit will be used
+		 clk 		     : in 	std_logic;									                          -- Clock
+		 rst 		     : in 	std_logic;                                   -- Reset
+		 din 		     : in 	std_logic_vector (width_g-1 downto 0);       -- Input Data
+		 wr_en 		   : in 	std_logic;                                   -- Write Enable
+		 rd_en 	   	: in 	std_logic;                                   -- Read Enable (request for data)
+		 flush		    : in	 std_logic;									                          -- Flush data
+		 dout 	    	: out 	std_logic_vector (width_g-1 downto 0);	     -- Output Data
+		 dout_valid	: out 	std_logic;                                  -- Output data is valid
+		 afull  	   : out 	std_logic;                                  -- FIFO is almost full
+		 full 		    : out 	std_logic;	                                 -- FIFO is full
+		 aempty 	   : out 	std_logic;                                  -- FIFO is almost empty
+		 empty 		   : out 	std_logic;                                  -- FIFO is empty
+		 used 		    : out 	std_logic_vector (log_depth_g  downto 0) 	  -- Current number of elements is FIFO. Note the range. In case depth_g is 2^x, then the extra bit will be used
       );
   END COMPONENT;
   
   
 
-COMPONENT wishbone_master 
-	generic (
-		reset_activity_polarity_g  	: std_logic :='1';      -- defines reset active polarity: '0' active low, '1' active high
-		data_width_g               	: natural := 8 ;        -- defines the width of the data lines of the system
-		type_d_g			    	: positive := 1;		      -- Type Depth
---	   	addr_d_g			        : positive := 3;		      -- Address Depth
-	    Add_width_g  		    	: positive 	:=  8;     								--width of addr word in the RAM
-		len_d_g				        : positive := 1;		      -- Length Depth
-		addr_bits_g				    : positive := 8	        -- Depth of data in RAM	(2^8 = 256 addresses)
+  COMPONENT wishbone_master 
+   generic (
+		reset_activity_polarity_g  : std_logic :='1';      -- defines reset active polarity: '0' active low, '1' active high
+		data_width_g               : natural := 8 ;        -- defines the width of the data lines of the system
+		type_d_g			                :	positive := 1;		      -- Type Depth
+--		addr_d_g				: positive := 3;		--Address Depth
+		Add_width_g    			:   positive := 8;		--width of addr word in the WB
+		len_d_g				                :	positive := 1;		      -- Length Depth
+		addr_bits_g				            :	positive := 8	        -- Depth of data in RAM	(2^8 = 256 addresses)
            );
    port
    	   (	 
-		sys_clk			     		: in std_logic;                                              -- system clock
-		sys_reset		    		: in std_logic;                                              -- system reset   
-		--control unit signals
-		wm_start		     		: in std_logic;	                                             -- when '1' WM starts a transaction
-		wr				         	: in std_logic;                                              -- determines if the WM will make a read('0') or write('1') transaction
-		type_in		     			: in std_logic_vector (type_d_g * data_width_g-1 downto 0);  -- type is the client which the data is directed to
-		len_in			      		: in std_logic_vector (len_d_g * data_width_g-1 downto 0);   -- length of the data (in words)
-		addr_in			     		: in std_logic_vector (Add_width_g-1 downto 0);  -- the address in the client that the information will be written to
-		ram_start_addr				: in std_logic_vector (addr_bits_g-1 downto 0);              -- start address for WM to read from RAM
-		wm_end			      		: out std_logic;                                             -- when '1' WM ended a transaction or reseted by watchdog ERR_I signal
-		--RAM signals
-		ram_addr		     		:	out std_logic_vector (addr_bits_g - 1 downto 0);           -- RAM Input address
-		ram_dout		     		:	out std_logic_vector (data_width_g - 1 downto 0);	         -- RAM Input data
-		ram_dout_valid				:	out std_logic; 									                                   -- RAM Input data valid
-		ram_aout		     		:	out std_logic_vector (addr_bits_g - 1 downto 0);           -- RAM Output address
-		ram_aout_valid				:	out std_logic;								                                    	-- RAM Output address is valid
-		ram_din			     		:	in std_logic_vector (data_width_g - 1 downto 0);          	-- RAM Output data
-		ram_din_valid	 			:	in std_logic; 									                                    -- RAM Output data valid
-		--bus side signals
-		ADR_O		       			: out std_logic_vector (Add_width_g-1 downto 0); -- contains the addr word
-		DAT_O			       		: out std_logic_vector (data_width_g-1 downto 0);            -- contains the data_in word
-		WE_O			        	: out std_logic;                                             -- '1' for write, '0' for read
-		STB_O			       		: out std_logic;                                             -- '1' for active bus operation, '0' for no bus operation
-		CYC_O			       		: out std_logic;                                             -- '1' for bus transmition request, '0' for no bus transmition request
-		TGA_O			      		: out std_logic_vector (type_d_g * data_width_g-1 downto 0); -- contains the type word
-		TGD_O			       		: out std_logic_vector (len_d_g * data_width_g-1 downto 0);  -- contains the len word
-		ACK_I			       		: in std_logic;                                              -- '1' when valid data is recieved from WS or for successfull write operation in WS
-		DAT_I			       		: in std_logic_vector (data_width_g-1 downto 0);             -- data recieved from WS
-		STALL_I			     		: in std_logic;                                              -- STALL - WS is not available for transaction 
-		ERR_I		        		: in std_logic                                               -- Watchdog interrupts, resets wishbone master
+    sys_clk			     : in std_logic;                                              -- system clock
+    sys_reset		    : in std_logic;                                              -- system reset   
+	--control unit signals
+	  wm_start		     : in std_logic;	                                             -- when '1' WM starts a transaction
+	  wr				         : in std_logic;                                              -- determines if the WM will make a read('0') or write('1') transaction
+	  type_in		     	: in std_logic_vector (type_d_g * data_width_g-1 downto 0);  -- type is the client which the data is directed to
+    len_in			      : in std_logic_vector (len_d_g * data_width_g-1 downto 0);   -- length of the data (in words)
+    addr_in			     : in std_logic_vector (Add_width_g-1 downto 0);  -- the address in the client that the information will be written to
+	  ram_start_addr	: in std_logic_vector (addr_bits_g-1 downto 0);              -- start address for WM to read from RAM
+    wm_end			      : out std_logic;                                             -- when '1' WM ended a transaction or reseted by watchdog ERR_I signal
+	--RAM signals
+	  ram_addr		     :	out std_logic_vector (addr_bits_g - 1 downto 0);           -- RAM Input address
+	  ram_dout		     :	out std_logic_vector (data_width_g - 1 downto 0);	         -- RAM Input data
+	  ram_dout_valid	:	out std_logic; 									                                   -- RAM Input data valid
+	  ram_aout		     :	out std_logic_vector (addr_bits_g - 1 downto 0);           -- RAM Output address
+	  ram_aout_valid	:	out std_logic;								                                    	-- RAM Output address is valid
+	  ram_din			     :	in std_logic_vector (data_width_g - 1 downto 0);          	-- RAM Output data
+	  ram_din_valid	 :	in std_logic; 									                                    -- RAM Output data valid
+	--bus side signals
+    ADR_O		       	: out std_logic_vector (Add_width_g-1 downto 0); -- contains the addr word
+    DAT_O			       : out std_logic_vector (data_width_g-1 downto 0);            -- contains the data_in word
+    WE_O			        : out std_logic;                                             -- '1' for write, '0' for read
+    STB_O			       : out std_logic;                                             -- '1' for active bus operation, '0' for no bus operation
+    CYC_O			       : out std_logic;                                             -- '1' for bus transmition request, '0' for no bus transmition request
+    TGA_O			       : out std_logic_vector (type_d_g * data_width_g-1 downto 0); -- contains the type word
+    TGD_O			       : out std_logic_vector (len_d_g * data_width_g-1 downto 0);  -- contains the len word
+    ACK_I			       : in std_logic;                                              -- '1' when valid data is recieved from WS or for successfull write operation in WS
+    DAT_I			       : in std_logic_vector (data_width_g-1 downto 0);             -- data recieved from WS
+	  STALL_I			     : in std_logic;                                              -- STALL - WS is not available for transaction 
+	  ERR_I		        : in std_logic                                               -- Watchdog interrupts, resets wishbone master
    	);
   END COMPONENT; 
   
   
-COMPONENT wishbone_slave
-	generic (
+  COMPONENT wishbone_slave
+  generic (
 		reset_activity_polarity_g  	: std_logic :='1';   -- defines reset active polarity: '0' active low, '1' active high
 		data_width_g               	: natural   := 8;    -- defines the width of the data lines of the system    
-		Add_width_g  		    	: positive 	:=  8;     								--width of addr word in the RAM
-		len_d_g				        : positive  := 1;		  -- Length Depth
-		type_d_g				    : positive  := 1	 	  -- Type Depth    
+--		addr_d_g				: positive := 3;		--Address Depth
+		Add_width_g    			:   positive := 8;		--width of addr word in the WB
+		len_d_g				                 :	positive  := 1;		  -- Length Depth
+		type_d_g				                :	positive  := 1	 	  -- Type Depth    
 		    );	   
    port (
-		clk    	    				: in std_logic;		 											--system clock
-		reset						: in std_logic;		 											--system reset
-		--bus side signals
-		ADR_I          				: in std_logic_vector (Add_width_g -1 downto 0);				--contains the addr word
-		DAT_I          				: in std_logic_vector (data_width_g-1 downto 0); 				--contains the data_in word
-		WE_I           				: in std_logic;                     							-- '1' for write, '0' for read
-		STB_I          				: in std_logic;                     							-- '1' for active bus operation, '0' for no bus operation
-		CYC_I          				: in std_logic;                     							-- '1' for bus transmition request, '0' for no bus transmition request
-		TGA_I          				: in std_logic_vector ((data_width_g)*(type_d_g)-1 downto 0); 	--contains the type word
-		TGD_I          				: in std_logic_vector ((data_width_g)*(len_d_g)-1 downto 0); 	--contains the len word
-		ACK_O          				: out std_logic;                      							--'1' when valid data is transmited to MW or for successfull write operation 
-		DAT_O          				: out std_logic_vector (data_width_g-1 downto 0);   			--data transmit to MW
-		STALL_O						: out std_logic; 												--STALL - WS is not available for transaction 
-		--register side signals
-		typ							: out std_logic_vector ((data_width_g)*(type_d_g)-1 downto 0); 	-- Type
-		addr	        			: out std_logic_vector (Add_width_g-1 downto 0);    			--the beginnig address in the client that the information will be written to
-		len							: out std_logic_vector ((data_width_g)*(len_d_g)-1 downto 0);   --Length
-		wr_en						: out std_logic;
-		ws_data	    				: out std_logic_vector (data_width_g-1 downto 0); 				--data out to registers
-		ws_data_valid				: out std_logic;												-- data valid to registers
-		reg_data       				: in std_logic_vector (data_width_g-1 downto 0); 	 			--data to be transmited to the WM
-		reg_data_valid 				: in std_logic;   												--data to be transmited to the WM validity
-		active_cycle				: out std_logic; 												--CYC_I outputed to user side
-		stall						: in std_logic 													-- stall - suspend wishbone transaction
+     clk        : in std_logic;		                                                --system clock
+     reset      : in std_logic;		                                                --system reset    
+	 --bus side signals
+     ADR_I          : in std_logic_vector (Add_width_g-1 downto 0);	   -- contains the addr word
+     DAT_I          : in std_logic_vector (data_width_g-1 downto 0); 	               -- contains the data_in word
+     WE_I           : in std_logic;                     				                         -- '1' for write, '0' for read
+     STB_I          : in std_logic;                     				                         -- '1' for active bus operation, '0' for no bus operation
+     CYC_I          : in std_logic;                     				                         -- '1' for bus transmition request, '0' for no bus transmition request
+     TGA_I          : in std_logic_vector ((data_width_g)*(type_d_g)-1 downto 0); 	  -- contains the type word
+     TGD_I          : in std_logic_vector ((data_width_g)*(len_d_g)-1 downto 0); 	   -- contains the len word
+     ACK_O          : out std_logic;                      				                       -- '1' when valid data is transmited to MW or for successfull write operation 
+     DAT_O          : out std_logic_vector (data_width_g-1 downto 0);   	            -- data transmit to MW
+	   STALL_O		      : out std_logic;                                                 -- STALL - WS is not available for transaction 
+	 --register side signals
+     typ			         : out std_logic_vector ((data_width_g)*(type_d_g)-1 downto 0);   -- Type
+	   addr	          : out std_logic_vector (Add_width_g-1 downto 0);   -- the beginnig address in the client that the information will be written to
+	   len		         	: out std_logic_vector ((data_width_g)*(len_d_g)-1 downto 0);    -- Length
+	   wr_en			       : out std_logic;
+	   ws_data	       : out std_logic_vector (data_width_g-1 downto 0);                -- data out to registers
+	   ws_data_valid	 : out std_logic;	                                                -- data valid to registers
+	   reg_data       : in std_logic_vector (data_width_g-1 downto 0); 	               -- data to be transmited to the WM
+     reg_data_valid : in std_logic;                                                  -- data to be transmited to the WM validity
+	   active_cycle	  : out std_logic;                                                 -- CYC_I outputed to user side
+	   stall			       : in std_logic                                                   -- stall - suspend wishbone transaction
 	     ); 
   END COMPONENT;  
   
@@ -238,10 +227,9 @@ COMPONENT wishbone_slave
   
   
   -----   C O N S T A N T S   A R E A  ----
-  constant clk_div_factor_c	 	: positive := clkrate_g / baudrate_g + 1 ;	    	-- Clock Divide factor + 1 for fraction round
-  constant uart_frame_bits_c   	: positive := 2 + databits_g + parity_en_g ;    -- start bit + data bits + parity + stop bit
-  constant calculated_const_c  	: positive := clk_div_factor_c * uart_frame_bits_c ; 
-  constant type_of_TX_ws_c		: std_logic_vector ((data_width_g)*(type_d_g)-1 downto 0)	:= std_logic_vector(to_unsigned( 2 , type_d_g * data_width_g));
+  constant clk_div_factor_c	 : positive := clkrate_g / baudrate_g + 1 ;	    	-- Clock Divide factor + 1 for fraction round
+  constant uart_frame_bits_c   : positive := 2 + databits_g + parity_en_g ;    -- start bit + data bits + parity + stop bit
+  constant calculated_const_c  : positive := clk_div_factor_c * uart_frame_bits_c ; 
    -----  S I G N A L S   A R E A  ---
      -- counters
   signal requested_bytes    : integer range 256 downto 0 ;                 -- requested bytes to send in fifo
@@ -370,7 +358,8 @@ output_block_wm : wishbone_master
     reset_activity_polarity_g  	=> reset_polarity_g,
     data_width_g               	=> data_width_g,
 	  type_d_g				               	=> type_d_g,
-	  Add_width_g				               	=> Add_width_g,
+--	  addr_d_g				               	=> addr_d_g,
+	  Add_width_g				=> Add_width_g,
 	  len_d_g					               	=> len_d_g,
 	  addr_bits_g				            	=> addr_bits_g
     )
@@ -410,73 +399,40 @@ output_block_wm : wishbone_master
 
 output_block_ws: wishbone_slave
      GENERIC MAP (
-		reset_activity_polarity_g  	=>	reset_polarity_g,
-		data_width_g        		=>	data_width_g,
-		Add_width_g    				=>	Add_width_g,			--width of addr word in the WB
-		len_d_g						=>	len_d_g,					--Length Depth. length of the data (in words)
-		type_d_g					=>	type_d_g				--Type Depth. type is the client which the data is directed to
+       reset_activity_polarity_g  	=> reset_polarity_g,
+       data_width_g               	=> byte_size_g,     
+--	  addr_d_g				               	=> addr_d_g,
+		Add_width_g				=> Add_width_g,
+	     len_d_g				                 => len_d_g,
+	     type_d_g				                => type_d_g  
 		 )	   
      PORT MAP (
-		clk        => clk,
-		reset      => reset,   
-		--bus side signals
-		ADR_I          => ADR_I_sig,
-		DAT_I          => DAT_I_sig,
-		WE_I           => WE_I_sig,
-		STB_I          => STB_I_sig,
-		CYC_I          => CYC_I_sig,
-		TGA_I          => TGA_I_sig,
-		TGD_I          => TGD_I_sig,
-		ACK_O          => ACK_O_sig,
-		DAT_O          => DAT_O_sig,
-	    STALL_O		      => STALL_O_sig,
-		--register side signals
-		typ			         => typ_sig,
-	    addr	          => open,
-	    len		         	=> len_sig,
-	    wr_en			       => open,
-	    ws_data	       => open,
-	    ws_data_valid	 => open,
-	    reg_data       => fifo_dout,
-		reg_data_valid => fifo_dout_valid,
-	    active_cycle	  => active_cycle_sig,
-	    stall			       => fifo_empty 
-	); 
+       clk        	=> clk,
+       reset      	=> reset,   
+	   --bus side signals
+       ADR_I        => ADR_I_sig,
+       DAT_I        => DAT_I_sig,
+       WE_I         => WE_I_sig,
+       STB_I        => STB_I_sig,
+       CYC_I        => CYC_I_sig,
+       TGA_I        => TGA_I_sig,
+       TGD_I        => TGD_I_sig,
+       ACK_O        => ACK_O_sig,
+       DAT_O        => DAT_O_sig,
+	   STALL_O	    => STALL_O_sig,
+	   --register side signals
+       typ			         => typ_sig,
+	     addr	          => open,
+	     len		         	=> len_sig,
+	     wr_en			       => open,
+	     ws_data	       => open,
+	     ws_data_valid	 => open,
+	     reg_data       => fifo_dout,
+       reg_data_valid => fifo_dout_valid,
+	     active_cycle	  => active_cycle_sig,
+	     stall			       => fifo_empty 
+	       ); 
 
-input_block_ws: wishbone_slave
-     GENERIC MAP (
-		reset_activity_polarity_g  	=>	reset_polarity_g,
-		data_width_g        		=>	data_width_g,
-		Add_width_g    				=>	Add_width_g,			--width of addr word in the WB
-		len_d_g						=>	len_d_g,					--Length Depth. length of the data (in words)
-		type_d_g					=>	type_d_g				--Type Depth. type is the client which the data is directed to
-		 )	   
-     PORT MAP (
-		clk        		=> clk,
-		reset      		=> reset,   
-		--bus side signals
-		ADR_I          	=> ADR_I_2,
-		DAT_I          	=> DAT_I_2,
-		WE_I           	=> WE_I_2,
-		STB_I          	=> STB_I_2,
-		CYC_I          	=> CYC_I_2,
-		TGA_I          	=> TGA_I_2,
-		TGD_I          	=> TGD_I_2,
-		ACK_O          	=> ACK_O_2,
-		DAT_O          	=> DAT_O_2,
-	    STALL_O		   	=> STALL_O_2,
-		--register side signals
-		typ				=> open,
-	    addr	        => open,
-	    len		        => open,
-	    wr_en			=> open,
-	    ws_data	       	=> open,
-	    ws_data_valid	=> open,
-	    reg_data       	=> (others => '0'),
-		reg_data_valid 	=> '0',
-	    active_cycle	=> open,
-	    stall			=> '0' 
-	); 
 
  -- P R O C E S S E S     A R E A  --
 
@@ -491,7 +447,7 @@ fsm_in_process: process(clk, reset)
     elsif rising_edge(clk)then
       case fsm_in_state is
         when buffering_st =>  
-          if (wm_end_2 = '1') then
+          if (lzrw3_done = '1') then
             fsm_in_state <= transferring_st ;
           end if;
         when transferring_st =>    -- till the send operation end
@@ -503,7 +459,7 @@ fsm_in_process: process(clk, reset)
   end process fsm_in_process; 
 
 -- to lzrw3 core depends on FSM_in state
-ACK_O_2  <= '1' when ( (fsm_in_state = buffering_st) and (short_fifo_full = '0') ) else '0' ; 
+client_ready  <= '1' when ( (fsm_in_state = buffering_st) and (short_fifo_full = '0') ) else '0' ; 
   
           
 
@@ -616,20 +572,21 @@ fifo_rd_en <= (CYC_I_sig and STB_I_sig) when (send_data_st_en = '1') else '0' ;
 wm_start_sig <= '1' when(fsm_out_state = wm_request_st) else '0' ;
 
 -- all others inputs with meaning only if wm_start_sig = '1'
-type_in_sig         <= type_of_TX_ws_c ;             --  TYPE OF TX PATH
+--type_in_sig         <= "00000011" ;             --  TYPE 03
+type_in_sig         <= "00000010" ;             --  TX TYPE (2)
 ram_din_sig         <= std_logic_vector(to_unsigned(requested_bytes-1, ram_din_sig'length)) ;
-len_in_sig          <= (others => '0') ;        -- len = data length -1 (and data is always one byte = request bytes to send - 1)
-wr_sig              <= '1';                     -- always writes data to TX PATH slave
+len_in_sig          <= (others => '0') ;        -- len = data length -1 (and data is allways one byte = request bytes to send - 1)
+wr_sig              <= '1';                     -- allways writes data to TX PATH slave
 addr_in_sig         <= (others => '0') ;
 ram_start_addr_sig  <= (others => '0') ;
 
 
 
--- OUTPUT BLOCK - CORE interface connections
+-- OUTPUT BLOCK - LZRW3 CORE interface connections
 
-data_in_sig       <= DAT_I_2 ;       
-data_in_valid_sig <= STB_I_2 ;     	 	     
---TGD_I_2				<= std_logic_vector(to_unsigned( 3 , type_d_g * data_width_g));
+data_in_sig       <= data_in ;       
+data_in_valid_sig <= data_in_valid ;     	 	     
+
 
 -- OUTPUT BLOCK - BUS interface connections
 
