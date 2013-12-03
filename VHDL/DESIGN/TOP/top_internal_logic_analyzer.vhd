@@ -398,10 +398,22 @@ COMPONENT output_block is
         clk			                   :	in std_logic ;	
         reset			                 :	in std_logic ;	  
         -- data provider side (compressor core)
-        data_in                  : in std_logic_vector (byte_size_g -1 downto 0) ;	
-        data_in_valid            :	in std_logic ;	 	
-        lzrw3_done               :	in std_logic ;                                             -- lzrw3_done for one clock
-        client_ready             :	out std_logic ;
+--          data_in                  : in std_logic_vector (byte_size_g -1 downto 0) ;	
+--         data_in_valid            :	in std_logic ;	 	
+--          lzrw3_done               :	in std_logic ;                                             -- lzrw3_done for one clock
+--          client_ready             :	out std_logic ;
+        -- data input side (compatible to WB SLAVE)
+		wm_end_2				: in std_logic; 										--when '1' WM ended a transaction or reseted by watchdog ERR_I signal
+		ADR_I_2                 : in std_logic_vector (Add_width_g-1 downto 0);	   -- contains the addr word
+        DAT_I_2                 : in std_logic_vector (data_width_g-1 downto 0); 	               -- contains the data_in word
+        WE_I_2              	: in std_logic;                     				                         -- '1' for write, '0' for read
+        STB_I_2                 : in std_logic;                     				                         -- '1' for active bus operation, '0' for no bus operation
+        CYC_I_2                 : in std_logic;                     				                         -- '1' for bus transmition request, '0' for no bus transmition request
+        TGA_I_2                 : in std_logic_vector ((data_width_g)*(type_d_g)-1 downto 0); 	  -- contains the type word
+        TGD_I_2                 : in std_logic_vector ((data_width_g)*(len_d_g)-1 downto 0); 	   -- contains the len word
+        ACK_O_2                 : out std_logic;                      				                       -- '1' when valid data is transmited to MW or for successfull write operation 
+        DAT_O_2                 : out std_logic_vector (data_width_g-1 downto 0);   	            -- data transmit to MW
+	    STALL_O_2		        : out std_logic;
         -- wishbone master BUS side
         ADR_O		       	          : out std_logic_vector (Add_width_g-1 downto 0); -- contains the addr word
         WM_DAT_O			              : out std_logic_vector (data_width_g-1 downto 0);            -- contains the data_in word
@@ -651,7 +663,7 @@ signal trigger_sig				  :  std_logic ;
 signal data_in_sig        		  :  std_logic_vector (num_of_signals_g - 1 downto 0) ;    
 --signal rc_finish_s				  :	 std_logic;
 -- internal connectors signals (CORE to OUTPUT_BLOCK)
-signal lzrw3_done_sig			  :  std_logic;
+signal wm_end_sig				  :  std_logic;
 signal ADR_O_sig               	  :  std_logic_vector (Add_width_g-1 downto 0);           
 signal DAT_O_sig               	  :  std_logic_vector (data_width_g-1 downto 0);          
 signal WE_O_sig                	  :  std_logic;            
@@ -936,7 +948,7 @@ core_inst: internal_logic_analyzer_core_top
 		-- WISHBONE MASTER control unit signals
 		TOP_active_cycle	=>	open,
 		stall				=>	zero_bit_c,
-		wm_end_out			=>	lzrw3_done_sig
+		wm_end_out			=>	wm_end_sig
 	  );
    
 signal_generator_inst: signal_generator_top 
@@ -970,7 +982,7 @@ signal_generator_inst: signal_generator_top
         DAT_O               => 	DAT_O_S4_sig,
 	    STALL_O		        => 	STALL_O_S4_sig,
 		--register side signals
-		rc_finish			=> 	lzrw3_done_sig,
+		rc_finish			=> 	wm_end_sig,
 		typ					=>	open,
 		len					=>	open,
 		reg_data       		=>	zero_vector_DAT_c,
@@ -1006,10 +1018,22 @@ output_block_unit: output_block
         clk			        => clk,        
         reset			    => reset,         
         -- data provider side (compressor core)
-        data_in             => DAT_O_sig,          
-        data_in_valid       => STB_O_sig,          	
-        lzrw3_done          => lzrw3_done_sig,                                             
-        client_ready        => open,          
+--        data_in             => data_out_sig,          
+--        data_in_valid       => data_out_valid_sig,          	
+--        lzrw3_done          => lzrw3_done_sig,                                             
+--        client_ready        => client_ready_sig,          
+        -- data input side (compatible to WB SLAVE)
+		wm_end_2			=> wm_end_sig,
+		ADR_I_2             => ADR_O_sig,
+        DAT_I_2             => DAT_O_sig,
+        WE_I_2              => WE_O_sig,
+        STB_I_2             => STB_O_sig,
+        CYC_I_2             => CYC_O_sig,
+        TGA_I_2             => TGA_O_sig,
+        TGD_I_2             => TGD_O_sig,
+        ACK_O_2             => ACK_I_sig,
+        DAT_O_2             => DAT_I_sig,
+	    STALL_O_2		    => STALL_I_sig,
 		-- wishbone master BUS side
         ADR_O		        => ADR_O_M3_sig, 	        
         WM_DAT_O			=> DAT_O_M3_sig,         

@@ -62,10 +62,22 @@ use ieee.numeric_std.all ;
         clk			            : in std_logic ;	
         reset			      	: in std_logic ;	  
         -- data provider side (compressor core)
-        data_in                  : in std_logic_vector (byte_size_g -1 downto 0) ;	
-        data_in_valid            :	in std_logic ;	 	
-        lzrw3_done               :	in std_logic ;                                             -- lzrw3_done for one clock
-        client_ready             :	out std_logic ;
+--          data_in                  : in std_logic_vector (byte_size_g -1 downto 0) ;	
+--         data_in_valid            :	in std_logic ;	 	
+--          lzrw3_done               :	in std_logic ;                                             -- lzrw3_done for one clock
+--          client_ready             :	out std_logic ;
+        -- data input side (compatible to WB SLAVE)
+		wm_end_2				: in std_logic; 										--when '1' WM ended a transaction or reseted by watchdog ERR_I signal    (REPLACE lzrw3_done)
+		ADR_I_2                 : in std_logic_vector (Add_width_g-1 downto 0);	   -- contains the addr word
+        DAT_I_2                 : in std_logic_vector (data_width_g-1 downto 0); 	               -- contains the data_in word									(REPLACE data_in)
+        WE_I_2              	: in std_logic;                     				                         -- '1' for write, '0' for read
+        STB_I_2                 : in std_logic;                     				                         -- '1' for active bus operation, '0' for no bus operation	(REPLACE data_in_valid)
+        CYC_I_2                 : in std_logic;                     				                         -- '1' for bus transmition request, '0' for no bus transmition request
+        TGA_I_2                 : in std_logic_vector ((data_width_g)*(type_d_g)-1 downto 0); 	  -- contains the type word
+        TGD_I_2                 : in std_logic_vector ((data_width_g)*(len_d_g)-1 downto 0); 	   -- contains the len word
+        ACK_O_2                 : out std_logic;                      				                       -- '1' when valid data is transmited to MW or for successfull write operation 
+        DAT_O_2                 : out std_logic_vector (data_width_g-1 downto 0);   	            -- data transmit to MW
+	    STALL_O_2		        : out std_logic;
 		-- wishbone master BUS side
         ADR_O		       	    : out std_logic_vector (Add_width_g-1 downto 0); -- contains the addr word
         WM_DAT_O			    : out std_logic_vector (data_width_g-1 downto 0);            -- contains the data_in word
@@ -431,6 +443,41 @@ output_block_ws: wishbone_slave
 	    stall			       => fifo_empty 
 	); 
 
+input_block_ws: wishbone_slave
+     GENERIC MAP (
+		reset_activity_polarity_g  	=>	reset_polarity_g,
+		data_width_g        		=>	data_width_g,
+		Add_width_g    				=>	Add_width_g,			--width of addr word in the WB
+		len_d_g						=>	len_d_g,					--Length Depth. length of the data (in words)
+		type_d_g					=>	type_d_g				--Type Depth. type is the client which the data is directed to
+		 )	   
+     PORT MAP (
+		clk        		=> clk,
+		reset      		=> reset,   
+		--bus side signals
+		ADR_I          	=> ADR_I_2,
+		DAT_I          	=> DAT_I_2,
+		WE_I           	=> WE_I_2,
+		STB_I          	=> STB_I_2,
+		CYC_I          	=> CYC_I_2,
+		TGA_I          	=> type_of_TX_ws_c,
+		TGD_I          	=> TGD_I_2,
+		ACK_O          	=> ACK_O_2,
+		DAT_O          	=> DAT_O_2,
+	    STALL_O		   	=> STALL_O_2,
+		--register side signals
+		typ				=> open,
+	    addr	        => open,
+	    len		        => open,
+	    wr_en			=> open,
+	    ws_data	       	=> open,
+	    ws_data_valid	=> open,
+	    reg_data       	=> (others => '0'),
+		reg_data_valid 	=> '0',
+	    active_cycle	=> open,
+	    stall			=> '0' 
+	); 
+
  -- P R O C E S S E S     A R E A  --
 
 
@@ -444,7 +491,7 @@ fsm_in_process: process(clk, reset)
     elsif rising_edge(clk)then
       case fsm_in_state is
         when buffering_st =>  
-          if (lzrw3_done = '1') then
+          if (wm_end_2 = '1') then
             fsm_in_state <= transferring_st ;
           end if;
         when transferring_st =>    -- till the send operation end
@@ -456,7 +503,9 @@ fsm_in_process: process(clk, reset)
   end process fsm_in_process; 
 
 -- to lzrw3 core depends on FSM_in state
-client_ready  <= '1' when ( (fsm_in_state = buffering_st) and (short_fifo_full = '0') ) else '0' ; 
+ACK_O_2  <= '1' when ( (fsm_in_state = buffering_st) and (short_fifo_full = '0') ) else '0' ; 
+  
+          
 
 
 -- this FSM determine the requierd bytes to send to TX PATH and
@@ -578,8 +627,8 @@ ram_start_addr_sig  <= (others => '0') ;
 
 -- OUTPUT BLOCK - CORE interface connections
 
-data_in_sig       <= data_in ;       
-data_in_valid_sig <= data_in_valid ;     	 	     
+data_in_sig       <= DAT_I_2 ;       
+data_in_valid_sig <= STB_I_2 ;     	 	     
 --TGD_I_2				<= std_logic_vector(to_unsigned( 3 , type_d_g * data_width_g));
 
 -- OUTPUT BLOCK - BUS interface connections
