@@ -31,9 +31,8 @@ entity tx_path is
 generic (
 	reset_polarity_g		: std_logic := '1'; 	--'0' = Active Low, '1' = Active High
 	data_width_g	   		: natural	:=8;	
---	addr_d_g				: positive := 3;		--Address Depth
-    Add_width_g    			:   positive := 8;		--width of addr word in the WB
-	len_d_g					: positive := 1;		--Length Depth
+	Add_width_g    			:   positive := 8;		--width of addr word in the WB
+    len_d_g					: positive := 1;		--Length Depth
     type_d_g				: positive := 1;		--Type Depth 
 	fifo_d_g				: positive	:= 9;	-- Maximum elements in FIFO
 	addr_bits_g		    	: positive 	:= 8;	--Depth of data	(2^10 = 1024 addresses)    
@@ -49,7 +48,7 @@ port   (
 	sys_reset     		 : in std_logic;		 	--system reset
 	
 	----input and output to SLAVE TX from master RX
-	DAT_I_S				:in std_logic_vector (data_width_g-1 downto 0) ; 
+	DAT_I_S					:in std_logic_vector (data_width_g-1 downto 0) ; 
 	ADR_I_S_TX				:in std_logic_vector (Add_width_g-1 downto 0) ; 
 	TGA_I_S_TX				:in std_logic_vector ((data_width_g)*(type_d_g)-1 downto 0) ; 	--TYPE
 	TGD_I_S_TX				:in std_logic_vector ((data_width_g)*(len_d_g)-1 downto 0) ; 			--LEN
@@ -89,8 +88,7 @@ component bus_to_enc_fsm is
 generic	(
   	reset_polarity_g	: std_logic := '0';		--reset active polarity		
 	data_width_g		: natural	:=8;		
---	addr_d_g			: positive := 3;		--Address Depth
-	Add_width_g    		:   positive := 8;		--width of addr word in the WB
+	Add_width_g    		: positive := 8;		--width of addr word in the WB
 	len_d_g				: positive := 1;		--Length Depth
 	type_d_g			: positive := 1;		--Type Depth 
 	addr_bits_g			: positive := 8	--Depth of data in RAM	(2^8 = 256 addresses) 
@@ -130,13 +128,12 @@ end component bus_to_enc_fsm ;
 													--FALSE - Recieved length is the actual length
 		sof_d_g				:	positive := 1;		--SOF Depth
 		type_d_g			:	positive := 1;		--Type Depth
---		addr_d_g			:	positive := 3;		--Address Depth    
-		Add_width_g    		:   positive := 8;		--width of addr word in the WB
-		len_d_g				:	positive := 1;		--Length Depth   
+		Add_width_g	    	:   positive := 8;		--width of addr word in the WB
+		len_d_g				:	positive := 1;		--Length Depth*   
 		crc_d_g				:	positive := 1;		--CRC Depth
 		eof_d_g				:	positive := 1;		--EOF Depth		
-		sof_val_g			:	natural := 60;		-- (3C -  hex) SOF block value. Upper block is MSB
-		eof_val_g			:	natural := 165;		-- (5A -  hex) EOF block value. Upper block is MSB		
+		sof_val_g			:	natural := 60;		--* (3C -  hex) SOF block value. Upper block is MSB
+		eof_val_g			:	natural := 165;		--* (5A -  hex) EOF block value. Upper block is MSB		
 		width_g				:	positive := 8		--Data Width (UART = 8 bits)    
 		
 				);
@@ -268,15 +265,14 @@ component wishbone_slave is
    generic (
      reset_activity_polarity_g  	:std_logic :='1';      -- defines reset active polarity: '0' active low, '1' active high
      data_width_g               	: natural := 8;         -- defines the width of the data lines of the system    
---	 addr_d_g				:	positive := 3;		--Address Depth
-	 Add_width_g    		:   positive := 8;		--width of addr word in the WB
-	 len_d_g				:	positive := 1;		--Length Depth
-	 type_d_g				:	positive := 1		--Type Depth    
+	 Add_width_g    				:   positive := 8;		--width of addr word in the WB
+	 len_d_g						:	positive := 1;		--Length Depth
+	 type_d_g						:	positive := 6		--Type Depth 
 		   );	   
    port
    	   (
      clk        	: in std_logic;		 --system clock
-     reset      	: in std_logic;		 --system reset
+     reset		 	: in std_logic;		 --system reset    
 	 --bus side signals
      ADR_I          : in std_logic_vector (Add_width_g-1 downto 0);	--contains the addr word
      DAT_I          : in std_logic_vector (data_width_g-1 downto 0); 	--contains the data_in word
@@ -306,13 +302,12 @@ end component wishbone_slave;
 
 component wishbone_master is
    generic (
-    reset_activity_polarity_g  : std_logic :='1';      -- defines reset active polarity: '0' active low, '1' active high
-    data_width_g               : natural := 8 ;        -- defines the width of the data lines of the system
-    type_d_g			:	positive := 1;		--Type Depth
---	addr_d_g			:	positive := 3;		--Address Depth
-	Add_width_g    		:   positive := 8;		--width of addr word in the WB
-	len_d_g				:	positive := 1;		--Length Depth
-	addr_bits_g				:	positive := 8	--Depth of data in RAM	(2^8 = 256 addresses)
+    reset_activity_polarity_g  	: 	std_logic :='1';      -- defines reset active polarity: '0' active low, '1' active high
+    data_width_g               	: 	natural := 8 ;        -- defines the width of the data lines of the system
+    type_d_g					:	positive := 1;		--Type Depth
+	Add_width_g 				:   positive := 8;		--width of addr word in the WB
+	len_d_g						:	positive := 1;		--Length Depth
+	addr_bits_g					:	positive := 8	--Depth of data in RAM	(2^8 = 256 addresses)
            );
    port
    	   (
@@ -352,6 +347,9 @@ end component wishbone_master;
 
 
 ------------------  	Constants	-----------------
+constant zero_vector_c       : std_logic_vector (data_width_g -1 downto 0) := (others => '0');
+constant addr_zero_vector_c  : std_logic_vector (addr_bits_g -1 downto 0)  := (others => '0');
+
 
 ------------------  SIGNALS --------------------
 --FSM <--> mp_enc
@@ -367,7 +365,8 @@ signal ws_data_sig	    	:  std_logic_vector (data_width_g-1 downto 0);    --data
 signal ws_data_valid_sig	:  std_logic;	-- data valid to registers
 signal active_cycle_sig	:  std_logic; --CYC_I outputed to user side
 signal stall_sig			:  std_logic; -- stall - suspend wishbone transaction
---FSM <--> WM
+
+--FSM <--> WM  
 signal wm_start_sig		:  std_logic;	--when '1' WM starts a transaction
 signal wr_sig				:  std_logic;                      --determines if the WM will make a read('0') or write('1') transaction
 signal type_in_sig			:  std_logic_vector (type_d_g * data_width_g-1 downto 0);  --type is the client which the data is directed to
@@ -403,13 +402,7 @@ signal fifo_data_to_uart	:std_logic_vector(data_width_g-1 downto 0);
 signal fifo_read_en_sig		:std_logic;
 signal fifo_wr_en_sig      :std_logic;
 
-
-
-
-	 
-
  
-
 ------------------	Processes	----------------
 -----------------------------------------------
 
@@ -420,7 +413,6 @@ bus_to_enc_fsm_inst : bus_to_enc_fsm
 generic map	(
   	reset_polarity_g	=> reset_polarity_g,
 	data_width_g		=> data_width_g,
---	addr_d_g			=> addr_d_g,
 	Add_width_g			=> Add_width_g,
 	len_d_g				=> len_d_g,
 	type_d_g			=> type_d_g,
@@ -455,12 +447,13 @@ port map (
 ------------------- mp_enc Instantiations--------------------
 tx_mpe_inst : mp_enc
 	  generic map  (
-		reset_polarity_g 	=> reset_polarity_g,
-		width_g 			=> data_width_g,
-		type_d_g			=> type_d_g,
---		addr_d_g			=> addr_d_g,
+	  reset_polarity_g => reset_polarity_g,
+		width_g =>			data_width_g,
+		
+		type_d_g			=>  type_d_g,
 		Add_width_g			=> Add_width_g, 
-		len_d_g    			=> len_d_g
+		len_d_g    => len_d_g
+		
 					)
 
 	  port map		(	   		
@@ -492,12 +485,13 @@ tx_mpe_inst : mp_enc
 				
 ------------------- uart Instantiations--------------------
 tx_uart_inst : uart_tx
-	  generic map  (
-	 parity_odd_g		=> parity_odd_g,
-	 uart_idle_g		=> uart_idle_g, 
-	 baudrate_g			=> baudrate_g,
-	 clkrate_g			=> clkrate_g,
-	 databits_g			=> databits_g,
+  generic map  (
+	 parity_en_g		    => parity_en_g, 
+	 parity_odd_g		   => parity_odd_g,
+	 uart_idle_g		    => uart_idle_g, 
+	 baudrate_g		    	=> baudrate_g,
+	 clkrate_g		      => clkrate_g,
+	 databits_g		    	=> data_width_g,--databits_g,
 	 reset_polarity_g	=> reset_polarity_g
 					)
 
@@ -541,7 +535,7 @@ tx_crc_inst : crc_gen
 
 	  port map		(
 
-	      clock   	=> sys_clk, 
+	    clock   	=> sys_clk, 
         reset       => sys_reset,
         soc       	=> crc_rst_sig,
         data       	=> crc_data_sig,
@@ -580,11 +574,10 @@ tx_fifo_inst : general_fifo
 wb_slave_inst : wishbone_slave 
    generic map (
      reset_activity_polarity_g	=> reset_polarity_g,
-     data_width_g		=> data_width_g,
-	 --	addr_d_g			=> addr_d_g,
-	 Add_width_g			=> Add_width_g,
-	 len_d_g			=> len_d_g,
-	 type_d_g			=> type_d_g
+     data_width_g				=> data_width_g,
+	 Add_width_g				=> Add_width_g,
+	 len_d_g					=> len_d_g,
+	 type_d_g					=> type_d_g
            )
 		   
    port map
@@ -609,12 +602,13 @@ wb_slave_inst : wishbone_slave
 	wr_en			=> open,
 	ws_data	    	=> ws_data_sig,
 	ws_data_valid	=> ws_data_valid_sig,
-	reg_data     	=> (others => '0'),
+	reg_data     	=> addr_zero_vector_c,--(others => '0'),
     reg_data_valid	=> '0',
 	active_cycle	=> active_cycle_sig,
 	stall			=> stall_sig
 );
-	 
+	  
+
 ------------------wishbone master Instantiations	-----------------
 
 wishbone_master_inst : wishbone_master 
@@ -623,7 +617,6 @@ wishbone_master_inst : wishbone_master
     reset_activity_polarity_g  	=> reset_polarity_g,
     data_width_g            	=> data_width_g,
 	type_d_g					=> type_d_g,
---	addr_d_g				=> addr_d_g,
 	Add_width_g					=> Add_width_g,
 	len_d_g						=> len_d_g,
 	addr_bits_g					=> addr_bits_g
@@ -646,7 +639,7 @@ wishbone_master_inst : wishbone_master
 	ram_dout_valid	=> ram_wr_en,
 	ram_aout		=> open,
 	ram_aout_valid	=> open,
-	ram_din			=> (others => '0'),
+	ram_din			=> zero_vector_c,--(others => '0'),
 	ram_din_valid	=> '0',
     --bus side signals
     ADR_O	   => ADR_O_CLIENT,       
@@ -661,6 +654,5 @@ wishbone_master_inst : wishbone_master
     STALL_I	   => STALL_I_CLIENT,
 	ERR_I	   => ERR_I_CLIENT
 );
-				
+
 end architecture arc_tx_path;			
-			

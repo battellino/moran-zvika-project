@@ -208,7 +208,7 @@ begin
 				valid_i <= '1';
 		
         		-- Remove white characters (space and TAB) from line
-        		while ln'length >=1 and (ln(1) = ' ' or ln(1) = HT) loop
+        		while ((ln'length >=1 )and( (ln(1) = ' ') or (ln(1) = HT))) loop
         		   read(ln, chr, success);
 				   if not success then
 				      report "Time: " & time'image(now) & ", uart_trans_gen_model from file: Error while reading input file " & file_name_g & "_" & positive'image(file_index) & "." & file_extension_g 

@@ -36,7 +36,7 @@ entity internal_logic_analyzer_core_top is
 		enable_polarity_g					:	std_logic	:= '1';									--'1' the entity is active, '0' entity not active
 		signal_ram_depth_g					: 	positive  	:=	3;									--depth of RAM
 		signal_ram_width_g					:	positive 	:=  8;   								--width of basic RAM
-		record_depth_g						: 	positive  	:=	4;									--number of bits that is recorded from each signal
+		record_depth_g						: 	positive  	:=	3;									--number of bits that is recorded from each signal
 		data_width_g            			:	positive 	:= 	8;      						    --defines the width of the data lines of the system
 		Add_width_g  		    			:   positive 	:=  8;     								--width of addr word in the RAM
 		num_of_signals_g					:	positive	:=	8;									--num of signals that will be recorded simultaneously	(Width of data)

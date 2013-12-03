@@ -33,6 +33,7 @@ vcom general_fifo.vhd
 vcom output_block.vhd
 vcom uart_rx.vhd
 vcom uart_tx.vhd
+vcom bus_to_enc_fsm.vhd
 vcom wishbone_intercon.vhd
 vcom rx_path.vhd
 vcom tx_path.vhd
@@ -59,7 +60,7 @@ add wave /top_internal_logic_analyzer_TB/uut/signal_generator_inst/registers_ins
 add wave /top_internal_logic_analyzer_TB/uut/signal_generator_inst/registers_inst/enable_reg_2
 
 -------- TOP
-add wave /top_internal_logic_analyzer_TB/uut/wm_end_sig
+add wave /top_internal_logic_analyzer_TB/uut/lzrw3_done_sig
 add wave /top_internal_logic_analyzer_TB/uut/DAT_O_sig
 add wave /top_internal_logic_analyzer_TB/uut/STB_O_sig
 
@@ -134,4 +135,4 @@ add wave /top_internal_logic_analyzer_TB/uut/output_block_unit/data_in_sig
 add wave /top_internal_logic_analyzer_TB/uut/output_block_unit/data_in_valid_sig
 
 
-run 3600000 ns
+run 9500000 ns

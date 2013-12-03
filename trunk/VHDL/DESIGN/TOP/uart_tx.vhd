@@ -25,6 +25,7 @@
 --			Number		Date		Name				Description
 --			1.00		27.11.2010	Alon Yavich			Creation
 --			1.1			22.11.2012	Dor Obstbaum		Fix parrity_odd bug (line 190)
+--    1.2   25.07.2013 Netael Yamin  Fix parity enable bug to work with generic value (line 195)
 ------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------
 --	Todo:
@@ -165,8 +166,8 @@ begin
 							cur_st 			<= IDLE_ST;
 							pos_cnt			<= 0;
 							fifo_rd_en 		<= '0';
-							report "Time: " & time'image(now) & ", UART TX_ST: Unknown state in state machine"
-							severity error;
+							--report "Time: " & time'image(now) & ", UART TX_ST: Unknown state in state machine"
+							--severity error;
 					
 				end case;
 		end if;
@@ -192,7 +193,7 @@ begin
 						else
 							sr(databits_g + 1) <= xnor_reduce(din(databits_g -1 downto 0));--Calculate parity
 						end if ;
-						sr(databits_g + 2) <= uart_idle_g;							-- Stop bit
+						sr(databits_g + 1 + parity_en_g) <= uart_idle_g;							-- Stop bit
 					end if ;
 				end if;	
 			elsif ((cur_st = TX_ST) and (uart_clk = '1')) then
