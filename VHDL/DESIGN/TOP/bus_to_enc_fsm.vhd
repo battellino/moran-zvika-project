@@ -22,14 +22,14 @@ library ieee ;
 use ieee.std_logic_1164.all ;
 use ieee.std_logic_unsigned.all;
 use ieee.std_logic_arith.all;
-
+use ieee.std_logic_unsigned.all;
+use ieee.numeric_std.all ;
 
 entity bus_to_enc_fsm is
 generic	(
   	reset_polarity_g	: std_logic := '0';		--reset active polarity		
 	data_width_g		: natural	:=8;		
---	addr_d_g			: positive := 3;		--Address Depth
-    Add_width_g    		:   positive := 8;		--width of addr word in the WB
+	Add_width_g    		: positive := 8;		--width of addr word in the WB
 	len_d_g				: positive := 1;		--Length Depth
 	type_d_g			: positive := 1;		--Type Depth 
 	addr_bits_g			: positive := 8	--Depth of data in RAM	(2^8 = 256 addresses) 
@@ -66,6 +66,9 @@ architecture arc_bus_to_enc_fsm of bus_to_enc_fsm is
 --##################################################################################################--
 --#######################                Signals                             #######################--
 --##################################################################################################--
+----CONSTANTS
+constant type_of_OUTPUT_c		: std_logic_vector ((data_width_g)*(type_d_g)-1 downto 0)	:= std_logic_vector(to_unsigned( 3 , type_d_g * data_width_g));
+
 --State Machine
 type fsm_states is (
 	idle_st,			-- no action 
@@ -157,10 +160,12 @@ begin
 		addr_reg	<= (others => '0');	
 		len_reg		<= (others => '0');	
 	elsif rising_edge(clk) then
-		if (active_cycle_sample = '0' and active_cycle = '1') then 
-			type_reg(2 downto 0)	<= typ((data_width_g)*(type_d_g)-1 downto (data_width_g)*(type_d_g)-3 );	
-			addr_reg				<= addr;	
-			len_reg					<= ws_data;	
+		if(idle_st_en = '1' ) then --or ws_read_req_st_en = '1') then
+		  if (active_cycle_sample = '0' and active_cycle = '1') then 
+			  type_reg(2 downto 0)	<= typ((data_width_g)*(type_d_g)-1 downto (data_width_g)*(type_d_g)-3 );	
+			  addr_reg				<= addr;	
+			  len_reg					<= ws_data;
+		  end if;	
 		end if;
 	end if;
 end process registers_proc;
@@ -185,12 +190,13 @@ end process st_en_sample_proc;
 wm_ws_proc:
 wm_start	<= '1' when ws_read_req_st_en_sample='1' and wm_read_st_en = '1' else '0';
 wr			<= '0';		
-type_in		<= type_reg;
-addr_in		<= addr_reg;
 len_in		<= len_reg;
 ram_start_addr	<= (others => '0');
 stall		<=	wm_read_st_en or sending_packet_st_en;
-
+type_in		<=	type_reg;
+addr_in		<=	addr_reg;
+--type_in		<= type_of_OUTPUT_c;		 -- type 4 --type_reg;			----------------------------------------------------------CHANGED TO 3 (OUTPUT BLOCK)!!!!!!!
+--addr_in		<= (others => '0');--addr_reg;
 -------------------------------------------------------------------
 ----------------------	mp_enc_proc				-------------------
 -------------------------------------------------------------------
@@ -199,5 +205,6 @@ reg_ready 	<= wm_end;
 type_mp_enc	<= type_reg;
 addr_mp_enc	<= addr_reg;
 len_mp_enc	<= len_reg;
+
 
 end architecture arc_bus_to_enc_fsm;

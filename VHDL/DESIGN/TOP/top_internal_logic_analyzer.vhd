@@ -398,11 +398,10 @@ COMPONENT output_block is
         clk			                   :	in std_logic ;	
         reset			                 :	in std_logic ;	  
         -- data provider side (compressor core)
-          data_in                  : in std_logic_vector (byte_size_g -1 downto 0) ;	
-         data_in_valid            :	in std_logic ;	 	
-          lzrw3_done               :	in std_logic ;                                             -- lzrw3_done for one clock
-          client_ready             :	out std_logic ;
-		
+        data_in                  : in std_logic_vector (byte_size_g -1 downto 0) ;	
+        data_in_valid            :	in std_logic ;	 	
+        lzrw3_done               :	in std_logic ;                                             -- lzrw3_done for one clock
+        client_ready             :	out std_logic ;
         -- wishbone master BUS side
         ADR_O		       	          : out std_logic_vector (Add_width_g-1 downto 0); -- contains the addr word
         WM_DAT_O			              : out std_logic_vector (data_width_g-1 downto 0);            -- contains the data_in word
@@ -652,11 +651,18 @@ signal trigger_sig				  :  std_logic ;
 signal data_in_sig        		  :  std_logic_vector (num_of_signals_g - 1 downto 0) ;    
 --signal rc_finish_s				  :	 std_logic;
 -- internal connectors signals (CORE to OUTPUT_BLOCK)
-signal wm_end_sig				  :  std_logic;
-
-signal data_out_sig               	  :  std_logic_vector (data_width_g-1 downto 0);          
-signal data_out_valid_sig             	  :  std_logic;		
-
+signal lzrw3_done_sig			  :  std_logic;
+signal ADR_O_sig               	  :  std_logic_vector (Add_width_g-1 downto 0);           
+signal DAT_O_sig               	  :  std_logic_vector (data_width_g-1 downto 0);          
+signal WE_O_sig                	  :  std_logic;            
+signal STB_O_sig               	  :  std_logic;            
+signal CYC_O_sig               	  :  std_logic;            
+signal TGA_O_sig               	  :  std_logic_vector ((data_width_g)*(type_d_g)-1 downto 0);          
+signal TGD_O_sig               	  :  std_logic_vector ((data_width_g)*(len_d_g)-1 downto 0);         
+signal ACK_I_sig               	  :  std_logic;          
+signal DAT_I_sig               	  :  std_logic_vector (data_width_g-1 downto 0);          
+signal STALL_I_sig             	  :  std_logic;		
+signal ERR_I_sig               	  :  std_logic;	
 
 -- data output (UART)
 signal uart_out_sig               :  std_logic ;
@@ -913,16 +919,16 @@ core_inst: internal_logic_analyzer_core_top
         WS_DAT_O            => 	DAT_O_S5_sig,
 	    STALL_O		        => 	STALL_O_S5_sig,
 		-- DATA TO OUTPUT BLOCK (WISHBONE master BUS interface)
-	    ADR_O    		    => 	open,      
-		WM_DAT_O   		    => 	data_out_sig,      
-		WE_O           	    => 	open,
-		STB_O         	    => 	data_out_valid_sig,
-		CYC_O      		    =>	open,     
-		TGA_O       	    => 	open, 
-		TGD_O      		    => 	open,   
-		ACK_I       	    => 	zero_bit_c,                    
-		DAT_I_WM       	    => 	zero_vector_DAT_c, 
-		STALL_I		   		=> 	zero_bit_c,
+	    ADR_O    		    => 	ADR_O_sig,      
+		WM_DAT_O   		    => 	DAT_O_sig,      
+		WE_O           	    => 	WE_O_sig,
+		STB_O         	    => 	STB_O_sig,
+		CYC_O      		    =>	CYC_O_sig,     
+		TGA_O       	    => 	TGA_O_sig, 
+		TGD_O      		    => 	TGD_O_sig,   
+		ACK_I       	    => 	ACK_I_sig,                    
+		DAT_I_WM       	    => 	DAT_I_sig, 
+		STALL_I		   		=> 	STALL_I_sig,
 		ERR_I			    => 	zero_bit_c,                                           
 		-- SIGNAL GENERATOR to CORE interface
 		data_in				=>	data_in_sig,
@@ -930,7 +936,7 @@ core_inst: internal_logic_analyzer_core_top
 		-- WISHBONE MASTER control unit signals
 		TOP_active_cycle	=>	open,
 		stall				=>	zero_bit_c,
-		wm_end_out			=>	wm_end_sig
+		wm_end_out			=>	lzrw3_done_sig
 	  );
    
 signal_generator_inst: signal_generator_top 
@@ -964,7 +970,7 @@ signal_generator_inst: signal_generator_top
         DAT_O               => 	DAT_O_S4_sig,
 	    STALL_O		        => 	STALL_O_S4_sig,
 		--register side signals
-		rc_finish			=> 	wm_end_sig,
+		rc_finish			=> 	lzrw3_done_sig,
 		typ					=>	open,
 		len					=>	open,
 		reg_data       		=>	zero_vector_DAT_c,
@@ -1000,9 +1006,9 @@ output_block_unit: output_block
         clk			        => clk,        
         reset			    => reset,         
         -- data provider side (compressor core)
-        data_in             => data_out_sig,          
-        data_in_valid       => data_out_valid_sig,          	
-        lzrw3_done          => wm_end_sig,                                             
+        data_in             => DAT_O_sig,          
+        data_in_valid       => STB_O_sig,          	
+        lzrw3_done          => lzrw3_done_sig,                                             
         client_ready        => open,          
 		-- wishbone master BUS side
         ADR_O		        => ADR_O_M3_sig, 	        

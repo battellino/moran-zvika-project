@@ -44,7 +44,8 @@ entity signal_generator_registers is
 	 wr_en           		  	: in std_logic; 									-- write enable: '1' for write, '0' for read
 	 data_in_reg      		 	: in std_logic_vector ( data_width_g - 1 downto 0); -- data sent from WS
      valid_in          			: in std_logic; 									-- validity of the data directed from WS								
-     -- core blocks interface
+     rc_finish					: in std_logic;										--  1 -> reset enable register
+	 -- core blocks interface
      scene_number_out_1        	: out std_logic_vector (6 downto 0); 				-- scene number
      enable_out_2        		: out std_logic								  		-- enable sent by the GUI
    	   );
@@ -91,7 +92,7 @@ process(clk,reset)
  		   if ( (valid_in = '1') and (wr_en = '1') and (address_in = scene_number_reg_1_address_c) ) then
 				scene_number_reg_1 <= data_in_reg(6 downto 0);
 		   else
- 		     scene_number_reg_1 <= scene_number_reg_1;
+				scene_number_reg_1 <= scene_number_reg_1;
        end if; 			
     end if;
 end process scene_number_reg_1_proc;
@@ -105,8 +106,10 @@ process(clk,reset)
  		elsif rising_edge(clk) then
  		   if ( (valid_in = '1') and (wr_en = '1') and (address_in = enable_reg_2_address_c) ) then
 				enable_reg_2 <= data_in_reg(6 downto 0);
+		   elsif (rc_finish = '1' ) then
+				enable_reg_2(0) <= not (enable_polarity_g);
 		   else
- 		     enable_reg_2 <= enable_reg_2;
+				enable_reg_2 <= enable_reg_2;
        end if; 			
     end if;
 end process enable_reg_2_proc;

@@ -55,6 +55,7 @@ entity signal_generator_top is
 			 DAT_O          	: out std_logic_vector (data_width_g-1 downto 0);   			--data transmit to MW
 			 STALL_O			: out std_logic; 												--STALL - WS is not available for transaction 
 			 --register side signals
+			 rc_finish			: in std_logic;										--  1 -> reset enable register
 			 typ				: out std_logic_vector ((data_width_g)*(type_d_g)-1 downto 0); 	-- Type
 --			 addr	        	: out std_logic_vector (Add_width_g-1 downto 0);    			--the beginnig address in the client that the information will be written to
 			 len				: out std_logic_vector ((data_width_g)*(len_d_g)-1 downto 0);   --Length
@@ -110,7 +111,8 @@ component signal_generator_registers is
 	 wr_en           		  	: in std_logic; 									-- write enable: '1' for write, '0' for read
 	 data_in_reg      		 	: in std_logic_vector ( data_width_g - 1 downto 0); -- data sent from WS
      valid_in          			: in std_logic; 									-- validity of the data directed from WS								
-     -- core blocks interface
+     rc_finish					: in std_logic;										--  1 -> reset enable register
+	 -- core blocks interface
      scene_number_out_1        	: out std_logic_vector (6 downto 0); 				-- scene number
      enable_out_2        		: out std_logic								  		-- enable sent by the GUI
    	   );
@@ -240,7 +242,7 @@ registers_inst: signal_generator_registers generic map (
 												wr_en           		  	=>	we_s, 										-- write enable: '1' for write, '0' for read
 												data_in_reg      		 	=>	ws_to_registers_data_s,						-- data sent from WS
 												valid_in          			=>	ws_to_registers_enable_s,					-- validity of the data directed from WS								
-												
+												rc_finish					=>	rc_finish,
 												scene_number_out_1        	=>	scene_number_s,				 				-- scene number
 												enable_out_2        		=>	enable_s							  		-- enable sent by the GUI
 											);
