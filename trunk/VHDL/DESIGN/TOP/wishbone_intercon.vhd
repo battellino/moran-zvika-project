@@ -90,7 +90,7 @@ entity wishbone_intercon is
     DAT_I_M3          : out std_logic_vector (data_width_g-1 downto 0);   --data recieved from WS
   	STALL_I_M3		      : out std_logic; --STALL - WS is not available for transaction 
 	ERR_I_M3		        : out std_logic;  --Watchdog interrupts, resets wishbone master
-  	--Wishbone Slave 1 interfaces (core)
+  	--Wishbone Slave 1 interfaces (rx_path- error register)
     ADR_I_S1          : out std_logic_vector (Add_width_g-1 downto 0);	--contains the address word
     DAT_I_S1          : out std_logic_vector (data_width_g-1 downto 0); 	--contains the data_in word
     WE_I_S1           : out std_logic;                     				-- '1' for write, '0' for read
@@ -134,7 +134,7 @@ entity wishbone_intercon is
     ACK_O_S4          : in std_logic;                      				--'1' when valid data is transmitted to MW or for successful write operation 
     DAT_O_S4          : in std_logic_vector (data_width_g-1 downto 0);   	--data transmit to MW
 	STALL_O_S4        : in std_logic; --STALL - WS is not available for transaction 
-    --Wishbone Slave 5 interfaces (not in use)
+    --Wishbone Slave 5 interfaces (core)
     ADR_I_S5          : out std_logic_vector (Add_width_g-1 downto 0);	--contains the addr word
     DAT_I_S5          : out std_logic_vector (data_width_g-1 downto 0); 	--contains the data_in word
     WE_I_S5           : out std_logic;                     				-- '1' for write, '0' for read
