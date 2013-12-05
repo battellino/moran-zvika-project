@@ -350,7 +350,6 @@ end component wishbone_master;
 constant zero_vector_c       : std_logic_vector (data_width_g -1 downto 0) := (others => '0');
 constant addr_zero_vector_c  : std_logic_vector (addr_bits_g -1 downto 0)  := (others => '0');
 
-
 ------------------  SIGNALS --------------------
 --FSM <--> mp_enc
 signal enc_reg_ready_sig 	:std_logic;   --frame ok

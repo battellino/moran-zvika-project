@@ -241,7 +241,7 @@ COMPONENT wishbone_slave
   constant clk_div_factor_c	 	: positive := clkrate_g / baudrate_g + 1 ;	    	-- Clock Divide factor + 1 for fraction round
   constant uart_frame_bits_c   	: positive := 2 + databits_g + parity_en_g ;    -- start bit + data bits + parity + stop bit
   constant calculated_const_c  	: positive := clk_div_factor_c * uart_frame_bits_c ; 
-  constant type_of_TX_ws_c		: std_logic_vector ((data_width_g)*(type_d_g)-1 downto 0)	:= std_logic_vector(to_unsigned( 2 , type_d_g * data_width_g));
+  constant type_of_TX_ws_c		: std_logic_vector ((data_width_g)*(type_d_g)-1 downto 0)	:= std_logic_vector(to_unsigned( 98 , type_d_g * data_width_g));
    -----  S I G N A L S   A R E A  ---
      -- counters
   signal requested_bytes    : integer range 256 downto 0 ;                 -- requested bytes to send in fifo
