@@ -111,7 +111,9 @@ component signal_generator_registers is
 	 wr_en           		  	: in std_logic; 									-- write enable: '1' for write, '0' for read
 	 data_in_reg      		 	: in std_logic_vector ( data_width_g - 1 downto 0); -- data sent from WS
      valid_in          			: in std_logic; 									-- validity of the data directed from WS								
-     rc_finish					: in std_logic;										--  1 -> reset enable register
+     data_out          			: out std_logic_vector (data_width_g-1 downto 0); -- data sent to WS
+     valid_data_out    			: out std_logic; -- validity of data directed to WS
+	 rc_finish					: in std_logic;										--  1 -> reset enable register
 	 -- core blocks interface
      scene_number_out_1        	: out std_logic_vector (6 downto 0); 				-- scene number
      enable_out_2        		: out std_logic								  		-- enable sent by the GUI
@@ -166,6 +168,9 @@ signal addr_s		       				:	std_logic_vector (Add_width_g-1 downto 0);
 signal we_s								: 	std_logic; 									-- write enable
 signal ws_to_registers_data_s 			: 	std_logic_vector (data_width_g-1 downto 0);	-- data sent from WS to registers (trigg pos, trigg type, enable, clk to start)
 signal ws_to_registers_enable_s			: 	std_logic; 									-- validity of the data directed from WS
+------- Registers to wishbone slave signals-----------
+signal registers2ws_data_s          : std_logic_vector (data_width_g-1 downto 0); -- data sent to WS
+signal registers2ws_val_data_s      : std_logic; -- validity of data directed to WS
 ------- registers to signal generator signals-----------
 signal scene_number_s					:	std_logic_vector(6 downto 0);
 signal enable_s							: 	std_logic; 
@@ -201,9 +206,8 @@ wishbone_slave_inst : wishbone_slave generic map (
 											wr_en			=> we_s,
 											ws_data	    	=> ws_to_registers_data_s,   								--data out to registers
 											ws_data_valid	=> ws_to_registers_enable_s,									-- data valid to registers
-											-- we do not send data out from the signal generator
-											reg_data       	=> (others => '0'),	 												--data to be transmited to the WM
-											reg_data_valid 	=> '0',  															--data to be transmited to the WM validity
+											reg_data       	=> registers2ws_data_s,	 --data to be transmited to the WM
+											reg_data_valid 	=> registers2ws_val_data_s,  --data to be transmited to the WM validity
 											active_cycle	=> active_cycle,												--CYC_I outputed to user side
 											stall			=> stall
 										);
@@ -242,6 +246,8 @@ registers_inst: signal_generator_registers generic map (
 												wr_en           		  	=>	we_s, 										-- write enable: '1' for write, '0' for read
 												data_in_reg      		 	=>	ws_to_registers_data_s,						-- data sent from WS
 												valid_in          			=>	ws_to_registers_enable_s,					-- validity of the data directed from WS								
+												data_out          			=> registers2ws_data_s,
+												valid_data_out    			=> registers2ws_val_data_s,
 												rc_finish					=>	rc_finish,
 												scene_number_out_1        	=>	scene_number_s,				 				-- scene number
 												enable_out_2        		=>	enable_s							  		-- enable sent by the GUI

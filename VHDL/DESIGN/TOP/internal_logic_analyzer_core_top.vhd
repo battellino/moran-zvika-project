@@ -237,6 +237,8 @@ component core_registers
 			wr_en            			: in std_logic; 									-- write enable: '1' for write, '0' for read
 			data_in_reg        			: in std_logic_vector (data_width_g - 1 downto 0); -- data sent from WS
 			valid_in          			: in std_logic; 									-- validity of the data directed from WS
+			data_out          			: out std_logic_vector (data_width_g-1 downto 0); -- data sent to WS
+			valid_data_out    			: out std_logic; -- validity of data directed to WS
 			rc_finish					: in std_logic;										--  1 -> reset enable register
 			wc_finish			: in std_logic;										
     -- write controller interface
@@ -378,6 +380,9 @@ signal ws_to_reg_data_s 			: std_logic_vector (data_width_g-1 downto 0);	-- data
 signal ws_to_reg_valid_s			: std_logic; 									-- validity of the data directed from WS
 signal typ_s						: std_logic_vector ((data_width_g)*(type_d_g)-1 downto 0); 	-- Type
 signal len_s						: std_logic_vector ((data_width_g)*(len_d_g)-1 downto 0);   --Length
+------- Registers to wishbone slave signals-----------
+signal registers2ws_data_s          : std_logic_vector (data_width_g-1 downto 0); -- data sent to WS
+signal registers2ws_val_data_s      : std_logic; -- validity of data directed to WS
 -------------------------------------------------  Implementation ------------------------------------------------------------
 
 begin
@@ -525,6 +530,8 @@ core_registers_inst : core_registers generic map (
 											wr_en             		=> wr_en_s,
 											data_in_reg        		=> ws_to_reg_data_s,
 											valid_in          		=> ws_to_reg_valid_s,
+											data_out          		=> registers2ws_data_s,
+											valid_data_out    		=> registers2ws_val_data_s,
 											rc_finish				=> read_controller_finish_s,
 											wc_finish				=> write_controller_finish_s,									
 											----- core blocks interface----------
@@ -563,9 +570,8 @@ wishbone_slave_inst : wishbone_slave generic map (
 											wr_en			=> wr_en_s,
 											ws_data	    	=> ws_to_reg_data_s,   --data out to registers
 											ws_data_valid	=> ws_to_reg_valid_s,	-- data valid to registers
-											-- we do not send data out from the registers
-											reg_data       	=> (others => '0'),	 --data to be transmited to the WM
-											reg_data_valid 	=> '0',  --data to be transmited to the WM validity
+											reg_data       	=> registers2ws_data_s,	 --data to be transmited to the WM
+											reg_data_valid 	=> registers2ws_val_data_s,  --data to be transmited to the WM validity
 											active_cycle	=> TOP_active_cycle,	--CYC_I outputed to user side
 											stall			=> stall
 										);
