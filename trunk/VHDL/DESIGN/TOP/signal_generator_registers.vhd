@@ -44,7 +44,9 @@ entity signal_generator_registers is
 	 wr_en           		  	: in std_logic; 									-- write enable: '1' for write, '0' for read
 	 data_in_reg      		 	: in std_logic_vector ( data_width_g - 1 downto 0); -- data sent from WS
      valid_in          			: in std_logic; 									-- validity of the data directed from WS								
-     rc_finish					: in std_logic;										--  1 -> reset enable register
+     data_out          			: out std_logic_vector (data_width_g-1 downto 0); -- data sent to WS
+     valid_data_out    			: out std_logic; -- validity of data directed to WS
+	 rc_finish					: in std_logic;										--  1 -> reset enable register
 	 -- core blocks interface
      scene_number_out_1        	: out std_logic_vector (6 downto 0); 				-- scene number
      enable_out_2        		: out std_logic								  		-- enable sent by the GUI
@@ -113,5 +115,34 @@ process(clk,reset)
        end if; 			
     end if;
 end process enable_reg_2_proc;
+
+---------------------------------------------------- read data process ----------------------------------------------------------------------------------
+
+read_data_proc:
+process(clk,reset)
+	begin
+ 		if reset = reset_polarity_g then
+ 		  		 data_out <= (others => '0');
+ 		  		 valid_data_out <= '0';
+ 		elsif rising_edge(clk) then
+ 		   if ( (valid_in = '1') and (wr_en = '0') ) then -- the wishbone slaves requests to read
+ 		     if (address_in = scene_number_reg_1_address_c)  then
+				data_out(register_size_c - 1 downto 0) <= scene_number_reg_1;
+				data_out(data_width_g - 1 downto register_size_c) <= (others => '0');
+				valid_data_out <= '1';
+ 		     elsif  (address_in = enable_reg_2_address_c) then
+				data_out(register_size_c - 1 downto 0) <= enable_reg_2;
+				data_out(data_width_g - 1 downto register_size_c) <= (others => '0');
+				valid_data_out <= '1';
+ 		     else
+				data_out <= ( others => '0');
+				valid_data_out <= '0';
+ 		     end if;
+ 		   else
+ 		     data_out <= ( others => '0');
+ 		     valid_data_out <= '0';
+       end if; 			
+    end if;
+end process read_data_proc;
 
 end architecture behave;
