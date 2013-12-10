@@ -38,7 +38,8 @@
 -- Changes:
 --			Number		Date		Name				Description
 --			(1)			16.11.2010	Beeri Schreiber		Creation
---     (2)  25.17.2013 Netanel Yamin    parity bit odd/even fix (lines 242-244)
+--			(2)			20.03.2013	Olga Liberman		After file index reaches maximum, it keeps the maximum value (avoid the loop)
+--
 ------------------------------------------------------------------------------------------------
 -- Input File Liminations:
 --				(1) (Space / Tab / No space ) can separate between values (bytes).
@@ -67,7 +68,7 @@ entity uart_tx_gen_model is
 			-- (1)uart_tx_1.txt (2)uart_tx_2.txt (3) uart_tx_1.txt (4) uart_tx_2.txt ...
 			file_name_g			:		string 		:= "uart_tx"; 		--File name to be transmitted
 			file_extension_g	:		string		:= "txt";			--File extension
-			file_max_idx_g		:		positive	:= 1;				--Maximum file index.
+			file_max_idx_g		:		positive	:= 2;				--Maximum file index.
 			delay_g				:		positive	:= 10;				--Number of clock cycles delay between two files transmission
 			 
 			clock_period_g		:		time		:= 8.68 us;			--8.68us = 115,200 Bits/sec
@@ -88,21 +89,38 @@ end uart_tx_gen_model;
 architecture arc_uart_tx_gen_model of uart_tx_gen_model is
 
 ------------------  SIGNALS AND VARIABLES ------
+constant clk_en_c			:	time := 201 us;			--Init time to transmit
+
 FILE 	input				: 	text;					--Input File
 signal 	clk_i				:	std_logic 	:= '0';		--Internal Clock
+signal 	clk_unmasked		:	std_logic 	:= '0';		--Internal Clock
 signal 	reopen_file			:	boolean 	:= true;	--After end of transmission - Reopen file
 signal	reopen_file_delay	:	boolean 	:= false;	--After end of transmission - Wait some time
 signal 	valid_i				: 	std_logic	:= '0';		--Data valid data, for one clock
+signal	clk_en				:	boolean		:= false;	--Clock enable
 
 shared variable file_index	: 	positive 	:= file_max_idx_g;	--File Index (filename_fileIndex.fileExtension)
-shared variable file_status	: 	boolean 	:= true;	--TRUE = file is opened, FALSE = file is closed
+shared variable file_status	: 	boolean 	:= false;	--TRUE = file is opened, FALSE = file is closed
 
 
 ------------------  Design ----------------------
 begin
 	
    -------------- Clock Process ----------
-	clk_i <= not clk_i after clock_period_g/2;
+	clk_proc:
+	clk_unmasked <= not clk_unmasked after clock_period_g/2;
+	
+	clk_i_proc:	
+	clk_i		<=	clk_unmasked when clk_en
+					else '0';
+				
+	clk_en_proc: process
+	begin
+		clk_en	<=	false;
+		wait for clk_en_c;
+		clk_en	<=	true;
+		wait;
+	end process clk_en_proc;
  
    ----------File open delay Process --------
    --A delay between two files transmission is being executed here
@@ -115,11 +133,9 @@ begin
 				cnt := delay_g;
 			end if;
 			if cnt = 1 then	--Open file for transmission
-			  if (file_index < file_max_idx_g) then  -- no cyclic files reading
-				  reopen_file <= true; --Active for one clock
-				else
-				  reopen_file <= false;  
-			  end if;
+				if (file_index < file_max_idx_g) then					-- 20.03.2013 olga
+					reopen_file <= true; --Active for one clock
+				end if;													-- 20.03.2013 olga
 			end if;
 			if cnt > 0 then
 				cnt := cnt - 1;
@@ -130,7 +146,6 @@ begin
    -------------- Open file process ----------
    --Opens files at startup and after end of file + delay
 	file_load_proc : process (clk_i)
-	variable cycle_done : boolean := false;
 	begin
 	--File open status
 		if rising_edge(clk_i) then
@@ -138,20 +153,12 @@ begin
 				if file_index = file_max_idx_g then --Maximum file index has been reached
 					file_index := 1;
 				else
-				  if(file_index < file_max_idx_g) then 
-					  file_index := file_index + 1; --Increment file index
-					else
-					  cycle_done := true ;
-					end if;
+					file_index := file_index + 1; --Increment file index
 				end if;
-				if (cycle_done = false ) then 
-				  report "Time: " & time'image(now) & ", Opening file " & file_name_g & "_" & positive'image(file_index) & "." & file_extension_g
-				  severity note;
-				  if (file_index <= file_max_idx_g ) then 
-				    file_open(input, file_name_g & "_" & positive'image(file_index) & "." & file_extension_g, read_mode); --Open file for reading
-				    file_status := true; --File is opened
-          end if;
-        end if;
+				report "Time: " & time'image(now) & ", Opening file " & file_name_g & "_" & positive'image(file_index) & "." & file_extension_g
+				severity note;
+				file_open(input, file_name_g & "_" & positive'image(file_index) & "." & file_extension_g, read_mode); --Open file for reading
+				file_status := true; --File is opened
 			end if;
 		end if;
 	end process file_load_proc;
@@ -182,7 +189,7 @@ begin
    variable parity_val	: std_logic := '0'; --Current parity bit value
    begin
   
-  
+    
       if rising_edge(clk_i) then
         reopen_file_delay <= false;
 		valid_i <= '0';
@@ -194,31 +201,29 @@ begin
 				if ln = null then
 					readline(input, ln); --Read line from text file
 				end if;
-  		        hread (ln, val_in, success); --Read value from file
+
+				--Remove Comments
+           		while (ln'length >=1) and (ln(1) = '#') loop
+					readline(input, ln); --Read line from text file
+				end loop;
+
+				hread (ln, val_in, success); --Read value from file
 		          if not success then
-					    --report "Time: " & time'image(now) & ", uart_tx_gen_model from file: Error deleting 'SPACE' and 'TAB' from input file " & file_name_g & "_" & positive'image(file_index) & "." & file_extension_g 
-					    --severity note;
+					report "Time: " & time'image(now) & ", uart_tx_gen_model from file: Error deleting 'SPACE' and 'TAB' from input file " & file_name_g & "_" & positive'image(file_index) & "." & file_extension_g 
+					severity failure;
 		          end if;
 
 				value (7 downto 0) <= val_in (7 downto 0); --Debug output value
 				valid_i <= '1';
 		
         		--Remove white characters (space and TAB) from line
-        		while ln'length >=1 and (ln(1) = ' ' or ln(1) = HT ) loop
+        		while ln'length >=1 and (ln(1) = ' ' or ln(1) = HT) loop
         		  read(ln, chr, success);
 				  if not success then
 					report "Time: " & time'image(now) & ", uart_tx_gen_model from file: Error while reading input file " & file_name_g & "_" & positive'image(file_index) & "." & file_extension_g 
-					severity note;--failure;
+					severity failure;
         		  end if;
         		end loop;
-        		
-        -- comments detection, if recognizes '--' continue to next line parsing (if not reaching to end of file)
-					if ((ln'length >=1) and (ln(1) = '-') and (ln(2) = '-'))then            
-			      if (not endfile(input)) then 
-			        deallocate(ln);    -- Free allocated memory (no more data to read in this line)	
-            end if;	
-		      end if;
-        		
 				
 				uart_out <= not uart_idle_g; --Start bit
 				parity_val := '0'; --Reset parity bit
@@ -239,9 +244,9 @@ begin
 		  --Transmit parity bit
 		  elsif clk_cnt = 9 and parity_en_g = 1 then --Parity enable
 			if parity_odd_g then
-				uart_out <= not parity_val; --Odd parity
+				uart_out <= parity_val; --Odd parity
 			else
-				uart_out <= parity_val;     --Even parity
+				uart_out <= not parity_val; --Even parity
 			end if;
 		  end if;
 		  
@@ -264,3 +269,4 @@ begin
 end process file_proc;
 
 end arc_uart_tx_gen_model;		
+

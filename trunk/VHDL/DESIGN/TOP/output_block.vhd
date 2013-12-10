@@ -417,30 +417,30 @@ output_block_ws: wishbone_slave
 		type_d_g					=>	type_d_g				--Type Depth. type is the client which the data is directed to
 		 )	   
      PORT MAP (
-		clk        => clk,
-		reset      => reset,   
+		clk        		=> clk,
+		reset      		=> reset,   
 		--bus side signals
-		ADR_I          => ADR_I_sig,
-		DAT_I          => DAT_I_sig,
-		WE_I           => WE_I_sig,
-		STB_I          => STB_I_sig,
-		CYC_I          => CYC_I_sig,
-		TGA_I          => TGA_I_sig,
-		TGD_I          => TGD_I_sig,
-		ACK_O          => ACK_O_sig,
-		DAT_O          => DAT_O_sig,
-	    STALL_O		      => STALL_O_sig,
+		ADR_I          	=> ADR_I_sig,
+		DAT_I          	=> DAT_I_sig,
+		WE_I           	=> WE_I_sig,
+		STB_I          	=> STB_I_sig,
+		CYC_I          	=> CYC_I_sig,
+		TGA_I          	=> TGA_I_sig,
+		TGD_I          	=> TGD_I_sig,
+		ACK_O          	=> ACK_O_sig,
+		DAT_O          	=> DAT_O_sig,
+	    STALL_O		  	=> STALL_O_sig,
 		--register side signals
-		typ			         => typ_sig,
-	    addr	          => open,
-	    len		         	=> len_sig,
-	    wr_en			       => open,
-	    ws_data	       => open,
-	    ws_data_valid	 => open,
-	    reg_data       => fifo_dout,
-		reg_data_valid => fifo_dout_valid,
-	    active_cycle	  => active_cycle_sig,
-	    stall			       => fifo_empty 
+		typ		     	=> typ_sig,
+	    addr	        => open,
+	    len		        => len_sig,
+	    wr_en			=> open,
+	    ws_data	       	=> open,
+	    ws_data_valid	=> open,
+	    reg_data       	=> fifo_dout,
+		reg_data_valid 	=> fifo_dout_valid,
+	    active_cycle	=> active_cycle_sig,
+	    stall			=> fifo_empty 
 	); 
 
 input_block_ws: wishbone_slave

@@ -446,10 +446,10 @@ port map (
 ------------------- mp_enc Instantiations--------------------
 tx_mpe_inst : mp_enc
 	  generic map  (
-	  reset_polarity_g => reset_polarity_g,
-		width_g =>			data_width_g,
-		
-		type_d_g			=>  type_d_g,
+		reset_polarity_g 	=> reset_polarity_g,
+		width_g 			=> data_width_g,
+		len_dec1_g 			=> false,				--for reading registers out.TXT
+		type_d_g			=> type_d_g,
 		Add_width_g			=> Add_width_g, 
 		len_d_g    => len_d_g
 		
