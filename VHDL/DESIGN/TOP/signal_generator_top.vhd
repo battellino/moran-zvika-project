@@ -33,7 +33,9 @@ entity signal_generator_top is
 			external_en_g		:	std_logic	:= 	'0';										-- 1 -> getting the data from an external source . 0 -> dout is a counter
 			Add_width_g    		:   positive 	:= 	8;											-- width of address word in the WB
 			len_d_g				:	positive 	:= 	1;											-- Length Depth
-			type_d_g			:	positive 	:= 	1											-- Type Depth 
+			type_d_g			:	positive 	:= 	1;											-- Type Depth 
+			scene_number_reg_1_address_g 		: 	natural 	:= 1;
+			enable_reg_address_2_g 		   		: 	natural 	:= 2
 			);
 	port	(
 			clk					:	in  std_logic;												--system clock
@@ -235,8 +237,8 @@ registers_inst: signal_generator_registers generic map (
 											enable_polarity_g		=>	enable_polarity_g,
 											data_width_g        	=>	data_width_g,      						    	--defines the width of the data lines of the system 
 											Add_width_g				=>	Add_width_g,								
-											scene_number_reg_1_address_g	=>	1,
-											enable_reg_address_2_g	=>	2
+											scene_number_reg_1_address_g	=>	scene_number_reg_1_address_g,
+											enable_reg_address_2_g			=>	enable_reg_address_2_g
 											)
 											port map
 											(

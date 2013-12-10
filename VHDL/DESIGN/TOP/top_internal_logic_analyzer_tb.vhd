@@ -43,7 +43,7 @@ use std.textio.all;
   ENTITY top_internal_logic_analyzer_TB is
     generic (
 		reset_polarity_g	    		: std_logic := '1';	                				-- '0' - Active Low Reset, '1' Active High Reset.
-		enable_polarity_g				: std_logic	:= '0';									--'1' the entity is active, '0' entity not active
+		enable_polarity_g				: std_logic	:= '1';									--'1' the entity is active, '0' entity not active
 	    byte_size_g			           	: positive  := 8  ;                 				-- bits size of the sent comparison bytes.
 		-- core generics
 	    signal_ram_depth_g				: positive  :=	3;									--depth of RAM
@@ -62,7 +62,9 @@ use std.textio.all;
 		type_d_g						: positive 	:= 	1;									--Type Depth
 		len_d_g							: positive 	:= 	1;									--Length Depth
 		-- signal generator generics   
-		external_en_g					: std_logic	:= 	'0';								-- 1 -> getting the data from an external source . 0 -> dout is a counter		 
+		external_en_g					: std_logic	:= 	'0';								-- 1 -> getting the data from an external source . 0 -> dout is a counter
+		scene_number_reg_1_address_g 	: natural 	:= 1;
+		enable_reg_address_2_g 		   	: natural 	:= 2;
 --      -- OUTPUT BLOCK generics
         fifo_depth_g 			      	: positive 	:= 32768;	         -- Maximum elements in FIFO
 	    fifo_log_depth_g			   	: natural	:= 15;	            -- (2^25 = 32K) Logarithm of depth_g (Number of bits to represent depth_g. 2^4=16 > 9)
@@ -144,7 +146,9 @@ ARCHITECTURE behavior OF top_internal_logic_analyzer_TB IS
 		type_d_g						: positive 	:= 	1;									--Type Depth
 		len_d_g							: positive 	:= 	1;									--Length Depth
 		-- signal generator generics   
-		external_en_g					: std_logic	:= 	'0';								-- 1 -> getting the data from an external source . 0 -> dout is a counter		 
+		external_en_g					: std_logic	:= 	'0';								-- 1 -> getting the data from an external source . 0 -> dout is a counter
+		scene_number_reg_1_address_g 	: natural 	:= 1;
+		enable_reg_address_2_g 		   	: natural 	:= 2;
 --      -- OUTPUT BLOCK generics
         fifo_depth_g 			      	: positive 	:= 32768;	         -- Maximum elements in FIFO
 	    fifo_log_depth_g			   	: natural	:= 15;	            -- (2^25 = 32K) Logarithm of depth_g (Number of bits to represent depth_g. 2^4=16 > 9)
@@ -318,7 +322,9 @@ uut: top_internal_logic_analyzer
 		type_d_g       				=> type_d_g,			
 		len_d_g      				=> len_d_g,			                      
 		-- signal generator generics  
-	    external_en_g			    => external_en_g,	   	     
+	    external_en_g			    => external_en_g,
+		scene_number_reg_1_address_g => scene_number_reg_1_address_g,
+		enable_reg_address_2_g 		=> enable_reg_address_2_g,
 	    -- OUTPUT BLOCK generics
 		fifo_depth_g				=> fifo_depth_g,	       
 	    fifo_log_depth_g			=> fifo_log_depth_g,      

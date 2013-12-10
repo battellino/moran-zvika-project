@@ -33,8 +33,7 @@ entity signal_generator_registers is
 			data_width_g           		   		:	natural 	:= 8;         							-- the width of the data lines of the system    (width of bus)
 			Add_width_g  		   		   		:   positive	:= 8;     								--width of address word in the WB
 			scene_number_reg_1_address_g 		: 	natural 	:= 1;
-			enable_reg_address_2_g 		   		: 	natural 	:= 2;
-			temp_reg_address_3_g				: 	natural 	:= 3
+			enable_reg_address_2_g 		   		: 	natural 	:= 2
            );
    port
    	   (
@@ -62,7 +61,6 @@ architecture behave of signal_generator_registers is
 --constant en_reg_address_c     				: std_logic_vector(Add_width_g -1 downto 0) := conv_std_logic_vector(en_reg_address_g, Add_width_g);
 constant scene_number_reg_1_address_c 		: std_logic_vector(Add_width_g -1 downto 0)	:= conv_std_logic_vector(scene_number_reg_1_address_g, Add_width_g);
 constant enable_reg_2_address_c 			: std_logic_vector(Add_width_g -1 downto 0)	:= conv_std_logic_vector(enable_reg_address_2_g, Add_width_g);
-constant temp_reg_3_address_c 				: std_logic_vector(Add_width_g -1 downto 0)	:= conv_std_logic_vector(temp_reg_address_3_g, Add_width_g);
 constant register_size_c     				: integer range 0 to 7 := 7;
 --*****************************************************************************************************************************************************************--
 ---------- 	Types	------------------------------------------------------------------------------------------------------------------------------------------------
@@ -74,7 +72,6 @@ constant register_size_c     				: integer range 0 to 7 := 7;
 -- registers:
 signal scene_number_reg_1			: std_logic_vector( 6 downto 0 );	--scene_number
 signal enable_reg_2        			: std_logic_vector( 6 downto 0 );	-- enable signal generator
-signal temp_reg_3        			: std_logic_vector( 6 downto 0 );
 
 begin
 
@@ -119,20 +116,6 @@ process(clk,reset)
     end if;
 end process enable_reg_2_proc;
 
-temp_reg_3_proc:
-process(clk,reset)
-	begin
- 		if reset = reset_polarity_g then
-			temp_reg_3(6 downto 0) <= (others => '0');
- 		elsif rising_edge(clk) then
- 		   if ( (valid_in = '1') and (wr_en = '1') and (address_in = temp_reg_3_address_c) ) then
-				temp_reg_3 <= data_in_reg(6 downto 0);
-		   else
-				temp_reg_3 <= temp_reg_3;
-       end if; 			
-    end if;
-end process temp_reg_3_proc;
-
 ---------------------------------------------------- read data process ----------------------------------------------------------------------------------
 
 read_data_proc:
@@ -149,10 +132,6 @@ process(clk,reset)
 					valid_data_out <= '1';
 				elsif  (address_in = enable_reg_2_address_c) then
 					data_out(register_size_c - 1 downto 0) <= enable_reg_2;
-					data_out(data_width_g - 1 downto register_size_c) <= (others => '0');
-					valid_data_out <= '1';
-				elsif  (address_in = temp_reg_3_address_c) then
-					data_out(register_size_c - 1 downto 0) <= temp_reg_3;
 					data_out(data_width_g - 1 downto register_size_c) <= (others => '0');
 					valid_data_out <= '1';
 				else

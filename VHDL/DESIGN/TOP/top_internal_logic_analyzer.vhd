@@ -48,7 +48,9 @@ use ieee.numeric_std.all ;
 		clk_to_start_reg_3_address_g 	: 	natural 	:= 3;
 		enable_reg_address_4_g 		   	: 	natural 	:= 4;
 		-- signal generator generics   
-		external_en_g					: std_logic	:= 	'0';								-- 1 -> getting the data from an external source . 0 -> dout is a counter		 
+		external_en_g					: std_logic	:= 	'0';								-- 1 -> getting the data from an external source . 0 -> dout is a counter
+		scene_number_reg_1_address_g 	: 	natural 	:= 1;
+		enable_reg_address_2_g 		   	: 	natural 	:= 2;
 --      -- OUTPUT BLOCK generics
         byte_size_g			            : positive 	:= 8;          							-- One byte
 		fifo_depth_g 			      	: positive 	:= 32768;	         					-- Maximum elements in FIFO
@@ -508,7 +510,9 @@ COMPONENT signal_generator_top
 		external_en_g		:	std_logic	:= 	'0';										-- 1 -> getting the data from an external source . 0 -> dout is a counter
 		Add_width_g    		:   positive 	:= 	8;											-- width of address word in the WB
 		len_d_g				:	positive 	:= 	1;											-- Length Depth
-		type_d_g			:	positive 	:= 	1											-- Type Depth 
+		type_d_g			:	positive 	:= 	1;											-- Type Depth 
+		scene_number_reg_1_address_g 		: 	natural 	:= 1;
+		enable_reg_address_2_g 		   		: 	natural 	:= 2
       );			
 	port   (
 	    clk					:	in  std_logic;												--system clock
@@ -960,7 +964,10 @@ signal_generator_inst: signal_generator_top
 		external_en_g		=>	external_en_g,
 		Add_width_g    		=>	Add_width_g,
 		len_d_g				=>	len_d_g,
-		type_d_g			=>	type_d_g
+		type_d_g			=>	type_d_g,
+		scene_number_reg_1_address_g	=>	scene_number_reg_1_address_g,
+		enable_reg_address_2_g			=>	enable_reg_address_2_g
+		
         )        
     PORT MAP(  
         clk					=> 	clk,   	

@@ -38,8 +38,7 @@ entity core_registers is
 			trigger_type_reg_1_address_g 		: 	natural 	:= 1;
 			trigger_position_reg_2_address_g	: 	natural 	:= 2;
 			clk_to_start_reg_3_address_g 	   	: 	natural 	:= 3;
-			enable_reg_address_4_g 		   		: 	natural 	:= 4;
-			temp_reg_address_5_g				: 	natural 	:= 5
+			enable_reg_address_4_g 		   		: 	natural 	:= 4
            );
    port
    	   (
@@ -73,7 +72,6 @@ constant trigger_type_reg_1_address_c 		: std_logic_vector(Add_width_g -1 downto
 constant trigger_position_reg_2_address_c 	: std_logic_vector(Add_width_g -1 downto 0)	:= conv_std_logic_vector(trigger_position_reg_2_address_g, Add_width_g);
 constant clk_to_start_reg_3_address_c 		: std_logic_vector(Add_width_g -1 downto 0) := conv_std_logic_vector(clk_to_start_reg_3_address_g, Add_width_g);
 constant enable_reg_4_address_c 			: std_logic_vector(Add_width_g -1 downto 0) := conv_std_logic_vector(enable_reg_address_4_g, Add_width_g);
-constant temp_reg_5_address_c 				: std_logic_vector(Add_width_g -1 downto 0) := conv_std_logic_vector(temp_reg_address_5_g, Add_width_g);
 constant register_size_c     				: integer range 0 to 7 := 7;
 --*****************************************************************************************************************************************************************--
 ---------- 	Types	------------------------------------------------------------------------------------------------------------------------------------------------
@@ -88,7 +86,6 @@ signal trigger_type_reg_1			: std_logic_vector( 6 downto 0 );	--type of trigger
 signal trigger_position_reg_2       : std_logic_vector( 6 downto 0 );	--determine from where we start to send data out to the user after we detect trigger rise
 signal clk_to_start_reg_3        	: std_logic_vector( 6 downto 0 ); 	-- count clk cycles since system start to work until trigger rise
 signal enable_reg_4        			: std_logic_vector( 6 downto 0 );	-- enable data to core
-signal temp_reg_5					: std_logic_vector( 6 downto 0 );
 
 begin
 
@@ -180,23 +177,6 @@ process(clk,reset)
     end if;
 end process enable_reg_4_proc;
 
-temp_reg_5_proc:
-process(clk,reset)
-	begin
- 		if reset = reset_polarity_g then
- 		  	temp_reg_5(0) <= not (enable_polarity_g);
-			temp_reg_5(6 downto 1) <= (others => '0');
- 		elsif rising_edge(clk) then
- 		   if ( (valid_in = '1') and (wr_en = '1') and (address_in = temp_reg_5_address_c) ) then
-				temp_reg_5 <= data_in_reg(6 downto 0);
- 		   elsif (rc_finish = '1' ) then
-				temp_reg_5(0) <= not (enable_polarity_g);
-		   else
- 		     temp_reg_5 <= temp_reg_5;
-       end if; 			
-    end if;
-end process temp_reg_5_proc;
-
 ---------------------------------------------------- read data process ----------------------------------------------------------------------------------
 
 read_data_proc:
@@ -225,10 +205,6 @@ process(clk,reset)
 				valid_data_out <= '1';
  		     elsif  (address_in = enable_reg_4_address_c) then
 				data_out(6 downto 0) <= enable_reg_4;
-				data_out(data_width_g - 1 downto 7) <= (others => '0');
-				valid_data_out <= '1';
- 		     elsif  (address_in = temp_reg_5_address_c) then
-				data_out(6 downto 0) <= temp_reg_5;
 				data_out(data_width_g - 1 downto 7) <= (others => '0');
 				valid_data_out <= '1';
 			 else
