@@ -12,7 +12,7 @@
 -- Revision:
 --			Number		Date			Name							Description			
 --			1.00		11.10.2013		Zvika Pery						Creation
---						
+--			1.01		08.12.2013		zvika pery	 					Reading from registers			
 ------------------------------------------------------------------------------------------------
 --	Todo:
 --

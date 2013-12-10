@@ -15,7 +15,8 @@
 -- Revision:
 --			Number		Date			Name							Description			
 --			1.00		18.6.2013		Zvika Pery						Creation
---			1.01		03.9.2013		zvika pery						bug fix			
+--			1.01		03.9.2013		zvika pery						bug fix	
+--			1.02		08.12.2013		zvika pery	 					Reading from registers		
 ------------------------------------------------------------------------------------------------
 --	Todo:
 --
@@ -49,7 +50,8 @@ entity internal_logic_analyzer_core_top is
 		power2_out_g						:	natural 	:= 	0;									--Output width is multiplied by this power factor (2^1). In case of 2: output will be (2^2*8=) 32 bits wide -> our output and input are at the same width
 		power_sign_g						:	integer range -1 to 1 	:= 1;					 	-- '-1' => output width > input width ; '1' => input width > output width		(if power2_out_g = 0, it dosn't matter)
 		type_d_g							:	positive 	:= 	1;									--Type Depth
-		len_d_g								:	positive 	:= 	1									--Length Depth
+		len_d_g								:	positive 	:= 	1;									--Length Depth
+		output_type_id_g					:	positive 	:= 	2									--The TYPE of the component that the data is directed to. (our case- TX PATH) 
 			);
 	port	(
 				clk							:	in std_logic;									--System clock
@@ -600,5 +602,5 @@ data_out_proc:
 WM_DAT_O 	<= data_from_cordinator_to_wm_s;
 STB_O		<= data_from_cordinator_to_wm_valid_s;
 wm_end_out	<= read_controller_finish_s;
-TGD_O 		<= std_logic_vector(to_unsigned( 2 , type_d_g * data_width_g));
+TGD_O 		<= std_logic_vector(to_unsigned( output_type_id_g , type_d_g * data_width_g));
 end architecture arc_core;

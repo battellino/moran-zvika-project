@@ -43,7 +43,7 @@ use std.textio.all;
   ENTITY top_internal_logic_analyzer_TB is
     generic (
 		reset_polarity_g	    		: std_logic := '1';	                				-- '0' - Active Low Reset, '1' Active High Reset.
-		enable_polarity_g				: std_logic	:= '1';									--'1' the entity is active, '0' entity not active
+		enable_polarity_g				: std_logic	:= '0';									--'1' the entity is active, '0' entity not active
 	    byte_size_g			           	: positive  := 8  ;                 				-- bits size of the sent comparison bytes.
 		-- core generics
 	    signal_ram_depth_g				: positive  :=	3;									--depth of RAM
