@@ -32,13 +32,14 @@ entity core_registers is
    generic (
 			reset_polarity_g			   		:	std_logic	:= '1';								--'1' reset active high, '0' active low
 			enable_polarity_g					:	std_logic	:= '1';								--'1' the entity is active, '0' entity not active
-			data_width_g           		   		:	natural 	:= 8;         							-- the width of the data lines of the system    (width of bus)
-			Add_width_g  		   		   		:   positive	:= 8;     								--width of address word in the WB
+			     								--width of address word in the WB
 			en_reg_address_g      		   		: 	natural 	:= 0;
 			trigger_type_reg_1_address_g 		: 	natural 	:= 1;
 			trigger_position_reg_2_address_g	: 	natural 	:= 2;
 			clk_to_start_reg_3_address_g 	   	: 	natural 	:= 3;
-			enable_reg_address_4_g 		   		: 	natural 	:= 4
+			enable_reg_address_4_g 		   		: 	natural 	:= 4;
+			data_width_g           		   		:	natural 	:= 8;         							-- the width of the data lines of the system    (width of bus)
+			Add_width_g  		   		   		:   positive	:= 8
            );
    port
    	   (
@@ -73,6 +74,7 @@ constant trigger_position_reg_2_address_c 	: std_logic_vector(Add_width_g -1 dow
 constant clk_to_start_reg_3_address_c 		: std_logic_vector(Add_width_g -1 downto 0) := conv_std_logic_vector(clk_to_start_reg_3_address_g, Add_width_g);
 constant enable_reg_4_address_c 			: std_logic_vector(Add_width_g -1 downto 0) := conv_std_logic_vector(enable_reg_address_4_g, Add_width_g);
 constant register_size_c     				: integer range 0 to 7 := 7;
+constant next_last_address_c				: std_logic_vector(Add_width_g -1 downto 0) := conv_std_logic_vector(enable_reg_address_4_g + 1, Add_width_g);
 --*****************************************************************************************************************************************************************--
 ---------- 	Types	------------------------------------------------------------------------------------------------------------------------------------------------
 --*****************************************************************************************************************************************************************--
@@ -81,11 +83,11 @@ constant register_size_c     				: integer range 0 to 7 := 7;
 ---------- SIGNALS	------------------------------------------------------------------------------------------------------------------------------------------------
 --*****************************************************************************************************************************************************************--
 -- registers:
-signal en_reg            			: std_logic_vector( 6 downto 0 ); 	-- enable data of registers
-signal trigger_type_reg_1			: std_logic_vector( 6 downto 0 );	--type of trigger
-signal trigger_position_reg_2       : std_logic_vector( 6 downto 0 );	--determine from where we start to send data out to the user after we detect trigger rise
-signal clk_to_start_reg_3        	: std_logic_vector( 6 downto 0 ); 	-- count clk cycles since system start to work until trigger rise
-signal enable_reg_4        			: std_logic_vector( 6 downto 0 );	-- enable data to core
+signal en_reg            			: std_logic_vector( data_width_g-1 downto 0 ); 	-- enable data of registers
+signal trigger_type_reg_1			: std_logic_vector( data_width_g-1 downto 0 );	--type of trigger
+signal trigger_position_reg_2       : std_logic_vector( data_width_g-1 downto 0 );	--determine from where we start to send data out to the user after we detect trigger rise
+signal clk_to_start_reg_3        	: std_logic_vector( data_width_g-1 downto 0 ); 	-- count clk cycles since system start to work until trigger rise
+signal enable_reg_4        			: std_logic_vector( data_width_g-1 downto 0 );	-- enable data to core
 
 begin
 
@@ -95,9 +97,9 @@ begin
 
 regs_outputs_proc:
 en_out 					<= en_reg(0);
-trigger_type_out_1 		<= trigger_type_reg_1;
-trigger_positionout_2 	<= trigger_position_reg_2;
-clk_to_start_out_3 		<= clk_to_start_reg_3;
+trigger_type_out_1 		<= trigger_type_reg_1(6 downto 0);
+trigger_positionout_2 	<= trigger_position_reg_2(6 downto 0);
+clk_to_start_out_3 		<= clk_to_start_reg_3(6 downto 0);
 enable_out_4 			<= enable_reg_4(0);					--we take only the last bit of the word as the ENABLE signal
 
 ---------------------------------------------------- registers process ----------------------------------------------------------------------------------
@@ -106,10 +108,10 @@ process(clk,reset)
 	begin
  		if reset = reset_polarity_g then
  		  		en_reg(0) <= not (enable_polarity_g);
-				en_reg(6 downto 1) <= (others => '0');
+				en_reg( data_width_g-1 downto 1) <= (others => '0');
  		elsif rising_edge(clk) then
  		   if ( (valid_in = '1') and (wr_en = '1') and (address_in = en_reg_address_c) ) then
- 		       en_reg <= data_in_reg(6 downto 0);
+ 		       en_reg <= data_in_reg;
  		   elsif (wc_finish = '1' ) then
 				en_reg(0) <= not (enable_polarity_g);
 		   else
@@ -125,7 +127,7 @@ process(clk,reset)
  		  		 trigger_type_reg_1 <= (others => '0');
  		elsif rising_edge(clk) then
  		   if ( (valid_in = '1') and (wr_en = '1') and (address_in = trigger_type_reg_1_address_c) ) then
-				trigger_type_reg_1 <= data_in_reg(6 downto 0);
+				trigger_type_reg_1 <= data_in_reg;
 		   else
  		     trigger_type_reg_1 <= trigger_type_reg_1;
        end if; 			
@@ -139,7 +141,7 @@ process(clk,reset)
  		  		 trigger_position_reg_2 <= (others => '0');
  		elsif rising_edge(clk) then
 			if ( (valid_in = '1') and (wr_en = '1') and (address_in = trigger_position_reg_2_address_c) ) then
-				trigger_position_reg_2 <= data_in_reg(6 downto 0);
+				trigger_position_reg_2 <= data_in_reg;
 			else
  		     trigger_position_reg_2 <= trigger_position_reg_2;
 			end if;
@@ -153,7 +155,7 @@ process(clk,reset)
  		  	clk_to_start_reg_3 <= (others => '0');
  		elsif rising_edge(clk) then
  		   if ( (valid_in = '1') and (wr_en = '1') and (address_in = clk_to_start_reg_3_address_c) ) then
- 		       clk_to_start_reg_3 <= data_in_reg(6 downto 0);
+ 		       clk_to_start_reg_3 <= data_in_reg;
  		   else
  		     clk_to_start_reg_3 <= clk_to_start_reg_3;
        end if; 			
@@ -165,10 +167,10 @@ process(clk,reset)
 	begin
  		if reset = reset_polarity_g then
  		  	enable_reg_4(0) <= not (enable_polarity_g);
-			enable_reg_4(6 downto 1) <= (others => '0');
+			enable_reg_4(data_width_g-1 downto 1) <= (others => '0');
  		elsif rising_edge(clk) then
  		   if ( (valid_in = '1') and (wr_en = '1') and (address_in = enable_reg_4_address_c) ) then
-				enable_reg_4 <= data_in_reg(6 downto 0);
+				enable_reg_4 <= data_in_reg;
  		   elsif (rc_finish = '1' ) then
 				enable_reg_4(0) <= not (enable_polarity_g);
 		   else
@@ -188,24 +190,22 @@ process(clk,reset)
  		elsif rising_edge(clk) then
  		   if ( (valid_in = '1') and (wr_en = '0') ) then -- the wishbone slaves requests to read
  		     if (address_in = en_reg_address_c)  then
-				data_out(6 downto 0) <= en_reg;
-				data_out(data_width_g - 1 downto 7) <= (others => '0');
+				data_out <= en_reg;
 				valid_data_out <= '1';
  		     elsif  (address_in = trigger_type_reg_1_address_c) then
-				data_out(6 downto 0) <= trigger_type_reg_1;
-				data_out(data_width_g - 1 downto 7) <= (others => '0');
+				data_out <= trigger_type_reg_1;
 				valid_data_out <= '1';
  		     elsif  (address_in = trigger_position_reg_2_address_c) then
-				data_out(6 downto 0) <= trigger_position_reg_2;
-				data_out(data_width_g - 1 downto 7) <= (others => '0');
+				data_out <= trigger_position_reg_2;
 				valid_data_out <= '1';
  		     elsif  (address_in = clk_to_start_reg_3_address_c) then
-				data_out(6 downto 0) <= clk_to_start_reg_3;
-				data_out(data_width_g - 1 downto 7) <= (others => '0');
+				data_out <= clk_to_start_reg_3;
 				valid_data_out <= '1';
  		     elsif  (address_in = enable_reg_4_address_c) then
-				data_out(6 downto 0) <= enable_reg_4;
-				data_out(data_width_g - 1 downto 7) <= (others => '0');
+				data_out <= enable_reg_4;
+				valid_data_out <= '1';
+			 elsif  (address_in = next_last_address_c) then
+				data_out <= (others => '0');
 				valid_data_out <= '1';
 			 else
 				data_out <= ( others => '0');

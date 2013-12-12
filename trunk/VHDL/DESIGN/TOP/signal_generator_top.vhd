@@ -57,17 +57,17 @@ entity signal_generator_top is
 			 DAT_O          	: out std_logic_vector (data_width_g-1 downto 0);   			--data transmit to MW
 			 STALL_O			: out std_logic; 												--STALL - WS is not available for transaction 
 			 --register side signals
-			 rc_finish			: in std_logic;										--  1 -> reset enable register
-			 typ				: out std_logic_vector ((data_width_g)*(type_d_g)-1 downto 0); 	-- Type
+			 rc_finish			: in std_logic										--  1 -> reset enable register
+--			 typ				: out std_logic_vector ((data_width_g)*(type_d_g)-1 downto 0); 	-- Type
 --			 addr	        	: out std_logic_vector (Add_width_g-1 downto 0);    			--the beginnig address in the client that the information will be written to
-			 len				: out std_logic_vector ((data_width_g)*(len_d_g)-1 downto 0);   --Length
+--			 len				: out std_logic_vector ((data_width_g)*(len_d_g)-1 downto 0);   --Length
 --			 wr_en				: out std_logic;
 --			 ws_data	    	: out std_logic_vector (data_width_g-1 downto 0);   			--data out to registers
 --			 ws_data_valid		: out std_logic;												-- data valid to registers
-			 reg_data       	: in std_logic_vector (data_width_g-1 downto 0); 	 			--data to be transmitted to the WM
-			 reg_data_valid 	: in std_logic;   												--data to be transmitted to the WM validity
-			 active_cycle		: out std_logic; 												--CYC_I outputted to user side
-			 stall				: in std_logic 													-- stall - suspend wishbone transaction
+--			 reg_data       	: in std_logic_vector (data_width_g-1 downto 0); 	 			--data to be transmitted to the WM
+--			 reg_data_valid 	: in std_logic;   												--data to be transmitted to the WM validity
+--			 active_cycle		: out std_logic; 												--CYC_I outputted to user side
+--			 stall				: in std_logic 													-- stall - suspend wishbone transaction
 			);
 end entity signal_generator_top;
 
@@ -202,16 +202,16 @@ wishbone_slave_inst : wishbone_slave generic map (
 											DAT_O          	=> DAT_O,							--data transmit to MW
 											STALL_O			=> STALL_O,
 											
-											typ				=> typ, 															-- Type
+											typ				=> open, 															-- Type
 											addr	        => addr_s,  															--the address of the relevant register
-											len				=> len,   															--Length
+											len				=> open,   															--Length
 											wr_en			=> we_s,
 											ws_data	    	=> ws_to_registers_data_s,   								--data out to registers
 											ws_data_valid	=> ws_to_registers_enable_s,									-- data valid to registers
 											reg_data       	=> registers2ws_data_s,	 --data to be transmited to the WM
 											reg_data_valid 	=> registers2ws_val_data_s,  --data to be transmited to the WM validity
-											active_cycle	=> active_cycle,												--CYC_I outputed to user side
-											stall			=> stall
+											active_cycle	=> open,												--CYC_I outputed to user side
+											stall			=> '0'
 										);
 						
 signal_generator_inst: signal_generator generic map (
