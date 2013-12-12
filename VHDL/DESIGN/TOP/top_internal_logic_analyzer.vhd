@@ -483,8 +483,8 @@ COMPONENT internal_logic_analyzer_core_top
 		STALL_O				: out std_logic; 												--STALL - WS is not available for transaction 
 		-- wishbone master control unit signals
 		wm_end_out			: out std_logic; --when '1' WM ended a transaction or reseted by watchdog ERR_I signal
-		TOP_active_cycle	: out std_logic; --CYC_I outputed to user side
-		stall				: in std_logic; -- stall - suspend wishbone transaction
+--		TOP_active_cycle	: out std_logic; --CYC_I outputed to user side
+--		stall				: in std_logic; -- stall - suspend wishbone transaction
 		--wm_bus side signals
 		ADR_O			: out std_logic_vector (Add_width_g-1 downto 0); --contains the address word
 		WM_DAT_O			: out std_logic_vector (data_width_g-1 downto 0); --contains the data_in word
@@ -534,17 +534,17 @@ COMPONENT signal_generator_top
 		DAT_O          	: out std_logic_vector (data_width_g-1 downto 0);   			--data transmit to MW
 		STALL_O			: out std_logic; 												--STALL - WS is not available for transaction 
 		--register side signals
-		rc_finish		: in std_logic;										--  1 -> reset enable register
-		typ				: out std_logic_vector ((data_width_g)*(type_d_g)-1 downto 0); 	-- Type
+		rc_finish		: in std_logic										--  1 -> reset enable register
+--		typ				: out std_logic_vector ((data_width_g)*(type_d_g)-1 downto 0); 	-- Type
 --		addr	    	: out std_logic_vector (Add_width_g-1 downto 0);    			--the beginnig address in the client that the information will be written to
-		len				: out std_logic_vector ((data_width_g)*(len_d_g)-1 downto 0);   --Length
+--		len				: out std_logic_vector ((data_width_g)*(len_d_g)-1 downto 0);   --Length
 --		wr_en			: out std_logic;
 --		ws_data	    	: out std_logic_vector (data_width_g-1 downto 0);   			--data out to registers
 --		ws_data_valid	: out std_logic;												-- data valid to registers
-		reg_data       	: in std_logic_vector (data_width_g-1 downto 0); 	 			--data to be transmitted to the WM
-		reg_data_valid 	: in std_logic;   												--data to be transmitted to the WM validity
-		active_cycle	: out std_logic; 												--CYC_I outputted to user side
-		stall			: in std_logic 													-- stall - suspend wishbone transaction
+--		reg_data       	: in std_logic_vector (data_width_g-1 downto 0); 	 			--data to be transmitted to the WM
+--		reg_data_valid 	: in std_logic;   												--data to be transmitted to the WM validity
+--		active_cycle	: out std_logic; 												--CYC_I outputted to user side
+--		stall			: in std_logic 													-- stall - suspend wishbone transaction
     );
 		 
   END COMPONENT;
@@ -950,8 +950,8 @@ core_inst: internal_logic_analyzer_core_top
 		data_in				=>	data_in_sig,
 		trigger				=>	trigger_sig,
 		-- WISHBONE MASTER control unit signals
-		TOP_active_cycle	=>	open,
-		stall				=>	zero_bit_c,
+--		TOP_active_cycle	=>	open,
+--		stall				=>	zero_bit_c,
 		wm_end_out			=>	wm_end_sig
 	  );
    
@@ -989,13 +989,13 @@ signal_generator_inst: signal_generator_top
         DAT_O               => 	DAT_O_S4_sig,
 	    STALL_O		        => 	STALL_O_S4_sig,
 		--register side signals
-		rc_finish			=> 	wm_end_sig,
-		typ					=>	open,
-		len					=>	open,
-		reg_data       		=>	zero_vector_DAT_c,
-		reg_data_valid 		=>	zero_bit_c,
-		active_cycle		=>	open,
-		stall				=>	zero_bit_c
+		rc_finish			=> 	wm_end_sig
+--		typ					=>	open,
+--		len					=>	open,
+--		reg_data       		=>	zero_vector_DAT_c,
+--		reg_data_valid 		=>	zero_bit_c,
+--		active_cycle		=>	open,
+--		stall				=>	zero_bit_c
         ); 
 
 output_block_unit: output_block 

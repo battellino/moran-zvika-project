@@ -74,8 +74,8 @@ entity internal_logic_analyzer_core_top is
 				STALL_O				: out std_logic; 												--STALL - WS is not available for transaction 
 				-- wishbone master control unit signals
 				wm_end_out			: out std_logic; --when '1' WM ended a transaction or reseted by watchdog ERR_I signal
-				TOP_active_cycle	: out std_logic; --CYC_I outputed to user side
-				stall				: in std_logic; -- stall - suspend wishbone transaction
+--				TOP_active_cycle	: out std_logic; --CYC_I outputed to user side
+--				stall				: in std_logic; -- stall - suspend wishbone transaction
 				--wm_bus side signals
 				ADR_O			: out std_logic_vector (Add_width_g-1 downto 0); --contains the addr word
 				WM_DAT_O		: out std_logic_vector (data_width_g-1 downto 0); --contains the data_in word
@@ -352,6 +352,7 @@ constant len_of_data_c				: std_logic_vector (len_d_g * data_width_g - 1 downto 
 constant type_of_OUTPUT_BLOCK_ws_c	: std_logic_vector ((data_width_g)*(type_d_g)-1 downto 0)	:= std_logic_vector(to_unsigned( 4 , type_d_g * data_width_g));
 --constant type_of_CORE_ws_c			: std_logic_vector ((data_width_g)*(type_d_g)-1 downto 0)	:= std_logic_vector(to_unsigned( 3 , type_d_g * data_width_g));
 constant size_of_register_c			: integer range 0 to 7 := 7;
+constant zero_bit_c                  : std_logic := '0';
 -----------------------------------------------------Types------------------------------------------------------------------------------
 
 ----------------------   Signals   ------------------------------
@@ -513,7 +514,7 @@ wishbone_master_inst : wishbone_master generic map (
 											ERR_I			=> ERR_I							--Watchdog interrupts, resets wishbone master
 											);				
 											
-core_registers_inst : core_registers generic map (
+core_registers_inst : core_registers 	generic map (
 											reset_polarity_g					=>	reset_polarity_g,
 											enable_polarity_g					=>	enable_polarity_g,
 											data_width_g           		   		=>	data_width_g,
@@ -566,16 +567,16 @@ wishbone_slave_inst : wishbone_slave generic map (
 											DAT_O          	=> WS_DAT_O,							--data transmit to MW
 											STALL_O			=> STALL_O,
 											
-											typ				=> typ_s, -- Type
+											typ				=> open, -- Type
 											addr	        => ws_to_reg_add_s,  --the address of the relevant register
-											len				=> len_s,   --Length
+											len				=> open,   --Length
 											wr_en			=> wr_en_s,
 											ws_data	    	=> ws_to_reg_data_s,   --data out to registers
 											ws_data_valid	=> ws_to_reg_valid_s,	-- data valid to registers
 											reg_data       	=> registers2ws_data_s,	 --data to be transmited to the WM
 											reg_data_valid 	=> registers2ws_val_data_s,  --data to be transmited to the WM validity
-											active_cycle	=> TOP_active_cycle,	--CYC_I outputed to user side
-											stall			=> stall
+											active_cycle	=> open,	--CYC_I outputed to user side
+											stall			=> '0'
 										);
 						
 data_out_size_inst: in_out_cordinator_generic generic map (

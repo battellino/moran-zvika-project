@@ -62,6 +62,7 @@ architecture behave of signal_generator_registers is
 constant scene_number_reg_1_address_c 		: std_logic_vector(Add_width_g -1 downto 0)	:= conv_std_logic_vector(scene_number_reg_1_address_g, Add_width_g);
 constant enable_reg_2_address_c 			: std_logic_vector(Add_width_g -1 downto 0)	:= conv_std_logic_vector(enable_reg_address_2_g, Add_width_g);
 constant register_size_c     				: integer range 0 to 7 := 7;
+constant next_last_address_c				: std_logic_vector(Add_width_g -1 downto 0) := conv_std_logic_vector(enable_reg_address_2_g + 1, Add_width_g);
 --*****************************************************************************************************************************************************************--
 ---------- 	Types	------------------------------------------------------------------------------------------------------------------------------------------------
 --*****************************************************************************************************************************************************************--
@@ -133,6 +134,9 @@ process(clk,reset)
 				elsif  (address_in = enable_reg_2_address_c) then
 					data_out(register_size_c - 1 downto 0) <= enable_reg_2;
 					data_out(data_width_g - 1 downto register_size_c) <= (others => '0');
+					valid_data_out <= '1';
+				elsif  (address_in = next_last_address_c) then
+					data_out <= (others => '0');
 					valid_data_out <= '1';
 				else
 					data_out <= ( others => '0');
