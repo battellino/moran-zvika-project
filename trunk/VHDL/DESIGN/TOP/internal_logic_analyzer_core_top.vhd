@@ -349,7 +349,7 @@ end component data_input_generic;
 
 -----------------------------------------------------Constants--------------------------------------------------------------------------
 constant len_of_data_c				: std_logic_vector (len_d_g * data_width_g - 1 downto 0)	:= std_logic_vector(to_unsigned( (2**record_depth_g) - 1 , len_d_g * data_width_g));
-constant type_of_OUTPUT_BLOCK_ws_c	: std_logic_vector ((data_width_g)*(type_d_g)-1 downto 0)	:= std_logic_vector(to_unsigned( 4 , type_d_g * data_width_g));
+constant type_of_OUTPUT_BLOCK_ws_c	: std_logic_vector ((data_width_g)*(type_d_g)-1 downto 0)	:= std_logic_vector(to_unsigned( output_type_id_g , type_d_g * data_width_g));
 --constant type_of_CORE_ws_c			: std_logic_vector ((data_width_g)*(type_d_g)-1 downto 0)	:= std_logic_vector(to_unsigned( 3 , type_d_g * data_width_g));
 constant size_of_register_c			: integer range 0 to 7 := 7;
 constant zero_bit_c                  : std_logic := '0';
@@ -603,5 +603,5 @@ data_out_proc:
 WM_DAT_O 	<= data_from_cordinator_to_wm_s;
 STB_O		<= data_from_cordinator_to_wm_valid_s;
 wm_end_out	<= read_controller_finish_s;
-TGD_O 		<= std_logic_vector(to_unsigned( output_type_id_g , type_d_g * data_width_g));
+--TGD_O 		<= std_logic_vector(to_unsigned( output_type_id_g , type_d_g * data_width_g));
 end architecture arc_core;

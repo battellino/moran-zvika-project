@@ -48,7 +48,7 @@ use std.textio.all;
 		-- core generics
 	    signal_ram_depth_g				: positive  :=	3;									--depth of RAM
 		signal_ram_width_g				: positive 	:=  8;   								--width of basic RAM
-		record_depth_g					: positive  :=	9;									--number of bits that is recorded from each signal
+		record_depth_g					: positive  :=	4;									--number of bits that is recorded from each signal
 		data_width_g            		: positive 	:= 	8;      						    --defines the width of the data lines of the system
 		Add_width_g  		    		: positive 	:=  8;     								--width of address word in the WB
 		num_of_signals_g				: positive	:=	8;									--number of signals that will be recorded simultaneously	(Width of data)
@@ -62,7 +62,9 @@ use std.textio.all;
 		type_d_g						: positive 	:= 	1;									--Type Depth
 		len_d_g							: positive 	:= 	1;									--Length Depth
 		-- signal generator generics   
-		external_en_g					: std_logic	:= 	'0';								-- 1 -> getting the data from an external source . 0 -> dout is a counter		 
+		external_en_g					: std_logic	:= 	'0';								-- 1 -> getting the data from an external source . 0 -> dout is a counter
+		scene_number_reg_1_address_g 	: natural 	:= 1;
+		enable_reg_address_2_g 		   	: natural 	:= 2;
 --      -- OUTPUT BLOCK generics
         fifo_depth_g 			      	: positive 	:= 32768;	         -- Maximum elements in FIFO
 	    fifo_log_depth_g			   	: natural	:= 15;	            -- (2^25 = 32K) Logarithm of depth_g (Number of bits to represent depth_g. 2^4=16 > 9)
@@ -110,7 +112,7 @@ use std.textio.all;
 		-- UART TX GEN MODEL generics
 		file_name_g			            : string           := "uart_tx"; -- File name to be transmitted
 		file_extension_g	          	: string		   := "txt";			  -- File extension
-		file_max_idx_g	           		: positive	       := 2;				     -- Maximum file index.
+		file_max_idx_g	           		: positive	       := 1;				     -- Maximum file index.
 		delay_g				            : positive	       := 10;				    -- Number of clock cycles delay between two files transmission			 
 		clock_period_g		           	: time		       := 8.68 us;			-- 8.68us = 115,200 Bits/sec
         msb_first_g			            : boolean 	       := false  		 	-- TRUE = MSB First, FALSE = LSB first				
@@ -144,7 +146,9 @@ ARCHITECTURE behavior OF top_internal_logic_analyzer_TB IS
 		type_d_g						: positive 	:= 	1;									--Type Depth
 		len_d_g							: positive 	:= 	1;									--Length Depth
 		-- signal generator generics   
-		external_en_g					: std_logic	:= 	'0';								-- 1 -> getting the data from an external source . 0 -> dout is a counter		 
+		external_en_g					: std_logic	:= 	'0';								-- 1 -> getting the data from an external source . 0 -> dout is a counter
+		scene_number_reg_1_address_g 	: natural 	:= 1;
+		enable_reg_address_2_g 		   	: natural 	:= 2;
 --      -- OUTPUT BLOCK generics
         fifo_depth_g 			      	: positive 	:= 32768;	         -- Maximum elements in FIFO
 	    fifo_log_depth_g			   	: natural	:= 15;	            -- (2^25 = 32K) Logarithm of depth_g (Number of bits to represent depth_g. 2^4=16 > 9)
@@ -201,7 +205,7 @@ ARCHITECTURE behavior OF top_internal_logic_analyzer_TB IS
         ); 
  END COMPONENT; 
  
- COMPONENT uart_trans_gen_model is 
+ COMPONENT uart_tx_gen_model is 
     generic (
             --File name explanasion:
 			-- File name is being named <file_name_g>_<file_idx>.<file_extension_g>
@@ -318,7 +322,9 @@ uut: top_internal_logic_analyzer
 		type_d_g       				=> type_d_g,			
 		len_d_g      				=> len_d_g,			                      
 		-- signal generator generics  
-	    external_en_g			    => external_en_g,	   	     
+	    external_en_g			    => external_en_g,
+		scene_number_reg_1_address_g => scene_number_reg_1_address_g,
+		enable_reg_address_2_g 		=> enable_reg_address_2_g,
 	    -- OUTPUT BLOCK generics
 		fifo_depth_g				=> fifo_depth_g,	       
 	    fifo_log_depth_g			=> fifo_log_depth_g,      
@@ -375,7 +381,7 @@ uut: top_internal_logic_analyzer
 
         );         
 
-data_transmitter: uart_trans_gen_model
+data_transmitter: uart_tx_gen_model
     GENERIC MAP (
 		file_name_g			  		=> file_name_g,
 		file_extension_g	        => file_extension_g,
