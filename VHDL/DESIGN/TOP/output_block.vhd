@@ -503,7 +503,7 @@ fsm_in_process: process(clk, reset)
   end process fsm_in_process; 
 
 -- to lzrw3 core depends on FSM_in state
-ACK_O_2  <= '1' when ( (fsm_in_state = buffering_st) and (short_fifo_full = '0') ) else '0' ; 
+--client_ready  <= '1' when ( (fsm_in_state = buffering_st) and (short_fifo_full = '0') ) else '0' ; 
   
           
 
