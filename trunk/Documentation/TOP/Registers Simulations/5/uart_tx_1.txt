@@ -1,14 +1,16 @@
+# first packet - single read from the third register of the core. expected data to read: 0x00
 3C
-04
-01
-00
+A2
 03
-ED
+00
+01
+4A
 A5
+# second packet - two reads request from the first and second registers of the signal generator. expected data to read: 0x00,0x01
 3C
 82
 01
 00
-01
-4D
+02
+8B
 A5

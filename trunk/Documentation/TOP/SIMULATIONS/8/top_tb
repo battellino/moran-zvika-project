@@ -37,7 +37,7 @@ vcom bus_to_enc_fsm.vhd
 vcom wishbone_intercon.vhd
 vcom rx_path.vhd
 vcom tx_path.vhd
-vcom uart_trans_gen_model.vhd
+vcom uart_tx_gen_model.vhd
 vcom top_internal_logic_analyzer.vhd
 vcom top_internal_logic_analyzer_tb.vhd
 vsim top_internal_logic_analyzer_tb
@@ -87,51 +87,6 @@ add wave /top_internal_logic_analyzer_TB/uut/intercon/DAT_I_M2
 add wave /top_internal_logic_analyzer_TB/uut/intercon/STALL_I_M2
 add wave /top_internal_logic_analyzer_TB/uut/intercon/ERR_I_M2
 
-add wave /top_internal_logic_analyzer_TB/uut/intercon/ADR_O_M3
-add wave /top_internal_logic_analyzer_TB/uut/intercon/DAT_O_M3
-add wave /top_internal_logic_analyzer_TB/uut/intercon/WE_O_M3
-add wave /top_internal_logic_analyzer_TB/uut/intercon/STB_O_M3
-add wave /top_internal_logic_analyzer_TB/uut/intercon/CYC_O_M3
-add wave /top_internal_logic_analyzer_TB/uut/intercon/TGA_O_M3
-add wave /top_internal_logic_analyzer_TB/uut/intercon/TGD_O_M3
-add wave /top_internal_logic_analyzer_TB/uut/intercon/ACK_I_M3
-add wave /top_internal_logic_analyzer_TB/uut/intercon/DAT_I_M3
-add wave /top_internal_logic_analyzer_TB/uut/intercon/STALL_I_M3
-add wave /top_internal_logic_analyzer_TB/uut/intercon/ERR_I_M3
-
-add wave /top_internal_logic_analyzer_TB/uut/intercon/ADR_I_S1
-add wave /top_internal_logic_analyzer_TB/uut/intercon/DAT_I_S1
-add wave /top_internal_logic_analyzer_TB/uut/intercon/WE_I_S1
-add wave /top_internal_logic_analyzer_TB/uut/intercon/STB_I_S1
-add wave /top_internal_logic_analyzer_TB/uut/intercon/CYC_I_S1
-add wave /top_internal_logic_analyzer_TB/uut/intercon/TGA_I_S1
-add wave /top_internal_logic_analyzer_TB/uut/intercon/TGD_I_S1
-add wave /top_internal_logic_analyzer_TB/uut/intercon/ACK_O_S1
-add wave /top_internal_logic_analyzer_TB/uut/intercon/DAT_O_S1
-add wave /top_internal_logic_analyzer_TB/uut/intercon/STALL_O_S1
-
-add wave /top_internal_logic_analyzer_TB/uut/intercon/ADR_I_S2
-add wave /top_internal_logic_analyzer_TB/uut/intercon/DAT_I_S2
-add wave /top_internal_logic_analyzer_TB/uut/intercon/WE_I_S2
-add wave /top_internal_logic_analyzer_TB/uut/intercon/STB_I_S2
-add wave /top_internal_logic_analyzer_TB/uut/intercon/CYC_I_S2
-add wave /top_internal_logic_analyzer_TB/uut/intercon/TGA_I_S2
-add wave /top_internal_logic_analyzer_TB/uut/intercon/TGD_I_S2
-add wave /top_internal_logic_analyzer_TB/uut/intercon/ACK_O_S2
-add wave /top_internal_logic_analyzer_TB/uut/intercon/DAT_O_S2
-add wave /top_internal_logic_analyzer_TB/uut/intercon/STALL_O_S2
-
-add wave /top_internal_logic_analyzer_TB/uut/intercon/ADR_I_S3
-add wave /top_internal_logic_analyzer_TB/uut/intercon/DAT_I_S3
-add wave /top_internal_logic_analyzer_TB/uut/intercon/WE_I_S3
-add wave /top_internal_logic_analyzer_TB/uut/intercon/STB_I_S3
-add wave /top_internal_logic_analyzer_TB/uut/intercon/CYC_I_S3
-add wave /top_internal_logic_analyzer_TB/uut/intercon/TGA_I_S3
-add wave /top_internal_logic_analyzer_TB/uut/intercon/TGD_I_S3
-add wave /top_internal_logic_analyzer_TB/uut/intercon/ACK_O_S3
-add wave /top_internal_logic_analyzer_TB/uut/intercon/DAT_O_S3
-add wave /top_internal_logic_analyzer_TB/uut/intercon/STALL_O_S3
-
 add wave /top_internal_logic_analyzer_TB/uut/intercon/ADR_I_S4
 add wave /top_internal_logic_analyzer_TB/uut/intercon/DAT_I_S4
 add wave /top_internal_logic_analyzer_TB/uut/intercon/WE_I_S4
@@ -143,15 +98,15 @@ add wave /top_internal_logic_analyzer_TB/uut/intercon/ACK_O_S4
 add wave /top_internal_logic_analyzer_TB/uut/intercon/DAT_O_S4
 add wave /top_internal_logic_analyzer_TB/uut/intercon/STALL_O_S4
 
-add wave /top_internal_logic_analyzer_TB/uut/intercon/ADR_I_S5
-add wave /top_internal_logic_analyzer_TB/uut/intercon/DAT_I_S5
-add wave /top_internal_logic_analyzer_TB/uut/intercon/WE_I_S5
-add wave /top_internal_logic_analyzer_TB/uut/intercon/STB_I_S5
-add wave /top_internal_logic_analyzer_TB/uut/intercon/CYC_I_S5
-add wave /top_internal_logic_analyzer_TB/uut/intercon/TGA_I_S5
-add wave /top_internal_logic_analyzer_TB/uut/intercon/TGD_I_S5
-add wave /top_internal_logic_analyzer_TB/uut/intercon/ACK_O_S5
-add wave /top_internal_logic_analyzer_TB/uut/intercon/DAT_O_S5
-add wave /top_internal_logic_analyzer_TB/uut/intercon/STALL_O_S5
+add wave /top_internal_logic_analyzer_TB/uut/core_inst/core_registers_inst/address_in
+add wave /top_internal_logic_analyzer_TB/uut/core_inst/core_registers_inst/wr_en
+add wave /top_internal_logic_analyzer_TB/uut/core_inst/core_registers_inst/data_in_reg
+add wave /top_internal_logic_analyzer_TB/uut/core_inst/core_registers_inst/valid_in
+add wave /top_internal_logic_analyzer_TB/uut/core_inst/core_registers_inst/data_out
+add wave /top_internal_logic_analyzer_TB/uut/core_inst/core_registers_inst/valid_data_out
+add wave /top_internal_logic_analyzer_TB/uut/core_inst/core_registers_inst/rc_finish
+add wave /top_internal_logic_analyzer_TB/uut/core_inst/core_registers_inst/wc_finish
+add wave /top_internal_logic_analyzer_TB/uut/core_inst/core_registers_inst/en_out
+add wave /top_internal_logic_analyzer_TB/uut/core_inst/core_registers_inst/trigger_type_out_1
 
-run 3600000 ns
+run 11300000 ns

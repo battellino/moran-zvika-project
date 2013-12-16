@@ -1,21 +1,24 @@
+# first packet - single write to the zero register of the core with value 0x06
 3C
 05
-01
+00
 00
 06
-E8
+E9
 A5
+# second packet - single write to the second register of the signal generator with value 0x07
 3C
 04
-01
+02
 00
 07
-E8
+EC
 A5
+# third packet - single read request from the second register of the signal generator. expected data to read: 0x07
 3C
-A2
-01
+82
+02
 00
 01
-48
+4D
 A5

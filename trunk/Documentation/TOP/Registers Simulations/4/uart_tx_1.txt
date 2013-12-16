@@ -1,21 +1,18 @@
+# first packet - three writes to the second,third and fourth registers of the core with values 0x06,0x07,0x08
 3C
 05
-03
-00
-32
-E8
-A5
-3C
-04
-01
-00
+02
+02
+06
 07
-E8
+08
+E9
 A5
+# second packet - three reads request from the second,third and fourth registers of the core. expected data to read: 0x06,0x07,0x08
 3C
 A2
-03
+02
 00
-01
-48
+03
+4D
 A5
