@@ -1,21 +1,24 @@
+# first packet - single write to the first register of the core with value 0x06
 3C
 05
 01
 00
 06
-E8
+E9
 A5
+# second packet - single write to the fourth register of the core with value 0x07
 3C
+05
 04
-01
 00
 07
-E8
+EC
 A5
+# third packet - single read request from the fourth register of the core. expected data to read: 0x07
 3C
-82
-01
+A2
+04
 00
 01
-48
+4D
 A5

@@ -1,0 +1,44 @@
+# FIRST TEST
+# 1'st packet - two writes to the registers of the SIGNAL GENERATOR with values of: 0x05,0x01 (scene number,enable)
+3C
+04
+01
+01
+05
+01
+EE
+A5
+# 2'nd packet - five writes to the registers of the CORE with values of: 0x01,0x01,0x00,0x01,0x01 (enable registers,type,position,clk to start,enable)
+3C
+05
+00
+04
+01
+01
+00
+01
+01
+EE
+A5
+# SECOND TEST
+# 3'rd packet - two writes to the registers of the SIGNAL GENERATOR with values of: 0x03,0x01 (scene number,enable)
+3C
+04
+01
+01
+03
+01
+EE
+A5
+# 4'th packet - five writes to the registers of the CORE with values of: 0x01,0x11,0x1A,0x01,0x01 (enable registers,type,position,clk to start,enable)
+3C
+05
+00
+04
+01
+11
+1A
+01
+01
+EE
+A5
