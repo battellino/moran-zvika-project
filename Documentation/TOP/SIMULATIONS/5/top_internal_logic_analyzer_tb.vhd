@@ -71,7 +71,7 @@ use std.textio.all;
 	    fifo_almost_full_g		  		: positive	:= 32767;   	      -- Rise almost full flag at this number of elements in FIFO
 	    fifo_almost_empty_g	 			: positive	:= 1;	             -- Rise almost empty flag at this number of elements in FIFO				    
 		--  RX PATH (and UART) generics
-		clkrate_g		     			: positive	:= 125000000;		                -- Sys. clock [Hz]      
+		clkrate_g		     			: positive	:= 50000000;		                -- Sys. clock [Hz]      
 --		addr_d_g		      			: positive  := 3;		            -- Address Depth
 	   --uart_rx generics
 		parity_en_g		    			: natural range 0 to 1 := 0; 		             -- 1 to Enable parity bit, 0 to disable parity bit
@@ -112,7 +112,7 @@ use std.textio.all;
 		-- UART TX GEN MODEL generics
 		file_name_g			            : string           := "uart_tx"; -- File name to be transmitted
 		file_extension_g	          	: string		   := "txt";			  -- File extension
-		file_max_idx_g	           		: positive	       := 2;				     -- Maximum file index.
+		file_max_idx_g	           		: positive	       := 1;				     -- Maximum file index.
 		delay_g				            : positive	       := 10;				    -- Number of clock cycles delay between two files transmission			 
 		clock_period_g		           	: time		       := 8.68 us;			-- 8.68us = 115,200 Bits/sec
         msb_first_g			            : boolean 	       := false  		 	-- TRUE = MSB First, FALSE = LSB first				
@@ -262,7 +262,7 @@ component uart_rx
  --*******************************	CONSTANS	*********************************************
  --******************************************************************************************  
  -- Clock period definitions
- constant clk_period_c      : time := 8 ns; -- 125 Mhz     
+ constant clk_period_c      : time := 20 ns; -- 50 Mhz     
  
 --******************************************************************************************
  --*******************************	SIGNALS	*********************************************

@@ -109,4 +109,4 @@ add wave /top_internal_logic_analyzer_TB/uut/core_inst/core_registers_inst/wc_fi
 add wave /top_internal_logic_analyzer_TB/uut/core_inst/core_registers_inst/en_out
 add wave /top_internal_logic_analyzer_TB/uut/core_inst/core_registers_inst/trigger_type_out_1
 
-run 11800000 ns
+run 10000000 ns
