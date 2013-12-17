@@ -80,12 +80,12 @@ A5
 02
 EF
 A5
-# 11'th packet - single write to the second register of the CORE with value 0x32 (trigger position- 50%)
+# 11'th packet - single write to the second register of the CORE with value 0x32 (trigger position- 10%)
 3C
 05
 02
 00
-32
+0A
 DF
 A5
 # 12'th packet - single write to the zero register of the CORE with value 0x01 (enable all registers)
