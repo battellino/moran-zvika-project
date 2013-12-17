@@ -69,7 +69,8 @@ entity uart_trans_gen_model is
 			--file_max_idx_g is the maximum index for files. For example: suppose this
 			--parameter is 2, then transmission file order will be:
 			-- (1)uart_trans_1.txt (2)uart_trans_2.txt (3) uart_trans_1.txt (4) uart_trans_2.txt ...
-			file_name_g			:		string 		:= "uart_trans"; 		--File name to be transmitted
+--			file_name_g			:		string 		:= "uart_trans"; 		--File name to be transmitted
+			file_name_g			:		string 		:= "uart_tx"; 		--File name to be transmitted
 			file_extension_g	:		string		:= "txt";			-- File extension
 			file_max_idx_g		:		positive	:= 1;				-- Maximum file index.
 			delay_g				:		positive	:= 10;				-- Number of clock cycles delay between two files transmission
@@ -91,9 +92,14 @@ end uart_trans_gen_model;
 
 architecture arc_uart_trans_gen_model of uart_trans_gen_model is
 
+------------------  CONSTANTS ------------------
+constant clk_en_c			:	time := 201 us;			--Init time to transmit
+
 ------------------  SIGNALS AND VARIABLES ------
 FILE 	input				: 	text;					        -- Input File
 signal 	clk_i				:	std_logic 	:= '0';		        -- Internal Clock
+signal 	clk_unmasked		:	std_logic 	:= '0';				--Internal Clock
+signal	clk_en				:	boolean		:= false;			--Clock enable
 signal 	reopen_file			:	boolean 	:= true;	        -- After end of transmission - Reopen file
 signal	reopen_file_delay	:	boolean 	:= false;	        -- After end of transmission - Wait some time
 signal 	valid_i				: 	std_logic	:= '0';		        -- Data valid data, for one clock
@@ -106,26 +112,41 @@ shared variable file_status	: 	boolean 	:= false;	        -- TRUE = file is open
 begin
 	
    -------------- Clock Process ----------
-	clk_i <= not clk_i after clock_period_g/2;
+	clk_unmark_proc:
+	clk_unmasked <= not clk_unmasked after clock_period_g/2;
+	
+	clk_i_proc:	
+	clk_i		<=	clk_unmasked when clk_en
+					else '0';
+ 
+	clk_en_proc: process
+	begin
+		clk_en	<=	false;
+		wait for clk_en_c;
+		clk_en	<=	true;
+		wait;
+	end process clk_en_proc;
  
    ----------File open delay Process --------
    --A delay between two files transmission is being executed here
-	-- f_open_delay_proc : process (clk_i)
-	-- variable cnt : natural := 0;	--Delay counter
-	-- begin
-		-- if rising_edge(clk_i) then
-			-- reopen_file <= false;
-			-- if reopen_file_delay then	--End of file transmission
-				-- cnt := delay_g;
-			-- end if;
-			-- if cnt = 1 then	--Open file for transmission
-				-- reopen_file <= true; --Active for one clock
-			-- end if;
-			-- if cnt > 0 then
-				-- cnt := cnt - 1;
-			-- end if;
-		-- end if;
-	-- end process f_open_delay_proc;
+	 f_open_delay_proc : process (clk_i)
+	 variable cnt : natural := 0;	--Delay counter
+	 begin
+		 if rising_edge(clk_i) then
+			 reopen_file <= false;
+			 if reopen_file_delay then	--End of file transmission
+				 cnt := delay_g;
+			 end if;
+			 if cnt = 1 then	--Open file for transmission
+				 if (file_index < file_max_idx_g) then					-- 20.03.2013 olga
+					reopen_file <= true; --Active for one clock
+				end if;
+			 end if;
+			 if cnt > 0 then
+				 cnt := cnt - 1;
+			 end if;
+		 end if;
+	 end process f_open_delay_proc;
    
    -------------- Open file process ----------
    --Opens files at startup and after end of file + delay
@@ -185,17 +206,17 @@ begin
 				end if;
 				if ln = null then                         -- optional : feedback --> if ((ln = null)and(result_ready)) then
 				   readline(input, ln);                   -- Read line from text file
+				end if;   
 				   
-				   while (((ln'length>=2) and (ln(1 to 2) = "--"))or(ln'length = 0)) loop   -- comment or blank line support			
-			          -- if endfile(input) then
+				while (((ln'length>=2) and (ln(1 to 2) = "--"))or(ln'length = 0)) loop   -- comment or blank line support			
+			        readline(input, ln);
+			    end loop;
+					  -- if endfile(input) then
 			          	  -- 
 			          -- end if;
-			          deallocate(ln);
-			          ln := null;
-			          readline(input, ln);
-			       end loop;
-							
-				end if;
+--			          deallocate(ln);
+--			          ln := null;
+			         
 								
   		        hread (ln, val_in, success); -- Read value from file
 		        
@@ -235,9 +256,9 @@ begin
 		    -- Transmit parity bit
 		    elsif clk_cnt = 9 and parity_en_g = 1 then -- Parity enable
 			   if parity_odd_g then
-			   	  uart_out <= not parity_val; -- Odd parity
+			   	  uart_out <= parity_val; -- Odd parity
 			   else
-			   	  uart_out <= parity_val;     -- Even parity
+			   	  uart_out <= not parity_val;     -- Even parity
 			   end if;
 		    end if;
 		  
