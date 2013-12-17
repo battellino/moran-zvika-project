@@ -58,7 +58,7 @@ use ieee.numeric_std.all ;
 	    fifo_almost_full_g		  		: positive	:= 32767;   	      					-- Rise almost full flag at this number of elements in FIFO
 	    fifo_almost_empty_g	 			: positive	:= 1;	             					-- Rise almost empty flag at this number of elements in FIFO				    
 		--  RX PATH (and UART) generics
-		clkrate_g		     			: positive	:= 125000000;		                	-- Sys. clock [Hz]      
+		clkrate_g		     			: positive	:= 50000000;		                	-- Sys. clock [Hz]      
 --		addr_d_g		      			: positive  := 3;		            				-- Address Depth
 	   --uart_rx generics
 		parity_en_g		    			: natural range 0 to 1 := 0; 		             	-- 1 to Enable parity bit, 0 to disable parity bit
