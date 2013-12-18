@@ -24,6 +24,7 @@ use ieee.numeric_std.all;
 
 library work ;
 use work.write_controller_pkg.all;
+
 ---------------------------------------------------------------------------------------------------------------------------------------
 
 entity write_controller is
@@ -75,11 +76,9 @@ type wc_states is (
 	);
 ------------------Signals--------------------
 signal 		State					: 	wc_states;
-signal		config_set_s			:	std_logic	;							--1 => we get trigger position\type from registers into signals
-signal		trigger_position_s		:  	std_logic_vector(  6 downto 0	);	--saving
-signal		trigger_type_s			:	std_logic_vector(  6 downto 0	);	
+signal		trigger_position_s		:  	std_logic_vector(  6 downto 0	);
+signal		trigger_type_s			:	std_logic_vector(  6 downto 0	);
 signal		current_data_s			:	std_logic_vector ( num_of_signals_g -1 downto 0);
-signal		current_trigger_s		:	std_logic	;
 signal		trigger_found_s			:	std_logic	;							--'1' -> trigger found, '0' -> other
 signal		trigger_counter_s		:	integer	range 0 to 2 ;					--for trigger rise when defined as 3 ones\zeroes, we need to count until 2 + correct trigger 
 signal		current_address_s		:	std_logic_vector( signal_ram_depth_g -1 downto 0);		--the addr in specific RAM to save the data
@@ -95,7 +94,6 @@ begin
 	
 	variable	start_addr_as_int_v				: 	integer range 0 to 2 * total_number_of_rows_c + 2 ;		--saving the address as integer for easy calculations
 	variable	trigger_address_as_int_v		: 	integer range 0 to total_number_of_rows_c ;		--saving the address as integer for easy calculations
-	variable	start_ram_row_v					:	integer range 0 to number_of_ram_c ;
 	variable	rows_to_shift_v					:	integer range 0 to total_number_of_rows_c;		--how many addresses we need to shift from trigger rise to get the start address
 	
 	begin
@@ -106,11 +104,9 @@ begin
 			write_controller_finish		<= '0';	
 			start_addr_out				<= (others => '0') ;
 			din_valid					<= '0' ;
-			config_set_s				<= '0';
 			trigger_position_s			<= (others => '0') ;
 			trigger_type_s				<= (others => '0') ;
 			current_data_s				<= (others => '0') ;
-			current_trigger_s			<= '0';
 			trigger_found_s				<= '0';
 			trigger_counter_s			<= 0;
 			current_address_s			<= (others => '0') ;
@@ -120,13 +116,11 @@ begin
 			trigger_row_s 				<= 0 ;
 			start_addr_as_int_v			:= 0 ;
 			trigger_address_as_int_v	:= 0 ;
-			start_ram_row_v				:= 0 ;
 			rows_to_shift_v				:= 0 ;
 			
 		elsif rising_edge(clk) then
 			start_addr_as_int_v			:= 0 ;
 			trigger_address_as_int_v	:= 0 ;
-			start_ram_row_v				:= 0 ;
 			rows_to_shift_v				:= 0 ;
 			
 			case State is
@@ -136,11 +130,9 @@ begin
 					write_controller_finish		<= '0';	
 					start_addr_out				<= (others => '0') ;
 					din_valid					<=  '0' ;
-					config_set_s				<= '0';
 					trigger_position_s			<= (others => '0') ;
 					trigger_type_s				<= (others => '0') ;
 					current_data_s				<= (others => '0') ;
-					current_trigger_s			<= '0';
 					trigger_found_s				<= '0';
 					trigger_counter_s			<= 0;
 					current_address_s			<= (others => '0') ;
@@ -150,7 +142,6 @@ begin
 					trigger_row_s 				<= 0 ;
 					start_addr_as_int_v			:= 0 ;
 					trigger_address_as_int_v	:= 0 ;
-					start_ram_row_v				:= 0 ;
 					rows_to_shift_v				:= 0 ;
 					State <= set_configurations ;
 									
@@ -172,9 +163,8 @@ begin
 					
 				when record_data =>
 					din_valid					<= '1' ;			--enable ram at the start	
-					-------getting the data and trigger signal 
+					-------getting the data signal 
 					current_data_s <= data_in;
-					current_trigger_s <= trigger;
 					-------check if trigger rise
 					if trigger_found_s = '0' then
 					--checking if trigger needs to be rise

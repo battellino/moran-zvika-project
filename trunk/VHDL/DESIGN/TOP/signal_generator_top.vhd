@@ -84,7 +84,7 @@ component signal_generator
 	(
 			clk					:	in  std_logic;												--system clock
 			reset				:	in  std_logic;												--system reset
-			scene_number_in		:	in	std_logic_vector ( data_width_g - 1 downto 0);			--type of trigger scene
+			scene_number_in		:	in	std_logic_vector ( 6 downto 0);			--type of trigger scene
 			enable				:	in	std_logic;												--scene in is valid
 			data_in				:	in	std_logic_vector ( num_of_signals_g -1 downto 0);		-- in case that we want to store a data from external source
 			trigger_in			:	in	std_logic;												--trigger in external signal
