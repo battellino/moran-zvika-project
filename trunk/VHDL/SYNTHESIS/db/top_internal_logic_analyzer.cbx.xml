@@ -1,0 +1,14 @@
+<?xml version="1.0" ?>
+<LOG_ROOT>
+	<PROJECT NAME="top_internal_logic_analyzer">
+		<CBX_INST_ENTRY INSTANCE_NAME="|top_internal_logic_analyzer|internal_logic_analyzer_core_top:core_inst|write_controller:write_controller_inst|lpm_divide:Div1" CBX_FILE_NAME="lpm_divide_eem.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|top_internal_logic_analyzer|rx_path:rx_path_unit|ram_simple:ram_simple_inst|altsyncram:ram_data_rtl_0" CBX_FILE_NAME="altsyncram_oog1.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|top_internal_logic_analyzer|tx_path:tx_path_unit|general_fifo:tx_fifo_inst|altsyncram:mem_rtl_0" CBX_FILE_NAME="altsyncram_8ig1.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|top_internal_logic_analyzer|internal_logic_analyzer_core_top:core_inst|ram_generic:RAM_inst|ram_simple:\power_sign_dec:ram_gen:0:RAM_inst|altsyncram:ram_data_rtl_0" CBX_FILE_NAME="altsyncram_4lg1.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|top_internal_logic_analyzer|internal_logic_analyzer_core_top:core_inst|write_controller:write_controller_inst|lpm_divide:Div0" CBX_FILE_NAME="lpm_divide_eem.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|top_internal_logic_analyzer|output_block:output_block_unit|lpm_mult:Mult0|multcore:mult_core|mpar_add:padder|lpm_add_sub:adder[0]" CBX_FILE_NAME="add_sub_8ch.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|top_internal_logic_analyzer|output_block:output_block_unit|lpm_mult:Mult0|multcore:mult_core|mpar_add:padder|mpar_add:sub_par_add|lpm_add_sub:adder[0]" CBX_FILE_NAME="add_sub_3ch.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|top_internal_logic_analyzer|output_block:output_block_unit|general_fifo:fifo|altsyncram:mem_rtl_0" CBX_FILE_NAME="altsyncram_e2h1.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|top_internal_logic_analyzer|tx_path:tx_path_unit|ram_simple:tx_ram_inst|altsyncram:ram_data_rtl_0" CBX_FILE_NAME="altsyncram_v7i1.tdf"/>
+	</PROJECT>
+</LOG_ROOT>
