@@ -1,0 +1,132 @@
+
+State Machine - |top_internal_logic_analyzer|tx_path:tx_path_unit|wishbone_master:wishbone_master_inst|wm_state
+Name wm_state.get_acks_rd_st wm_state.stall_rd_st wm_state.read_st wm_state.get_acks_wr_st wm_state.stall_wr_st wm_state.write_st wm_state.initiate_st wm_state.idle_st 
+wm_state.idle_st 0 0 0 0 0 0 0 0 
+wm_state.initiate_st 0 0 0 0 0 0 1 1 
+wm_state.write_st 0 0 0 0 0 1 0 1 
+wm_state.stall_wr_st 0 0 0 0 1 0 0 1 
+wm_state.get_acks_wr_st 0 0 0 1 0 0 0 1 
+wm_state.read_st 0 0 1 0 0 0 0 1 
+wm_state.stall_rd_st 0 1 0 0 0 0 0 1 
+wm_state.get_acks_rd_st 1 0 0 0 0 0 0 1 
+
+State Machine - |top_internal_logic_analyzer|tx_path:tx_path_unit|uart_tx:tx_uart_inst|cur_st
+Name cur_st.TX_ST cur_st.REGDATA_ST cur_st.IDLE_ST 
+cur_st.IDLE_ST 0 0 0 
+cur_st.REGDATA_ST 0 1 1 
+cur_st.TX_ST 1 0 1 
+
+State Machine - |top_internal_logic_analyzer|tx_path:tx_path_unit|mp_enc:tx_mpe_inst|cur_st
+Name cur_st.eof_st cur_st.crc_st cur_st.reg_crc_st cur_st.data_st cur_st.len_st cur_st.addr_st cur_st.type_st cur_st.sof_st cur_st.idle_st 
+cur_st.idle_st 0 0 0 0 0 0 0 0 0 
+cur_st.sof_st 0 0 0 0 0 0 0 1 1 
+cur_st.type_st 0 0 0 0 0 0 1 0 1 
+cur_st.addr_st 0 0 0 0 0 1 0 0 1 
+cur_st.len_st 0 0 0 0 1 0 0 0 1 
+cur_st.data_st 0 0 0 1 0 0 0 0 1 
+cur_st.reg_crc_st 0 0 1 0 0 0 0 0 1 
+cur_st.crc_st 0 1 0 0 0 0 0 0 1 
+cur_st.eof_st 1 0 0 0 0 0 0 0 1 
+
+State Machine - |top_internal_logic_analyzer|tx_path:tx_path_unit|bus_to_enc_fsm:bus_to_enc_fsm_inst|fsm_state
+Name fsm_state.sending_packet_st fsm_state.wm_read_st fsm_state.ws_read_req_st fsm_state.idle_st 
+fsm_state.idle_st 0 0 0 0 
+fsm_state.ws_read_req_st 0 0 1 1 
+fsm_state.wm_read_st 0 1 0 1 
+fsm_state.sending_packet_st 1 0 0 1 
+
+State Machine - |top_internal_logic_analyzer|output_block:output_block_unit|fsm_out_state
+Name fsm_out_state.wait_after_send_st fsm_out_state.send_data_st fsm_out_state.wm_request_st fsm_out_state.idle_st 
+fsm_out_state.idle_st 0 0 0 0 
+fsm_out_state.wm_request_st 0 0 1 1 
+fsm_out_state.send_data_st 0 1 0 1 
+fsm_out_state.wait_after_send_st 1 0 0 1 
+
+State Machine - |top_internal_logic_analyzer|output_block:output_block_unit|wishbone_master:output_block_wm|wm_state
+Name wm_state.get_acks_rd_st wm_state.stall_rd_st wm_state.read_st wm_state.get_acks_wr_st wm_state.stall_wr_st wm_state.write_st wm_state.initiate_st wm_state.idle_st 
+wm_state.idle_st 0 0 0 0 0 0 0 0 
+wm_state.initiate_st 0 0 0 0 0 0 1 1 
+wm_state.write_st 0 0 0 0 0 1 0 1 
+wm_state.stall_wr_st 0 0 0 0 1 0 0 1 
+wm_state.get_acks_wr_st 0 0 0 1 0 0 0 1 
+wm_state.read_st 0 0 1 0 0 0 0 1 
+wm_state.stall_rd_st 0 1 0 0 0 0 0 1 
+wm_state.get_acks_rd_st 1 0 0 0 0 0 0 1 
+
+State Machine - |top_internal_logic_analyzer|signal_generator_top:signal_generator_inst|signal_generator:signal_generator_inst|State
+Name State.output_data State.wait_for_scene_number State.idle 
+State.idle 0 0 0 
+State.wait_for_scene_number 0 1 1 
+State.output_data 1 0 1 
+
+State Machine - |top_internal_logic_analyzer|internal_logic_analyzer_core_top:core_inst|wishbone_master:wishbone_master_inst|wm_state
+Name wm_state.get_acks_rd_st wm_state.stall_rd_st wm_state.read_st wm_state.get_acks_wr_st wm_state.stall_wr_st wm_state.write_st wm_state.initiate_st wm_state.idle_st 
+wm_state.idle_st 0 0 0 0 0 0 0 0 
+wm_state.initiate_st 0 0 0 0 0 0 1 1 
+wm_state.write_st 0 0 0 0 0 1 0 1 
+wm_state.stall_wr_st 0 0 0 0 1 0 0 1 
+wm_state.get_acks_wr_st 0 0 0 1 0 0 0 1 
+wm_state.read_st 0 0 1 0 0 0 0 1 
+wm_state.stall_rd_st 0 1 0 0 0 0 0 1 
+wm_state.get_acks_rd_st 1 0 0 0 0 0 0 1 
+
+State Machine - |top_internal_logic_analyzer|internal_logic_analyzer_core_top:core_inst|read_controller:read_controller_inst|State
+Name State.send_data_to_wbm State.get_data_from_ram_and_calc_next_address State.send_current_address_to_ram State.wait_for_start_address State.idle 
+State.idle 0 0 0 0 0 
+State.wait_for_start_address 0 0 0 1 1 
+State.send_current_address_to_ram 0 0 1 0 1 
+State.get_data_from_ram_and_calc_next_address 0 1 0 0 1 
+State.send_data_to_wbm 1 0 0 0 1 
+
+State Machine - |top_internal_logic_analyzer|internal_logic_analyzer_core_top:core_inst|write_controller:write_controller_inst|State
+Name State.write_controller_is_finish State.send_start_addr_to_rc State.record_data State.wait_for_enable_rise State.set_configurations State.idle 
+State.idle 0 0 0 0 0 0 
+State.set_configurations 0 0 0 0 1 1 
+State.wait_for_enable_rise 0 0 0 1 0 1 
+State.record_data 0 0 1 0 0 1 
+State.send_start_addr_to_rc 0 1 0 0 0 1 
+State.write_controller_is_finish 1 0 0 0 0 1 
+
+State Machine - |top_internal_logic_analyzer|internal_logic_analyzer_core_top:core_inst|enable_fsm:enable_fsm_inst|State
+Name State.read_controller_finish State.write_controller_finish State.system_is_enable State.wait_for_enable_rise State.idle 
+State.idle 0 0 0 0 0 
+State.wait_for_enable_rise 0 0 0 1 1 
+State.system_is_enable 0 0 1 0 1 
+State.write_controller_finish 0 1 0 0 1 
+State.read_controller_finish 1 0 0 0 1 
+
+State Machine - |top_internal_logic_analyzer|wishbone_intercon:intercon|intercon_state
+Name intercon_state.master_3_st intercon_state.master_2_st intercon_state.master_1_st intercon_state.idle_st 
+intercon_state.idle_st 0 0 0 0 
+intercon_state.master_1_st 0 0 1 1 
+intercon_state.master_2_st 0 1 0 1 
+intercon_state.master_3_st 1 0 0 1 
+
+State Machine - |top_internal_logic_analyzer|rx_path:rx_path_unit|wishbone_master:wishbone_master_inst|wm_state
+Name wm_state.get_acks_rd_st wm_state.stall_rd_st wm_state.read_st wm_state.get_acks_wr_st wm_state.stall_wr_st wm_state.write_st wm_state.initiate_st wm_state.idle_st 
+wm_state.idle_st 0 0 0 0 0 0 0 0 
+wm_state.initiate_st 0 0 0 0 0 0 1 1 
+wm_state.write_st 0 0 0 0 0 1 0 1 
+wm_state.stall_wr_st 0 0 0 0 1 0 0 1 
+wm_state.get_acks_wr_st 0 0 0 1 0 0 0 1 
+wm_state.read_st 0 0 1 0 0 0 0 1 
+wm_state.stall_rd_st 0 1 0 0 0 0 0 1 
+wm_state.get_acks_rd_st 1 0 0 0 0 0 0 1 
+
+State Machine - |top_internal_logic_analyzer|rx_path:rx_path_unit|mp_dec:mp_dec_inst|cur_st
+Name cur_st.eof_st cur_st.crc_st cur_st.data_st cur_st.len_st cur_st.addr_st cur_st.type_st cur_st.sof_st 
+cur_st.sof_st 0 0 0 0 0 0 0 
+cur_st.type_st 0 0 0 0 0 1 1 
+cur_st.addr_st 0 0 0 0 1 0 1 
+cur_st.len_st 0 0 0 1 0 0 1 
+cur_st.data_st 0 0 1 0 0 0 1 
+cur_st.crc_st 0 1 0 0 0 0 1 
+cur_st.eof_st 1 0 0 0 0 0 1 
+
+State Machine - |top_internal_logic_analyzer|rx_path:rx_path_unit|uart_rx:uart_rx_inst|cur_st
+Name cur_st.STOPBIT_ST cur_st.PARITY_ST cur_st.RX_ST cur_st.STARTBIT_ST cur_st.IDLE_ST 
+cur_st.IDLE_ST 0 0 0 0 0 
+cur_st.STARTBIT_ST 0 0 0 1 1 
+cur_st.RX_ST 0 0 1 0 1 
+cur_st.PARITY_ST 0 1 0 0 1 
+cur_st.STOPBIT_ST 1 0 0 0 1 
